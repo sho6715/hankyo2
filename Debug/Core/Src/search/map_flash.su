@@ -1,0 +1,3 @@
+map_flash.c:11:6:map_write	16	static
+map_flash.c:22:6:map_copy	24	static
+map_flash.c:35:6:map_erase	8	static

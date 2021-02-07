@@ -1,0 +1,2 @@
+disable project generate true
+config load "C:\Users\shohe\STM32CubeIDE\hankyo2\hankyo2\hankyo2.ioc"

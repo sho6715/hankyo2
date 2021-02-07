@@ -1,0 +1,26 @@
+{
+    "configurations": [
+        {
+            "name": "STM32",
+            "includePath": [
+                "${workspaceFolder}/**",
+                "C:/stmtool/gcc-arm-none-eabi-10-2020-q4-major/arm-none-eabi/include/**",
+                "C:/stmtool/gcc-arm-none-eabi-10-2020-q4-major/lib/gcc/arm-none-eabi/10.2.1/include/**"
+            ],
+            "defines": [
+                "_DEBUG",
+                "UNICODE",
+                "_UNICODE",
+                "_VSCODE",
+                "USE_FULL_LL_DRIVER",
+                "STM32G474xx"
+            ],
+            "windowsSdkVersion": "10.0.18362.0",
+            "compilerPath": "C:/stmtool/gcc-arm-none-eabi-10-2020-q4-major/bin/arm-none-eabi-gcc.exe",
+            "cStandard": "c11",
+            "cppStandard": "c++17",
+            "intelliSenseMode": "clang-x64"
+        }
+    ],
+    "version": 4
+}

@@ -1,0 +1,15 @@
+gyro.c:24:6:ICM_42688_whoami	8	static
+gyro.c:34:6:ICM_42688_WriteByte	16	static
+gyro.c:42:6:ICM_42688_ReadByte	16	static
+gyro.c:52:6:ICM_42688_init	16	static
+gyro.c:78:10:ICM_42688_GyroRead_DMA	32	static
+gyro.c:89:6:GYRO_SetRef	16	static
+gyro.c:105:7:GYRO_getSpeedErr	32	static
+gyro.c:123:7:GYRO_getNowAngle	4	static
+gyro.c:128:7:GYRO_getRef	4	static
+gyro.c:133:6:GYRO_Pol	16	static
+gyro.c:156:6:ACCEL_SetRef	16	static
+gyro.c:172:7:Accel_getSpeedErr	24	static
+gyro.c:182:6:ACCEL_Pol	4	static
+gyro.c:192:6:GYRO_staErrChkAngle	4	static
+gyro.c:199:6:GYRO_endErrChkAngle	4	static

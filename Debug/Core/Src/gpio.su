@@ -1,0 +1,15 @@
+stm32g4xx_ll_bus.h:453:22:LL_AHB2_GRP1_EnableClock	24	static
+stm32g4xx_ll_gpio.h:814:26:LL_GPIO_IsInputPinSet	16	static
+stm32g4xx_ll_gpio.h:895:22:LL_GPIO_SetOutputPin	16	static
+stm32g4xx_ll_gpio.h:924:22:LL_GPIO_ResetOutputPin	16	static
+gpio.c:41:6:MX_GPIO_Init	32	static
+gpio.c:232:6:SetLED	16	static
+gpio.c:250:6:SetBatLED	16	static
+gpio.c:255:8:SW_IsOn_0	8	static
+gpio.c:259:8:SW_IsOn_1	8	static
+gpio.c:263:6:Set_SenSL	16	static
+gpio.c:268:6:Set_SenFL	16	static
+gpio.c:273:6:Set_SenFR	16	static
+gpio.c:278:6:Set_SenSR	16	static
+gpio.c:283:6:Set_MOT0	16	static
+gpio.c:288:6:Set_MOT1	16	static

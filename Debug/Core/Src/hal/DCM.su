@@ -1,0 +1,6 @@
+DCM.c:10:6:DCM_setDirCw	16	static
+DCM.c:22:6:DCM_setDirCcw	16	static
+DCM.c:33:6:DCM_brakeMot	16	static
+DCM.c:48:6:DCM_staMot	16	static
+DCM.c:59:6:DCM_staMotAll	8	static
+DCM.c:65:6:DCM_setPwmDuty	16	static

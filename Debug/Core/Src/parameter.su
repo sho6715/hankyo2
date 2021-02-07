@@ -1,0 +1,5 @@
+parameter.c:216:6:PARAM_setSpeedType	16	static
+parameter.c:238:16:PARAM_getSpeed	24	static
+parameter.c:283:15:PARAM_getGain	24	static
+parameter.c:325:6:PARAM_makeSra	96	static
+parameter.c:474:8:PARAM_getSra	16	static
