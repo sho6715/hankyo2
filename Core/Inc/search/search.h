@@ -16,6 +16,7 @@
 #include "Inc/search/map_flash.h"
 #include "Inc/hal/log.h"
 #include "Inc/hal/mode.h"
+#include "Inc/queue.h"
 #else
 #include "glob.h"
 #include "gpio.h"
@@ -24,6 +25,7 @@
 #include "search/map_flash.h"
 #include "hal/log.h"
 #include "hal/mode.h"
+#include "queue.h"
 #endif
 
 /* �T�����@ */

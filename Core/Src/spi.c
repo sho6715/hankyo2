@@ -213,7 +213,7 @@ void MX_SPI2_Init(void)
 uint8_t SPI1ReciveData[SPI1_DATA_BUFFR_SIZE];
 uint8_t SPI1TransmitData[SPI1_DATA_BUFFR_SIZE];
 
-//while‚ÌŽž‚Ì‚ÝŽg—p
+//while?¿½ÌŽï¿½?¿½Ì‚ÝŽg?¿½p
 //uint8_t rx_flag = 0;
 //uint8_t tx_flag = 0;
 
@@ -325,7 +325,7 @@ void SPI2_Start(void)
 
 void SPI2_DMA_Communication(uint8_t length,uint8_t dir)
 {
-  if(encoderdir == enL){
+  if(dir == enL){
 	  LL_GPIO_ResetOutputPin(CS_enL_GPIO_Port, CS_enL_Pin);
   }else{
     LL_GPIO_ResetOutputPin(CS_enR_GPIO_Port, CS_enR_Pin);

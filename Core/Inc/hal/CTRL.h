@@ -15,6 +15,7 @@
 #include "Inc/gpio.h"
 #include "Inc/hal/run.h"
 #include "Inc/parameter.h"
+#include "Inc/hal/encoder.h"
 #else
 #include "glob.h"
 #include "hal/DCM.h"
@@ -22,6 +23,7 @@
 #include "gpio.h"
 #include "hal/run.h"
 #include "parameter.h"
+#include "hal/encoder.h"
 #endif
 
 /* ���䓮��^�C�v */

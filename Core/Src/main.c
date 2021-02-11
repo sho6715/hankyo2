@@ -32,6 +32,7 @@
 #include "hal/sen_batt.h"
 #include "hal/gyro.h"
 #include "hal/sen_dist.h"
+#include "hal/encoder.h"
 
 /* USER CODE END Includes */
 
@@ -129,56 +130,36 @@ int main(void)
   MX_TIM6_Init();
   MX_TIM8_Init();
   /* USER CODE BEGIN 2 */
-  ADC4_Start();
-  ADC3_Start();
-  ADC1_Start();
-  LL_mDelay(500);
-  LL_TIM_EnableIT_UPDATE(TIM5);
-  LL_TIM_EnableCounter(TIM5);
-
-  LL_TIM_EnableIT_UPDATE(TIM6);
-  LL_TIM_EnableCounter(TIM6);
-  LL_mDelay(500);
-  SPI1_Start();
-  SPI2_Start();
-  ICM_42688_init();
-  //motor
-/*  LL_TIM_CC_EnableChannel(TIM2, LL_TIM_CHANNEL_CH2);
-  LL_TIM_EnableCounter(TIM2);
-  LL_TIM_CC_EnableChannel(TIM3, LL_TIM_CHANNEL_CH2);
-  LL_TIM_EnableCounter(TIM3);
-  LL_TIM_OC_SetCompareCH2(TIM2,425);
-  LL_TIM_OC_SetCompareCH2(TIM3,425);
-  LL_GPIO_SetOutputPin(MOT0_GPIO_Port,MOT0_Pin);
-  LL_GPIO_SetOutputPin(MOT1_GPIO_Port,MOT1_Pin);
-*/
-/*
-  //fan
-  LL_TIM_EnableAllOutputs(TIM8);
-  LL_TIM_CC_EnableChannel(TIM8, LL_TIM_CHANNEL_CH3);
-  LL_TIM_EnableCounter(TIM8);
-  LL_TIM_OC_SetCompareCH3(TIM8,425);
-*/
+  HAL_init();
+  
+  SetLED(0x0E);
+  LL_mDelay(200);
+  SetLED(0x00);
+  LL_mDelay(200);
+  SetLED(0x0E);
+  LL_mDelay(200);
+  SetLED(0x00);
   /* USER CODE END 2 */
 
   /* Infinite loop */
   /* USER CODE BEGIN WHILE */
   while (1)
   {
-	  LL_GPIO_SetOutputPin(LED0_GPIO_Port,LED0_Pin);
-	  LL_mDelay(500);
-	  LL_GPIO_ResetOutputPin(LED0_GPIO_Port,LED0_Pin);
-	  LL_mDelay(500);
-	  printf("Batt_Lv %4.2f\n\r",get_battLv());
-	  Get_Sen_Nowdata();
-//	  LL_TIM_EnableIT_UPDATE(TIM4);
-//	  LL_TIM_EnableCounter(TIM4);
-//	  LL_mDelay(500);
-//	  printf("z %d\n\r",ICM_42688_GyroRead_DMA(0x29));
-//	  ICM_42688_whoami();
+    if (( SW_IsOn_1() == SW_ON)/*||(Get_NowSpeed()>100) */){
+		MODE_inc();								// モードを1つ進める
+		LL_mDelay(200);			// SWが離されるまで??��?��?つ
+		printf("mode selecting\r\n");
+	}
+	else if (( SW_IsOn_0() == SW_ON )||(TRUE == MODE_CheckExe())){
+//		else if ( SW_ON == SW_EXE_PIN ){
+		MODE_exe();								// モード実�?
+		LL_mDelay(200);			// SWが離されるまで??��?��?つ
+	}
+    LL_mDelay(100);
+  Get_Sen_Nowdata();
+//  printf("s_val%x\n\r",Get_s_gyro());
 
-
-
+    //encoder count 
     /* USER CODE END WHILE */
 
     /* USER CODE BEGIN 3 */
@@ -219,7 +200,7 @@ void SystemClock_Config(void)
   {
   }
 
-  /* Insure 1��s transition state at intermediate medium speed clock based on DWT */
+  /* Insure 1��s transition state at intermediate medium speed clock based on DWT */
   CoreDebug->DEMCR |= CoreDebug_DEMCR_TRCENA_Msk;
   DWT->CTRL |= DWT_CTRL_CYCCNTENA_Msk;
   DWT->CYCCNT = 0;

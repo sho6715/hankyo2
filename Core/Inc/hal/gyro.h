@@ -31,11 +31,13 @@ int16_t s_GyroValBuf[8];								// ジャイロセンサのバッファ値
 float  f_GyroNowAngle;		 						// ジャイロセンサの現在角度
 int32_t  l_GyroRef; 									// ジャイロセンサの基準値
 
+uint16_t Get_s_gyro(void);
 void ICM_42688_whoami(void);
 void ICM_42688_WriteByte(uint8_t reg,uint8_t data);
 void ICM_42688_ReadByte(uint8_t reg,uint8_t length);
 void ICM_42688_init(void);
-uint16_t ICM_42688_GyroRead_DMA(uint8_t reg);
+void ICM_42688_GyroRead_DMA(uint8_t reg);
+void ICM_42688_GyroData(void);
 
 void GYRO_SetRef( void );
 float GYRO_getSpeedErr( void );

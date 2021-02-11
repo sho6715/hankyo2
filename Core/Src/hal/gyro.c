@@ -21,6 +21,10 @@ float  			f_ErrChkAngle; 			  // ジャイロセンサのエラー検出用の�
 bool   			bl_ErrChk; 				  // ジャイロセンサのエラー検出（FALSE：検知しない、TRUE：検知する）
 bool			bl_failsafe		= FALSE;	// マウスがの制御不能（TRUE：制御不能、FALSE：制御可能）
 */
+uint16_t Get_s_gyro(void)
+{
+	return s_GyroVal;
+}
 void ICM_42688_whoami(void)
 {
 	SetSPI1TransmitData(0,(0x75 | 0x80));
@@ -75,15 +79,14 @@ void ICM_42688_init(void)
 */
 }
 
-uint16_t ICM_42688_GyroRead_DMA(uint8_t reg) //reg 29 2A
+void ICM_42688_GyroRead_DMA(uint8_t reg) //reg 29 2A
 {
-	int16_t tempdata;
-
 	ICM_42688_ReadByte(reg,3);
-	tempdata = ((uint16_t)Get_SPI1ReciveData(1)<<8|Get_SPI1ReciveData(2));
+}
 
-//	printf("data = %f\n\r",tempdata/16.4);
-	return tempdata;
+void ICM_42688_GyroData(void)
+{
+	s_GyroVal=((uint16_t)Get_SPI1ReciveData(1)<<8|Get_SPI1ReciveData(2));
 }
 
 void GYRO_SetRef( void )
@@ -109,8 +112,8 @@ float GYRO_getSpeedErr( void )
 	float f_res;
 
 	/* 角速度の偏差算出 */
-	if( ( l_err < -8 * 100 ) || ( 8 * 100 < l_err ) ){
-		f_res = (float)l_err /32.768 / 100;		//32.768 = 2^16(16bit)/2000(+-1000度) LSB/(°/s)
+	if( ( l_err < -4 * 100 ) || ( 4 * 100 < l_err ) ){
+		f_res = (float)l_err /16.4 / 100;		
 													// 100倍の精度
 	}
 	else{
@@ -133,9 +136,6 @@ float GYRO_getRef( void )
 void GYRO_Pol( void )
 {
 	float f_speed;
-
-	/* ジャイロの値を平滑する（平滑数は8つ） */
-	s_GyroVal = 0;//(int16_t)recv_spi_gyro();		//おそらく書き換えが必要になるっぽい
 
 	/* 現在の角度を更新する */
 	f_speed = GYRO_getSpeedErr();			// 角速度取得 (0.001sec毎の角速度)

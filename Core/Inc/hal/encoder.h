@@ -28,9 +28,10 @@ typedef enum{
 
 en_endir encoderdir;
 
+uint16_t Get_encoder_value(en_endir dir);
 void ENC_GetDiv( int32_t* p_r, int32_t* p_l );
 void ENC_setref(void);
 void ENC_print(void);
-void recv_spi_encoder(void);
-
+void recv_spi_encoder(en_endir dir);
+void Set_encoder_data(en_endir dir);
 #endif /* INC_ENCODER_H_ */

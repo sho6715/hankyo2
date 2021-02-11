@@ -21,11 +21,7 @@ stm32g4xx_ll_pwr.h:342:22:LL_PWR_EnableRange1BoostMode	4	static
 stm32g4xx_ll_pwr.h:497:22:LL_PWR_DisableUCPDDeadBattery	4	static
 stm32g4xx_ll_pwr.h:668:22:LL_PWR_SetPVDLevel	16	static
 stm32g4xx_ll_pwr.h:696:22:LL_PWR_EnablePVD	4	static
-stm32g4xx_ll_tim.h:1943:22:LL_TIM_EnableCounter	16	static
-stm32g4xx_ll_tim.h:5825:22:LL_TIM_EnableIT_UPDATE	16	static
-stm32g4xx_ll_gpio.h:895:22:LL_GPIO_SetOutputPin	16	static
-stm32g4xx_ll_gpio.h:924:22:LL_GPIO_ResetOutputPin	16	static
-main.c:66:6:__io_putchar	16	static
-main.c:76:5:main	16	static
-main.c:193:6:SystemClock_Config	8	static
-main.c:248:6:Error_Handler	4	static
+main.c:67:6:__io_putchar	16	static
+main.c:77:5:main	8	static
+main.c:174:6:SystemClock_Config	8	static
+main.c:229:6:Error_Handler	4	static

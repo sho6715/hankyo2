@@ -19,8 +19,8 @@
 /* マクロ */
 #define FABS(x)						( (x)>=0 ? (x) : -(x) )
 
-#define GOAL_MAP_X_def					( 17 )				// ゴールのX区画数（横方向） [区画]17
-#define GOAL_MAP_Y_def					( 13 )				// ゴールのY区画数（縦方向） [区画]13
+#define GOAL_MAP_X_def					( 9 )				// ゴールのX区画数（横方向） [区画]17
+#define GOAL_MAP_Y_def					( 9 )				// ゴールのY区画数（縦方向） [区画]13
 #define MAP_X_SIZE					( 32 )				// 迷路のX区画数（横方向） [区画]
 #define MAP_Y_SIZE					( 32 )				// 迷路のY区画数（縦方向） [区画]
 
@@ -30,7 +30,7 @@
 #define PI							( 3.14159f )								// π
 
 #define VCC_MAX						( 4.2f )									// バッテリ最大電圧[V]、4.2[V]×1[セル]
-#define TIRE_R						( 12.7f )	//推定値								// タイヤ直径 [mm]
+#define TIRE_R						( 12.8f )	//推定値								// タイヤ直径 [mm]
 #define ROTATE_PULSE				( 65536 )									// 1周の最大数値
 #define DIST_1STEP					( PI * TIRE_R / ROTATE_PULSE )				// 1パルスで進む距離 [mm]
 #define F_CNT2MM(cnt)				( (float)cnt * DIST_1STEP )				// [カウント値]から[mm]へ換算

@@ -74,9 +74,6 @@ void MX_GPIO_Init(void)
   LL_GPIO_ResetOutputPin(LED0_GPIO_Port, LED0_Pin);
 
   /**/
-  LL_GPIO_ResetOutputPin(CS_enL_GPIO_Port, CS_enL_Pin);
-
-  /**/
   LL_GPIO_ResetOutputPin(BAT_LED_GPIO_Port, BAT_LED_Pin);
 
   /**/
@@ -89,10 +86,13 @@ void MX_GPIO_Init(void)
   LL_GPIO_ResetOutputPin(LED4_GPIO_Port, LED4_Pin);
 
   /**/
-  LL_GPIO_ResetOutputPin(CS_enR_GPIO_Port, CS_enR_Pin);
+  LL_GPIO_SetOutputPin(CS_gyro_GPIO_Port, CS_gyro_Pin);
 
   /**/
-  LL_GPIO_SetOutputPin(CS_gyro_GPIO_Port, CS_gyro_Pin);
+  LL_GPIO_SetOutputPin(CS_enL_GPIO_Port, CS_enL_Pin);
+
+  /**/
+  LL_GPIO_SetOutputPin(CS_enR_GPIO_Port, CS_enR_Pin);
 
   /**/
   GPIO_InitStruct.Pin = SEN3_Pin;
@@ -230,19 +230,19 @@ void MX_GPIO_Init(void)
 
 /* USER CODE BEGIN 2 */
 void SetLED(uint8_t data){
-	if((data&0x01)==1){ 	LL_GPIO_SetOutputPin(LED0_GPIO_Port,LED0_Pin);
+	if((data&0x01)==0x01){ 	LL_GPIO_SetOutputPin(LED0_GPIO_Port,LED0_Pin);
 	}else{					LL_GPIO_ResetOutputPin(LED0_GPIO_Port,LED0_Pin);
 	}
-	if((data&0x02)==1){ 	LL_GPIO_SetOutputPin(LED1_GPIO_Port,LED1_Pin);
+	if((data&0x02)==0x02){ 	LL_GPIO_SetOutputPin(LED1_GPIO_Port,LED1_Pin);
 	}else{					LL_GPIO_ResetOutputPin(LED1_GPIO_Port,LED1_Pin);
 	}
-	if((data&0x04)==1){ 	LL_GPIO_SetOutputPin(LED2_GPIO_Port,LED2_Pin);
+	if((data&0x04)==0x04){ 	LL_GPIO_SetOutputPin(LED2_GPIO_Port,LED2_Pin);
 	}else{					LL_GPIO_ResetOutputPin(LED2_GPIO_Port,LED2_Pin);
 	}
-	if((data&0x08)==1){ 	LL_GPIO_SetOutputPin(LED3_GPIO_Port,LED3_Pin);
+	if((data&0x08)==0x08){ 	LL_GPIO_SetOutputPin(LED3_GPIO_Port,LED3_Pin);
 	}else{					LL_GPIO_ResetOutputPin(LED3_GPIO_Port,LED3_Pin);
 	}
-	if((data&0x10)==1){ 	LL_GPIO_SetOutputPin(LED4_GPIO_Port,LED4_Pin);
+	if((data&0x10)==0x10){ 	LL_GPIO_SetOutputPin(LED4_GPIO_Port,LED4_Pin);
 	}else{					LL_GPIO_ResetOutputPin(LED4_GPIO_Port,LED4_Pin);
 	}
 }
@@ -260,22 +260,22 @@ int8_t SW_IsOn_1(void){//horizontal
 	return LL_GPIO_IsInputPinSet(SW1_GPIO_Port,SW1_Pin);
 }
 
-void Set_SenSL(uint8_t data){
+void Set_SenFL(uint8_t data){
 	if(data == 1)	LL_GPIO_SetOutputPin(SEN0_GPIO_Port,SEN0_Pin);
 	else			LL_GPIO_ResetOutputPin(SEN0_GPIO_Port,SEN0_Pin);
 }
 
-void Set_SenFL(uint8_t data){
+void Set_SenSL(uint8_t data){
 	if(data == 1)	LL_GPIO_SetOutputPin(SEN1_GPIO_Port,SEN1_Pin);
 	else			LL_GPIO_ResetOutputPin(SEN1_GPIO_Port,SEN1_Pin);
 }
 
-void Set_SenFR(uint8_t data){
+void Set_SenSR(uint8_t data){
 	if(data == 1)	LL_GPIO_SetOutputPin(SEN2_GPIO_Port,SEN2_Pin);
 	else			LL_GPIO_ResetOutputPin(SEN2_GPIO_Port,SEN2_Pin);
 }
 
-void Set_SenSR(uint8_t data){
+void Set_SenFR(uint8_t data){
 	if(data == 1)	LL_GPIO_SetOutputPin(SEN3_GPIO_Port,SEN3_Pin);
 	else			LL_GPIO_ResetOutputPin(SEN3_GPIO_Port,SEN3_Pin);
 }

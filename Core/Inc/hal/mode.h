@@ -36,7 +36,7 @@
 
 void SYS_start( void );
 void MODE_inc( void );
-void MODE_exe1( void );
+void MODE_exe( void );
 bool MODE_CheckExe(void);
 
 #endif /* INC_MODE_H_ */

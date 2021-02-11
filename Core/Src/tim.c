@@ -259,7 +259,7 @@ void MX_TIM8_Init(void)
 }
 
 /* USER CODE BEGIN 1 */
-void TIM_init(void)
+void TIMER_init(void)
 {
   //sensor encode gyro
   LL_TIM_EnableIT_UPDATE(TIM4);
@@ -301,7 +301,7 @@ void Disable_TIM3(void){
 }
 
 void Set_DutyTIM2(uint16_t duty){
-  uint16_t compare = (float)(1000.0 - duty)/1000.0*849.0;
+  uint16_t compare = (float)duty/1000.0*849.0;
   if(compare>849){
     compare = 849;
   }
@@ -309,11 +309,42 @@ void Set_DutyTIM2(uint16_t duty){
 }
 
 void Set_DutyTIM3(uint16_t duty){
-  uint16_t compare = (float)(1000.0 - duty)/1000.0*849.0;
+  uint16_t compare = (float)duty/1000.0*849.0;
   if(compare>849){
     compare = 849;
   }
   LL_TIM_OC_SetCompareCH2(TIM3,compare);
+}
+
+void Clear_CounterTIM2(void)
+{
+  LL_TIM_SetCounter(TIM2,0);
+}
+
+void Clear_CounterTIM3(void)
+{
+  LL_TIM_SetCounter(TIM3,0);
+}
+
+void Clear_CounterTIM8(void)
+{
+  LL_TIM_SetCounter(TIM8,0);
+}
+
+void Enable_TIM8(void){
+  LL_TIM_EnableCounter(TIM8);
+}
+
+void Disable_TIM8(void){
+  LL_TIM_DisableCounter(TIM8);
+}
+
+void Set_DutyTIM8(uint16_t duty){
+  uint16_t compare = (float)duty/1000.0*849.0;
+  if(compare>849){
+    compare = 849;
+  }
+  LL_TIM_OC_SetCompareCH3(TIM8,compare);
 }
 
 

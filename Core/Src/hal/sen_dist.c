@@ -11,23 +11,23 @@
 #define DIST_NO_WALL_DIV_FILTER				( 150 )
 #define DIST_REF_UP					( 5 )
 #define R_FRONT_REF					( 270 )
-#define L_FRONT_REF					( 210 )
-#define R_SIDE_REF					( 240 )
-#define L_SIDE_REF					( 200 )
-#define R_FRONT_WALL					( 45 )
-#define L_FRONT_WALL					( 45 )
-#define R_SIDE_WALL					( 110 )
-#define L_SIDE_WALL					( 70 )
+#define L_FRONT_REF					(3000)//( 210 )
+#define R_SIDE_REF					(3000)//( 240 )
+#define L_SIDE_REF					(3000)//( 200 )
+#define R_FRONT_WALL					(3500)//( 45 )
+#define L_FRONT_WALL					(3000)//( 45 )
+#define R_SIDE_WALL					(3000)//( 110 )
+#define L_SIDE_WALL					(3000)//( 70 )
 #define R_FRONT_SKEW_ERR1				( 80 )//仮
 #define L_FRONT_SKEW_ERR1				( 70 )
 #define R_FRONT_SKEW_ERR2				( 192 )
 #define L_FRONT_SKEW_ERR2				( 160 )
 #define R_FRONT_SKEW_ERR3				( 250 )
 #define L_FRONT_SKEW_ERR3				( 250 )
-#define R_FRONT_CTRL					( 370 )
-#define L_FRONT_CTRL					( 300 )
-#define R_FRONT_NOCTRL					( 530 )
-#define L_FRONT_NOCTRL					( 450 )
+#define R_FRONT_CTRL					(3500)//( 370 )
+#define L_FRONT_CTRL					(3000)//( 300 )
+#define R_FRONT_NOCTRL					(3500)//( 530 )
+#define L_FRONT_NOCTRL					(3000)//( 450 )
 
 #define		DIST_REF_NUM		(400)
 
@@ -207,60 +207,68 @@ void DIST_Pol_FL( void )
 
 	Set_SenFL(1);
 
-	for(char i=0;i<200;i++);
+	for(uint16_t i=0;i<500;i++);
 
 	st_sen[DIST_SEN_L_FRONT].s_old = st_sen[DIST_SEN_L_FRONT].s_now;
 	st_sen[DIST_SEN_L_FRONT].s_now = GetSensor_FL()- st_sen[DIST_SEN_L_FRONT].s_offset;
+	ADC3_clearEOS();
 
 	Set_SenFL(0);
 }
 
 void DIST_Pol_FR( void )
 {
-	st_sen[DIST_SEN_R_FRONT].s_offset = GetSensor_FR();
 
+	st_sen[DIST_SEN_R_FRONT].s_offset = GetSensor_FR();
+	
 	Set_SenFR(1);
 
-	for(char i=0;i<200;i++);
+	for(uint16_t i=0;i<500;i++);
 
 	st_sen[DIST_SEN_R_FRONT].s_old = st_sen[DIST_SEN_R_FRONT].s_now;
 	st_sen[DIST_SEN_R_FRONT].s_now = GetSensor_FR()- st_sen[DIST_SEN_R_FRONT].s_offset;
+	ADC1_clearEOS();
 
 	Set_SenFR(0);
+
 }
 
 
 void DIST_Pol_SL( void )
 {
+
 	st_sen[DIST_SEN_L_SIDE].s_offset = GetSensor_SL();
 
 	Set_SenSL(1);
 
-	for(char i=0;i<200;i++);
+	for(uint16_t i=0;i<500;i++);
 
 	st_sen[DIST_SEN_L_SIDE].s_old = st_sen[DIST_SEN_L_SIDE].s_now;
 	st_sen[DIST_SEN_L_SIDE].s_now = GetSensor_SL()- st_sen[DIST_SEN_L_SIDE].s_offset;
 
 	Set_SenSL(0);
+
 }
 
 void DIST_Pol_SR( void )
 {
+
 	st_sen[DIST_SEN_R_SIDE].s_offset = GetSensor_SR();
 
 	Set_SenSR(1);
 
-	for(char i=0;i<200;i++);
+	for(uint16_t i=0;i<500;i++);
 
 	st_sen[DIST_SEN_R_SIDE].s_old = st_sen[DIST_SEN_R_SIDE].s_now;
 	st_sen[DIST_SEN_R_SIDE].s_now = GetSensor_SR()- st_sen[DIST_SEN_R_SIDE].s_offset;
 
 	Set_SenSR(0);
+
 }
 
 void Get_Sen_Nowdata(void){
-	printf("SL %d FL %d FR %d SR %d\n\r",
-			st_sen[DIST_SEN_L_SIDE].s_now,st_sen[DIST_SEN_L_FRONT].s_now,st_sen[DIST_SEN_R_FRONT].s_now,st_sen[DIST_SEN_R_SIDE].s_now);
+	printf("FL %4d SL %4d SR %4d FR %4d\r",
+			st_sen[DIST_SEN_L_FRONT].s_now,st_sen[DIST_SEN_L_SIDE].s_now,st_sen[DIST_SEN_R_SIDE].s_now,st_sen[DIST_SEN_R_FRONT].s_now);
 }
 
 bool DIST_isWall_FRONT( void )

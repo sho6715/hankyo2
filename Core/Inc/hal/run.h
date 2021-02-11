@@ -14,12 +14,14 @@
 #include "Inc/hal/CTRL.h"
 #include "Inc/hal/gyro.h"
 #include "Inc/search/search.h"
+#include "Inc/hal/DCM.h"
 #else
 #include "glob.h"
 #include "parameter.h"
 #include "hal/CTRL.h"
 #include "hal/gyro.h"
 #include "search/search.h"
+#include "hal/DCM.h"
 #endif
 
 /* 動作タイプ */

@@ -257,8 +257,42 @@ void MX_ADC4_Init(void)
 
 uint16_t adcConvertData[ADC_CONVERT_DATA_BUFFR_SIZE];
 
+void ADC1_Calibration(void)
+{
+	if(LL_ADC_IsDeepPowerDownEnabled(ADC1) != 0) return;
+	if(LL_ADC_IsInternalRegulatorEnabled(ADC1) != 1) return;
+	if(LL_ADC_IsEnabled(ADC1) != 0){
+		LL_ADC_Disable(ADC1);
+	}
+	LL_ADC_StartCalibration(ADC1,LL_ADC_SINGLE_ENDED);
+	while(LL_ADC_IsCalibrationOnGoing(ADC1)==1);
+}
+
+void ADC3_Calibration(void)
+{
+	if(LL_ADC_IsDeepPowerDownEnabled(ADC3) != 0) return;
+	if(LL_ADC_IsInternalRegulatorEnabled(ADC3) != 1) return;
+	if(LL_ADC_IsEnabled(ADC3) != 0){
+		LL_ADC_Disable(ADC3);
+	}
+	LL_ADC_StartCalibration(ADC3,LL_ADC_SINGLE_ENDED);
+	while(LL_ADC_IsCalibrationOnGoing(ADC3)==1);
+}
+
+void ADC4_Calibration(void)
+{
+	if(LL_ADC_IsDeepPowerDownEnabled(ADC4) != 0) return;
+	if(LL_ADC_IsInternalRegulatorEnabled(ADC4) != 1) return;
+	if(LL_ADC_IsEnabled(ADC4) != 0){
+		LL_ADC_Disable(ADC4);
+	}
+	LL_ADC_StartCalibration(ADC4,LL_ADC_SINGLE_ENDED);
+	while(LL_ADC_IsCalibrationOnGoing(ADC4)==1);
+}
+
 void ADC4_Start(void)
 {
+  ADC4_Calibration();
 //	LL_DMA_EnableIT_TC(DMA1,LL_DMA_CHANNEL_7);
 	LL_ADC_Enable(ADC4);
 
@@ -274,45 +308,56 @@ void ADC4_Start(void)
 }
 
 void ADC3_Start(void){
+  ADC3_Calibration();
 	LL_ADC_Enable(ADC3);
 }
 
 void ADC1_Start(void){
+  ADC1_Calibration();
 	LL_ADC_Enable(ADC1);
 }
 
-uint16_t GetSensor_SL(void){
+uint16_t GetSensor_FL(void){
 	LL_ADC_REG_StartConversion(ADC3);
 	while(LL_ADC_IsActiveFlag_EOC(ADC3)==0);
-	LL_ADC_ClearFlag_EOS(ADC3);
+	LL_ADC_ClearFlag_EOC(ADC3);
 	return LL_ADC_REG_ReadConversionData12(ADC3);
 }
 
-uint16_t GetSensor_FL(void){
-	LL_ADC_REG_StartConversion(ADC1);
-	while(LL_ADC_IsActiveFlag_EOC(ADC1)==0);
-	LL_ADC_ClearFlag_EOS(ADC1);
-	return LL_ADC_REG_ReadConversionData12(ADC1);
+void ADC3_clearEOS(void){
+	LL_ADC_ClearFlag_EOS(ADC3);
 }
 
-uint16_t GetSensor_FR(void){
+void ADC1_clearEOS(void){
+	LL_ADC_ClearFlag_EOS(ADC1);
+}
+
+
+uint16_t GetSensor_SL(void){
 	LL_ADC_REG_StartConversion(ADC1);
 	while(LL_ADC_IsActiveFlag_EOC(ADC1)==0);
-	LL_ADC_ClearFlag_EOS(ADC1);
+	LL_ADC_ClearFlag_EOC(ADC1);
 	return LL_ADC_REG_ReadConversionData12(ADC1);
 }
 
 uint16_t GetSensor_SR(void){
 	LL_ADC_REG_StartConversion(ADC1);
 	while(LL_ADC_IsActiveFlag_EOC(ADC1)==0);
-	LL_ADC_ClearFlag_EOS(ADC1);
+	LL_ADC_ClearFlag_EOC(ADC1);
+	return LL_ADC_REG_ReadConversionData12(ADC1);
+}
+
+uint16_t GetSensor_FR(void){
+	LL_ADC_REG_StartConversion(ADC1);
+	while(LL_ADC_IsActiveFlag_EOC(ADC1)==0);
+	LL_ADC_ClearFlag_EOC(ADC1);
 	return LL_ADC_REG_ReadConversionData12(ADC1);
 }
 
 uint16_t GetBatVal(void){
 	LL_ADC_REG_StartConversion(ADC4);
 	while(LL_ADC_IsActiveFlag_EOC(ADC4)==0);
-	LL_ADC_ClearFlag_EOS(ADC4);
+	LL_ADC_ClearFlag_EOC(ADC4);
 	return LL_ADC_REG_ReadConversionData12(ADC4);
 }
 /* USER CODE END 1 */

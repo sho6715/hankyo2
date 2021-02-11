@@ -1,6 +1,8 @@
-encoder.c:16:6:MA702_ReadByte	16	static
-encoder.c:25:6:recv_spi_encoder	16	static
-encoder.c:34:9:Runmode_check	16	static
-encoder.c:54:6:ENC_GetDiv	32	static
-encoder.c:120:6:ENC_setref	8	static
-encoder.c:127:6:ENC_print	8	static
+encoder.c:16:10:Get_encoder_value	16	static
+encoder.c:22:6:MA702_ReadByte	16	static
+encoder.c:31:6:recv_spi_encoder	16	static
+encoder.c:36:6:Set_encoder_data	24	static
+encoder.c:43:9:Runmode_check	16	static
+encoder.c:63:6:ENC_GetDiv	32	static
+encoder.c:129:6:ENC_setref	8	static
+encoder.c:142:6:ENC_print	8	static

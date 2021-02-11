@@ -44,14 +44,16 @@ void MX_TIM6_Init(void);
 void MX_TIM8_Init(void);
 
 /* USER CODE BEGIN Prototypes */
-void TIM_init(void);
 void Enable_TIM2(void);
 void Disable_TIM2(void);
 void Enable_TIM3(void);
 void Disable_TIM3(void);
 void Set_DutyTIM2(uint16_t duty);
 void Set_DutyTIM3(uint16_t duty);
-
+void TIMER_init(void);
+void Clear_CounterTIM2(void);
+void Clear_CounterTIM3(void);
+void Clear_CounterTIM8(void);
 
 /* USER CODE END Prototypes */
 

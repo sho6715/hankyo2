@@ -13,11 +13,19 @@
 #include "Inc/hal/DCM.h"
 #include "Inc/hal/gyro.h"
 #include "Inc/hal/CTRL.h"
+#include "Inc/hal/sen_dist.h"
+#include "Inc/search/search.h"
+#include "Inc/hal/mode.h"
+#include "Inc/tim.h"
 #else
 #include "glob.h"
 #include "hal/DCM.h"
 #include "hal/gyro.h"
 #include "hal/CTRL.h"
+#include "hal/sen_dist.h"
+#include "search/search.h"
+#include "hal/mode.h"
+#include "tim.h"
 #endif
 
 

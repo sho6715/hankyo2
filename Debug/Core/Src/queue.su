@@ -1,0 +1,4 @@
+queue.c:10:6:printQueue	24	static
+queue.c:19:6:initQueue	24	static
+queue.c:36:6:enqueue	16	static
+queue.c:64:12:dequeue	24	static

@@ -32,10 +32,12 @@
 #include "spi.h"
 #include "Inc/hal/sen_batt.h"
 #include "Inc/hal/sen_dist.h"
+#include "Inc/hal/CTRL.h/"
 #else
 #include "spi.h"
 #include "hal/sen_batt.h"
 #include "hal/sen_dist.h"
+#include "hal/CTRL.h"
 #endif
 /* USER CODE END Includes */
 

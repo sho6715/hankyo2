@@ -31,7 +31,7 @@ Core/Src/usart.o: ../Core/Src/usart.c ../Core/Inc/usart.h \
  ../Core/Inc/search/map_cmd.h ../Core/Inc/search/map_flash.h \
  ../Core/Inc/flash.h ../Core/Inc/hal/log.h ../Core/Inc/hal/sen_dist.h \
  ../Core/Inc/main.h ../Core/Inc/hal/mode.h ../Core/Inc/hal/encoder.h \
- ../Core/Inc/hal/init.h ../Core/Inc/hal/sen_batt.h \
+ ../Core/Inc/hal/init.h ../Core/Inc/hal/sen_batt.h ../Core/Inc/queue.h \
  ../Core/Inc/hal/sen_dist.h
 
 ../Core/Inc/usart.h:
@@ -133,5 +133,7 @@ Core/Src/usart.o: ../Core/Src/usart.c ../Core/Inc/usart.h \
 ../Core/Inc/hal/init.h:
 
 ../Core/Inc/hal/sen_batt.h:
+
+../Core/Inc/queue.h:
 
 ../Core/Inc/hal/sen_dist.h:

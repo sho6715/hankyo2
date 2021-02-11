@@ -753,8 +753,8 @@ void CTRL_outMot( float f_duty10_R, float f_duty10_L )
 //	f_Duty_L = f_duty10_L;
 
 	/* 電圧に応じてPWM出力を変更する */
-	f_duty10_R = f_duty10_R * VCC_MAX / (get_battLv()/1000);
-	f_duty10_L = f_duty10_L * VCC_MAX / (get_battLv()/1000);
+	f_duty10_R = f_duty10_R * VCC_MAX / (get_battLv());
+	f_duty10_L = f_duty10_L * VCC_MAX / (get_battLv());
 
 //	log_in(f_duty10_R);
 	/* 右モータ */

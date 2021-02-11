@@ -11,7 +11,7 @@ void DCM_setDirCw( enDCM_ID en_id )
 {
 	/* 回転方向設定 */
 	if( en_id == DCM_R ){			// 右
-		Set_MOT0(0);	//tmp
+		Set_MOT0(1);	//tmp
 	}
 	else{							// 左
 		Set_MOT1(0);	//tmp
@@ -23,7 +23,7 @@ void DCM_setDirCcw( enDCM_ID en_id )
 {
 	/* 回転方向設定 */
 	if( en_id == DCM_R ){			// 右
-		Set_MOT0(1);	//tmp
+		Set_MOT0(0);	//tmp
 	}
 	else{							// 左
 		Set_MOT1(1);	//tmp
@@ -34,19 +34,15 @@ void DCM_brakeMot( enDCM_ID en_id )
 {
 	/* 停止設定 */
 	if( en_id == DCM_R ){			// 右
-		Set_MOT0(0);	//tmp
 		Set_DutyTIM2(0);
-		Disable_TIM2();			// タイマ停止
 	}
 	else{							// 左
-		Set_MOT1(0);	//tmp
 		Set_DutyTIM3(0);
-		Disable_TIM3();			// タイマ停止
 	}
 }
 
 void DCM_staMot( enDCM_ID en_id )
-{	//LL_TIM_EnableCounter()kana?
+{	
 	/* タイマスタート */
 	if( en_id == DCM_R ){			// 右
 		Enable_TIM2();

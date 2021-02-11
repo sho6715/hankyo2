@@ -8,10 +8,16 @@
 
 #include "hal/encoder.h"
 
-int16_t ENC_L_CNT;
-int16_t ENC_R_CNT;
-int16_t ENC_L_CNT_old;
-int16_t ENC_R_CNT_old;
+uint16_t ENC_L_CNT;
+uint16_t ENC_R_CNT;
+uint16_t ENC_L_CNT_old;
+uint16_t ENC_R_CNT_old;
+
+uint16_t Get_encoder_value(en_endir dir)
+{
+	if(dir == enL) return ENC_L_CNT;
+	else return ENC_R_CNT;
+}
 
 void MA702_ReadByte(en_endir dir)
 {
@@ -22,14 +28,17 @@ void MA702_ReadByte(en_endir dir)
 	SPI2_DMA_Communication(2,encoderdir);
 }
 
-void recv_spi_encoder(void)
+void recv_spi_encoder(en_endir dir)
 {
-	MA702_ReadByte(enL);
-	ENC_L_CNT = ((uint16_t)Get_SPI2ReciveData(1)<<8|Get_SPI2ReciveData(0));
-
-	MA702_ReadByte(enR);
-	ENC_R_CNT = ((uint16_t)Get_SPI2ReciveData(1)<<8|Get_SPI2ReciveData(0));
+	MA702_ReadByte(dir);
 }
+
+void Set_encoder_data(en_endir dir)
+{
+	if(dir == enL) ENC_L_CNT = ((uint16_t)Get_SPI2ReciveData(0)<<8|Get_SPI2ReciveData(1));
+	else ENC_R_CNT = ((uint16_t)Get_SPI2ReciveData(0)<<8|Get_SPI2ReciveData(1));
+}
+
 
 uint8_t Runmode_check( enDCM_ID en_id )
 {
@@ -57,7 +66,7 @@ void ENC_GetDiv( int32_t* p_r, int32_t* p_l )
 	int32_t cntL;
 	int32_t cntR_dif;
 	int32_t cntL_dif;
-	recv_spi_encoder();
+//	recv_spi_encoder();
 	cntR_dif = ENC_R_CNT - ENC_R_CNT_old;
 	cntL_dif = ENC_L_CNT_old - ENC_L_CNT;
 
@@ -119,8 +128,14 @@ void ENC_GetDiv( int32_t* p_r, int32_t* p_l )
 
 void ENC_setref(void)
 {
-	recv_spi_encoder();
+	recv_spi_encoder(enR);
+	LL_mDelay(1);
+	Set_encoder_data(enR);
 	ENC_R_CNT_old = ENC_R_CNT;
+	LL_mDelay(1);
+	recv_spi_encoder(enL);
+	LL_mDelay(1);
+	Set_encoder_data(enL);
 	ENC_L_CNT_old = ENC_L_CNT;
 }
 

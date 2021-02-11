@@ -3,10 +3,10 @@ sen_dist.c:91:9:DIST_getNowVal	16	static
 sen_dist.c:97:6:DIST_getErr	24	static
 sen_dist.c:170:6:DIST_getErrSkew	16	static
 sen_dist.c:204:6:DIST_Pol_FL	16	static
-sen_dist.c:218:6:DIST_Pol_FR	16	static
-sen_dist.c:233:6:DIST_Pol_SL	16	static
-sen_dist.c:247:6:DIST_Pol_SR	16	static
-sen_dist.c:261:6:Get_Sen_Nowdata	16	static
-sen_dist.c:266:6:DIST_isWall_FRONT	16	static
-sen_dist.c:279:6:DIST_isWall_R_SIDE	16	static
-sen_dist.c:290:6:DIST_isWall_L_SIDE	16	static
+sen_dist.c:219:6:DIST_Pol_FR	16	static
+sen_dist.c:237:6:DIST_Pol_SL	16	static
+sen_dist.c:253:6:DIST_Pol_SR	16	static
+sen_dist.c:269:6:Get_Sen_Nowdata	16	static
+sen_dist.c:274:6:DIST_isWall_FRONT	16	static
+sen_dist.c:287:6:DIST_isWall_R_SIDE	16	static
+sen_dist.c:298:6:DIST_isWall_L_SIDE	16	static

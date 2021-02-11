@@ -408,6 +408,103 @@ void  MAP_makeContourMap(
 	
 }
 
+void setStep(const int8_t x, const int8_t y, const uint16_t step) {
+	/* (x, y) がフィールド内か確認 */
+	if (x < 0 || y < 0 || x >= MAP_X_SIZE || y >= MAP_Y_SIZE) {
+		printf( "referred to out of field\r\n");
+		return;
+	}
+	us_cmap[y][x] = step;
+}
+
+void  MAP_makeContourMap_kai2(
+	uint8_t uc_goalX, 			///< [in] ゴールX座標
+	uint8_t uc_goalY, 			///< [in] ゴールY座標
+	enMAP_ACT_MODE	en_type		///< [in] 計算方法（まだ未使用）
+) {
+	uint16_t		x, y, i;		// ループ変数
+	uint16_t		uc_dase;		// 基準値
+	uint16_t		uc_new;			// 新値
+	uint16_t		uc_level;		// 等高線
+	uint8_t		uc_wallData;	// 壁情報
+
+	stPOSITION		st_pos;
+
+	en_type = en_type;		// コンパイルワーニング回避（いずれ削除）
+
+	queue_t queue;
+	queue_t* pQueue = &queue;
+
+	initQueue(pQueue);
+
+	/* 等高線マップを初期化する */
+	for (i = 0; i < MAP_SMAP_MAX_VAL; i++) {
+		us_cmap[i / MAP_Y_SIZE][i & (MAP_X_SIZE - 1)] = MAP_SMAP_MAX_VAL - 1;
+	}
+
+	/* ステップの更新予約のキュー */
+//	std::queue<stPOSITION> q;
+//	QueryPerformanceCounter(&start);
+
+	/* 目標地点の等高線を0に設定 */
+	setStep(uc_goalX, uc_goalY, 0);
+	st_pos.x = uc_goalX;
+	st_pos.y = uc_goalY;
+	st_pos.step = 0;
+
+	enqueue(pQueue,st_pos);
+
+	/* 等高線マップを作成 */
+	while (pQueue->flag != EMPTY) {
+		const stPOSITION focus = dequeue(pQueue);
+//		q.pop();
+		const uint16_t focus_step = focus.step;
+		x = focus.x;
+		y = focus.y;
+		stPOSITION next = focus;
+		uc_wallData = g_sysMap[y][x];
+
+		if (((uc_wallData & 0x01) == 0x00) && (y != (MAP_Y_SIZE - 1))) {
+			if (us_cmap[y + 1][x] > focus_step + 1) {
+				next.step = focus_step + 1;
+				us_cmap[y + 1][x] = focus_step + 1;
+				next.x = x;
+				next.y = y + 1;
+				enqueue(pQueue,next);
+			}
+		}
+		if (((uc_wallData & 0x02) == 0x00) && (x != (MAP_X_SIZE - 1))) {
+			if (us_cmap[y][x + 1] > focus_step + 1) {
+				next.step = focus_step + 1;
+				us_cmap[y][x + 1] = focus_step + 1;
+				next.x = x + 1;
+				next.y = y;
+				enqueue(pQueue, next);
+			}
+		}
+		if (((uc_wallData & 0x04) == 0x00) && (y != 0)) {
+			if (us_cmap[y - 1][x] > focus_step + 1) {
+				next.step = focus_step + 1;
+				us_cmap[y - 1][x] = focus_step + 1;
+				next.x = x;
+				next.y = y - 1;
+				enqueue(pQueue, next);
+			}
+		}
+		if (((uc_wallData & 0x08) == 0x00) && (x != 0)) {
+			if (us_cmap[y][x - 1] > focus_step + 1) {
+				next.step = focus_step + 1;
+				us_cmap[y][x - 1] = focus_step + 1;
+				next.x = x - 1;
+				next.y = y;
+				enqueue(pQueue, next);
+			}
+		}
+
+	}
+
+}
+
 void  MAP_makeContourMap_run( 
 	uint8_t uc_goalX, 			///< [in] �S�[��X���W
 	uint8_t uc_goalY, 			///< [in] �S�[��Y���W
@@ -1146,7 +1243,8 @@ void MAP_searchGoal(
 		uc_staX = mx;
 		uc_staY = my;
 //		printf("mx%d,my%d\n", mx, my);
-		MAP_makeContourMap(uc_trgX, uc_trgY, en_type);
+//		MAP_makeContourMap(uc_trgX, uc_trgY, en_type);
+		MAP_makeContourMap_kai2(uc_trgX, uc_trgY, en_type);
 		MAP_searchCmdList(uc_staX, uc_staY, en_Head, uc_goalX, uc_goalX, &en_endDir);
 		uc_trgX = Return_X;
 		uc_trgY = Return_Y;
@@ -1173,7 +1271,8 @@ void MAP_searchGoal(
 		
 		/* ���M�n����T�� */
 		if( SEARCH_TURN == en_search ){
-			MAP_makeContourMap( uc_trgX, uc_trgY, en_type );		// �������}�b�v�����
+//			MAP_makeContourMap( uc_trgX, uc_trgY, en_type );		// �������}�b�v�����
+			MAP_makeContourMap_kai2(uc_trgX, uc_trgY, en_type);
 			if( TRUE == bl_type ){
 				MOT_goBlock_FinSpeed( 0.5 + f_MoveBackDist, SEARCH_SPEED );		// �����O�i(�o�b�N�̈ړ��ʂ��܂�)
 			}
@@ -1191,7 +1290,8 @@ void MAP_searchGoal(
 		}
 		/* �X�����[���T�� */
 		else if( SEARCH_SURA == en_search ){
-			MAP_makeContourMap( uc_trgX, uc_trgY, en_type );		// �������}�b�v�����
+//			MAP_makeContourMap( uc_trgX, uc_trgY, en_type );		// �������}�b�v�����
+			MAP_makeContourMap_kai2(uc_trgX, uc_trgY, en_type);
 			if( TRUE == bl_type ){
 				
 				MOT_goBlock_FinSpeed( 0.5 + f_MoveBackDist, SEARCH_SPEED );		// �����O�i(�o�b�N�̈ړ��ʂ��܂�)
@@ -1223,7 +1323,8 @@ void MAP_searchGoal(
 			MAP_searchCmdList(uc_staX, uc_staY, en_Head, uc_goalX, uc_goalX, &en_endDir);
 			uc_trgX = Return_X;
 			uc_trgY = Return_Y;
-			MAP_makeContourMap( uc_trgX, uc_trgY, en_type );		// �������}�b�v�����
+//			MAP_makeContourMap( uc_trgX, uc_trgY, en_type );		// �������}�b�v�����
+			MAP_makeContourMap_kai2(uc_trgX, uc_trgY, en_type);
 			MAP_calcMouseDir(CONTOUR_SYSTEM, &en_head);	
 			/* ���̋��ֈړ� */
 //			if ((us_cmap[my][mx] == 0)||((g_sysMap[uc_trgY][uc_trgX]&0xf0) == 0xf0)) {
@@ -1284,7 +1385,8 @@ void MAP_searchGoalKnown(
 		uc_staX = mx;
 		uc_staY = my;
 //		printf("mx%d,my%d\n", mx, my);
-		MAP_makeContourMap(uc_trgX, uc_trgY, en_type);
+//		MAP_makeContourMap(uc_trgX, uc_trgY, en_type);
+		MAP_makeContourMap_kai2(uc_trgX, uc_trgY, en_type);
 		MAP_searchCmdList(uc_staX, uc_staY, en_Head, uc_goalX, uc_goalX, &en_endDir);
 		uc_trgX = Return_X;
 		uc_trgY = Return_Y;
@@ -1311,7 +1413,8 @@ void MAP_searchGoalKnown(
 		
 		/* ���M�n����T�� */
 		if( SEARCH_TURN == en_search ){
-			MAP_makeContourMap( uc_trgX, uc_trgY, en_type );		// �������}�b�v�����
+//			MAP_makeContourMap( uc_trgX, uc_trgY, en_type );		// �������}�b�v�����
+			MAP_makeContourMap_kai2(uc_trgX, uc_trgY, en_type);
 			if( TRUE == bl_type ){
 				MOT_goBlock_FinSpeed( 0.5 + f_MoveBackDist, SEARCH_SPEED );		// �����O�i(�o�b�N�̈ړ��ʂ��܂�)
 			}
@@ -1329,7 +1432,8 @@ void MAP_searchGoalKnown(
 		}
 		/* �X�����[���T�� */
 		else if( SEARCH_SURA == en_search ){
-			MAP_makeContourMap( uc_trgX, uc_trgY, en_type );		// �������}�b�v�����
+//			MAP_makeContourMap( uc_trgX, uc_trgY, en_type );		// �������}�b�v�����
+			MAP_makeContourMap_kai2(uc_trgX, uc_trgY, en_type);
 			if( TRUE == bl_type ){
 				
 				MOT_goBlock_FinSpeed( 0.5 + f_MoveBackDist, SEARCH_SPEED );		// �����O�i(�o�b�N�̈ړ��ʂ��܂�)
@@ -1363,7 +1467,8 @@ void MAP_searchGoalKnown(
 			MAP_searchCmdList(uc_staX, uc_staY, en_Head, uc_goalX, uc_goalX, &en_endDir);
 			uc_trgX = Return_X;
 			uc_trgY = Return_Y;
-			MAP_makeContourMap( uc_trgX, uc_trgY, en_type );		// �������}�b�v�����
+//			MAP_makeContourMap( uc_trgX, uc_trgY, en_type );		// �������}�b�v�����
+			MAP_makeContourMap_kai2(uc_trgX, uc_trgY, en_type);
 			MAP_calcMouseDir(CONTOUR_SYSTEM, &en_head);	
 
 			/* ���̋��ֈړ� */

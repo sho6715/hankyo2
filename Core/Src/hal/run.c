@@ -120,7 +120,7 @@ void MOT_goBlock_AccConstDec( float f_fin, enMOT_ST_TYPE en_type, enMOT_GO_ST_TY
 			}				// 途中で制御不能になった
 			MOT_setWallEdgeDist();
 		}
-//		printf("現在位置 %f \r\n",f_NowDist);
+
 	}
 
 	/* ------ */
@@ -193,7 +193,7 @@ void MOT_goBlock_AccConstDec( float f_fin, enMOT_ST_TYPE en_type, enMOT_GO_ST_TY
 			MOT_setWallEdgeDist();
 			if((straight_wait>2.0)&&(search_flag == TRUE))break;
 		}
-//		printf("現在位置 %f \r\n",f_NowDist);
+
 	}
 
 	/* -------------------- */

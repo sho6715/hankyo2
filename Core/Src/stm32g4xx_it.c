@@ -208,6 +208,7 @@ void DMA1_Channel1_IRQHandler(void)
 	if(LL_DMA_IsActiveFlag_TC1(DMA1) == 1){
 		LL_DMA_ClearFlag_GI1(DMA1);
 		SPI1_DMA1_ReceiveComplete_Callback();
+
 	}
   /* USER CODE END DMA1_Channel1_IRQn 0 */
 
@@ -242,6 +243,7 @@ void DMA1_Channel3_IRQHandler(void)
 	if(LL_DMA_IsActiveFlag_TC3(DMA1) == 1){
 		LL_DMA_ClearFlag_GI3(DMA1);
 		SPI2_DMA1_ReceiveComplete_Callback();
+
 	}
   /* USER CODE END DMA1_Channel3_IRQn 0 */
 
@@ -301,7 +303,10 @@ void DMA1_Channel6_IRQHandler(void)
 void TIM1_UP_TIM16_IRQHandler(void)
 {
   /* USER CODE BEGIN TIM1_UP_TIM16_IRQn 0 */
-
+	if ( LL_TIM_IsActiveFlag_UPDATE(TIM1)==1){
+		LL_TIM_ClearFlag_UPDATE(TIM1);
+	}
+  INTC_sys();
   /* USER CODE END TIM1_UP_TIM16_IRQn 0 */
 
   /* USER CODE BEGIN TIM1_UP_TIM16_IRQn 1 */
@@ -321,16 +326,19 @@ void TIM4_IRQHandler(void)
 	}
   switch(i){
 		case 0:
-			ICM_42688_GyroRead_DMA(0x29);
+      recv_spi_encoder(enL);
 			break;
 		case 1:
-			recv_spi_encoder();
+      Set_encoder_data(enL);
+			ICM_42688_GyroRead_DMA(0x29);
 			break;
 		case 2:
-			
+      ICM_42688_GyroData();
+      GYRO_Pol();
+			recv_spi_encoder(enR);
 			break;
 		case 3:
-			
+			Set_encoder_data(enR);
 			break;
 	}
 	i = (i+1)%4;
@@ -352,16 +360,16 @@ void TIM5_IRQHandler(void)
 	}
 	switch(i){
 		case 0:
-			DIST_Pol_SL();
-			break;
-		case 1:
-			DIST_Pol_FR();
-			break;
-		case 2:
 			DIST_Pol_FL();
 			break;
-		case 3:
+		case 1:
 			DIST_Pol_SR();
+			break;
+		case 2:
+			DIST_Pol_SL();
+			break;
+		case 3:
+			DIST_Pol_FR();
 			break;
 	}
 	i = (i+1)%4;

@@ -47,5 +47,5 @@ void BAT_Pol( void )
 }
 
 float get_battLv(void){
-	return (float)us_BatLvAve*(1.987+0.999)/1.987/4095.0*3.3;
+	return (float)us_BatLvAve*(1.990+1.005)/1.990/4095.000*3.300;
 }
