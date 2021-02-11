@@ -15,6 +15,7 @@
 #include "Inc/hal/gyro.h"
 #include "Inc/search/search.h"
 #include "Inc/hal/DCM.h"
+#include "Inc/hal/sen_dist.h"
 #else
 #include "glob.h"
 #include "parameter.h"
@@ -22,6 +23,7 @@
 #include "hal/gyro.h"
 #include "search/search.h"
 #include "hal/DCM.h"
+#include "hal/sen_dist.h"
 #endif
 
 /* 動作タイプ */

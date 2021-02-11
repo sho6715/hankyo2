@@ -1045,7 +1045,7 @@ void MOT_goSla( enMOT_SURA_CMD en_type, stSLA* p_sla )
 	DCM_staMotAll();									// モータON
 
 	while( Get_NowDist() < f_entryLen + uc_dist_control ){				// 指定距離到達待ち
-		if((DIST_getNowVal( DIST_SEN_R_FRONT )>100)&&(DIST_getNowVal( DIST_SEN_L_FRONT )>90))break;
+		if((DIST_getNowVal( DIST_SEN_R_FRONT )>R_FRONT_CTRL)&&(DIST_getNowVal( DIST_SEN_L_FRONT )>L_FRONT_CTRL))break;
 		if( SYS_isOutOfCtrl() == TRUE ){
 			CTRL_stop();
 			DCM_brakeMot( DCM_R );		// ブレーキ
