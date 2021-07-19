@@ -334,11 +334,12 @@ void TIM4_IRQHandler(void)
 			break;
 		case 2:
       ICM_42688_GyroData();
-      GYRO_Pol();
 			recv_spi_encoder(enR);
 			break;
 		case 3:
+      ICM_42688_GyroData();
 			Set_encoder_data(enR);
+      GYRO_Pol();
 			break;
 	}
 	i = (i+1)%4;

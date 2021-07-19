@@ -226,6 +226,8 @@ void MODE_exe( void )
 			CTRL_clrData();
 //			LL_TIM_EnableIT_UPDATE(TIM4);
 //			LL_TIM_EnableCounter(TIM4);
+			printf("\n");
+			LL_mDelay(1000);
 			GYRO_SetRef();
 			while(1){
 				printf("  gyro%5.2f ref%5.2f \r", 
@@ -274,7 +276,7 @@ bool MODE_DistRightCheck(void)
 
 	s_rightval = DIST_getNowVal(DIST_SEN_R_FRONT);
 
-	if( s_rightval >= 1200 ){
+	if( s_rightval >= 300 ){
 		bl_check=TRUE;
 	}
 	else{
@@ -291,7 +293,7 @@ bool MODE_DistLeftCheck(void){
 
 	s_leftval 	= DIST_getNowVal(DIST_SEN_L_FRONT);
 
-	if( s_leftval >= 1200 ){
+	if( s_leftval >= 200 ){
 		bl_check = TRUE;
 
 	}else{

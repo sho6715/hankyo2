@@ -5,8 +5,8 @@ sen_dist.c:170:6:DIST_getErrSkew	16	static
 sen_dist.c:204:6:DIST_Pol_FL	16	static
 sen_dist.c:219:6:DIST_Pol_FR	16	static
 sen_dist.c:237:6:DIST_Pol_SL	16	static
-sen_dist.c:253:6:DIST_Pol_SR	16	static
-sen_dist.c:269:6:Get_Sen_Nowdata	16	static
-sen_dist.c:274:6:DIST_isWall_FRONT	16	static
-sen_dist.c:287:6:DIST_isWall_R_SIDE	16	static
-sen_dist.c:298:6:DIST_isWall_L_SIDE	16	static
+sen_dist.c:254:6:DIST_Pol_SR	16	static
+sen_dist.c:270:6:Get_Sen_Nowdata	16	static
+sen_dist.c:275:6:DIST_isWall_FRONT	16	static
+sen_dist.c:288:6:DIST_isWall_R_SIDE	16	static
+sen_dist.c:299:6:DIST_isWall_L_SIDE	16	static

@@ -101,8 +101,7 @@ void GYRO_SetRef( void )
 	}
 
 	/* 基準値算出（平均値） */
-	l_GyroRef = ul_ref / GYRO_REF_NUM * 100;		// 精度を100倍にする
-//	l_GyroRef = 0x1304*100;
+	l_GyroRef = (ul_ref * 100) / GYRO_REF_NUM ;		// 精度を100倍にする
 }
 
 float GYRO_getSpeedErr( void )
@@ -112,14 +111,14 @@ float GYRO_getSpeedErr( void )
 	float f_res;
 
 	/* 角速度の偏差算出 */
-	if( ( l_err < -4 * 100 ) || ( 4 * 100 < l_err ) ){
+//	if( ( l_err < -0.01 * 100 ) || ( 0.01 * 100 < l_err ) ){
 		f_res = (float)l_err /16.4 / 100;		
 													// 100倍の精度
-	}
-	else{
+//	}
+/*	else{
 		f_res = 0;									// [deg/s]
 	}
-
+*/
 	return f_res;
 }
 

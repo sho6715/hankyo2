@@ -22,6 +22,7 @@ void HAL_init( void )
 	MAP_Goal_init();
 	ADC4_Start();
   	ADC3_Start();
+  	ADC2_Start();
   	ADC1_Start();
 
   	SPI1_Start();

@@ -47,9 +47,11 @@ uint16_t GetSensor_SR(void);
 
 void ADC4_Start(void);
 void ADC3_Start(void);
+void ADC2_Start(void);
 void ADC1_Start(void);
 
 void ADC3_clearEOS(void);
+void ADC2_clearEOS(void);
 void ADC1_clearEOS(void);
 uint16_t GetBatVal(void);
 /* USER CODE END Prototypes */
