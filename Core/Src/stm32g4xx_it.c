@@ -390,6 +390,7 @@ void TIM6_DAC_IRQHandler(void)
 		LL_TIM_ClearFlag_UPDATE(TIM6);
 	}
 	BAT_Pol();
+	log_interrupt ();
   /* USER CODE END TIM6_DAC_IRQn 0 */
 
   /* USER CODE BEGIN TIM6_DAC_IRQn 1 */

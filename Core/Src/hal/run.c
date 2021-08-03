@@ -1023,10 +1023,10 @@ void MOT_goSla( enMOT_SURA_CMD en_type, stSLA* p_sla )
 
 //	LED_on(LED1);
 	/* ================ */
-	/*      実動作      */
+	/*      entry      */
 	/* ================ */
 	/* ------------------------ */
-	/*  スラローム前の前進動作  */
+	/*  acc前の前進動作  */
 	/* ------------------------ */
 	st_data.en_type			= CTRL_ENTRY_SURA;
 	st_data.f_acc			= 0;						// 加速度指定
@@ -1056,7 +1056,7 @@ void MOT_goSla( enMOT_SURA_CMD en_type, stSLA* p_sla )
 //	LED_off(LED1);
 //	log_in(0);
 	/* ------ */
-	/*  加速  */
+	/*  acc  */
 	/* ------ */
 	st_data.en_type			= CTRL_ACC_SURA;
 	st_data.f_acc			= 0;						// 加速度指定
@@ -1096,7 +1096,7 @@ void MOT_goSla( enMOT_SURA_CMD en_type, stSLA* p_sla )
 //	log_in(0);
 //	log_in(f_NowAngle);
 	/* ------ */
-	/*  等速  */
+	/*  const  */
 	/* ------ */
 	st_data.en_type			= CTRL_CONST_SURA;
 	st_data.f_acc			= 0;						// 加速度指定
@@ -1135,7 +1135,7 @@ void MOT_goSla( enMOT_SURA_CMD en_type, stSLA* p_sla )
 //	log_in(0);
 //	log_in(f_NowAngle);
 	/* ------ */
-	/*  減速  */
+	/*  dec  */
 	/* ------ */
 	st_data.en_type			= CTRL_DEC_SURA;
 	st_data.f_acc			= 0;						// 加速度指定
@@ -1152,7 +1152,7 @@ void MOT_goSla( enMOT_SURA_CMD en_type, stSLA* p_sla )
 	CTRL_setData( &st_data );							// データセット
 //	LED = LED_ALL_ON;
 	if( IS_R_SLA( en_type ) == TRUE ) {		// -方向
-		while( ( Get_NowAngle() > st_info.f_angle + 0.4 ) || ( Get_NowDist() < st_data.f_dist ) ){			// 指定角度＋距離到達待ち
+		while( ( Get_NowAngle() > st_info.f_angle ) || ( Get_NowDist() < st_data.f_dist ) ){			// 指定角度＋距離到達待ち
 			if( SYS_isOutOfCtrl() == TRUE ){
 				CTRL_stop();
 				DCM_brakeMot( DCM_R );		// ブレーキ
@@ -1163,7 +1163,7 @@ void MOT_goSla( enMOT_SURA_CMD en_type, stSLA* p_sla )
 		}
 	}
 	else{
-		while( ( Get_NowAngle() < st_info.f_angle - 0.4) || ( Get_NowDist() < st_data.f_dist ) ){			// 指定角度＋距離到達待ち
+		while( ( Get_NowAngle() < st_info.f_angle ) || ( Get_NowDist() < st_data.f_dist ) ){			// 指定角度＋距離到達待ち
 			if( SYS_isOutOfCtrl() == TRUE ){
 				CTRL_stop();
 				DCM_brakeMot( DCM_R );		// ブレーキ
@@ -1177,7 +1177,7 @@ void MOT_goSla( enMOT_SURA_CMD en_type, stSLA* p_sla )
 
 //	LED_on(LED1);
 	/* ------------------------ */
-	/*  スラローム後の前進動作  */
+	/*  escape  */
 	/* ------------------------ */
 	st_data.en_type			= CTRL_EXIT_SURA;
 	st_data.f_acc			= 0;						// 加速度指定

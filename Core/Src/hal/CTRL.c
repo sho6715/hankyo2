@@ -74,6 +74,11 @@ void Set_TrgtSpeed(float speed){
 float Get_NowAngle(void){
 	return f_NowAngle;
 }
+
+float Get_TrgtAngle(void){
+	return f_TrgtAngle;
+}
+
 float Get_TrgtAngleS(void){
 	return f_TrgtAngleS;
 }
@@ -191,123 +196,123 @@ void CTRL_refNow( void )
 
 void CTRL_refTarget( void )
 {
-	/* 動作モードに応じる */
+	/* mode */
 	switch( en_Type ){
 
-		/* 加速中(直進) */
+		/* acc(straight) */
 		case CTRL_ACC:
 		case CTRL_SKEW_ACC:
-			if( f_TrgtSpeed < f_LastSpeed ){												// 加速目標更新区間
+			if( f_TrgtSpeed < (f_LastSpeed -(f_Acc * 0.001)) ){												// 加速目標更新区間
 				f_TrgtSpeed = f_BaseSpeed + f_Acc * f_Time;									// 目標速度
 			}
 			break;
 
-		/* 等速中(直進) */
+		/* const(straight) */
 		case CTRL_CONST:
 		case CTRL_SKEW_CONST:
 			f_TrgtSpeed = f_BaseSpeed;														// 目標速度
 			break;
 
-		/* 減速中(直進) */
+		/* dec(straight) */
 		case CTRL_DEC:
 		case CTRL_SKEW_DEC:
-			/* 速度制御 ＋ 位置制御 */
-			if( f_TrgtSpeed > f_LastSpeed ){												// 減速目標更新区間
+			/* speed CTRL + position CTRL */
+			if( f_TrgtSpeed > (f_LastSpeed -(f_Acc * 0.001))){												// 減速目標更新区間
 				f_TrgtSpeed = f_BaseSpeed - f_Acc * f_Time;									// 目標速度
 				f_TrgtDist  = f_BaseDist + ( f_BaseSpeed + f_TrgtSpeed ) * f_Time / 2;		// 目標距離
 			}
-			/* 位置制御 */
+			/* position CTRL */
 			else{
 				f_TrgtDist  = f_LastDist;													// 目標距離
 			}
 			break;
 
-		/* 加速中(超信地旋回) */
+		/* acc(Turn) */
 		case CTRL_ACC_TRUN:
 
-			/* 反時計回り */
-			if( ( f_LastAngle > 0 ) && ( f_TrgtAngleS < f_LastAngleS ) ){
+			/* CW */
+			if( ( f_LastAngle > 0 ) && ( f_TrgtAngleS < (f_LastAngleS +(f_AccAngleS * 0.001)) ) ){
 				f_TrgtAngleS = 0 + f_AccAngleS * f_Time;									// 目標角速度
 			}
-			/* 時計回り */
-			else if( ( f_LastAngle < 0 ) && ( f_TrgtAngleS > f_LastAngleS ) ){
+			/* CCW */
+			else if( ( f_LastAngle < 0 ) && ( f_TrgtAngleS > (f_LastAngleS -(f_AccAngleS * 0.001)) ) ){
 				f_TrgtAngleS = 0 - f_AccAngleS * f_Time;									// 目標角速度
 			}
 			break;
 
-		/* 等速中(超信地旋回) */
+		/* const(Turn) */
 		case CTRL_CONST_TRUN:
 //			f_TrgtAngleS =f_BaseAngleS;
 			break;
 
-		/* 減速中(超信地旋回) */
+		/* dec(Turn) */
 		case CTRL_DEC_TRUN:
 
-			/* 反時計回り */
+			/* CW */
 			if( f_LastAngle > 0 ){
 
-				/* 角速度制御 ＋ 角度制御 */
-				if( f_TrgtAngleS > f_LastAngleS ){												// 減速目標更新区間
+				/* Angle speed CTRL + Angle CTRL */
+				if( f_TrgtAngleS > (f_LastAngleS -(f_AccAngleS * 0.001)) ){												// 減速目標更新区間
 					f_TrgtAngleS = f_BaseAngleS - f_AccAngleS * f_Time;							// 目標角速度
 					f_TrgtAngle  = f_BaseAngle + ( f_BaseAngleS + f_TrgtAngleS ) * f_Time / 2;	// 目標角度
 				}
-				/* 角度制御 */
+				/* Angle CTRL */
 				else{
 					f_TrgtAngle  = f_LastAngle;													// 目標距離
 				}
 			}
-			/* 時計回り */
+			/* CCW */
 			else{
 
-				/* 角速度制御 ＋ 角度制御 */
-				if( f_TrgtAngleS < f_LastAngleS ){												// 減速目標更新区間
+				/* Angle speed CTRL + Angle CTRL */
+				if( f_TrgtAngleS < (f_LastAngleS +(f_AccAngleS * 0.001))){												// 減速目標更新区間
 					f_TrgtAngleS = f_BaseAngleS + f_AccAngleS * f_Time;							// 目標角速度
 					f_TrgtAngle  = f_BaseAngle + ( f_BaseAngleS + f_TrgtAngleS ) * f_Time / 2;	// 目標角度
 				}
-				/* 角度制御 */
+				/* Angle CTRL */
 				else{
 					f_TrgtAngle  = f_LastAngle;													// 目標距離
 				}
 			}
 			break;
 
-		/* スラローム前の前進動作(スラローム) */
+		/* entry(sura) */
 		case CTRL_ENTRY_SURA:
 			f_TrgtSpeed = f_BaseSpeed;
-			if( f_TrgtDist <= f_LastDist ){
+			if( f_TrgtDist <= f_LastDist - (f_TrgtSpeed * 0.001) ){
 				f_TrgtDist  = f_BaseDist + f_TrgtSpeed * f_Time;								// 目標距離
 			}
 			break;
 
-		/* 加速中(スラローム) */
+		/* acc(スラローム) */
 		case CTRL_ACC_SURA:
 			f_TrgtSpeed = f_BaseSpeed;
 
-			/* 反時計回り */
+			/* CW */
 			if( f_LastAngle > 0 ){
-				/* 反時計回り */
-				if( f_TrgtAngleS < f_LastAngleS ){
+				if( f_TrgtAngleS < (f_LastAngleS +(f_AccAngleS * 0.001))){
 					f_TrgtAngleS = f_BaseAngleS + f_AccAngleS * f_Time;							// 目標角速度
 					f_TrgtAngle  = f_BaseAngle + ( f_BaseAngleS + f_TrgtAngleS ) * f_Time / 2;	// 目標角度
+//					printf("%5.2f %5.2f %5.4f %5.2f %5.2f\n\r",f_TrgtAngleS,f_AccAngleS,f_Time,f_TrgtAngle,f_LastAngleS);
 				}
 				else{
 					f_TrgtAngle  = f_LastAngle;													// 目標距離
 				}
 			}
+			/* CCW */
 			else{
-				/* 時計回り */
-				if( f_TrgtAngleS > f_LastAngleS ){
+				if( f_TrgtAngleS > (f_LastAngleS -(f_AccAngleS * 0.001)) ){
 					f_TrgtAngleS = f_BaseAngleS + f_AccAngleS * f_Time;							// 目標角速度
 					f_TrgtAngle  = f_BaseAngle + ( f_BaseAngleS + f_TrgtAngleS ) * f_Time / 2;	// 目標角度
-//					printf("%5.2f %5.2f %5.4f %5.2f\n\r",f_TrgtAngleS,f_AccAngleS,f_Time,f_TrgtAngle);
+//					printf("%5.2f %5.2f %5.4f %5.2f %5.2f\n\r",f_TrgtAngleS,f_AccAngleS,f_Time,f_TrgtAngle,f_LastAngleS);
 				}
 				else{
 					f_TrgtAngle  = f_LastAngle;													// 目標距離
 				}
 			}
 
-			/* 位置制御 */
-			if( f_LastDist > f_TrgtDist ){													// 目標更新区間
+			/* Position CTRL */
+			if( f_LastDist > (f_TrgtDist - (f_TrgtSpeed * 0.001)) ){													// 目標更新区間
 				f_TrgtDist  = f_BaseDist + f_TrgtSpeed * f_Time;							// 目標位置
 			}
 			else{
@@ -315,24 +320,23 @@ void CTRL_refTarget( void )
 			}
 			break;
 
-		/* 等速中(スラローム) */
+		/* const(sura) */
 		case CTRL_CONST_SURA:
 			f_TrgtSpeed = f_BaseSpeed;
 			f_TrgtAngleS = f_BaseAngleS;							// 目標角速度
 
-			/* 反時計回り */
+			/* CW */
 			if( f_LastAngle > 0 ){
-				/* 反時計回り */
-				if( f_TrgtAngle < f_LastAngle ){
+				if( f_TrgtAngle < (f_LastAngle +(f_AccAngleS * 0.001)) ){
 					f_TrgtAngle  = f_BaseAngle + f_TrgtAngleS * f_Time;			// 目標角度
 				}
 				else{
 					f_TrgtAngle  = f_LastAngle;									// 目標角度
 				}
 			}
+			/* CCW */
 			else{
-				/* 時計回り */
-				if( f_TrgtAngle > f_LastAngle ){
+				if( f_TrgtAngle > (f_LastAngle -(f_AccAngleS * 0.001)) ){
 					f_TrgtAngle  = f_BaseAngle + f_TrgtAngleS * f_Time;			// 目標角度
 				}
 				else{
@@ -340,8 +344,8 @@ void CTRL_refTarget( void )
 				}
 			}
 
-			/* 位置制御 */
-			if( f_LastDist > f_TrgtDist ){													// 目標更新区間
+			/* Position CTRL */
+			if( f_LastDist > (f_TrgtDist - (f_TrgtSpeed * 0.001)) ){													// 目標更新区間
 				f_TrgtDist  = f_BaseDist + f_TrgtSpeed * f_Time;							// 目標位置
 			}
 			else{
@@ -349,14 +353,13 @@ void CTRL_refTarget( void )
 			}
 			break;
 
-		/* 減速中(スラローム) */
+		/* dec(sura) */
 		case CTRL_DEC_SURA:
 			f_TrgtSpeed = f_BaseSpeed;
 
-			/* 反時計回り */
+			/* CW */
 			if( f_LastAngle > 0 ){
-				/* 反時計回り */
-				if( f_TrgtAngleS > f_LastAngleS ){
+				if( f_TrgtAngleS > (f_LastAngle -(f_AccAngleS * 0.001)) ){
 					f_TrgtAngleS = f_BaseAngleS + f_AccAngleS * f_Time;							// 目標角速度
 					f_TrgtAngle  = f_BaseAngle + ( f_BaseAngleS + f_TrgtAngleS ) * f_Time / 2;	// 目標角度
 				}
@@ -364,9 +367,9 @@ void CTRL_refTarget( void )
 					f_TrgtAngle  = f_LastAngle;													// 目標距離
 				}
 			}
+			/*CCW*/
 			else{
-				/* 時計回り */
-				if( f_TrgtAngleS < f_LastAngleS ){
+				if( f_TrgtAngleS < (f_LastAngle +(f_AccAngleS * 0.001)) ){
 					f_TrgtAngleS = f_BaseAngleS + f_AccAngleS * f_Time;							// 目標角速度
 					f_TrgtAngle  = f_BaseAngle + ( f_BaseAngleS + f_TrgtAngleS ) * f_Time / 2;	// 目標角度
 				}
@@ -375,8 +378,8 @@ void CTRL_refTarget( void )
 				}
 			}
 
-			/* 速度制御 ＋ 位置制御 */
-			if( f_LastDist > f_TrgtDist ){													// 目標更新区間
+			/* Position CTRL */
+			if( f_LastDist > (f_TrgtDist - (f_TrgtSpeed * 0.001)) ){													// 目標更新区間
 				f_TrgtDist  = f_BaseDist + f_TrgtSpeed * f_Time;							// 目標位置
 			}
 			else{
@@ -384,11 +387,11 @@ void CTRL_refTarget( void )
 			}
 			break;
 
-		/* スラローム後の前進動作(スラローム) */
+		/* escape(sura) */
 		case CTRL_EXIT_SURA:
 			f_TrgtSpeed = f_BaseSpeed;
 			f_TrgtAngleS = 0;
-			if( f_TrgtDist <= f_LastDist ){
+			if( f_TrgtDist <= (f_LastDist -f_TrgtSpeed * 0.001)){
 				f_TrgtDist  = f_BaseDist + f_TrgtSpeed * f_Time;								// 目標距離
 			}
 			else{
@@ -396,7 +399,7 @@ void CTRL_refTarget( void )
 			}
 			break;
 
-		/* 上記以外のコマンド */
+		/* etc */
 		default:
 			break;
 	}
@@ -807,7 +810,7 @@ void CTRL_pol( void )
 	}
 
 	/* 制御不能 */
-	if( SYS_isOutOfCtrl() == TRUE ){
+	if (SYS_isOutOfCtrl() == TRUE ){
 
 		f_DistErrSum = 0;				// 累積偏差クリア
 		f_NowDist = f_LastDist;			// 強制的に最終目標位置に変更

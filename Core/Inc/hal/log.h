@@ -11,9 +11,11 @@
 #ifdef _VSCODE
 #include "Inc/glob.h"
 #include "Inc/hal/sen_dist.h"
+#include "Inc/hal/CTRL.h"
 #else
 #include "glob.h"
 #include "hal/sen_dist.h"
+#include "hal/CTRL.h"
 #endif
 
 void log_in2( 	float log1,float log2,

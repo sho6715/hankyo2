@@ -55,15 +55,15 @@ void log_in2( 	float log1,float log2,
 
 void log_interrupt ( void )
 {
-//	log_in2(GYRO_getSpeedErr(), f_TrgtAngleS,
-//		f_NowAngle,f_TrgtAngle);
+	log_in2(GYRO_getSpeedErr(), Get_TrgtAngleS(),
+			Get_NowAngle(),Get_TrgtAngle());
 
 //	log_in2(f_NowSpeed, f_TrgtSpeed,
 //		f_NowDist, f_TrgtDist);
-
+/*
 	log_in2(DIST_getNowVal( DIST_SEN_R_FRONT ), DIST_getNowVal( DIST_SEN_L_FRONT ),
 		DIST_getNowVal( DIST_SEN_R_SIDE ), DIST_getNowVal( DIST_SEN_L_SIDE ));
-
+*/
 /*	log_in2(f_NowSpeed, f_TrgtSpeed,
 		f_NowDist, f_TrgtDist,
 		GYRO_getSpeedErr(), f_TrgtAngleS,

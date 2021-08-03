@@ -36,12 +36,12 @@ void SYS_start( void )
 	printf(" | Version    : ver1          |\r\n");
 	printf(" | Project By : RT Corporation|\r\n");
 	printf(" ------------------------------\r\n");
-/*
+
 	PARAM_makeSra( (float)SEARCH_SPEED, 100.0f, 2500.0f, SLA_45 );		// 進入速度[mm/s]、角加速度[rad/s^2]、横G[mm/s^2]、スラロームタイプ
-	PARAM_makeSra( (float)SEARCH_SPEED, 250.0f, 2500.0f, SLA_90 );		// 進入速度[mm/s]、角加速度[rad/s^2]、横G[mm/s^2]、スラロームタイプ
+	PARAM_makeSra( (float)SEARCH_SPEED, 150.0f, 3000.0f, SLA_90 );		// 進入速度[mm/s]、角加速度[rad/s^2]、横G[mm/s^2]、スラロームタイプ
 	PARAM_makeSra( (float)SEARCH_SPEED, 150.0f, 6000.0f, SLA_135 );		// 進入速度[mm/s]、角加速度[rad/s^2]、横G[mm/s^2]、スラロームタイプ
 	PARAM_makeSra( (float)SEARCH_SPEED, 200.0f, 7000.0f, SLA_N90 );		// 進入速度[mm/s]、角加速度[rad/s^2]、横G[mm/s^2]、スラロームタイプ
-*/
+
 
 }
 
@@ -86,7 +86,7 @@ void MODE_inc( void )
 			break;
 
 		case MODE_7:
-			SetLED((0x07<<1) & now_mode);
+			SetLED((0x07<<1) | now_mode);
 			break;
 
 		default:
@@ -111,6 +111,7 @@ void MODE_exe_m0( void )
 
 		case MODE_2:
 			SetLED(0x0e);
+			log_read2();
 			break;
 
 		case MODE_3:
@@ -258,10 +259,32 @@ void MODE_exe( void )
 
 		case MODE_6:
 			SetLED(0x0e);
+			MOT_setTrgtSpeed(SEARCH_SPEED);
+			MOT_setSuraStaSpeed( SEARCH_SPEED );							// スラローム開始速度設定
+			PARAM_setSpeedType( PARAM_ST,   PARAM_SLOW );							// [直進] 速度普通
+			PARAM_setSpeedType( PARAM_TRUN, PARAM_SLOW );							// [旋回] 速度普通
+			PARAM_setSpeedType( PARAM_SLA,  PARAM_SLOW );							// [スラ] 速度普通
+			SetLED(0x00);
+			LL_mDelay(500);
+			log_flag_on();
+			MOT_goBlock_FinSpeed(0.5, SEARCH_SPEED);
+			MOT_goSla(MOT_R90S, PARAM_getSra( SLA_90 ));
+			MOT_goBlock_FinSpeed(0.5, 0);
+			log_flag_off();
 			break;
 
 		case MODE_7:
 			SetLED(0x0e);
+			MOT_setTrgtSpeed(SEARCH_SPEED);
+			MOT_setSuraStaSpeed( SEARCH_SPEED );							// スラローム開始速度設定
+			PARAM_setSpeedType( PARAM_ST,   PARAM_SLOW );							// [直進] 速度普通
+			PARAM_setSpeedType( PARAM_TRUN, PARAM_SLOW );							// [旋回] 速度普通
+			PARAM_setSpeedType( PARAM_SLA,  PARAM_SLOW );							// [スラ] 速度普通
+			SetLED(0x00);
+			LL_mDelay(500);
+			log_flag_on();
+			MOT_goBlock_FinSpeed(5.0, 0);
+			log_flag_off();
 			break;
 
 		default:

@@ -8,27 +8,6 @@
 #include "hal/sen_dist.h"
 #include <string.h>
 
-#define DIST_NO_WALL_DIV_FILTER				( 150 )
-#define DIST_REF_UP					( 5 )
-#define R_FRONT_REF					( 270 )
-#define L_FRONT_REF					(3000)//( 210 )
-#define R_SIDE_REF					(3000)//( 240 )
-#define L_SIDE_REF					(3000)//( 200 )
-#define R_FRONT_WALL					(3500)//( 45 )
-#define L_FRONT_WALL					(3000)//( 45 )
-#define R_SIDE_WALL					(3000)//( 110 )
-#define L_SIDE_WALL					(3000)//( 70 )
-#define R_FRONT_SKEW_ERR1				( 80 )//仮
-#define L_FRONT_SKEW_ERR1				( 70 )
-#define R_FRONT_SKEW_ERR2				( 192 )
-#define L_FRONT_SKEW_ERR2				( 160 )
-#define R_FRONT_SKEW_ERR3				( 250 )
-#define L_FRONT_SKEW_ERR3				( 250 )
-#define R_FRONT_CTRL					(3500)//( 370 )
-#define L_FRONT_CTRL					(3000)//( 300 )
-#define R_FRONT_NOCTRL					(3500)//( 530 )
-#define L_FRONT_NOCTRL					(3000)//( 450 )
-
 #define		DIST_REF_NUM		(400)
 
 

@@ -79,6 +79,7 @@ float Get_NowDist(void);
 float Get_TrgtSpeed(void);
 void Set_TrgtSpeed(float speed);
 float Get_NowAngle(void);
+float Get_TrgtAngle(void);
 float Get_TrgtAngleS(void);
 void INTC_sys(void);
 void CTRL_sta( void );
