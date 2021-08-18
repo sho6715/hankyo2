@@ -20,6 +20,7 @@
 #include "Inc/hal/sen_batt.h"
 #include "Inc/hal/sen_dist.h"
 #include "Inc/search/map_cmd.h"
+#include "Inc/TIM.h"
 #else
 #include "glob.h"
 #include "hal/CTRL.h"
@@ -32,6 +33,7 @@
 #include "hal/sen_batt.h"
 #include "hal/sen_dist.h"
 #include "search/map_cmd.h"
+#include "TIM.h"
 #endif
 
 void SYS_start( void );

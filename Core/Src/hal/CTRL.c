@@ -63,6 +63,10 @@ float Get_NowDist(void){
 	return f_NowDist;
 }
 
+float Get_TrgtDist(void){
+	return f_TrgtDist;
+}
+
 float Get_TrgtSpeed(void){
 	return f_TrgtSpeed;
 }
@@ -115,7 +119,7 @@ void CTRL_clrData( void )
 //	recv_spi_encoder();								// エンコーダモジュール初期化
 //	ENC_R_CNT_old	= ENC_R_CNT;
 //	ENC_L_CNT_old	= ENC_L_CNT;
-//	ENC_setref();
+	ENC_setref();
 	l_CntR			= 0;						// カウンタクリア
 	l_CntL			= 0;						// カウンタクリア
 
@@ -170,7 +174,7 @@ void CTRL_setData( stCTRL_DATA* p_data )
 	f_Time 					= 0;
 	f_TrgtTime				= p_data->f_time;
 
-	straight_wait			= 0;
+	escape_wait			= 0;
 
 	CTRL_sta();				// 制御開始
 
@@ -205,6 +209,9 @@ void CTRL_refTarget( void )
 			if( f_TrgtSpeed < (f_LastSpeed -(f_Acc * 0.001)) ){												// 加速目標更新区間
 				f_TrgtSpeed = f_BaseSpeed + f_Acc * f_Time;									// 目標速度
 			}
+			else{
+				f_TrgtSpeed = f_LastSpeed;
+			}
 			break;
 
 		/* const(straight) */
@@ -217,12 +224,13 @@ void CTRL_refTarget( void )
 		case CTRL_DEC:
 		case CTRL_SKEW_DEC:
 			/* speed CTRL + position CTRL */
-			if( f_TrgtSpeed > (f_LastSpeed -(f_Acc * 0.001))){												// 減速目標更新区間
+			if( f_TrgtSpeed > (f_LastSpeed +(f_Acc * 0.001))){												// 減速目標更新区間
 				f_TrgtSpeed = f_BaseSpeed - f_Acc * f_Time;									// 目標速度
 				f_TrgtDist  = f_BaseDist + ( f_BaseSpeed + f_TrgtSpeed ) * f_Time / 2;		// 目標距離
 			}
 			/* position CTRL */
 			else{
+				f_TrgtSpeed = f_LastSpeed;
 				f_TrgtDist  = f_LastDist;													// 目標距離
 			}
 			break;
@@ -230,13 +238,23 @@ void CTRL_refTarget( void )
 		/* acc(Turn) */
 		case CTRL_ACC_TRUN:
 
-			/* CW */
-			if( ( f_LastAngle > 0 ) && ( f_TrgtAngleS < (f_LastAngleS +(f_AccAngleS * 0.001)) ) ){
-				f_TrgtAngleS = 0 + f_AccAngleS * f_Time;									// 目標角速度
+			/* CCW  hidari*/
+			if( f_LastAngle > 0 ){
+				if ( f_TrgtAngleS < (f_LastAngleS -(f_AccAngleS * 0.001)) ){
+					f_TrgtAngleS = 0.0 + f_AccAngleS * f_Time;									// 目標角速度
+				}
+				else{
+					f_TrgtAngleS = f_LastAngleS;
+				}
 			}
-			/* CCW */
-			else if( ( f_LastAngle < 0 ) && ( f_TrgtAngleS > (f_LastAngleS -(f_AccAngleS * 0.001)) ) ){
-				f_TrgtAngleS = 0 - f_AccAngleS * f_Time;									// 目標角速度
+			/* CW  migi */
+			else{
+				if( f_TrgtAngleS > (f_LastAngleS +(f_AccAngleS * 0.001)) ){
+				f_TrgtAngleS = 0.0 - f_AccAngleS * f_Time;									// 目標角速度
+				}
+				else{
+					f_TrgtAngleS = f_LastAngleS;
+				}
 			}
 			break;
 
@@ -247,30 +265,31 @@ void CTRL_refTarget( void )
 
 		/* dec(Turn) */
 		case CTRL_DEC_TRUN:
-
-			/* CW */
+			/* CCW */
 			if( f_LastAngle > 0 ){
 
 				/* Angle speed CTRL + Angle CTRL */
-				if( f_TrgtAngleS > (f_LastAngleS -(f_AccAngleS * 0.001)) ){												// 減速目標更新区間
+				if( f_TrgtAngleS > (f_LastAngleS +(f_AccAngleS * 0.001)) ){												// 減速目標更新区間
 					f_TrgtAngleS = f_BaseAngleS - f_AccAngleS * f_Time;							// 目標角速度
 					f_TrgtAngle  = f_BaseAngle + ( f_BaseAngleS + f_TrgtAngleS ) * f_Time / 2;	// 目標角度
 				}
 				/* Angle CTRL */
 				else{
+					f_TrgtAngleS = f_LastAngleS;
 					f_TrgtAngle  = f_LastAngle;													// 目標距離
 				}
 			}
-			/* CCW */
+			/* CW */
 			else{
 
 				/* Angle speed CTRL + Angle CTRL */
-				if( f_TrgtAngleS < (f_LastAngleS +(f_AccAngleS * 0.001))){												// 減速目標更新区間
+				if( f_TrgtAngleS < (f_LastAngleS -(f_AccAngleS * 0.001))){												// 減速目標更新区間
 					f_TrgtAngleS = f_BaseAngleS + f_AccAngleS * f_Time;							// 目標角速度
 					f_TrgtAngle  = f_BaseAngle + ( f_BaseAngleS + f_TrgtAngleS ) * f_Time / 2;	// 目標角度
 				}
 				/* Angle CTRL */
 				else{
+					f_TrgtAngleS = f_LastAngleS;
 					f_TrgtAngle  = f_LastAngle;													// 目標距離
 				}
 			}
@@ -288,7 +307,7 @@ void CTRL_refTarget( void )
 		case CTRL_ACC_SURA:
 			f_TrgtSpeed = f_BaseSpeed;
 
-			/* CW */
+			/* CCW */
 			if( f_LastAngle > 0 ){
 				if( f_TrgtAngleS < (f_LastAngleS +(f_AccAngleS * 0.001))){
 					f_TrgtAngleS = f_BaseAngleS + f_AccAngleS * f_Time;							// 目標角速度
@@ -299,7 +318,7 @@ void CTRL_refTarget( void )
 					f_TrgtAngle  = f_LastAngle;													// 目標距離
 				}
 			}
-			/* CCW */
+			/* CW */
 			else{
 				if( f_TrgtAngleS > (f_LastAngleS -(f_AccAngleS * 0.001)) ){
 					f_TrgtAngleS = f_BaseAngleS + f_AccAngleS * f_Time;							// 目標角速度
@@ -325,7 +344,7 @@ void CTRL_refTarget( void )
 			f_TrgtSpeed = f_BaseSpeed;
 			f_TrgtAngleS = f_BaseAngleS;							// 目標角速度
 
-			/* CW */
+			/* CCW */
 			if( f_LastAngle > 0 ){
 				if( f_TrgtAngle < (f_LastAngle +(f_AccAngleS * 0.001)) ){
 					f_TrgtAngle  = f_BaseAngle + f_TrgtAngleS * f_Time;			// 目標角度
@@ -334,7 +353,7 @@ void CTRL_refTarget( void )
 					f_TrgtAngle  = f_LastAngle;									// 目標角度
 				}
 			}
-			/* CCW */
+			/* CW */
 			else{
 				if( f_TrgtAngle > (f_LastAngle -(f_AccAngleS * 0.001)) ){
 					f_TrgtAngle  = f_BaseAngle + f_TrgtAngleS * f_Time;			// 目標角度
@@ -357,23 +376,25 @@ void CTRL_refTarget( void )
 		case CTRL_DEC_SURA:
 			f_TrgtSpeed = f_BaseSpeed;
 
-			/* CW */
+			/* CCW */
 			if( f_LastAngle > 0 ){
 				if( f_TrgtAngleS > (f_LastAngle -(f_AccAngleS * 0.001)) ){
 					f_TrgtAngleS = f_BaseAngleS + f_AccAngleS * f_Time;							// 目標角速度
 					f_TrgtAngle  = f_BaseAngle + ( f_BaseAngleS + f_TrgtAngleS ) * f_Time / 2;	// 目標角度
 				}
 				else{
+					f_TrgtAngleS = 0.0;
 					f_TrgtAngle  = f_LastAngle;													// 目標距離
 				}
 			}
-			/*CCW*/
+			/*CW*/
 			else{
 				if( f_TrgtAngleS < (f_LastAngle +(f_AccAngleS * 0.001)) ){
 					f_TrgtAngleS = f_BaseAngleS + f_AccAngleS * f_Time;							// 目標角速度
 					f_TrgtAngle  = f_BaseAngle + ( f_BaseAngleS + f_TrgtAngleS ) * f_Time / 2;	// 目標角度
 				}
 				else{
+					f_TrgtAngleS = 0.0;
 					f_TrgtAngle  = f_LastAngle;													// 目標距離
 				}
 			}
@@ -532,8 +553,8 @@ void CTRL_getSpeedFB( float* p_err )
 
 	/* I成分演算 */
 	f_SpeedErrSum += f_speedErr * f_ki;			// I成分更新
-	if( f_SpeedErrSum > 120 ){
-		f_SpeedErrSum = 120;			// 上限リミッター
+	if( f_SpeedErrSum > 10000.0 ){
+		f_SpeedErrSum = 10000.0;			// 上限リミッター
 	}
 
 	/* PID制御 */
@@ -542,75 +563,9 @@ void CTRL_getSpeedFB( float* p_err )
 	f_ErrSpeedBuf = f_speedErr;		// 偏差をバッファリング
 
 	/* 累積偏差クリア */
-	if( FABS( f_speedErr ) < 0.5 ){
-		f_SpeedErrSum = 0;
-	}
-
-}
-
-void CTRL_getDistFB( float* p_err )
-{
-	float				f_distErr;					// [距離制御] 距離偏差
-//	PRIVATE float		f_limTime = 0;				// 飽和状態維持時間[sec]
-	float 				f_kp = 0.0f;				// 比例ゲイン
-	float 				f_ki = 0.0f;				// 積分ゲイン
-
-	*p_err = 0;
-
-	/* 加速/等速の位置制御 */
-	if( ( en_Type == CTRL_ACC ) || ( en_Type == CTRL_CONST )||
-		( en_Type == CTRL_SKEW_ACC ) || ( en_Type == CTRL_SKEW_CONST ))
-	{
-		// なにもしない
-	}
-	/* 減速のみ位置制御 */
-	else if(( en_Type == CTRL_DEC )|| ( en_Type == CTRL_SKEW_DEC ) ||
-			 ( en_Type == CTRL_ENTRY_SURA ) || ( en_Type == CTRL_EXIT_SURA ) ||
-			 ( en_Type == CTRL_ACC_SURA ) || ( en_Type == CTRL_CONST_SURA ) || ( en_Type == CTRL_DEC_SURA ) ){
-
-		f_kp = PARAM_getGain( Chg_ParamID(en_Type) )->f_FB_dist_kp;
-		f_ki = PARAM_getGain( Chg_ParamID(en_Type) )->f_FB_dist_ki;
-
-		/* 位置制御 */
-		f_distErr  = f_TrgtDist - f_NowDist;					// 距離偏差[mm]
-
-		/* I成分演算 */
-		f_DistErrSum += f_distErr * f_ki;			// I成分更新
-		if( f_DistErrSum > 100 ){
-			f_DistErrSum = 100;			// 上限リミッター
-		}
-
-		/* PI制御 */
-		*p_err = f_distErr * f_kp + f_DistErrSum;				// PI制御量算出
-
-		/* 累積偏差クリア */
-		if( FABS( f_TrgtDist - f_NowDist ) < 0.05 ){
-			f_DistErrSum = 0;
-		}
-	}
-
-/* 超信地旋回 */
-	else if( ( en_Type == CTRL_ACC_TRUN ) || ( en_Type == CTRL_CONST_TRUN ) || ( en_Type == CTRL_DEC_TRUN ) ){
-		f_kp = PARAM_getGain( Chg_ParamID(en_Type) )->f_FB_dist_kp;
-		f_ki = PARAM_getGain( Chg_ParamID(en_Type) )->f_FB_dist_ki;
-
-		/* 位置制御 */
-		f_distErr  = f_TrgtDist - f_NowDist;					// 距離偏差[mm]
-
-		/* I成分演算 */
-		f_DistErrSum += f_distErr * f_ki;			// I成分更新
-		if( f_DistErrSum > 100 ){
-			f_DistErrSum = 100;			// 上限リミッター
-		}
-
-		/* PI制御 */
-		*p_err = f_distErr * f_kp + f_DistErrSum;				// PI制御量算出
-
-		/* 累積偏差クリア */
-		if( FABS( f_TrgtDist - f_NowDist ) < 0.05 ){
-			f_DistErrSum = 0;
-		}
-
+	if( FABS( f_speedErr ) < 20 ){
+		if(FABS( f_speedErr ) < 1)f_SpeedErrSum = 0;
+		else f_SpeedErrSum /= 2;
 	}
 
 }
@@ -630,86 +585,22 @@ void CTRL_getAngleSpeedFB( float* p_err )
 
 	f_AngleSErrSum += f_err*f_ki;
 
-	if(f_AngleSErrSum > 100){
-		f_AngleSErrSum = 100;			//上限リミッター
+	if(f_AngleSErrSum > 10000.0){
+		f_AngleSErrSum = 10000.0;			//上限リミッター
 	}
-	else if(f_AngleSErrSum <-100){
-		f_AngleSErrSum = -100;
+	else if(f_AngleSErrSum <-10000.0){
+		f_AngleSErrSum = -10000.0;
 	}
 
-//	templog2 = f_AngleSErrSum;
+	templog2 = f_AngleSErrSum;
 	*p_err = f_err * f_kp + f_AngleSErrSum + ( f_err - f_ErrAngleSBuf ) * f_kd;		// PID制御
 
 	f_ErrAngleSBuf = f_err;		// 偏差をバッファリング
 
 	// 累積偏差クリア
-	if( FABS( f_err ) < 0.3 ){
-		f_AngleSErrSum = 0;
-	}
-
-}
-
-void CTRL_getAngleFB( float* p_err )
-{
-	float f_err;					// [入力] 角度偏差[deg]
-	float f_kp = 0.0f;				// 比例ゲイン
-	float f_ki = 0.0f;				// 積分ゲイン
-
-	*p_err = 0;
-
-	f_NowAngle = GYRO_getNowAngle();					// 現在角度[deg]
-
-	f_err = f_TrgtAngle - f_NowAngle;
-	/* 直進時 */
-	if( ( en_Type == CTRL_ACC ) || ( en_Type == CTRL_CONST ) || ( en_Type == CTRL_DEC )||
-		( en_Type == CTRL_ENTRY_SURA ) || ( en_Type == CTRL_EXIT_SURA )||
-		( en_Type == CTRL_SKEW_ACC ) || ( en_Type == CTRL_SKEW_CONST ) || ( en_Type == CTRL_SKEW_DEC )
-	){
-		f_kp = PARAM_getGain( Chg_ParamID(en_Type) )->f_FB_angle_kp;
-		f_ki = PARAM_getGain( Chg_ParamID(en_Type) )->f_FB_angle_ki;
-
-		f_AngleErrSum += f_err*f_ki;	//I成分更新
-		if(f_AngleErrSum > 200){
-			f_AngleErrSum = 200;			//上限リミッター
-		}
-		else if(f_AngleErrSum <-200){
-			f_AngleErrSum = -200;
-		}
-
-		//*p_err = f_err * FB_ANG_KP_GAIN;					// P制御量算出
-		*p_err = f_err * f_kp + f_AngleErrSum;					// PI制御量算出
-//		templog2 = f_AngleErrSum;
-
-		/* 累積偏差クリア */
-		if( FABS( f_TrgtAngle - f_NowAngle ) < 0.3 ){
-			f_AngleErrSum = 0;
-		}
-
-	}
-
-	/* 超信地旋回時減速 */
-	else if(( en_Type == CTRL_DEC_TRUN )||
-			 ( en_Type == CTRL_ACC_SURA ) || ( en_Type == CTRL_CONST_SURA ) || ( en_Type == CTRL_DEC_SURA ))
-	{
-		f_kp = PARAM_getGain( Chg_ParamID(en_Type) )->f_FB_angle_kp;
-		f_ki = PARAM_getGain( Chg_ParamID(en_Type) )->f_FB_angle_ki;
-
-		f_AngleErrSum += f_err*f_ki;	//I成分更新
-		if(f_AngleErrSum > 500){
-			f_AngleErrSum = 500;			//上限リミッター
-		}
-		else if(f_AngleErrSum <-500){
-			f_AngleErrSum = -500;
-		}
-
-		//*p_err = f_err * FB_ANG_KP_GAIN;					// P制御量算出
-		*p_err = f_err * f_kp + f_AngleErrSum;					// PI制御量算出
-//		templog2 = f_AngleErrSum;
-
-		/* 累積偏差クリア */
-		if( FABS( f_TrgtAngle - f_NowAngle ) < 0.1 ){
-			f_AngleErrSum = 0;
-		}
+	if( FABS( f_err ) < 20 ){
+		if(FABS( f_err ) < 0.5)f_AngleSErrSum = 0;
+		else f_AngleSErrSum /= 2;
 	}
 
 }
@@ -830,14 +721,15 @@ void CTRL_pol( void )
 
 //	templog1 = l_CntR;
 //	templog2 = l_CntL;
+	f_NowAngle = GYRO_getNowAngle();					// 現在角度[deg]
 
 	/* 制御値取得 */
 	CTRL_getFF_speed( &f_feedFoard_speed );					// [制御] フィードフォワード
 	CTRL_getFF_angle( &f_feedFoard_angle );					// [制御] フィードフォワード
 	CTRL_getSpeedFB( &f_speedCtrl );				// [制御] 速度
-	CTRL_getDistFB( &f_distCtrl );					// [制御] 距離
+//	CTRL_getDistFB( &f_distCtrl );					// [制御] 距離
 	CTRL_getAngleSpeedFB( &f_angleSpeedCtrl );			// [制御] 角速度
-	CTRL_getAngleFB( &f_angleCtrl );				// [制御] 角度
+//	CTRL_getAngleFB( &f_angleCtrl );				// [制御] 角度
 	CTRL_getSenFB( &f_distSenCtrl );				// [制御] 壁
 
 //	templog1 = f_angleSpeedCtrl;
@@ -847,9 +739,9 @@ void CTRL_pol( void )
 	if( ( en_Type == CTRL_ACC ) || ( en_Type == CTRL_CONST ) || ( en_Type == CTRL_DEC ) ||( en_Type == CTRL_ENTRY_SURA ) || ( en_Type == CTRL_EXIT_SURA ) ||
 		( en_Type == CTRL_SKEW_ACC ) || ( en_Type == CTRL_SKEW_CONST ) || ( en_Type == CTRL_SKEW_DEC )
 	){
-		straight_wait = straight_wait+0.001;
-		f_duty10_R = f_feedFoard_speed * FF_BALANCE_R +  f_distCtrl + f_speedCtrl + f_angleCtrl + f_angleSpeedCtrl + f_distSenCtrl;	// 右モータPWM-DUTY比[0.1%]
-		f_duty10_L = f_feedFoard_speed * FF_BALANCE_L +  f_distCtrl + f_speedCtrl - f_angleCtrl - f_angleSpeedCtrl - f_distSenCtrl;	// 左モータPWM-DUTY比[0.1%]
+		escape_wait = escape_wait+0.001;
+		f_duty10_R = f_feedFoard_speed * FF_BALANCE_R + f_speedCtrl + f_angleSpeedCtrl + f_distSenCtrl;	// 右モータPWM-DUTY比[0.1%]
+		f_duty10_L = f_feedFoard_speed * FF_BALANCE_L + f_speedCtrl - f_angleSpeedCtrl - f_distSenCtrl;	// 左モータPWM-DUTY比[0.1%]
 	}
 
 	/* 壁あて制御 */
@@ -862,13 +754,13 @@ void CTRL_pol( void )
 	else if( ( en_Type == CTRL_ACC_SURA ) || (en_Type == CTRL_CONST_SURA)||( en_Type == CTRL_DEC_SURA ) ){
 		/* 左旋回 */
 		if( f_LastAngle > 0 ){
-			f_duty10_R = f_feedFoard_speed * FF_BALANCE_R + f_feedFoard_angle * FF_BALANCE_R + f_angleCtrl + f_angleSpeedCtrl +  f_distCtrl + f_speedCtrl;		// 右モータPWM-DUTY比[0.1%]
-			f_duty10_L = f_feedFoard_speed * FF_BALANCE_L + f_feedFoard_angle * FF_BALANCE_L * (-1) - f_angleCtrl - f_angleSpeedCtrl +  f_distCtrl + f_speedCtrl;		// 左モータPWM-DUTY比[0.1%]
+			f_duty10_R = f_feedFoard_speed * FF_BALANCE_R + f_feedFoard_angle * FF_BALANCE_R + f_angleSpeedCtrl + f_speedCtrl;		// 右モータPWM-DUTY比[0.1%]
+			f_duty10_L = f_feedFoard_speed * FF_BALANCE_L + f_feedFoard_angle * FF_BALANCE_L * (-1) - f_angleSpeedCtrl + f_speedCtrl;		// 左モータPWM-DUTY比[0.1%]
 		}
 		/*右旋回 */
 		else{
-			f_duty10_R = f_feedFoard_speed * FF_BALANCE_R + f_feedFoard_angle * FF_BALANCE_R * (-1) + f_angleCtrl + f_angleSpeedCtrl +  f_distCtrl + f_speedCtrl;		// 右モータPWM-DUTY比[0.1%]
-			f_duty10_L = f_feedFoard_speed * FF_BALANCE_L + f_feedFoard_angle * FF_BALANCE_L - f_angleCtrl - f_angleSpeedCtrl +  f_distCtrl + f_speedCtrl;		// 左モータPWM-DUTY比[0.1%]
+			f_duty10_R = f_feedFoard_speed * FF_BALANCE_R + f_feedFoard_angle * FF_BALANCE_R * (-1) + f_angleSpeedCtrl + f_speedCtrl;		// 右モータPWM-DUTY比[0.1%]
+			f_duty10_L = f_feedFoard_speed * FF_BALANCE_L + f_feedFoard_angle * FF_BALANCE_L - f_angleSpeedCtrl + f_speedCtrl;		// 左モータPWM-DUTY比[0.1%]
 		}
 	}
 
@@ -879,16 +771,17 @@ void CTRL_pol( void )
 		if( f_LastAngle > 0 ){
 //			f_duty10_R = f_feedFoard * FF_BALANCE_R        + f_angleCtrl + f_angleSpeedCtrl;									// 右モータPWM-DUTY比[0.1%]
 //			f_duty10_L = f_feedFoard * FF_BALANCE_L * (-1) - f_angleCtrl - f_angleSpeedCtrl;									// 左モータPWM-DUTY比[0.1%]
-			f_duty10_R = f_feedFoard_angle * FF_BALANCE_R        + f_angleCtrl + f_angleSpeedCtrl +  f_distCtrl + f_speedCtrl;		// 右モータPWM-DUTY比[0.1%]
-			f_duty10_L = f_feedFoard_angle * FF_BALANCE_L * (-1) - f_angleCtrl - f_angleSpeedCtrl +  f_distCtrl + f_speedCtrl;		// 左モータPWM-DUTY比[0.1%]
+			f_duty10_R = f_feedFoard_angle * FF_BALANCE_R        + f_angleSpeedCtrl + f_speedCtrl;		// 右モータPWM-DUTY比[0.1%]
+			f_duty10_L = f_feedFoard_angle * FF_BALANCE_L * (-1) - f_angleSpeedCtrl + f_speedCtrl;		// 左モータPWM-DUTY比[0.1%]
 		}
 		/* 右旋回 */
 		else{
 //			f_duty10_R = f_feedFoard * FF_BALANCE_R * (-1) + f_angleCtrl + f_angleSpeedCtrl;									// 右モータPWM-DUTY比[0.1%]
 //			f_duty10_L = f_feedFoard * FF_BALANCE_L        - f_angleCtrl - f_angleSpeedCtrl;									// 左モータPWM-DUTY比[0.1%]
-			f_duty10_R = f_feedFoard_angle * FF_BALANCE_R * (-1) + f_angleCtrl + f_angleSpeedCtrl +  f_distCtrl + f_speedCtrl;		// 右モータPWM-DUTY比[0.1%]
-			f_duty10_L = f_feedFoard_angle * FF_BALANCE_L        - f_angleCtrl - f_angleSpeedCtrl +  f_distCtrl + f_speedCtrl;		// 左モータPWM-DUTY比[0.1%]
+			f_duty10_R = f_feedFoard_angle * FF_BALANCE_R * (-1) + f_angleSpeedCtrl + f_speedCtrl;		// 右モータPWM-DUTY比[0.1%]
+			f_duty10_L = f_feedFoard_angle * FF_BALANCE_L        - f_angleSpeedCtrl + f_speedCtrl;		// 左モータPWM-DUTY比[0.1%]
 		}
+		escape_wait = escape_wait+0.001;
 	}
 
 	CTRL_outMot( f_duty10_R, f_duty10_L );				// モータへ出力

@@ -31,7 +31,7 @@ Core/Src/hal/sen_dist.o: ../Core/Src/hal/sen_dist.c \
  ../Core/Inc/search/search.h ../Core/Inc/search/map_cmd.h \
  ../Core/Inc/search/map_flash.h ../Core/Inc/flash.h ../Core/Inc/hal/log.h \
  ../Core/Inc/hal/mode.h ../Core/Inc/hal/encoder.h ../Core/Inc/hal/init.h \
- ../Core/Inc/hal/sen_batt.h ../Core/Inc/queue.h \
+ ../Core/Inc/hal/sen_batt.h ../Core/Inc/TIM.h ../Core/Inc/queue.h \
  ../Core/Inc/hal/sen_dist.h
 
 ../Core/Inc/hal/sen_dist.h:
@@ -131,6 +131,8 @@ Core/Src/hal/sen_dist.o: ../Core/Src/hal/sen_dist.c \
 ../Core/Inc/hal/init.h:
 
 ../Core/Inc/hal/sen_batt.h:
+
+../Core/Inc/TIM.h:
 
 ../Core/Inc/queue.h:
 

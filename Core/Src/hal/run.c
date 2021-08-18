@@ -191,7 +191,7 @@ void MOT_goBlock_AccConstDec( float f_fin, enMOT_ST_TYPE en_type, enMOT_GO_ST_TY
 				break;
 			}				// 途中で制御不能になった
 			MOT_setWallEdgeDist();
-			if((straight_wait>2.0)&&(search_flag == TRUE))break;
+			if((escape_wait>2.0)&&(search_flag == TRUE))break;
 		}
 
 	}
@@ -750,8 +750,6 @@ void MOT_turn( enMOT_TURN_CMD en_type )
 
 	if( ( en_type == MOT_R90 ) || ( en_type == MOT_R180 ) || ( en_type == MOT_R360 ) ){		// -方向
 		while( Get_NowAngle() > st_info.f_angle1 ){			// 指定角度到達待ち
-//			DCMC_getAngleSpeedFB(&f_err);
-//			printf("[NOW]%d [Trgt]%d [TrgtS]%d  \n\r", (int32_t)f_NowAngle, (int32_t)f_TrgtAngle, (int32_t)f_TrgtAngleS );
 			if( SYS_isOutOfCtrl() == TRUE ){
 				CTRL_stop();
 				DCM_brakeMot( DCM_R );		// ブレーキ
@@ -762,8 +760,6 @@ void MOT_turn( enMOT_TURN_CMD en_type )
 	}
 	else{
 		while( Get_NowAngle() < st_info.f_angle1 ){			// 指定角度到達待ち
-//			DCMC_getAngleSpeedFB(&f_err);
-//			printf("[NOW]%d [Trgt]%d [TrgtS]%d  \n\r", (int32_t)f_NowAngle, (int32_t)f_TrgtAngle, (int32_t)f_TrgtAngleS);
 			if( SYS_isOutOfCtrl() == TRUE ){
 				CTRL_stop();
 				DCM_brakeMot( DCM_R );		// ブレーキ
@@ -849,7 +845,7 @@ void MOT_turn( enMOT_TURN_CMD en_type )
 	st_data.f_time 			= 0;						// 目標時間 [sec] ← 指定しない
 	CTRL_setData( &st_data );							// データセット
 	if( ( en_type == MOT_R90 ) || ( en_type == MOT_R180 ) || ( en_type == MOT_R360 ) ){		// -方向
-		while( Get_NowAngle() > ( st_info.f_angle + 1 ) ){		// 指定距離到達待ち
+		while( Get_NowAngle() > ( st_info.f_angle + 0.5) ){		// 指定距離到達待ち
 //			DCMC_getAngleSpeedFB(&f_err);
 //			printf("[NOW]%d [Trgt]%d [TrgtS]%d  \n\r", (int32_t)f_NowAngle, (int32_t)f_TrgtAngle, (int32_t)f_TrgtAngleS );
 			if( SYS_isOutOfCtrl() == TRUE ){
@@ -858,10 +854,11 @@ void MOT_turn( enMOT_TURN_CMD en_type )
 				DCM_brakeMot( DCM_L );		// ブレーキ
 				break;
 			}				// 途中で制御不能になった
+			if((escape_wait>2.0)&&(search_flag == TRUE))break;
 		}
 	}
 	else{
-		while( Get_NowAngle() < ( st_info.f_angle - 1 ) ){		// 指定距離到達待ち
+		while( Get_NowAngle() < ( st_info.f_angle - 0.5 ) ){		// 指定距離到達待ち
 //			DCMC_getAngleSpeedFB(&f_err);
 //			printf("[NOW]%d [Trgt]%d [TrgtS]%d  \n\r", (int32_t)f_NowAngle, (int32_t)f_TrgtAngle, (int32_t)f_TrgtAngleS);
 			if( SYS_isOutOfCtrl() == TRUE ){
@@ -870,6 +867,7 @@ void MOT_turn( enMOT_TURN_CMD en_type )
 				DCM_brakeMot( DCM_L );		// ブレーキ
 				break;
 			}				// 途中で制御不能になった
+			if((escape_wait>2.0)&&(search_flag == TRUE))break;
 //			log_in(f_TrgtAngle);
 		}
 	}
@@ -1073,7 +1071,7 @@ void MOT_goSla( enMOT_SURA_CMD en_type, stSLA* p_sla )
 	CTRL_setData( &st_data );							// データセット
 //	printf("trgtangleS %5.2f\n\r",st_data.f_trgtAngleS);
 	if( IS_R_SLA( en_type ) == TRUE ) {		// -方向
-		while( ( Get_NowAngle() > st_info.f_angle1 ) || ( Get_NowDist() < st_data.f_dist ) ){			// 指定角度＋距離到達待ち
+		while( ( Get_NowAngle() > st_info.f_angle1 ) && ( Get_NowDist() < st_data.f_dist ) ){			// 指定角度＋距離到達待ち
 			if( SYS_isOutOfCtrl() == TRUE ){
 				CTRL_stop();
 				DCM_brakeMot( DCM_R );		// ブレーキ
@@ -1083,7 +1081,7 @@ void MOT_goSla( enMOT_SURA_CMD en_type, stSLA* p_sla )
 		}
 	}
 	else{
-		while( ( Get_NowAngle() < st_info.f_angle1 ) || ( Get_NowDist() < st_data.f_dist ) ){			// 指定角度＋距離到達待ち
+		while( ( Get_NowAngle() < st_info.f_angle1 ) && ( Get_NowDist() < st_data.f_dist ) ){			// 指定角度＋距離到達待ち
 			if( SYS_isOutOfCtrl() == TRUE ){
 				CTRL_stop();
 				DCM_brakeMot( DCM_R );		// ブレーキ
@@ -1113,7 +1111,7 @@ void MOT_goSla( enMOT_SURA_CMD en_type, stSLA* p_sla )
 	CTRL_setData( &st_data );							// データセット
 
 	if( IS_R_SLA( en_type ) == TRUE ) {		// -方向
-		while( ( Get_NowAngle() > st_info.f_angle1_2 ) || ( Get_NowDist() < st_data.f_dist ) ){		// 指定角度＋距離到達待ち
+		while( ( Get_NowAngle() > st_info.f_angle1_2 ) && ( Get_NowDist() < st_data.f_dist ) ){		// 指定角度＋距離到達待ち
 			if( SYS_isOutOfCtrl() == TRUE ){
 				CTRL_stop();
 				DCM_brakeMot( DCM_R );		// ブレーキ
@@ -1123,7 +1121,7 @@ void MOT_goSla( enMOT_SURA_CMD en_type, stSLA* p_sla )
 		}
 	}
 	else{
-		while( ( Get_NowAngle() < st_info.f_angle1_2 ) || ( Get_NowDist() < st_data.f_dist ) ){		// 指定角度＋距離到達待ち
+		while( ( Get_NowAngle() < st_info.f_angle1_2 ) && ( Get_NowDist() < st_data.f_dist ) ){		// 指定角度＋距離到達待ち
 			if( SYS_isOutOfCtrl() == TRUE ){
 				CTRL_stop();
 				DCM_brakeMot( DCM_R );		// ブレーキ
@@ -1152,7 +1150,7 @@ void MOT_goSla( enMOT_SURA_CMD en_type, stSLA* p_sla )
 	CTRL_setData( &st_data );							// データセット
 //	LED = LED_ALL_ON;
 	if( IS_R_SLA( en_type ) == TRUE ) {		// -方向
-		while( ( Get_NowAngle() > st_info.f_angle ) || ( Get_NowDist() < st_data.f_dist ) ){			// 指定角度＋距離到達待ち
+		while( ( Get_NowAngle() > st_info.f_angle ) && ( Get_NowDist() < st_data.f_dist ) ){			// 指定角度＋距離到達待ち
 			if( SYS_isOutOfCtrl() == TRUE ){
 				CTRL_stop();
 				DCM_brakeMot( DCM_R );		// ブレーキ
@@ -1163,7 +1161,7 @@ void MOT_goSla( enMOT_SURA_CMD en_type, stSLA* p_sla )
 		}
 	}
 	else{
-		while( ( Get_NowAngle() < st_info.f_angle ) || ( Get_NowDist() < st_data.f_dist ) ){			// 指定角度＋距離到達待ち
+		while( ( Get_NowAngle() < st_info.f_angle ) && ( Get_NowDist() < st_data.f_dist ) ){			// 指定角度＋距離到達待ち
 			if( SYS_isOutOfCtrl() == TRUE ){
 				CTRL_stop();
 				DCM_brakeMot( DCM_R );		// ブレーキ
@@ -1193,7 +1191,7 @@ void MOT_goSla( enMOT_SURA_CMD en_type, stSLA* p_sla )
 	st_data.f_time 			= 0;						// 目標時間 [sec] ← 指定しない
 	CTRL_setData( &st_data );							// データセット
 //	LED =LED_ALL_OFF;
-	while( Get_NowDist() < ( st_data.f_dist - 0.01 ) ){	// 指定距離到達待ち
+	while( Get_NowDist() < ( st_data.f_dist ) ){	// 指定距離到達待ち
 		if( SYS_isOutOfCtrl() == TRUE ){
 			CTRL_stop();
 			DCM_brakeMot( DCM_R );		// ブレーキ

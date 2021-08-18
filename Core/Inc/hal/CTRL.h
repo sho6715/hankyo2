@@ -70,12 +70,13 @@ typedef struct{
 
 enCTRL_TYPE		en_Type;						// ????
 //????????
-float	straight_wait;
+float	escape_wait;
 
 uint8_t	uc_dist_control;
 
 float Get_NowSpeed(void);
 float Get_NowDist(void);
+float Get_TrgtDist(void);
 float Get_TrgtSpeed(void);
 void Set_TrgtSpeed(float speed);
 float Get_NowAngle(void);

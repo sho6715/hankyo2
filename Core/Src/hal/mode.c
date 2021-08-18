@@ -98,6 +98,7 @@ void MODE_exe_m0( void )
 {
 	enMAP_HEAD_DIR		en_endDir2;
 	now_mode = mode_2;
+	GYRO_SetRef();
 	/* モード表示 */
 	switch( en_Mode ){
 
@@ -116,18 +117,55 @@ void MODE_exe_m0( void )
 
 		case MODE_3:
 			SetLED(0x0e);
+			Set_DutyTIM8(600);
 			break;
 
 		case MODE_4:
 			SetLED(0x0e);
+			MOT_setTrgtSpeed(SEARCH_SPEED);
+			MOT_setSuraStaSpeed( SEARCH_SPEED );							// スラローム開始速度設定
+			PARAM_setSpeedType( PARAM_ST,   PARAM_VERY_SLOW );							// [直進] 速度普通
+			PARAM_setSpeedType( PARAM_TRUN, PARAM_VERY_SLOW );							// [旋回] 速度普通
+			PARAM_setSpeedType( PARAM_SLA,  PARAM_VERY_SLOW );							// [スラ] 速度普通
+			SetLED(0x00);
+			LL_mDelay(500);
+			CTRL_clrData();
+			log_flag_on();
+			MOT_goBlock_FinSpeed(3.0, 0.0);
+			log_flag_off();
 			break;
 
 		case MODE_5:
 			SetLED(0x0e);
+			MOT_setTrgtSpeed(SEARCH_SPEED);
+			MOT_setSuraStaSpeed( SEARCH_SPEED );							// スラローム開始速度設定
+			PARAM_setSpeedType( PARAM_ST,   PARAM_VERY_SLOW );							// [直進] 速度普通
+			PARAM_setSpeedType( PARAM_TRUN, PARAM_VERY_SLOW );							// [旋回] 速度普通
+			PARAM_setSpeedType( PARAM_SLA,  PARAM_VERY_SLOW );							// [スラ] 速度普通
+			SetLED(0x00);
+			LL_mDelay(500);
+			log_flag_on();
+			CTRL_clrData();
+//			log_flag_on();
+			MOT_turn(MOT_R90);
+			log_flag_off();
 			break;
 
 		case MODE_6:
 			SetLED(0x0e);
+			MOT_setTrgtSpeed(SEARCH_SPEED);
+			MOT_setSuraStaSpeed( SEARCH_SPEED );							// スラローム開始速度設定
+			PARAM_setSpeedType( PARAM_ST,   PARAM_VERY_SLOW );							// [直進] 速度普通
+			PARAM_setSpeedType( PARAM_TRUN, PARAM_VERY_SLOW );							// [旋回] 速度普通
+			PARAM_setSpeedType( PARAM_SLA,  PARAM_VERY_SLOW );							// [スラ] 速度普通
+			SetLED(0x00);
+			LL_mDelay(500);
+			CTRL_clrData();
+			log_flag_on();
+			MOT_goBlock_FinSpeed(0.5, SEARCH_SPEED);
+			MOT_goSla(MOT_R90S, PARAM_getSra( SLA_90 ));
+			MOT_goBlock_FinSpeed(0.5, 0);
+			log_flag_off();
 			break;
 
 		case MODE_7:
@@ -353,7 +391,7 @@ bool MODE_CheckExe(void){
 	bool bl_check;
 
 	if( TRUE == MODE_setWaitCheck() ){
-		LL_mDelay(200);
+		LL_mDelay(500);
 
 		if( FALSE == MODE_setWaitCheck() ){
 			SetLED(0x00);

@@ -14,8 +14,8 @@ float	Log_1[log_num];
 float	Log_2[log_num];
 float	Log_3[log_num];
 float	Log_4[log_num];
-/*PRIVATE float	Log_5[log_num];
-float	Log_6[log_num];
+float	Log_5[log_num];
+/*float	Log_6[log_num];
 float	Log_7[log_num];
 float	Log_8[log_num];
 float	Log_9[log_num];
@@ -28,8 +28,8 @@ bool	b_logflag = FALSE;
 
 
 void log_in2( 	float log1,float log2,
-			float log3,float log4)/*,
-			float log5,float log6,
+			float log3,float log4,
+			float log5)/*,float log6,
 			float log7,float log8,
 			float log9,float log10,
 			float log11,float log12)
@@ -40,8 +40,8 @@ void log_in2( 	float log1,float log2,
 		Log_2[log_count] = log2;
 		Log_3[log_count] = log3;
 		Log_4[log_count] = log4;
-/*		Log_5[log_count] = log5;
-		Log_6[log_count] = log6;
+		Log_5[log_count] = log5;
+/*		Log_6[log_count] = log6;
 		Log_7[log_count] = log7;
 		Log_8[log_count] = log8;
 		Log_9[log_count] = log9;
@@ -56,10 +56,10 @@ void log_in2( 	float log1,float log2,
 void log_interrupt ( void )
 {
 	log_in2(GYRO_getSpeedErr(), Get_TrgtAngleS(),
-			Get_NowAngle(),Get_TrgtAngle());
+			Get_NowAngle(),Get_TrgtAngle(),templog2);
 
-//	log_in2(f_NowSpeed, f_TrgtSpeed,
-//		f_NowDist, f_TrgtDist);
+//	log_in2(Get_NowSpeed(), Get_TrgtSpeed(),
+//			Get_NowDist(), Get_TrgtDist());
 /*
 	log_in2(DIST_getNowVal( DIST_SEN_R_FRONT ), DIST_getNowVal( DIST_SEN_L_FRONT ),
 		DIST_getNowVal( DIST_SEN_R_SIDE ), DIST_getNowVal( DIST_SEN_L_SIDE ));
@@ -100,8 +100,8 @@ void log_read2(void)
 	}
 */
 	while(i<log_num){
-		printf("%5.2f,%5.2f,%5.2f,%5.2f\n\r",
-		Log_1[i],Log_2[i],Log_3[i],Log_4[i]);
+		printf("%5.2f,%5.2f,%5.2f,%5.2f,%5.2f\n\r",
+		Log_1[i],Log_2[i],Log_3[i],Log_4[i],Log_5[i]);
 		i++;
 	}
 

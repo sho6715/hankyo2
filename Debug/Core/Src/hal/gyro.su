@@ -10,8 +10,8 @@ gyro.c:107:7:GYRO_getSpeedErr	32	static
 gyro.c:125:7:GYRO_getNowAngle	4	static
 gyro.c:130:7:GYRO_getRef	4	static
 gyro.c:135:6:GYRO_Pol	16	static
-gyro.c:155:6:ACCEL_SetRef	16	static
-gyro.c:171:7:Accel_getSpeedErr	24	static
-gyro.c:181:6:ACCEL_Pol	4	static
-gyro.c:191:6:GYRO_staErrChkAngle	4	static
-gyro.c:198:6:GYRO_endErrChkAngle	4	static
+gyro.c:156:6:ACCEL_SetRef	16	static
+gyro.c:172:7:Accel_getSpeedErr	24	static
+gyro.c:182:6:ACCEL_Pol	4	static
+gyro.c:192:6:GYRO_staErrChkAngle	4	static
+gyro.c:199:6:GYRO_endErrChkAngle	4	static

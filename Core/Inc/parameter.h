@@ -140,13 +140,13 @@ typedef struct{
 	float 			f_FB_speed_kp;			// フィードバック、速度 比例制御
 	float 			f_FB_speed_ki;			// フィードバック、速度 積分制御
 	float 			f_FB_speed_kd;			// フィードバック、速度 微分制御
-	float			f_FB_dist_kp;			// フィードバック、距離 比例制御
-	float 			f_FB_dist_ki;			// フィードバック、距離 積分制御
+//	float			f_FB_dist_kp;			// フィードバック、距離 比例制御
+//	float 			f_FB_dist_ki;			// フィードバック、距離 積分制御
 	float			f_FB_angleS_kp;			// フィードバック、角速度 比例制御
 	float			f_FB_angleS_ki;			// フィードバック、角速度 積分制御
 	float			f_FB_angleS_kd;			// フィードバック、角速度 微分制御
-	float			f_FB_angle_kp;			// フィードバック、角度 比例制御
-	float			f_FB_angle_ki;			// フィードバック、角度 積分制御
+//	float			f_FB_angle_kp;			// フィードバック、角度 比例制御
+//	float			f_FB_angle_ki;			// フィードバック、角度 積分制御
 	float			f_FB_wall_kp;			// フィードバック、壁 比例制御
 	float			f_FB_wall_kd;			// フィードバック、壁 微分制御
 }stGAIN;

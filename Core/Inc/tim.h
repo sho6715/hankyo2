@@ -54,6 +54,7 @@ void TIMER_init(void);
 void Clear_CounterTIM2(void);
 void Clear_CounterTIM3(void);
 void Clear_CounterTIM8(void);
+void Set_DutyTIM8(uint16_t duty);
 
 /* USER CODE END Prototypes */
 

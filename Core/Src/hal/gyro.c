@@ -149,6 +149,7 @@ void GYRO_Pol( void )
 
 			Failsafe_flag();
 		}
+
 	}
 }
 

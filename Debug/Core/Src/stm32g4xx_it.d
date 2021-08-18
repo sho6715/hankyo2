@@ -31,7 +31,7 @@ Core/Src/stm32g4xx_it.o: ../Core/Src/stm32g4xx_it.c ../Core/Inc/main.h \
  ../Core/Inc/search/map_flash.h ../Core/Inc/flash.h ../Core/Inc/hal/log.h \
  ../Core/Inc/hal/sen_dist.h ../Core/Inc/hal/mode.h \
  ../Core/Inc/hal/encoder.h ../Core/Inc/hal/init.h \
- ../Core/Inc/hal/sen_batt.h ../Core/Inc/queue.h \
+ ../Core/Inc/hal/sen_batt.h ../Core/Inc/TIM.h ../Core/Inc/queue.h \
  ../Core/Inc/hal/sen_dist.h ../Core/Inc/stm32g4xx_it.h ../Core/Inc/spi.h \
  ../Core/Inc/hal/CTRL.h
 
@@ -132,6 +132,8 @@ Core/Src/stm32g4xx_it.o: ../Core/Src/stm32g4xx_it.c ../Core/Inc/main.h \
 ../Core/Inc/hal/init.h:
 
 ../Core/Inc/hal/sen_batt.h:
+
+../Core/Inc/TIM.h:
 
 ../Core/Inc/queue.h:
 
