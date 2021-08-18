@@ -596,11 +596,18 @@ void CTRL_getAngleSpeedFB( float* p_err )
 	*p_err = f_err * f_kp + f_AngleSErrSum + ( f_err - f_ErrAngleSBuf ) * f_kd;		// PID制御
 
 	f_ErrAngleSBuf = f_err;		// 偏差をバッファリング
-
 	// 累積偏差クリア
-	if( FABS( f_err ) < 20 ){
-		if(FABS( f_err ) < 0.5)f_AngleSErrSum = 0;
-		else f_AngleSErrSum /= 2;
+	if( ( en_Type == CTRL_ACC ) || ( en_Type == CTRL_CONST ) || ( en_Type == CTRL_DEC )||
+			 ( en_Type == CTRL_ENTRY_SURA ) || ( en_Type == CTRL_EXIT_SURA ) ){
+		if( FABS( f_err ) < 0.05 ){
+			f_AngleSErrSum = 0;
+		}
+	}
+	else{
+		if( FABS( f_err ) < 20 ){
+			if(FABS( f_err ) < 0.5)f_AngleSErrSum = 0;
+			else f_AngleSErrSum /= 2;
+		}
 	}
 
 }

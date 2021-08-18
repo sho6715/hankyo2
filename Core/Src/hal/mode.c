@@ -131,7 +131,7 @@ void MODE_exe_m0( void )
 			LL_mDelay(500);
 			CTRL_clrData();
 			log_flag_on();
-			MOT_goBlock_FinSpeed(3.0, 0.0);
+			MOT_goBlock_FinSpeed(8.0, 0.0);
 			log_flag_off();
 			break;
 
@@ -249,7 +249,7 @@ void MODE_exe( void )
 			MAP_Goalsize(1);
 			MAP_setPos( 0, 0, NORTH );							// スタート位置
 
-			MAP_searchGoal(3, 3, SEARCH, SEARCH_SURA );			// ゴール設定
+			MAP_searchGoal(GOAL_MAP_X_def, GOAL_MAP_Y_def, SEARCH, SEARCH_SURA );			// ゴール設定
 
 
 			/* 帰りのスラローム探索 */

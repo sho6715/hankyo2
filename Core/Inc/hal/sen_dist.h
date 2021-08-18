@@ -20,27 +20,27 @@
 #include "glob.h"
 #endif
 
-#define DIST_NO_WALL_DIV_FILTER				( 50 )
-#define DIST_REF_UP					( 50 )
+#define DIST_NO_WALL_DIV_FILTER				( 20 )
+#define DIST_REF_UP					( 300 )
 
-#define R_FRONT_REF					(720)
-#define L_FRONT_REF					(450)//( 210 )
-#define R_SIDE_REF					(1200)//( 240 )
-#define L_SIDE_REF					(1040)//( 200 )
-#define R_FRONT_WALL					(170)//( 45 )
-#define L_FRONT_WALL					(350)//( 45 )
-#define R_SIDE_WALL					(250)//( 110 )
-#define L_SIDE_WALL					(100)//( 70 )
+#define R_FRONT_REF					(550)
+#define L_FRONT_REF					(620)//( 210 )
+#define R_SIDE_REF					(310)//( 240 )
+#define L_SIDE_REF					(330)//( 200 )
+#define R_FRONT_WALL					(65)//( 45 )
+#define L_FRONT_WALL					(75)//( 45 )
+#define R_SIDE_WALL					(130)//( 110 )
+#define L_SIDE_WALL					(120)//( 70 )
 #define R_FRONT_SKEW_ERR1				( 80 )//仮
 #define L_FRONT_SKEW_ERR1				( 70 )
 #define R_FRONT_SKEW_ERR2				( 192 )
 #define L_FRONT_SKEW_ERR2				( 160 )
 #define R_FRONT_SKEW_ERR3				( 250 )
 #define L_FRONT_SKEW_ERR3				( 250 )
-#define R_FRONT_CTRL					(730)//( 370 )	//maekabehoseiniryuuyou
-#define L_FRONT_CTRL					(380)//( 300 )
-#define R_FRONT_NOCTRL					(1200)//( 530 )
-#define L_FRONT_NOCTRL					(800)//( 450 )
+#define R_FRONT_CTRL					(700)//( 370 )	//maekabehoseiniryuuyou
+#define L_FRONT_CTRL					(850)//( 300 )
+#define R_FRONT_NOCTRL					(1000)//( 530 )
+#define L_FRONT_NOCTRL					(1200)//( 450 )
 
 
 /*距離センサポーリングタイプ*/

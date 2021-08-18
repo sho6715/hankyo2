@@ -18,9 +18,9 @@ CTRL.c:454:6:CTRL_getFF_speed	24	static
 CTRL.c:498:6:CTRL_getFF_angle	24	static
 CTRL.c:542:6:CTRL_getSpeedFB	32	static
 CTRL.c:573:6:CTRL_getAngleSpeedFB	40	static
-CTRL.c:608:6:CTRL_getSenFB	32	static
-CTRL.c:642:6:CTRL_outMot	32	static
-CTRL.c:683:6:CTRL_pol	56	static
-CTRL.c:810:6:Failsafe_flag	8	static
-CTRL.c:816:6:Failsafe_flag_off	4	static
-CTRL.c:821:6:SYS_isOutOfCtrl	4	static
+CTRL.c:615:6:CTRL_getSenFB	32	static
+CTRL.c:649:6:CTRL_outMot	32	static
+CTRL.c:690:6:CTRL_pol	56	static
+CTRL.c:817:6:Failsafe_flag	8	static
+CTRL.c:823:6:Failsafe_flag_off	4	static
+CTRL.c:828:6:SYS_isOutOfCtrl	4	static
