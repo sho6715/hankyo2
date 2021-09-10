@@ -67,6 +67,9 @@ void DCM_setPwmDuty( enDCM_ID en_id, uint16_t us_duty10 )
 			DCM_brakeMot( en_id );
 		}
 		else{
+			if(us_duty10<50){
+				us_duty10 = 50;
+			}
 			Set_DutyTIM2(us_duty10);
 			DCM_staMot( en_id );		// 回転開始
 		}
@@ -77,6 +80,9 @@ void DCM_setPwmDuty( enDCM_ID en_id, uint16_t us_duty10 )
 			DCM_brakeMot( en_id );
 		}
 		else{
+			if(us_duty10<50){
+				us_duty10 = 50;
+			}
 			Set_DutyTIM3(us_duty10);
 			DCM_staMot( en_id );		// 回転開始
 		}

@@ -326,20 +326,20 @@ void TIM4_IRQHandler(void)
 	}
   switch(i){
 		case 0:
-      recv_spi_encoder(enL);
+			recv_spi_encoder(enL);
 			break;
 		case 1:
-      Set_encoder_data(enL);
+			Set_encoder_data(enL);
 			ICM_42688_GyroRead_DMA(0x29);
 			break;
 		case 2:
-      ICM_42688_GyroData();
+			ICM_42688_GyroData();
 			recv_spi_encoder(enR);
 			break;
 		case 3:
-      ICM_42688_GyroData();
+//			ICM_42688_GyroData();
 			Set_encoder_data(enR);
-      GYRO_Pol();
+			GYRO_Pol();
 			break;
 	}
 	i = (i+1)%4;

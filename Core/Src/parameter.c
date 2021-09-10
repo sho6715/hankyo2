@@ -60,156 +60,6 @@ stSLA				st_Sla[SLA_TYPE_MAX];					// ï¿½Xï¿½ï¿½ï¿½ï¿½ï¿½[ï¿½ï¿½ï¿½ï¿½ï¿½Ì‘ï¿½ï¿
 /*  GainData  */
 /* ============== */
 
-	/* Straight Gain Data */
-	const stGAIN f_StGainData[PARAM_MOVE_SPEED_MAX][PARAM_ST_MAX] = {
-		
-		/* (PARAM_VERY_SLOW) */
-		{	//	FFSA	FFS		FFAA	FFA		S_kp		S_ki		S_kd	AS_kp		AS_ki		AS_kd	W_kp	W_kd
-			{ 0.022,	0.2,	0,		0,		0.8,		0.3,		0.1,	0.4,		0.05,		0,		0.1,	0.03,	},	// PARAM_ACC
-			{ 0.022,	0.2,	0,		0,		0.8,		0.3,		0.1,	0.4,		0.05,		0,		0.1,	0.03,	},	// PARAM_CONST
-			{ 0.022,	0.2,	0,		0,		0.8,		0.3,		0.1,	0.4,		0.05,		0,		0.1,	0.03,	},	// PARAM_DEC
-//			{ 0.0242f*4,3,	0,	0,		0,	0,	0.6,		0,		0,		3.5,		0,		1,		0,	},	// PARAM_BACK_ACC
-//			{ 0,		3,	0,	0,		0,	0,	0.6,		0,		0,		3.5,		0,		1,		0,	},	// PARAM_BACK_CONST
-//			{ 0,		3,	0,	0,		0,	0.1,	0.5,		0,		0,		3,		0,		1,		0,	},	// PARAM_BACK_DEC
-			{ 0.01,		0.2,	0,		0,		0.5,		0.03,		0,		0.2,		0.01,		0,		0.1,	0.03,	},	// PARAM_SKEW_ACC
-			{ 0.01,		0.2,	0,		0,		0.5,		0.03,		0,		0.2,		0.01,		0,		0.1,	0.03,	},	// PARAM_SKEW_CONST
-			{ 0.01,		0.2,	0,		0,		0.5,		0.03,		0,		0.2,		0.01,		0,		0.1,	0.03,	},	// PARAM_SKEW_DEC
-			{ 0.1,		0,		0,		0,		0,			0,			0,		0,			0,			0,		0,		0,		},	// PARAM_HIT_WALL
-		},
-		/* (PARAM_SLOW) */
-		{	//	FFSA	FFS		FFAA	FFA		S_kp		S_ki		S_kd	AS_kp		AS_ki		AS_kd	W_kp	W_kd
-			{ 0.022,	0.2,	0,		0,		0.8,		0.3,		0.1,	0.2,		0.01,		0,		0.1,	0.03,	},	// PARAM_ACC
-			{ 0.022,	0.2,	0,		0,		0.8,		0.3,		0.1,	0.2,		0.01,		0,		0.1,	0.03,	},	// PARAM_CONST
-			{ 0.022,	0.2,	0,		0,		0.8,		0.3,		0.1,	0.2,		0.01,		0,		0.1,	0.03,	},	// PARAM_DEC
-//			{ 0.0242f*4,3,	0,	0,		0,	0,	0.6,		0,		0,		3.5,		0,		1,		0,	},	// PARAM_BACK_ACC
-//			{ 0,		3,	0,	0,		0,	0,	0.6,		0,		0,		3.5,		0,		1,		0,	},	// PARAM_BACK_CONST
-//			{ 0,		3,	0,	0,		0,	0.1,	0.5,		0,		0,		3,		0,		1,		0,	},	// PARAM_BACK_DEC
-			{ 0.01,		0.2,	0,		0,		0.5,		0.03,		0,		0.2,		0.01,		0,		0.1,	0.03,	},	// PARAM_SKEW_ACC
-			{ 0.01,		0.2,	0,		0,		0.5,		0.03,		0,		0.2,		0.01,		0,		0.1,	0.03,	},	// PARAM_SKEW_CONST
-			{ 0.01,		0.2,	0,		0,		0.5,		0.03,		0,		0.2,		0.01,		0,		0.1,	0.03,	},	// PARAM_SKEW_DEC
-			{ 0.1,		0,		0,		0,		0,			0,			0,		0,			0,			0,		0,		0,		},	// PARAM_HIT_WALL
-		},
-		/* (PARAM_NORMAL) */
-		{	//	FFSA	FFS		FFAA	FFA		S_kp		S_ki		S_kd	AS_kp		AS_ki		AS_kd	W_kp	W_kd
-			{ 0.022,	0.2,	0,		0,		0.8,		0.3,		0.1,	0.2,		0.01,		0,		0.1,	0.03,	},	// PARAM_ACC
-			{ 0.022,	0.2,	0,		0,		0.8,		0.3,		0.1,	0.2,		0.01,		0,		0.1,	0.03,	},	// PARAM_CONST
-			{ 0.022,	0.2,	0,		0,		0.8,		0.3,		0.1,	0.2,		0.01,		0,		0.1,	0.03,	},	// PARAM_DEC
-//			{ 0.0242f*4,3,	0,	0,		0,	0,	0.6,		0,		0,		3.5,		0,		1,		0,	},	// PARAM_BACK_ACC
-//			{ 0,		3,	0,	0,		0,	0,	0.6,		0,		0,		3.5,		0,		1,		0,	},	// PARAM_BACK_CONST
-//			{ 0,		3,	0,	0,		0,	0.1,	0.5,		0,		0,		3,		0,		1,		0,	},	// PARAM_BACK_DEC
-			{ 0.01,		0.2,	0,		0,		0.5,		0.03,		0,		0.2,		0.01,		0,		0.1,	0.03,	},	// PARAM_SKEW_ACC
-			{ 0.01,		0.2,	0,		0,		0.5,		0.03,		0,		0.2,		0.01,		0,		0.1,	0.03,	},	// PARAM_SKEW_CONST
-			{ 0.01,		0.2,	0,		0,		0.5,		0.03,		0,		0.2,		0.01,		0,		0.1,	0.03,	},	// PARAM_SKEW_DEC
-			{ 0.05,		0,		0,		0,		0,			0,			0,		0,			0,			0,		0,		0,		},	// PARAM_HIT_WALL
-		},
-		/* (PARAM_FAST) */
-		{	//	FFSA	FFS		FFAA	FFA		S_kp		S_ki		S_kd	AS_kp		AS_ki		AS_kd	W_kp	W_kd
-			{ 0.022,	0.2,	0,		0,		0.8,		0.3,		0.1,	0.2,		0.01,		0,		0.1,	0.03,	},	// PARAM_ACC
-			{ 0.022,	0.2,	0,		0,		0.8,		0.3,		0.1,	0.2,		0.01,		0,		0.1,	0.03,	},	// PARAM_CONST
-			{ 0.022,	0.2,	0,		0,		0.8,		0.3,		0.1,	0.2,		0.01,		0,		0.1,	0.03,	},	// PARAM_DEC
-//			{ 0.0242f*4,3,	0,	0,		0,	0,	0.6,		0,		0,		3.5,		0,		1,		0,	},	// PARAM_BACK_ACC
-//			{ 0,		3,	0,	0,		0,	0,	0.6,		0,		0,		3.5,		0,		1,		0,	},	// PARAM_BACK_CONST
-//			{ 0,		3,	0,	0,		0,	0.1,	0.5,		0,		0,		3,		0,		1,		0,	},	// PARAM_BACK_DEC
-			{ 0.01,		0.2,	0,		0,		0.5,		0.03,		0,		0.2,		0.01,		0,		0.1,	0.03,	},	// PARAM_SKEW_ACC
-			{ 0.01,		0.2,	0,		0,		0.5,		0.03,		0,		0.2,		0.01,		0,		0.1,	0.03,	},	// PARAM_SKEW_CONST
-			{ 0.01,		0.2,	0,		0,		0.5,		0.03,		0,		0.2,		0.01,		0,		0.1,	0.03,	},	// PARAM_SKEW_DEC
-			{ 0.05,		0,		0,		0,		0,			0,			0,		0,			0,			0,		0,		0,		},	// PARAM_HIT_WALL
-		},
-		/* (PARAM_VERY_FAST) */
-		{	//	FFSA	FFS		FFAA	FFA		S_kp		S_ki		S_kd	AS_kp		AS_ki		AS_kd	W_kp	W_kd
-			{ 0.022,	0.2,	0,		0,		0.8,		0.3,		0.1,	0.2,		0.01,		0,		0.1,	0.03,	},	// PARAM_ACC
-			{ 0.022,	0.2,	0,		0,		0.8,		0.3,		0.1,	0.2,		0.01,		0,		0.1,	0.03,	},	// PARAM_CONST
-			{ 0.022,	0.2,	0,		0,		0.8,		0.3,		0.1,	0.2,		0.01,		0,		0.1,	0.03,	},	// PARAM_DEC
-//			{ 0.0242f*4,3,	0,	0,		0,	0,	0.6,		0,		0,		3.5,		0,		1,		0,	},	// PARAM_BACK_ACC
-//			{ 0,		3,	0,	0,		0,	0,	0.6,		0,		0,		3.5,		0,		1,		0,	},	// PARAM_BACK_CONST
-//			{ 0,		3,	0,	0,		0,	0.1,	0.5,		0,		0,		3,		0,		1,		0,	},	// PARAM_BACK_DEC
-			{ 0.01,		0.2,	0,		0,		0.5,		0.03,		0,		0.2,		0.01,		0,		0.1,	0.03,	},	// PARAM_SKEW_ACC
-			{ 0.01,		0.2,	0,		0,		0.5,		0.03,		0,		0.2,		0.01,		0,		0.1,	0.03,	},	// PARAM_SKEW_CONST
-			{ 0.01,		0.2,	0,		0,		0.5,		0.03,		0,		0.2,		0.01,		0,		0.1,	0.03,	},	// PARAM_SKEW_DEC
-			{ 0.05,		0,		0,		0,		0,			0,			0,		0,			0,			0,		0,		0,		},	// PARAM_HIT_WALL
-		}
-	};
-
-	/* Turn Gain Data */
-	const stGAIN f_TurnGainData[PARAM_MOVE_SPEED_MAX][PARAM_TRUN_MAX] = {
-		
-		/* (PARAM_VERY_SLOW) */
-		{	//	FFSA	FFS		FFAA	FFA		S_kp	S_ki	S_kd	AS_kp		AS_ki		AS_kd		W_kp	W_kd
-			{ 0.0,		0,		0.008,	0.30,	0.8,	0.3,	0.1,	0.9,		0.1,		0.45,		0,		0,	},	// PARAM_ACC_TRUN
-			{ 0,		0,		0.008,	0.30,	0.8,	0.3,	0.1,	0.9,		0.1,		0.45,		0,		0,	},	// PARAM_CONST_TRUN
-			{ 0,		0,		0.008,	0.30,	0.8,	0.3,	0.1,	0.9,		0.1,		0.45,		0,		0,	},	// PARAM_DEC_TRUN
-		},
-		/* (PARAM_SLOW) */
-		{	//	FFSA	FFS		FFAA	FFA		S_kp	S_ki	S_kd	AS_kp		AS_ki		AS_kd		W_kp	W_kd
-			{ 0.0,		0,		0.008,	0.30,	0.8,	0.3,	0.1,	0.9,		0.1,		0.45,		0,		0,	},	// PARAM_ACC_TRUN
-			{ 0,		0,		0.008,	0.30,	0.8,	0.3,	0.1,	0.9,		0.1,		0.45,		0,		0,	},	// PARAM_CONST_TRUN
-			{ 0,		0,		0.008,	0.30,	0.8,	0.3,	0.1,	0.9,		0.1,		0.45,		0,		0,	},	// PARAM_DEC_TRUN
-		},
-		/* (PARAM_NORMAL) */
-		{	//	FFSA	FFS		FFAA	FFA		S_kp	S_ki	S_kd	AS_kp		AS_ki		AS_kd		W_kp	W_kd
-			{ 0.0,		0,		0.016,	0.22,	3.0,	0.1,	0,		0.8,		0.0,		0,			0,		0,	},	// PARAM_ACC_TRUN
-			{ 0,		0,		0.016,	0.22,	3.0,	0.1,	0,		0.8,		0.0,		0,			0,		0,	},	// PARAM_CONST_TRUN
-			{ 0,		0,		0.016,	0.22,	3.0,	0.1,	0,		0.8,		0.0,		0,			0,		0,	},	// PARAM_DEC_TRUN
-		},
-		/* (PARAM_FAST) */
-		{	//	FFSA	FFS		FFAA	FFA		S_kp	S_ki	S_kd	AS_kp		AS_ki		AS_kd		W_kp	W_kd
-			{ 0.0,		0,		0.016,	0.22,	3.0,	0.1,	0,		0.8,		0.0,		0,			0,		0,	},	// PARAM_ACC_TRUN
-			{ 0,		0,		0.016,	0.22,	3.0,	0.1,	0,		0.8,		0.0,		0,			0,		0,	},	// PARAM_CONST_TRUN
-			{ 0,		0,		0.016,	0.22,	3.0,	0.1,	0,		0.8,		0.0,		0,			0,		0,	},	// PARAM_DEC_TRUN
-		},
-		/* (PARAM_VERY_FAST) */
-		{	//	FFSA	FFS		FFAA	FFA		S_kp	S_ki	S_kd	AS_kp		AS_ki		AS_kd		W_kp	W_kd
-			{ 0.0,		0,		0.016,	0.22,	3.0,	0.1,	0,		0.8,		0.0,		0,			0,		0,	},	// PARAM_ACC_TRUN
-			{ 0,		0,		0.016,	0.22,	3.0,	0.1,	0,		0.8,		0.0,		0,			0,		0,	},	// PARAM_CONST_TRUN
-			{ 0,		0,		0.016,	0.22,	3.0,	0.1,	0,		0.8,		0.0,		0,			0,		0,	},	// PARAM_DEC_TRUN
-		}
-	};
-
-	/* Sla Gain Data */
-	const stGAIN f_SlaGainData[PARAM_MOVE_SPEED_MAX][PARAM_SURA_MAX] = {
-
-		/* (PARAM_VERY_SLOW) */
-		{	//	FFSA	FFS		FFAA	FFA		S_kp	S_ki	S_kd	AS_kp		AS_ki		AS_kd		W_kp	W_kd
-			{ 0.022,	0.2,	0,		0,		0.8,	0.3,	0.1,	0.2,		0.01,		0,			0.1,	0.03,	},	// PARAM_ENTRY_SURA
-			{ 0.022,	0.2,	0.004,	0.18,	0.8,	0.3,	0.1,	0.5,		0.1,		0.1,		0,		0,		},	// PARAM_ACC_SURA
-			{ 0.022,	0.2,	0.004,	0.18,	0.8,	0.3,	0.1,	0.5,		0.1,		0.1,		0,		0,		},	// PARAM_CONST_SURA
-			{ 0.022,	0.2,	0.004,	0.18,	0.8,	0.3,	0.1,	0.5,		0.1,		0.1,		0,		0,		},	// PARAM_DEC_SURA
-			{ 0.022,	0.2,	0,		0,		0.8,	0.3,	0.1,	0.2,		0.01,		0,			0.1,	0.03,	},	// PARAM_EXIT_SURA
-		},
-		/* (PARAM_SLOW) */
-		{	//	FFSA	FFS		FFAA	FFA		S_kp	S_ki	S_kd	AS_kp		AS_ki		AS_kd		W_kp	W_kd
-			{ 0.022,	0.2,	0,		0,		0.8,	0.3,	0.1,	0.2,		0.01,		0,			0.1,	0.03,	},	// PARAM_ENTRY_SURA
-			{ 0.022,	0.2,	0.004,	0.18,	0.8,	0.3,	0.1,	0.5,		0.1,		0.1,		0,		0,		},	// PARAM_ACC_SURA
-			{ 0.022,	0.2,	0.004,	0.18,	0.8,	0.3,	0.1,	0.5,		0.1,		0.1,		0,		0,		},	// PARAM_CONST_SURA
-			{ 0.022,	0.2,	0.004,	0.18,	0.8,	0.3,	0.1,	0.5,		0.1,		0.1,		0,		0,		},	// PARAM_DEC_SURA
-			{ 0.022,	0.2,	0,		0,		0.8,	0.3,	0.1,	0.2,		0.01,		0,			0.1,	0.03,	},	// PARAM_EXIT_SURA
-		},
-		/* (PARAM_NORMAL) */
-		{	//	FFSA	FFS		FFAA	FFA		S_kp	S_ki	S_kd	AS_kp		AS_ki		AS_kd		W_kp	W_kd
-			{ 0.01,		0.2,	0,		0,		0.3,	0.03,	0,		1.5,		0.01,		0,			0.3,	0.03,	},	// PARAM_ENTRY_SURA
-			{ 0.01,		0.2,	0.005,	0.15,	0.3,	0.03,	0,		1.5,		0.0,		1.5,		0,		0,		},	// PARAM_ACC_SURA
-			{ 0.01,		0.2,	0.005,	0.15,	0.3,	0.03,	0,		1.5,		0.0,		1.5,		0,		0,		},	// PARAM_CONST_SURA
-			{ 0.01,		0.2,	0.005,	0.15,	0.3,	0.03,	0,		1.5,		0.0,		1.5,		0,		0,		},	// PARAM_DEC_SURA
-			{ 0.01,		0.2,	0,		0,		0.3,	0.03,	0,		1.5,		0.01,		1.5,		0.3,	0.03,	},	// PARAM_EXIT_SURA
-		},
-		/* (PARAM_FAST) */
-		{	//	FFSA	FFS		FFAA	FFA		S_kp	S_ki	S_kd	AS_kp		AS_ki		AS_kd		W_kp	W_kd
-			{ 0.01,		0.2,	0,		0,		0.3,	0.03,	0,		1.5,		0.01,		0,			0.3,	0.03,	},	// PARAM_ENTRY_SURA
-			{ 0.01,		0.2,	0.005,	0.15,	0.3,	0.03,	0,		1.5,		0.0,		1.5,		0,		0,		},	// PARAM_ACC_SURA
-			{ 0.01,		0.2,	0.005,	0.15,	0.3,	0.03,	0,		1.5,		0.0,		1.5,		0,		0,		},	// PARAM_CONST_SURA
-			{ 0.01,		0.2,	0.005,	0.15,	0.3,	0.03,	0,		1.5,		0.0,		1.5,		0,		0,		},	// PARAM_DEC_SURA
-			{ 0.01,		0.2,	0,		0,		0.3,	0.03,	0,		1.5,		0.01,		1.5,		0.3,	0.03,	},	// PARAM_EXIT_SURA
-		},
-		/* (PARAM_VERY_FAST) */
-		{	//	FFSA	FFS		FFAA	FFA		S_kp	S_ki	S_kd	AS_kp		AS_ki		AS_kd		W_kp	W_kd
-			{ 0.01,		0.2,	0,		0,		0.3,	0.03,	0,		1.5,		0.01,		0,			0.3,	0.03,	},	// PARAM_ENTRY_SURA
-			{ 0.01,		0.2,	0.005,	0.15,	0.3,	0.03,	0,		1.5,		0.0,		1.5,		0,		0,		},	// PARAM_ACC_SURA
-			{ 0.01,		0.2,	0.005,	0.15,	0.3,	0.03,	0,		1.5,		0.0,		1.5,		0,		0,		},	// PARAM_CONST_SURA
-			{ 0.01,		0.2,	0.005,	0.15,	0.3,	0.03,	0,		1.5,		0.0,		1.5,		0,		0,		},	// PARAM_DEC_SURA
-			{ 0.01,		0.2,	0,		0,		0.3,	0.03,	0,		1.5,		0.01,		1.5,		0.3,	0.03,	},	// PARAM_EXIT_SURA
-		}
-	};
-
 void PARAM_setSpeedType( enPARAM_MODE en_mode, enPARAM_MOVE_SPEED en_speed )
 {
 	switch( en_mode ){
@@ -276,7 +126,7 @@ const stSPEED* PARAM_getSpeed( enPARAM_MODE en_mode )
 	
 	return p_adr;
 }
-
+/*
 const stGAIN* PARAM_getGain( enPARAM_MODE en_mode )
 {
 	const stGAIN* p_adr;
@@ -318,7 +168,7 @@ const stGAIN* PARAM_getGain( enPARAM_MODE en_mode )
 	
 	return p_adr;
 }
-
+*/
 void PARAM_makeSra( float f_speed, float f_angAcc, float f_g , enSLA_TYPE en_mode)
 {
 

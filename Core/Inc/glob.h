@@ -19,21 +19,21 @@
 /* マクロ */
 #define FABS(x)						( (x)>=0 ? (x) : -(x) )
 
-#define GOAL_MAP_X_def					( 8 )				// ゴールのX区画数（横方向） [区画]17
-#define GOAL_MAP_Y_def					( 8 )				// ゴールのY区画数（縦方向） [区画]13
-#define MAP_X_SIZE					( 16 )				// 迷路のX区画数（横方向） [区画]
-#define MAP_Y_SIZE					( 16 )				// 迷路のY区画数（縦方向） [区画]
+#define GOAL_MAP_X_def					( 0 )				// ゴールのX区画数?��横方向�? [区画]17
+#define GOAL_MAP_Y_def					( 3 )				// ゴールのY区画数?��縦方向�? [区画]13
+#define MAP_X_SIZE					( 32 )				// 迷路のX区画数?��横方向�? [区画]
+#define MAP_Y_SIZE					( 32 )				// 迷路のY区画数?��縦方向�? [区画]
 
-#define MAP_X_SIZE_REAL				( 16 )					// 迷路の実X区画数（横方向） [区画]
-#define MAP_Y_SIZE_REAL				( 16 )					// 迷路の実Y区画数（縦方向） [区画]
+#define MAP_X_SIZE_REAL				( 32 )					// 迷路の実X区画数?��横方向�? [区画]
+#define MAP_Y_SIZE_REAL				( 32 )					// 迷路の実Y区画数?��縦方向�? [区画]
 
 #define PI							( 3.14159f )								// π
 
-#define VCC_MAX						( 4.2f )									// バッテリ最大電圧[V]、4.2[V]×1[セル]
-#define TIRE_R						( 12.6f )	//推定値								// タイヤ直径 [mm]
+#define VCC_MAX						( 4.2f )									// バッ�?リ最大電圧[V]�?4.2[V]�?1[セル]
+#define TIRE_R						( 12.6f )	//推定値								// タイヤ直�? [mm]
 #define ROTATE_PULSE				( 65536 )									// 1周の最大数値
 #define DIST_1STEP					( PI * TIRE_R / ROTATE_PULSE )				// 1パルスで進む距離 [mm]
-#define F_CNT2MM(cnt)				( (float)cnt * DIST_1STEP )				// [カウント値]から[mm]へ換算
+#define F_CNT2MM(cnt)				( (float)cnt * DIST_1STEP )				// [カウント値]から[mm]へ換�?
 
 typedef enum{
 	DIST_SEN_R_FRONT = 0,
@@ -50,7 +50,7 @@ typedef enum{
 	DCM_MAX
 }enDCM_ID;
 
-/* 方位 */
+/* 方�? */
 typedef enum{
 	NORTH =0,
 	EAST,
@@ -59,9 +59,9 @@ typedef enum{
 	MAP_HEAD_DIR_MAX,
 }enMAP_HEAD_DIR;
 
-volatile uint16_t		Msec_in;		// 内部時計[msec]
-volatile uint8_t		Sec_in;		// 内部時計[sec]
-volatile uint8_t		Min_in;		// 内部時計[min]
+volatile uint16_t		Msec_in;		// �?部時�?[msec]
+volatile uint8_t		Sec_in;		// �?部時�?[sec]
+volatile uint8_t		Min_in;		// �?部時�?[min]
 
 
 #endif /* INC_GLOB_H_ */

@@ -11,16 +11,16 @@
 #define MOT_MOVE_ST_THRESHOLD			( 13 )							// 直進移動距離の閾値[mm]
 #define MOT_MOVE_ST_MIN					( 10 )							// 直進移動距離の最低移動量[mm]
 
-//20170815 超信地旋回実装時に追加
+//20170815 �?信地旋回実�?時に追�?
 #define A1_MIN					( 25 )						// 第1最低移動角度
 #define A2_MIN					( 30 )						// 第2最低移動角度
 #define A3_MIN					( 20 )						// 第3最低移動角度
 
-#define ANGLE_OFFSET1_R				( 0 )	//-12					// 角度のオフセット値（バッファリングによる誤差を埋めるための値）
-#define ANGLE_OFFSET1				( 0 )	//-12					// 角度のオフセット値（バッファリングによる誤差を埋めるための値）
+#define ANGLE_OFFSET1_R				( 0 )	//-12					// 角度のオフセ�?ト値?��バ�?ファリングによる誤差を埋めるための値?�?
+#define ANGLE_OFFSET1				( 0 )	//-12					// 角度のオフセ�?ト値?��バ�?ファリングによる誤差を埋めるための値?�?
 #define ANGLE_OFFSET2_R				( 0 )	//3
-#define ANGLE_OFFSET2				( 0 )						// 角度のオフセット値（バッファリングによる誤差を埋めるための値）
-#define ANGLE_OFFSET3				( 0 )					// 角度のオフセット値（バッファリングによる誤差を埋めるための値）
+#define ANGLE_OFFSET2				( 0 )						// 角度のオフセ�?ト値?��バ�?ファリングによる誤差を埋めるための値?�?
+#define ANGLE_OFFSET3				( 0 )					// 角度のオフセ�?ト値?��バ�?ファリングによる誤差を埋めるための値?�?
 
 #define IS_R_SLA(a)			( ( (a) % 2 == 0 ) ? (TRUE) : (FALSE))
 
@@ -29,11 +29,11 @@ typedef struct{
 	float			f_time;			// 時間					[msec]
 
 	/* 速度制御 */
-	float			f_acc1;			// 加速度1				[mm/s2]
-	float			f_acc3;			// 加速度3				[mm/s2]
+	float			f_acc1;			// �?速度1				[mm/s2]
+	float			f_acc3;			// �?速度3				[mm/s2]
 	float			f_now;			// 現在速度				[mm/s]
-	float			f_trgt;			// 加速後の目標速度		[mm/s]
-	float			f_last;			// 減速後の最終速度		[mm/s]
+	float			f_trgt;			// �?速後�?�目標速度		[mm/s]
+	float			f_last;			// 減速後�?�最終速度		[mm/s]
 
 	/* 距離制御 */
 	float			f_dist;			// 移動距離				[mm]
@@ -44,8 +44,8 @@ typedef struct{
 	float			f_accAngleS1;	// 角加速度1			[rad/s2]
 	float			f_accAngleS3;	// 角加速度3			[rad/s2]
 	float			f_nowAngleS;	// 現在角速度			[rad/s]
-	float			f_trgtAngleS;	// 加速後の目標角速度	[rad/s]
-	float			f_lastAngleS;	// 減速後の最終角速度	[rad/s]
+	float			f_trgtAngleS;	// �?速後�?�目標角速度	[rad/s]
+	float			f_lastAngleS;	// 減速後�?�最終角速度	[rad/s]
 
 	/* 角度制御 */
 	float			f_angle;		// 移動角度				[rad]
@@ -53,15 +53,15 @@ typedef struct{
 	float			f_angle1_2;		// 第1+2移動角度		[rad]
 }stMOT_DATA;
 
-stMOT_DATA 		st_Info;				// シーケンスデータ
-/* 動作 */
+stMOT_DATA 		st_Info;				// シーケンス�?ータ
+/* 動�? */
 float 			f_MotNowSpeed 		= 0.0f;		// 現在速度
 float 			f_MotTrgtSpeed 		= 0.0f;		// 目標速度
-stMOT_DATA 		st_Info;				// シーケンスデータ
+stMOT_DATA 		st_Info;				// シーケンス�?ータ
 float			f_MotSuraStaSpeed	= 0.0f;
-enMOT_WALL_EDGE_TYPE	en_WallEdge = MOT_WALL_EDGE_NONE;	// 壁切れ補正
-bool			bl_IsWallEdge = FALSE;				// 壁切れ検知（TRUE:検知、FALSE：非検知）
-float			f_WallEdgeAddDist = 0;				// 壁切れ補正の移動距離
+enMOT_WALL_EDGE_TYPE	en_WallEdge = MOT_WALL_EDGE_NONE;	// 壁�??れ補正
+bool			bl_IsWallEdge = FALSE;				// 壁�??れ検知?�?TRUE:検知、FALSE?��非検知?�?
+float			f_WallEdgeAddDist = 0;				// 壁�??れ補正の移動距離
 
 
 
@@ -78,15 +78,14 @@ float MOT_getAcc3( void )
 void MOT_goBlock_AccConstDec( float f_fin, enMOT_ST_TYPE en_type, enMOT_GO_ST_TYPE en_goType )
 {
 
-	stCTRL_DATA		st_data;					// 制御データ
-//	printf("目標速度 %f 目標位置 %f\r\n",st_Info.f_trgt,st_Info.f_dist);
+	stCTRL_DATA		st_data;					// CTRLdata
 	GYRO_staErrChkAngle();
 
 	/* ================ */
-	/*      実動作      */
+	/*      motion      */
 	/* ================ */
 	/* ------ */
-	/*  加速  */
+	/*  acc   */
 	/* ------ */
 	if( ( en_type != MOT_CONST_DEC ) && ( en_type != MOT_CONST_DEC_CUSTOM ) ){
 
@@ -96,35 +95,34 @@ void MOT_goBlock_AccConstDec( float f_fin, enMOT_ST_TYPE en_type, enMOT_GO_ST_TY
 		else{
 			st_data.en_type		= CTRL_SKEW_ACC;
 		}
-		st_data.f_acc			= st_Info.f_acc1;		// 加速度指定
+		st_data.f_acc			= st_Info.f_acc1;		// �?速度�?�?
 		st_data.f_now			= st_Info.f_now;		// 現在速度
 		st_data.f_trgt			= st_Info.f_trgt;		// 目標速度
-		st_data.f_nowDist		= 0;				// 進んでいない
-		st_data.f_dist			= st_Info.f_l1;			// 加速距離
+		st_data.f_nowDist		= 0;				// 進んで�?な�?
+		st_data.f_dist			= st_Info.f_l1;			// �?速距離
 		st_data.f_accAngleS		= 0;				// 角加速度
 		st_data.f_nowAngleS		= 0;				// 現在角速度
 		st_data.f_trgtAngleS		= 0;				// 目標角度
 		st_data.f_nowAngle		= 0;				// 現在角度
 		st_data.f_angle			= 0;				// 目標角度
-		st_data.f_time 			= 0;				// 目標時間 [sec] ← 指定しない
+		st_data.f_time 			= 0;				// 目標時�? [sec] �? �?定しな�?
 		CTRL_clrData();								// 設定データをクリア
-		CTRL_setData( &st_data );						// データセット
-//		printf("目標速度 %f 目標位置 %f \r\n",st_data.f_trgt,st_data.f_dist);
+		CTRL_setData( &st_data );						// �?ータセ�?�?
 		DCM_staMotAll();							// モータON
-		while( Get_NowDist() < st_Info.f_l1 ){					// 指定距離到達待ち
+		while( Get_NowDist() < st_Info.f_l1 ){					// �?定距離到達�?ち
 			if( SYS_isOutOfCtrl() == TRUE ){
 				CTRL_stop();
-				DCM_brakeMot( DCM_R );		// ブレーキ
-				DCM_brakeMot( DCM_L );		// ブレーキ
+				DCM_brakeMot( DCM_R );		
+				DCM_brakeMot( DCM_L );		
 				break;
-			}				// 途中で制御不能になった
+			}				
 			MOT_setWallEdgeDist();
 		}
 
 	}
 
 	/* ------ */
-	/*  等速  */
+	/*  const */
 	/* ------ */
 	if( MOT_GO_ST_NORMAL == en_goType ){
 		st_data.en_type		= CTRL_CONST;
@@ -132,35 +130,33 @@ void MOT_goBlock_AccConstDec( float f_fin, enMOT_ST_TYPE en_type, enMOT_GO_ST_TY
 	else{
 		st_data.en_type		= CTRL_SKEW_CONST;
 	}
-	st_data.f_acc			= 0;					// 加速度指定
+	st_data.f_acc			= 0;					// �?速度�?�?
 	st_data.f_now			= st_Info.f_trgt;			// 現在速度
 	st_data.f_trgt			= st_Info.f_trgt;			// 目標速度
 	st_data.f_nowDist		= st_Info.f_l1;				// 現在位置
-	st_data.f_dist			= st_Info.f_l1_2;			// 等速完了位置
+	st_data.f_dist			= st_Info.f_l1_2;			// 等速完�?位置
 	st_data.f_accAngleS		= 0;					// 角加速度
 	st_data.f_nowAngleS		= 0;					// 現在角速度
 	st_data.f_trgtAngleS		= 0;					// 目標角度
 	st_data.f_nowAngle		= 0;					// 現在角度
 	st_data.f_angle			= 0;					// 目標角度
-	st_data.f_time 			= 0;					// 目標時間 [sec] ← 指定しない
+	st_data.f_time 			= 0;					// 目標時�? [sec] �? �?定しな�?
 	if( ( en_type == MOT_CONST_DEC ) || ( en_type == MOT_CONST_DEC_CUSTOM ) ){
 		CTRL_clrData();										// 設定データをクリア
 	}
-	CTRL_setData( &st_data );						// データセット
-//	printf("目標速度 %f 目標位置 %f \r\n",st_data.f_trgt,st_data.f_dist);
-	while( Get_NowDist() < st_Info.f_l1_2 ){				// 指定距離到達待ち
+	CTRL_setData( &st_data );						// �?ータセ�?�?
+	while( Get_NowDist() < st_Info.f_l1_2 ){				// �?定距離到達�?ち
 		if( SYS_isOutOfCtrl() == TRUE ){
 			CTRL_stop();
-			DCM_brakeMot( DCM_R );		// ブレーキ
-			DCM_brakeMot( DCM_L );		// ブレーキ
+			DCM_brakeMot( DCM_R );		
+			DCM_brakeMot( DCM_L );		
 			break;
-		}				// 途中で制御不能になった
+		}				
 		MOT_setWallEdgeDist();
 	}
-//	printf("現在位置 %f \r\n",f_NowDist);
 
 	/* ------ */
-	/*  減速  */
+	/*  dec   */
 	/* ------ */
 	if( ( en_type != MOT_ACC_CONST ) && ( en_type != MOT_ACC_CONST_CUSTOM ) ){
 
@@ -170,26 +166,25 @@ void MOT_goBlock_AccConstDec( float f_fin, enMOT_ST_TYPE en_type, enMOT_GO_ST_TY
 		else{
 			st_data.en_type		= CTRL_SKEW_DEC;
 		}
-		st_data.f_acc			= st_Info.f_acc3;			// 減速
+		st_data.f_acc			= st_Info.f_acc3;			// 減�?
 		st_data.f_now			= st_Info.f_trgt;			// 現在速度
 		st_data.f_trgt			= st_Info.f_last;			// 最終速度
-		st_data.f_nowDist		= st_Info.f_l1_2;			// 等速完了位置
-		st_data.f_dist			= st_Info.f_dist;			// 全移動完了位置
+		st_data.f_nowDist		= st_Info.f_l1_2;			// 等速完�?位置
+		st_data.f_dist			= st_Info.f_dist;			// 全移動完�?位置
 		st_data.f_accAngleS		= 0;						// 角加速度
 		st_data.f_nowAngleS		= 0;						// 現在角速度
 		st_data.f_trgtAngleS		= 0;						// 目標角度
 		st_data.f_nowAngle		= 0;						// 現在角度
 		st_data.f_angle			= 0;						// 目標角度
-		st_data.f_time 			= 0;						// 目標時間 [sec] ← 指定しない
-		CTRL_setData( &st_data );							// データセット
-//		printf("目標速度 %f 目標位置 %f \r\n",st_data.f_trgt,st_data.f_dist);
-		while( Get_NowDist() < ( st_Info.f_dist - 0.2 ) ){		// 指定距離到達待ち
+		st_data.f_time 			= 0;						// 目標時�? [sec] �? �?定しな�?
+		CTRL_setData( &st_data );							// �?ータセ�?�?
+		while( Get_NowDist() < ( st_Info.f_dist ) ){		// �?定距離到達�?ち
 			if( SYS_isOutOfCtrl() == TRUE ){
 				CTRL_stop();
-				DCM_brakeMot( DCM_R );		// ブレーキ
-				DCM_brakeMot( DCM_L );		// ブレーキ
+				DCM_brakeMot( DCM_R );		
+				DCM_brakeMot( DCM_L );		
 				break;
-			}				// 途中で制御不能になった
+			}				
 			MOT_setWallEdgeDist();
 			if((escape_wait>2.0)&&(search_flag == TRUE))break;
 		}
@@ -197,74 +192,75 @@ void MOT_goBlock_AccConstDec( float f_fin, enMOT_ST_TYPE en_type, enMOT_GO_ST_TY
 	}
 
 	/* -------------------- */
-	/*  等速（壁の切れ目）  */
+	/*  const walledge      */
 	/* -------------------- */
-	/* 壁切れがまだ見つからない状態（壁切れ設定をしているのに、エッジを見つけていない） */
+	/* not found edge */
 	if( ( en_WallEdge != MOT_WALL_EDGE_NONE ) && ( bl_IsWallEdge == FALSE )  ){
 
 		st_data.en_type			= CTRL_CONST;
-		st_data.f_acc			= 0;						// 加速度指定
+		st_data.f_acc			= 0;						// �?速度�?�?
 		st_data.f_now			= st_Info.f_last;			// 現在速度
 		st_data.f_trgt			= st_Info.f_last;			// 目標速度
 		st_data.f_nowDist		= Get_NowDist();				// 現在位置
-		st_data.f_dist			= Get_NowDist() + 45.0f;		// 等速完了位置（45.0f：壁切れをどこまで救うかの距離）、ここではf_NowDistをクリアしてはいけない。
+		st_data.f_dist			= Get_NowDist() + 45.0f;		// 等速完�?位置?�?45.0f?��壁�??れをどこまで救うか�?�距離?��、ここではf_NowDistをクリアしては�?けな�?�?
 		st_data.f_accAngleS		= 0;						// 角加速度
 		st_data.f_nowAngleS		= 0;						// 現在角速度
 		st_data.f_trgtAngleS	= 0;						// 目標角度
 		st_data.f_nowAngle		= 0;						// 現在角度
 		st_data.f_angle			= 0;						// 目標角度
-		st_data.f_time 			= 0;						// 目標時間 [sec] ← 指定しない
+		st_data.f_time 			= 0;						// 目標時�? [sec] �? �?定しな�?
 		CTRL_clrData();										// マウスの現在位置/角度をクリア
-		CTRL_setData( &st_data );							// データセット
-		while( Get_NowDist() < st_data.f_dist ){				// 指定距離到達待ち
+		CTRL_setData( &st_data );							// �?ータセ�?�?
+		while( Get_NowDist() < st_data.f_dist ){				// �?定距離到達�?ち
 			if( SYS_isOutOfCtrl() == TRUE ){
 				CTRL_stop();
-				DCM_brakeMot( DCM_R );		// ブレーキ
-				DCM_brakeMot( DCM_L );		// ブレーキ
+				DCM_brakeMot( DCM_R );		
+				DCM_brakeMot( DCM_L );		
 				break;
-			}				// 途中で制御不能になった
-			if( MOT_setWallEdgeDist_LoopWait() == TRUE ) break;	// 壁切れ補正を実行する距離を設定
+			}				
+			if( MOT_setWallEdgeDist_LoopWait() == TRUE ) break;	// 壁�??れ補正を実行する距離を設�?
 		}
 	}
-	/* 壁切れまで直進動作を行う */
-	if( ( MOT_GO_ST_NORMAL == en_goType ) &&				// 直進時に追加動作が必要な場合にしか実施しない
+	/* straight for edge */
+	if( ( MOT_GO_ST_NORMAL == en_goType ) &&				// 直進時に追�?動作が�?要な場合にしか実施しな�?
 		( f_WallEdgeAddDist != 0.0f ) &&
 		( f_fin != 0.0f )
 	){
 		st_data.en_type			= CTRL_CONST;
-		st_data.f_acc			= 0;						// 加速度指定
+		st_data.f_acc			= 0;						// �?速度�?�?
 		st_data.f_now			= st_Info.f_last;			// 現在速度
 		st_data.f_trgt			= st_Info.f_last;			// 目標速度
 		st_data.f_nowDist		= 0;						// 現在位置
-		st_data.f_dist			= f_WallEdgeAddDist;		// 等速完了位置
+		st_data.f_dist			= f_WallEdgeAddDist;		// 等速完�?位置
 		st_data.f_accAngleS		= 0;						// 角加速度
 		st_data.f_nowAngleS		= 0;						// 現在角速度
 		st_data.f_trgtAngleS	= 0;						// 目標角度
 		st_data.f_nowAngle		= 0;						// 現在角度
 		st_data.f_angle			= 0;						// 目標角度
-		st_data.f_time 			= 0;						// 目標時間 [sec] ← 指定しない
+		st_data.f_time 			= 0;						// 目標時�? [sec] �? �?定しな�?
 		CTRL_clrData();										// マウスの現在位置/角度をクリア
-		CTRL_setData( &st_data );							// データセット
-		while( Get_NowDist() < st_data.f_dist ){				// 指定距離到達待ち
+		CTRL_setData( &st_data );							// �?ータセ�?�?
+		while( Get_NowDist() < st_data.f_dist ){				// �?定距離到達�?ち
 			if( SYS_isOutOfCtrl() == TRUE ){
 				CTRL_stop();
-				DCM_brakeMot( DCM_R );		// ブレーキ
-				DCM_brakeMot( DCM_L );		// ブレーキ
+				DCM_brakeMot( DCM_R );		
+				DCM_brakeMot( DCM_L );		
 				break;
-			}				// 途中で制御不能になった
+			}				
 		}
 	}
 
-	/* 停止 */
+	/* stop */
 	if( 0.0f == f_fin ){
-		LL_mDelay(100);			// 安定待ち
-	 	CTRL_stop();				// 制御停止
-		DCM_brakeMot( DCM_R );		// ブレーキ
-		DCM_brakeMot( DCM_L );		// ブレーキ
+		LL_mDelay(100);			
+	 	CTRL_stop();				
+		DCM_brakeMot( DCM_R );	
+		DCM_brakeMot( DCM_L );	
 	}
 
-	f_MotNowSpeed = f_fin;			// 現在速度更新
+	f_MotNowSpeed = f_fin;		
 	GYRO_endErrChkAngle();
+	CTRL_clrNowData();
 }
 
 void MOT_setData_ACC_CONST_DEC( float f_num, float f_fin, enMOT_GO_ST_TYPE en_type )
@@ -280,9 +276,9 @@ void MOT_setData_ACC_CONST_DEC( float f_num, float f_fin, enMOT_GO_ST_TYPE en_ty
 		f_1blockDist = BLOCK_SKEW;
 	}
 
-	/* 加速度 */
-	st_Info.f_acc1 		= MOT_getAcc1();								// 加速度1[mm/s^2]
-	st_Info.f_acc3 		= MOT_getAcc3();								// 加速度3[mm/s^2]
+	/* �?速度 */
+	st_Info.f_acc1 		= MOT_getAcc1();								// �?速度1[mm/s^2]
+	st_Info.f_acc3 		= MOT_getAcc3();								// �?速度3[mm/s^2]
 
 	/* 速度 */
 	st_Info.f_now		= f_MotNowSpeed;								// 現在速度
@@ -311,9 +307,9 @@ void MOT_setData_MOT_ACC_CONST_DEC_CUSTOM( float f_num, float f_fin, enMOT_GO_ST
 		f_1blockDist = BLOCK_SKEW;
 	}
 
-	/* 加速度 */
-	st_Info.f_acc1 		= MOT_getAcc1();								// 加速度1[mm/s^2]
-	st_Info.f_acc3 		= MOT_getAcc3();								// 加速度3[mm/s^2]
+	/* �?速度 */
+	st_Info.f_acc1 		= MOT_getAcc1();								// �?速度1[mm/s^2]
+	st_Info.f_acc3 		= MOT_getAcc3();								// �?速度3[mm/s^2]
 
 
 	/* 距離 */
@@ -345,9 +341,9 @@ void MOT_setData_MOT_ACC_CONST( float f_num, float f_fin, enMOT_GO_ST_TYPE en_ty
 		f_1blockDist = BLOCK_SKEW;
 	}
 
-	/* 加速度 */
-	st_Info.f_acc1 		= MOT_getAcc1();													// 加速度1[mm/s^2]
-	st_Info.f_acc3 		= 0;																// 加速度3[mm/s^2](未使用)
+	/* �?速度 */
+	st_Info.f_acc1 		= MOT_getAcc1();													// �?速度1[mm/s^2]
+	st_Info.f_acc3 		= 0;																// �?速度3[mm/s^2](未使用)
 
 	/* 速度 */
 	st_Info.f_now		= f_MotNowSpeed;													// 現在速度
@@ -380,9 +376,9 @@ void MOT_setData_MOT_ACC_CONST_CUSTOM( float f_num, float f_fin, enMOT_GO_ST_TYP
 	/* 距離 */
 	st_Info.f_dist		= f_num * f_1blockDist;												// 移動距離[mm]
 
-	/* 加速度 */
-	st_Info.f_acc1 		= ( f_fin * f_fin - f_MotNowSpeed * f_MotNowSpeed ) / ( ( st_Info.f_dist - MOT_MOVE_ST_MIN ) * 2.0f );	// 加速度1[mm/s^2]（強制的に書き換え）
-	st_Info.f_acc3 		= 0;																// 加速度3[mm/s^2](未使用)
+	/* �?速度 */
+	st_Info.f_acc1 		= ( f_fin * f_fin - f_MotNowSpeed * f_MotNowSpeed ) / ( ( st_Info.f_dist - MOT_MOVE_ST_MIN ) * 2.0f );	// �?速度1[mm/s^2]?��強制�?に書き換え�?
+	st_Info.f_acc3 		= 0;																// �?速度3[mm/s^2](未使用)
 
 	/* 距離 */
 	st_Info.f_l1		= ( f_fin * f_fin - f_MotNowSpeed * f_MotNowSpeed ) / ( st_Info.f_acc1 * 2 );			// 第1移動距離[mm]
@@ -401,9 +397,9 @@ void MOT_setData_MOT_CONST_DEC( float f_num, float f_fin, enMOT_GO_ST_TYPE en_ty
 		f_1blockDist = BLOCK_SKEW;
 	}
 
-	/* 加速度 */
-	st_Info.f_acc1 		= 0;																// 加速度1[mm/s^2](未使用)
-	st_Info.f_acc3 		= MOT_getAcc3();													// 加速度3[mm/s^2]
+	/* �?速度 */
+	st_Info.f_acc1 		= 0;																// �?速度1[mm/s^2](未使用)
+	st_Info.f_acc3 		= MOT_getAcc3();													// �?速度3[mm/s^2]
 
 	/* 速度 */
 	st_Info.f_now		= f_MotNowSpeed;													// 現在速度
@@ -436,9 +432,9 @@ void MOT_setData_MOT_CONST_DEC_CUSTOM( float f_num, float f_fin, enMOT_GO_ST_TYP
 	/* 距離 */
 	st_Info.f_dist		= f_num * f_1blockDist;									// 移動距離[mm]
 
-	/* 加速度 */
-	st_Info.f_acc1 		= 0;																// 加速度1[mm/s^2](未使用)
-	st_Info.f_acc3 		= ( f_fin * f_fin - f_MotNowSpeed * f_MotNowSpeed ) / ( ( st_Info.f_dist - MOT_MOVE_ST_MIN ) * 2.0f ) * -1;	// 加速度3[mm/s^2]（強制的に書き換え）
+	/* �?速度 */
+	st_Info.f_acc1 		= 0;																// �?速度1[mm/s^2](未使用)
+	st_Info.f_acc3 		= ( f_fin * f_fin - f_MotNowSpeed * f_MotNowSpeed ) / ( ( st_Info.f_dist - MOT_MOVE_ST_MIN ) * 2.0f ) * -1;	// �?速度3[mm/s^2]?��強制�?に書き換え�?
 
 	/* 距離 */
 	st_Info.f_l1		= 0;																// 第1移動距離[mm]
@@ -453,7 +449,7 @@ enMOT_ST_TYPE MOT_getStType( float f_num, float f_fin, enMOT_GO_ST_TYPE en_type 
 	float f_acc3;
 	float f_t1;
 	float f_t3;
-	float f_l1;							//加速距離
+	float f_l1;							//�?速距離
 	float f_l3;							//減速距離
 	float f_total;							// 移動距離[mm]
 
@@ -467,110 +463,110 @@ enMOT_ST_TYPE MOT_getStType( float f_num, float f_fin, enMOT_GO_ST_TYPE en_type 
 
 
 	/* ================ */
-	/*  加速＋等速動作  */
+	/*  �?速＋等速動�?  */
 	/* ================ */
 	f_v1Div		= f_fin - f_MotNowSpeed;
-	f_acc1		= MOT_getAcc1();				// 加速度1[mm/s^2]
+	f_acc1		= MOT_getAcc1();				// �?速度1[mm/s^2]
 	f_t1		= f_v1Div / f_acc1;
 
 	f_l1 = ( f_MotNowSpeed + f_fin ) * 0.5f * f_t1;
 
-	/* 加速＋等速動作 */
+	/* �?速＋等速動�? */
 	if( f_total <= ( f_l1 + MOT_MOVE_ST_THRESHOLD ) ){
 
-		/* 加速が最終速度に対して完了しない */
+		/* �?速が最終速度に対して完�?しな�? */
 		if( f_total < ( f_l1 + MOT_MOVE_ST_MIN ) ){
 //			printf("パターン4\n\r");
-			return MOT_ACC_CONST_CUSTOM;		// パターン4（強制的に加速度を変更する）
+			return MOT_ACC_CONST_CUSTOM;		// パターン4?��強制�?に�?速度を変更する?�?
 		}
 		else{
 //			printf("パターン3\n\r");
-			return MOT_ACC_CONST;				// パターン3（加速＋等速）
+			return MOT_ACC_CONST;				// パターン3?��加速＋等速�?
 		}
 	}
 
 	/* ================ */
-	/*  等速＋減速動作  */
+	/*  等速＋減速動�?  */
 	/* ================ */
 	f_v3Div		= f_fin - f_MotNowSpeed;
-	f_acc3		= MOT_getAcc3();				// 加速度3[mm/s^2]
+	f_acc3		= MOT_getAcc3();				// �?速度3[mm/s^2]
 	f_t3		= f_v3Div / ( f_acc3 * -1 );
 
 	f_l3 = ( f_MotNowSpeed + f_fin ) * 0.5f * f_t3;
 
-	/* 等速＋減速動作 */
+	/* 等速＋減速動�? */
 	if( f_total <= ( f_l3 + MOT_MOVE_ST_THRESHOLD ) ){
 
-		/* 減速が最終速度に対して完了しない */
+		/* 減速が最終速度に対して完�?しな�? */
 		if( f_total < ( f_l3 + MOT_MOVE_ST_MIN ) ){
 //			printf("パターン6\n\r");
-			return MOT_CONST_DEC_CUSTOM;		// パターン6（強制的に加速度を変更する）
+			return MOT_CONST_DEC_CUSTOM;		// パターン6?��強制�?に�?速度を変更する?�?
 		}
 		else{
 //			printf("パターン5\n\r");
-			return MOT_CONST_DEC;				// パターン5（等速＋減速）
+			return MOT_CONST_DEC;				// パターン5?��等速＋減速�?
 		}
 	}
 
 	/* ========== */
-	/*  台形動作  */
+	/*  台形動�?  */
 	/* ========== */
-	f_v1Div		= f_MotTrgtSpeed - f_MotNowSpeed;					// 台形時の速度差
+	f_v1Div		= f_MotTrgtSpeed - f_MotNowSpeed;					// 台形時�?�速度差
 	f_t1		= f_v1Div / f_acc1;
 	f_l1		= ( f_MotNowSpeed + f_MotTrgtSpeed ) * 0.5f * f_t1;
 
-	f_v3Div		= f_fin - f_MotTrgtSpeed;							// 台形時の速度差
-	f_acc3		= MOT_getAcc3();									// 加速度3[mm/s^2]
-	f_t3		= -1.0f * f_v3Div / f_acc3;							// 減速時の所要時間
+	f_v3Div		= f_fin - f_MotTrgtSpeed;							// 台形時�?�速度差
+	f_acc3		= MOT_getAcc3();									// �?速度3[mm/s^2]
+	f_t3		= -1.0f * f_v3Div / f_acc3;							// 減速時の所要時�?
 	f_l3		= ( f_MotTrgtSpeed + f_fin ) * 0.5f * f_t3;
 
-	/* 通常の台形動作 */
+	/* 通常の台形動�? */
 	if( ( f_total - f_l1 - f_l3 - MOT_MOVE_ST_MIN) >= 0 ){
 //		printf("パターン1\n\r");
-		return MOT_ACC_CONST_DEC;				// パターン1（通常）
+		return MOT_ACC_CONST_DEC;				// パターン1?��通常?�?
 	}
 	/* 等速値を変更する */
 	else{
 //		printf("パターン2\n\r");
-		return MOT_ACC_CONST_DEC_CUSTOM;		// パターン2（目標速度を変更）
+		return MOT_ACC_CONST_DEC_CUSTOM;		// パターン2?��目標速度を変更?�?
 	}
 }
 
 void MOT_go_FinSpeed( float f_num, float f_fin, enMOT_GO_ST_TYPE en_goStType )
 {
-	enMOT_ST_TYPE 		en_type 		= MOT_getStType( f_num, f_fin, en_goStType);			// 動作パターン取得
+	enMOT_ST_TYPE 		en_type 		= MOT_getStType( f_num, f_fin, en_goStType);			// 動作パターン取�?
 
-	/* 移動距離と指定値に応じで動作を変える */
+	/* 移動距離と�?定値に応じで動作を変え�? */
 	switch( en_type ){
 
-		case MOT_ACC_CONST_DEC:				// [01] 台形加速
-			MOT_setData_ACC_CONST_DEC( f_num, f_fin, en_goStType );					// 動作データ作成
-			MOT_goBlock_AccConstDec( f_fin, en_type, en_goStType );					// 動作
+		case MOT_ACC_CONST_DEC:				// [01] 台形�?�?
+			MOT_setData_ACC_CONST_DEC( f_num, f_fin, en_goStType );					// 動作データ作�??
+			MOT_goBlock_AccConstDec( f_fin, en_type, en_goStType );					// 動�?
 			break;
 
-		case MOT_ACC_CONST_DEC_CUSTOM:		// [02] 台形加速（等速）
-			MOT_setData_MOT_ACC_CONST_DEC_CUSTOM( f_num, f_fin, en_goStType );		// 動作データ作成
-			MOT_goBlock_AccConstDec( f_fin, en_type, en_goStType );					// 動作
+		case MOT_ACC_CONST_DEC_CUSTOM:		// [02] 台形�?速（等速�?
+			MOT_setData_MOT_ACC_CONST_DEC_CUSTOM( f_num, f_fin, en_goStType );		// 動作データ作�??
+			MOT_goBlock_AccConstDec( f_fin, en_type, en_goStType );					// 動�?
 			break;
 
-		case MOT_ACC_CONST:				// [03] 加速＋等速
-			MOT_setData_MOT_ACC_CONST( f_num, f_fin, en_goStType );					// 動作データ作成
-			MOT_goBlock_AccConstDec( f_fin, en_type, en_goStType );					// 動作
+		case MOT_ACC_CONST:				// [03] �?速＋等�?
+			MOT_setData_MOT_ACC_CONST( f_num, f_fin, en_goStType );					// 動作データ作�??
+			MOT_goBlock_AccConstDec( f_fin, en_type, en_goStType );					// 動�?
 			break;
 
-		case MOT_ACC_CONST_CUSTOM:		// [04] 加速＋等速（等速）
-			MOT_setData_MOT_ACC_CONST_CUSTOM( f_num, f_fin, en_goStType );			// 動作データ作成
-			MOT_goBlock_AccConstDec( f_fin, en_type, MOT_GO_ST_NORMAL );			// 動作
+		case MOT_ACC_CONST_CUSTOM:		// [04] �?速＋等速（等速�?
+			MOT_setData_MOT_ACC_CONST_CUSTOM( f_num, f_fin, en_goStType );			// 動作データ作�??
+			MOT_goBlock_AccConstDec( f_fin, en_type, MOT_GO_ST_NORMAL );			// 動�?
 			break;
 
-		case MOT_CONST_DEC:				// [05] 等速＋減速
-			MOT_setData_MOT_CONST_DEC( f_num, f_fin, en_goStType );					// 動作データ作成
-			MOT_goBlock_AccConstDec( f_fin, en_type, en_goStType );					// 動作
+		case MOT_CONST_DEC:				// [05] 等速＋減�?
+			MOT_setData_MOT_CONST_DEC( f_num, f_fin, en_goStType );					// 動作データ作�??
+			MOT_goBlock_AccConstDec( f_fin, en_type, en_goStType );					// 動�?
 			break;
 
-		case MOT_CONST_DEC_CUSTOM:		// [06] 等速＋減速（減速値変更）
-			MOT_setData_MOT_CONST_DEC_CUSTOM( f_num, f_fin, en_goStType );			// 動作データ作成
-			MOT_goBlock_AccConstDec( f_fin, en_type, en_goStType );					// 動作
+		case MOT_CONST_DEC_CUSTOM:		// [06] 等速＋減速（減速値変更?�?
+			MOT_setData_MOT_CONST_DEC_CUSTOM( f_num, f_fin, en_goStType );			// 動作データ作�??
+			MOT_goBlock_AccConstDec( f_fin, en_type, en_goStType );					// 動�?
 			break;
 
 		default:
@@ -597,41 +593,42 @@ void MOT_goBlock_Const(float f_num)
 	GYRO_staErrChkAngle();
 
 	/* ---------------- */
-	/*  動作データ計算  */
+	/*  動作データ計�?  */
 	/* ---------------- */
 	/* 距離 */
 	st_info.f_dist		= f_num * BLOCK;													// 移動距離[mm]
 
 
 	/* ------ */
-	/*  等速  */
+	/*  等�?  */
 	/* ------ */
 	st_data.en_type			= CTRL_CONST;
-	st_data.f_acc			= 0;					// 加速度指定
+	st_data.f_acc			= 0;					// �?速度�?�?
 	st_data.f_now			= f_MotNowSpeed;			// 現在速度
 	st_data.f_trgt			= f_MotNowSpeed;			// 目標速度
 	st_data.f_nowDist		= 0;				// 現在位置
-	st_data.f_dist			= st_info.f_dist;			// 等速完了位置
+	st_data.f_dist			= st_info.f_dist;			// 等速完�?位置
 	st_data.f_accAngleS		= 0;					// 角加速度
 	st_data.f_nowAngleS		= 0;					// 現在角速度
 	st_data.f_trgtAngleS		= 0;					// 目標角度
 	st_data.f_nowAngle		= 0;					// 現在角度
 	st_data.f_angle			= 0;					// 目標角度
-	st_data.f_time 			= 0;					// 目標時間 [sec] ← 指定しない
+	st_data.f_time 			= 0;					// 目標時�? [sec] �? �?定しな�?
 	CTRL_clrData();										// 設定データをクリア
-	CTRL_setData( &st_data );						// データセット
+	CTRL_setData( &st_data );						// �?ータセ�?�?
 	Set_TrgtSpeed(f_MotNowSpeed);
 //	printf("目標速度 %f 目標位置 %f \r\n",st_data.f_trgt,st_data.f_dist);
-	while( Get_NowDist() < st_info.f_dist ){				// 指定距離到達待ち
+	while( Get_NowDist() < st_info.f_dist ){				// �?定距離到達�?ち
 		if( SYS_isOutOfCtrl() == TRUE ){
 				CTRL_stop();
 				DCM_brakeMot( DCM_R );		// ブレーキ
 				DCM_brakeMot( DCM_L );		// ブレーキ
 				break;
-			}				// 途中で制御不能になった
+			}				// 途中で制御不�?�になっ�?
 	}
 
 	GYRO_endErrChkAngle();
+	CTRL_clrNowData();
 }
 
 void testrun(void)
@@ -644,6 +641,7 @@ void testrun(void)
 		test.f_nowDist = 0;
 		test.f_dist = 0;
 
+	CTRL_clrNowData();
 	CTRL_clrData();
 	CTRL_setData(&test);
 }
@@ -662,8 +660,8 @@ float MOT_getAccAngle3( void )
 
 void MOT_turn( enMOT_TURN_CMD en_type )
 {
-	stMOT_DATA	st_info;	//シーケンスデータ
-	stCTRL_DATA	st_data;	//制御データ
+	stMOT_DATA	st_info;	//シーケンス�?ータ
+	stCTRL_DATA	st_data;	//制御�?ータ
 //	float		f_angle2 = A2_MIN;	//最低第2移動角度[rad]
 	float		f_angle1;	//第1移動角度[rad]
 	float		f_angle3;	//第3移動角度[rad]
@@ -671,9 +669,9 @@ void MOT_turn( enMOT_TURN_CMD en_type )
 
 	us_trgtAngleS = 500;
 	/* ---------------- */
-	/*  動作データ計算  */
+	/*  動作データ計�?  */
 	/* ---------------- */
-	/* 加速度 */
+	/* �?速度 */
 	st_info.f_accAngleS1= MOT_getAccAngle1();												// 角加速度1[rad/s^2]
 	st_info.f_accAngleS3= MOT_getAccAngle3();												// 角加速度3[rad/s^2]
 
@@ -698,16 +696,16 @@ void MOT_turn( enMOT_TURN_CMD en_type )
 	f_angle1 = ( 0 - st_info.f_trgtAngleS) / 2 * ( 0 - st_info.f_trgtAngleS ) / st_info.f_accAngleS1;
 
 
-	if( ( en_type == MOT_R90 ) || ( en_type == MOT_R180 ) || ( en_type == MOT_R360 ) ){		// -方向
-		st_info.f_trgtAngleS*= -1;															// 回転方向を逆にする
+	if( ( en_type == MOT_R90 ) || ( en_type == MOT_R180 ) || ( en_type == MOT_R360 ) ){		// -方�?
+		st_info.f_trgtAngleS*= -1;															// 回転方向を�?にする
 		f_angle1			*= -1;
-//		f_angle2 			*= -1;															// 回転方向を逆にする
-		f_angle3 			*= -1;															// 回転方向を逆にする
+//		f_angle2 			*= -1;															// 回転方向を�?にする
+		f_angle3 			*= -1;															// 回転方向を�?にする
 		st_info.f_angle1	= f_angle1;						// 第1移動角度[rad]
 		st_info.f_angle1_2	= st_info.f_angle - f_angle3;									// 第1+2移動角度[rad]
 		en_Turntype			= Right;
 
-		/* 最小移動距離を上書き */
+		/* 最小移動距離を上書�? */
 		if( st_info.f_angle1 > ( A1_MIN * -1 ) ){
 			st_info.f_angle1 = A1_MIN * -1;
 		}
@@ -717,91 +715,91 @@ void MOT_turn( enMOT_TURN_CMD en_type )
 		st_info.f_angle1_2	= st_info.f_angle - f_angle3;									// 第1+2移動角度[rad]
 		en_Turntype			= Left;
 
-		/* 最小移動距離を上書き */
+		/* 最小移動距離を上書�? */
 		if( st_info.f_angle1 < A1_MIN ){
 			st_info.f_angle1 = A1_MIN;
 		}
 	}
 
 
-	GYRO_staErrChkAngle();			// エラー検出開始
+	GYRO_staErrChkAngle();			// エラー検�?�開�?
 //	printf("目標角度 %f %f %f\r\n",st_info.f_angle,st_info.f_angle1,st_info.f_angle1_2);
 	/* ================ */
-	/*      実動作      */
+	/*      実動�?      */
 	/* ================ */
 	/* ------ */
-	/*  加速  */
+	/*  �?�?  */
 	/* ------ */
 	st_data.en_type			= CTRL_ACC_TRUN;
-	st_data.f_acc			= 0;						// 加速度指定
+	st_data.f_acc			= 0;						// �?速度�?�?
 	st_data.f_now			= 0;						// 現在速度
 	st_data.f_trgt			= 0;						// 目標速度
-	st_data.f_nowDist		= 0;						// 進んでいない
-	st_data.f_dist			= 0;						// 加速距離
+	st_data.f_nowDist		= 0;						// 進んで�?な�?
+	st_data.f_dist			= 0;						// �?速距離
 	st_data.f_accAngleS		= st_info.f_accAngleS1;		// 角加速度
 	st_data.f_nowAngleS		= 0;						// 現在角速度
 	st_data.f_trgtAngleS		= st_info.f_trgtAngleS;		// 目標角度
 	st_data.f_nowAngle		= 0;						// 現在角度
 	st_data.f_angle			= st_info.f_angle1;			// 目標角度
-	st_data.f_time 			= 0;						// 目標時間 [sec] ← 指定しない
+	st_data.f_time 			= 0;						// 目標時�? [sec] �? �?定しな�?
 	CTRL_clrData();										// マウスの現在位置/角度をクリア
-	CTRL_setData( &st_data );							// データセット
+	CTRL_setData( &st_data );							// �?ータセ�?�?
 	DCM_staMotAll();									// モータON
 
-	if( ( en_type == MOT_R90 ) || ( en_type == MOT_R180 ) || ( en_type == MOT_R360 ) ){		// -方向
-		while( Get_NowAngle() > st_info.f_angle1 ){			// 指定角度到達待ち
+	if( ( en_type == MOT_R90 ) || ( en_type == MOT_R180 ) || ( en_type == MOT_R360 ) ){		// -方�?
+		while( Get_NowAngle() > st_info.f_angle1 ){			// �?定角度到達�?ち
 			if( SYS_isOutOfCtrl() == TRUE ){
 				CTRL_stop();
 				DCM_brakeMot( DCM_R );		// ブレーキ
 				DCM_brakeMot( DCM_L );		// ブレーキ
 				break;
-			}				// 途中で制御不能になった
+			}				// 途中で制御不�?�になっ�?
 		}
 	}
 	else{
-		while( Get_NowAngle() < st_info.f_angle1 ){			// 指定角度到達待ち
+		while( Get_NowAngle() < st_info.f_angle1 ){			// �?定角度到達�?ち
 			if( SYS_isOutOfCtrl() == TRUE ){
 				CTRL_stop();
 				DCM_brakeMot( DCM_R );		// ブレーキ
 				DCM_brakeMot( DCM_L );		// ブレーキ
 				break;
-			}				// 途中で制御不能になった
+			}				// 途中で制御不�?�になっ�?
 		}
 	}
 //	printf("finish\n");
 
 	/* ------ */
-	/*  等速  */
+	/*  等�?  */
 	/* ------ */
-	if( ( en_type == MOT_R90 ) || ( en_type == MOT_R180 ) || ( en_type == MOT_R360 ) ){		// -方向
+	if( ( en_type == MOT_R90 ) || ( en_type == MOT_R180 ) || ( en_type == MOT_R360 ) ){		// -方�?
 		f_angle3			= ( Get_TrgtAngleS() - st_info.f_lastAngleS ) / 2 * ( Get_TrgtAngleS() - st_info.f_lastAngleS ) / st_info.f_accAngleS3;		// 第3移動角度[rad]
 		f_angle3			= -1 * f_angle3;
-		if( f_angle3 > A3_MIN*-1 ) f_angle3 = A3_MIN * -1;																	// 減速最低角度に書き換え
+		if( f_angle3 > A3_MIN*-1 ) f_angle3 = A3_MIN * -1;																	// 減速最低角度に書き換�?
 		st_info.f_angle1_2		= st_info.f_angle - f_angle3;// 第1+2移動角度[rad]
 
 	}
 	else{
 		f_angle3			= ( Get_TrgtAngleS() - st_info.f_lastAngleS ) / 2 * ( Get_TrgtAngleS() - st_info.f_lastAngleS ) / st_info.f_accAngleS3;		// 第3移動角度[rad]
-		if( f_angle3 < A3_MIN ) f_angle3 = A3_MIN;																			// 減速最低角度に書き換え
+		if( f_angle3 < A3_MIN ) f_angle3 = A3_MIN;																			// 減速最低角度に書き換�?
 		st_info.f_angle1_2		= st_info.f_angle - f_angle3;																// 第1+2移動角度[rad]
 //		printf("   [f_angle3]%d [f_angle1_2]%d\n\r", (int32_t)f_angle3, (int32_t)	st_info.f_angle1_2 );
 	}
 //	printf("[f_TrgtAngleS] %5.2f,st_info.f_angle1_2%5.2f,f_angle2%5.2f\n\r",f_TrgtAngleS,st_info.f_angle1_2,f_angle3);
 	st_data.en_type			= CTRL_CONST_TRUN;
-	st_data.f_acc			= 0;						// 加速度指定
+	st_data.f_acc			= 0;						// �?速度�?�?
 	st_data.f_now			= 0;						// 現在速度
 	st_data.f_trgt			= 0;						// 目標速度
-	st_data.f_nowDist		= 0;						// 進んでいない
-	st_data.f_dist			= 0;						// 等速完了位置
+	st_data.f_nowDist		= 0;						// 進んで�?な�?
+	st_data.f_dist			= 0;						// 等速完�?位置
 	st_data.f_accAngleS		= 0;						// 角加速度
 	st_data.f_nowAngleS		= Get_TrgtAngleS();				// 現在角速度
 	st_data.f_trgtAngleS		= Get_TrgtAngleS();				// 目標角度
 	st_data.f_nowAngle		= st_info.f_angle1;			// 現在角度
 	st_data.f_angle			= st_info.f_angle1_2;			// 目標角度
-	st_data.f_time 			= 0;						// 目標時間 [sec] ← 指定しない
-	CTRL_setData( &st_data );							// データセット
-	if( ( en_type == MOT_R90 ) || ( en_type == MOT_R180 ) || ( en_type == MOT_R360 ) ){		// -方向
-		while( Get_NowAngle() > st_info.f_angle1_2 ){			// 指定距離到達待ち
+	st_data.f_time 			= 0;						// 目標時�? [sec] �? �?定しな�?
+	CTRL_setData( &st_data );							// �?ータセ�?�?
+	if( ( en_type == MOT_R90 ) || ( en_type == MOT_R180 ) || ( en_type == MOT_R360 ) ){		// -方�?
+		while( Get_NowAngle() > st_info.f_angle1_2 ){			// �?定距離到達�?ち
 //			DCMC_getAngleSpeedFB(&f_err);
 //			printf("[NOW]%d [Trgt]%d [TrgtS]%d \n\r", (int32_t)f_NowAngle, (int32_t)f_TrgtAngle, (int32_t)f_TrgtAngleS);
 			if( SYS_isOutOfCtrl() == TRUE ){
@@ -809,12 +807,12 @@ void MOT_turn( enMOT_TURN_CMD en_type )
 				DCM_brakeMot( DCM_R );		// ブレーキ
 				DCM_brakeMot( DCM_L );		// ブレーキ
 				break;
-			}				// 途中で制御不能になった
+			}				// 途中で制御不�?�になっ�?
 //			log_in(f_TrgtAngle);
 		}
 	}
 	else{
-		while( Get_NowAngle() < st_info.f_angle1_2 ){			// 指定距離到達待ち
+		while( Get_NowAngle() < st_info.f_angle1_2 ){			// �?定距離到達�?ち
 //			DCMC_getAngleSpeedFB(&f_err);
 //			printf("[NOW]%d [Trgt]%d [TrgtS]%d  \n\r", (int32_t)f_NowAngle, (int32_t)f_TrgtAngle, (int32_t)f_TrgtAngleS);
 			if( SYS_isOutOfCtrl() == TRUE ){
@@ -822,30 +820,30 @@ void MOT_turn( enMOT_TURN_CMD en_type )
 				DCM_brakeMot( DCM_R );		// ブレーキ
 				DCM_brakeMot( DCM_L );		// ブレーキ
 				break;
-			}				// 途中で制御不能になった
+			}				// 途中で制御不�?�になっ�?
 //			log_in(f_TrgtAngleS);
 		}
 	}
 //	printf("finish2\n");
 
 	/* ------ */
-	/*  減速  */
+	/*  減�?  */
 	/* ------ */
 	st_data.en_type			= CTRL_DEC_TRUN;
-	st_data.f_acc			= 0;						// 減速
+	st_data.f_acc			= 0;						// 減�?
 	st_data.f_now			= 0;						// 現在速度
 	st_data.f_trgt			= 0;						// 最終速度
-	st_data.f_nowDist		= 0;						// 等速完了位置
-	st_data.f_dist			= 0;						// 全移動完了位置
+	st_data.f_nowDist		= 0;						// 等速完�?位置
+	st_data.f_dist			= 0;						// 全移動完�?位置
 	st_data.f_accAngleS		= st_info.f_accAngleS3;		// 角加速度
 	st_data.f_nowAngleS		= Get_TrgtAngleS();				// 現在角速度
 	st_data.f_trgtAngleS		= 0;						// 目標角度
 	st_data.f_nowAngle		= st_info.f_angle1_2;		// 現在角度
 	st_data.f_angle			= st_info.f_angle;			// 目標角度
-	st_data.f_time 			= 0;						// 目標時間 [sec] ← 指定しない
-	CTRL_setData( &st_data );							// データセット
-	if( ( en_type == MOT_R90 ) || ( en_type == MOT_R180 ) || ( en_type == MOT_R360 ) ){		// -方向
-		while( Get_NowAngle() > ( st_info.f_angle + 0.5) ){		// 指定距離到達待ち
+	st_data.f_time 			= 0;						// 目標時�? [sec] �? �?定しな�?
+	CTRL_setData( &st_data );							// �?ータセ�?�?
+	if( ( en_type == MOT_R90 ) || ( en_type == MOT_R180 ) || ( en_type == MOT_R360 ) ){		// -方�?
+		while( Get_NowAngle() > ( st_info.f_angle) ){		// �?定距離到達�?ち
 //			DCMC_getAngleSpeedFB(&f_err);
 //			printf("[NOW]%d [Trgt]%d [TrgtS]%d  \n\r", (int32_t)f_NowAngle, (int32_t)f_TrgtAngle, (int32_t)f_TrgtAngleS );
 			if( SYS_isOutOfCtrl() == TRUE ){
@@ -853,12 +851,12 @@ void MOT_turn( enMOT_TURN_CMD en_type )
 				DCM_brakeMot( DCM_R );		// ブレーキ
 				DCM_brakeMot( DCM_L );		// ブレーキ
 				break;
-			}				// 途中で制御不能になった
+			}				// 途中で制御不�?�になっ�?
 			if((escape_wait>2.0)&&(search_flag == TRUE))break;
 		}
 	}
 	else{
-		while( Get_NowAngle() < ( st_info.f_angle - 0.5 ) ){		// 指定距離到達待ち
+		while( Get_NowAngle() < ( st_info.f_angle ) ){		// �?定距離到達�?ち
 //			DCMC_getAngleSpeedFB(&f_err);
 //			printf("[NOW]%d [Trgt]%d [TrgtS]%d  \n\r", (int32_t)f_NowAngle, (int32_t)f_TrgtAngle, (int32_t)f_TrgtAngleS);
 			if( SYS_isOutOfCtrl() == TRUE ){
@@ -866,18 +864,19 @@ void MOT_turn( enMOT_TURN_CMD en_type )
 				DCM_brakeMot( DCM_R );		// ブレーキ
 				DCM_brakeMot( DCM_L );		// ブレーキ
 				break;
-			}				// 途中で制御不能になった
+			}				// 途中で制御不�?�になっ�?
 			if((escape_wait>2.0)&&(search_flag == TRUE))break;
 //			log_in(f_TrgtAngle);
 		}
 	}
 //	printf("finish3\n");
 	/* 停止 */
-	LL_mDelay(200);				// 安定待ち
+	LL_mDelay(200);				// 安定�?ち
 	CTRL_stop();			// 制御停止
 	DCM_brakeMot( DCM_R );		// ブレーキ
 	DCM_brakeMot( DCM_L );		// ブレーキ
-	GYRO_endErrChkAngle();					// エラー検出終了
+	GYRO_endErrChkAngle();					// エラー検�?�終�?
+	CTRL_clrNowData();
 }
 
 void MOT_setSuraStaSpeed( float f_speed )
@@ -904,42 +903,42 @@ void MOT_setNowSpeed(float f_speed)
 
 void MOT_goHitBackWall(void)
 {
-	stMOT_DATA	st_info;	//シーケンスデータ
-	stCTRL_DATA	st_data;	//制御データ
+	stMOT_DATA	st_info;	//シーケンス�?ータ
+	stCTRL_DATA	st_data;	//制御�?ータ
 
 	/* ---------------- */
-	/*  動作データ計算  */
+	/*  動作データ計�?  */
 	/* ---------------- */
-	/* 加速度 */
+	/* �?速度 */
 	st_info.f_acc1= 1200;												// 角加速度1[rad/s^2]												// 角加速度3[rad/s^2]
 
-	GYRO_staErrChkAngle();			// エラー検出開始
+	GYRO_staErrChkAngle();			// エラー検�?�開�?
 //	printf("");
 	/* ================ */
-	/*      実動作      */
+	/*      実動�?      */
 	/* ================ */
 	/* ------ */
-	/*  加速  */
+	/*  �?�?  */
 	/* ------ */
 	st_data.en_type			= CTRL_HIT_WALL;
-	st_data.f_acc			= st_info.f_acc1;						// 加速度指定
+	st_data.f_acc			= st_info.f_acc1;						// �?速度�?�?
 	st_data.f_now			= 0;						// 現在速度
 	st_data.f_trgt			= 0;						// 目標速度
-	st_data.f_nowDist		= 0;						// 進んでいない
-	st_data.f_dist			= 0;						// 加速距離
+	st_data.f_nowDist		= 0;						// 進んで�?な�?
+	st_data.f_dist			= 0;						// �?速距離
 	st_data.f_accAngleS		= 0;		// 角加速度
 	st_data.f_nowAngleS		= 0;						// 現在角速度
 	st_data.f_trgtAngleS		= 0;		// 目標角度
 	st_data.f_nowAngle		= 0;						// 現在角度
 	st_data.f_angle			= 0;			// 目標角度
-	st_data.f_time 			= 0;						// 目標時間 [sec] ← 指定しない
+	st_data.f_time 			= 0;						// 目標時�? [sec] �? �?定しな�?
 	CTRL_clrData();										// マウスの現在位置/角度をクリア
-	CTRL_setData( &st_data );							// データセット
+	CTRL_setData( &st_data );							// �?ータセ�?�?
 	DCM_staMotAll();									// モータON
 //	printf("目標速度 %f 目標位置 %f\r\n",st_data.f_trgt,st_data.f_dist);
 
 	/*停止*/
-	LL_mDelay(400);				// 安定待ち
+	LL_mDelay(400);				// 安定�?ち
 	CTRL_stop();			// 制御停止
 	DCM_brakeMot( DCM_R );		// ブレーキ
 	DCM_brakeMot( DCM_L );		// ブレーキ
@@ -948,24 +947,25 @@ void MOT_goHitBackWall(void)
 
 	f_MotNowSpeed = 0.0f;		//現在速度更新
 
-	GYRO_endErrChkAngle();					// エラー検出終了
+	GYRO_endErrChkAngle();					// エラー検�?�終�?
+	CTRL_clrNowData();
 
 }
 
 void MOT_goSla( enMOT_SURA_CMD en_type, stSLA* p_sla )
 {
-	stMOT_DATA		st_info;					// シーケンスデータ
-	stCTRL_DATA		st_data;					// 制御データ
+	stMOT_DATA		st_info;					// シーケンス�?ータ
+	stCTRL_DATA		st_data;					// 制御�?ータ
 //	float			f_err;
 	float			f_entryLen;
 	float			f_escapeLen;
 
 	/* ---------------- */
-	/*  動作データ計算  */
+	/*  動作データ計�?  */
 	/* ---------------- */
-	/* 加速度 */
-	st_info.f_acc1 		= 0;																// 加速度1[mm/s^2]
-	st_info.f_acc3 		= 0;																// 加速度3[mm/s^2]
+	/* �?速度 */
+	st_info.f_acc1 		= 0;																// �?速度1[mm/s^2]
+	st_info.f_acc3 		= 0;																// �?速度3[mm/s^2]
 
 	/* 速度 */
 	st_info.f_now		= p_sla->f_speed;													// 現在速度
@@ -1007,8 +1007,8 @@ void MOT_goSla( enMOT_SURA_CMD en_type, stSLA* p_sla )
 		st_info.f_accAngleS3 *= -1;
 	}
 
-	/* 斜め走行のタイプに応じて、スラローム前の距離とスラローム後の退避距離を入れ替える */
-	if( ( en_type == MOT_R45S_N2S ) || ( en_type == MOT_L45S_N2S ) || ( en_type == MOT_R135S_N2S ) || ( en_type == MOT_L135S_N2S ) ){ 		// 逆にするもの
+	/* 斜め走行�?�タイプに応じて、スラロー�?前�?�距離とスラロー�?後�?�退避距離を�?�れ替える */
+	if( ( en_type == MOT_R45S_N2S ) || ( en_type == MOT_L45S_N2S ) || ( en_type == MOT_R135S_N2S ) || ( en_type == MOT_L135S_N2S ) ){ 		// �?にするも�?�
 		f_entryLen  = p_sla->f_escapeLen;
 		f_escapeLen = p_sla->f_entryLen;
 	}
@@ -1017,39 +1017,39 @@ void MOT_goSla( enMOT_SURA_CMD en_type, stSLA* p_sla )
 		f_escapeLen = p_sla->f_escapeLen;
 	}
 
-	GYRO_staErrChkAngle();			// エラー検出開始
+	GYRO_staErrChkAngle();			// エラー検�?�開�?
 
 //	LED_on(LED1);
 	/* ================ */
 	/*      entry      */
 	/* ================ */
 	/* ------------------------ */
-	/*  acc前の前進動作  */
+	/*  acc前�?�前進動�?  */
 	/* ------------------------ */
 	st_data.en_type			= CTRL_ENTRY_SURA;
-	st_data.f_acc			= 0;						// 加速度指定
+	st_data.f_acc			= 0;						// �?速度�?�?
 	st_data.f_now			= st_info.f_now;			// 現在速度
 	st_data.f_trgt			= st_info.f_now;			// 目標速度
-	st_data.f_nowDist		= 0;						// 進んでいない
-	st_data.f_dist			= f_entryLen;				// スラローム前の前進距離
+	st_data.f_nowDist		= 0;						// 進んで�?な�?
+	st_data.f_dist			= f_entryLen;				// スラロー�?前�?�前進距離
 	st_data.f_accAngleS		= 0;						// 角加速度
 	st_data.f_nowAngleS		= 0;						// 現在角速度
 	st_data.f_trgtAngleS	= 0;						// 目標角度
 	st_data.f_nowAngle		= 0;						// 現在角度
 	st_data.f_angle			= 0;						// 目標角度
-	st_data.f_time 			= 0;						// 目標時間 [sec] ← 指定しない
+	st_data.f_time 			= 0;						// 目標時�? [sec] �? �?定しな�?
 	CTRL_clrData();										// マウスの現在位置/角度をクリア
-	CTRL_setData( &st_data );							// データセット
+	CTRL_setData( &st_data );							// �?ータセ�?�?
 	DCM_staMotAll();									// モータON
 
-	while( Get_NowDist() < f_entryLen + uc_dist_control ){				// 指定距離到達待ち
+	while( Get_NowDist() < f_entryLen + uc_dist_control ){				// �?定距離到達�?ち
 		if((DIST_getNowVal( DIST_SEN_R_FRONT )>R_FRONT_CTRL)&&(DIST_getNowVal( DIST_SEN_L_FRONT )>L_FRONT_CTRL))break;
 		if( SYS_isOutOfCtrl() == TRUE ){
 			CTRL_stop();
 			DCM_brakeMot( DCM_R );		// ブレーキ
 			DCM_brakeMot( DCM_L );		// ブレーキ
 			break;
-		}				// 途中で制御不能になった
+		}				// 途中で制御不�?�になっ�?
 	}
 //	LED_off(LED1);
 //	log_in(0);
@@ -1057,37 +1057,37 @@ void MOT_goSla( enMOT_SURA_CMD en_type, stSLA* p_sla )
 	/*  acc  */
 	/* ------ */
 	st_data.en_type			= CTRL_ACC_SURA;
-	st_data.f_acc			= 0;						// 加速度指定
+	st_data.f_acc			= 0;						// �?速度�?�?
 	st_data.f_now			= st_info.f_now;			// 現在速度
 	st_data.f_trgt			= st_info.f_now;			// 目標速度
 	st_data.f_nowDist		= f_entryLen;				//
-	st_data.f_dist			= f_entryLen + st_info.f_now * p_sla->us_accAngvelTime * 0.001;		// 加速距離
+	st_data.f_dist			= f_entryLen + st_info.f_now * p_sla->us_accAngvelTime * 0.001;		// �?速距離
 	st_data.f_accAngleS		= st_info.f_accAngleS1;		// 角加速度
 	st_data.f_nowAngleS		= 0;						// 現在角速度
 	st_data.f_trgtAngleS		= st_info.f_trgtAngleS;		// 目標角速度
 	st_data.f_nowAngle		= 0;						// 現在角度
 	st_data.f_angle			= st_info.f_angle1;			// 目標角度
-	st_data.f_time 			= p_sla->us_accAngvelTime * 0.001;			// [msec] → [sec]
-	CTRL_setData( &st_data );							// データセット
+	st_data.f_time 			= p_sla->us_accAngvelTime * 0.001;			// [msec] �? [sec]
+	CTRL_setData( &st_data );							// �?ータセ�?�?
 //	printf("trgtangleS %5.2f\n\r",st_data.f_trgtAngleS);
-	if( IS_R_SLA( en_type ) == TRUE ) {		// -方向
-		while( ( Get_NowAngle() > st_info.f_angle1 ) && ( Get_NowDist() < st_data.f_dist ) ){			// 指定角度＋距離到達待ち
+	if( IS_R_SLA( en_type ) == TRUE ) {		// -方�?
+		while( ( Get_NowAngle() > st_info.f_angle1 ) && ( Get_NowDist() < st_data.f_dist ) ){			// �?定角度?��距離到達�?ち
 			if( SYS_isOutOfCtrl() == TRUE ){
 				CTRL_stop();
 				DCM_brakeMot( DCM_R );		// ブレーキ
 				DCM_brakeMot( DCM_L );		// ブレーキ
 				break;
-			}				// 途中で制御不能になった
+			}				// 途中で制御不�?�になっ�?
 		}
 	}
 	else{
-		while( ( Get_NowAngle() < st_info.f_angle1 ) && ( Get_NowDist() < st_data.f_dist ) ){			// 指定角度＋距離到達待ち
+		while( ( Get_NowAngle() < st_info.f_angle1 ) && ( Get_NowDist() < st_data.f_dist ) ){			// �?定角度?��距離到達�?ち
 			if( SYS_isOutOfCtrl() == TRUE ){
 				CTRL_stop();
 				DCM_brakeMot( DCM_R );		// ブレーキ
 				DCM_brakeMot( DCM_L );		// ブレーキ
 				break;
-			}				// 途中で制御不能になった
+			}				// 途中で制御不�?�になっ�?
 		}
 	}
 
@@ -1097,7 +1097,7 @@ void MOT_goSla( enMOT_SURA_CMD en_type, stSLA* p_sla )
 	/*  const  */
 	/* ------ */
 	st_data.en_type			= CTRL_CONST_SURA;
-	st_data.f_acc			= 0;						// 加速度指定
+	st_data.f_acc			= 0;						// �?速度�?�?
 	st_data.f_now			= st_info.f_now;			// 現在速度
 	st_data.f_trgt			= st_info.f_now;			// 目標速度
 	st_data.f_nowDist		= f_entryLen + st_info.f_now * p_sla->us_accAngvelTime * 0.001;
@@ -1107,27 +1107,27 @@ void MOT_goSla( enMOT_SURA_CMD en_type, stSLA* p_sla )
 	st_data.f_trgtAngleS	= st_info.f_trgtAngleS;		// 目標角速度
 	st_data.f_nowAngle		= st_info.f_angle1;			// 現在角度
 	st_data.f_angle			= st_info.f_angle1_2;		// 目標角度
-	st_data.f_time 			= p_sla->us_constAngvelTime * 0.001;		// [msec] → [sec]
-	CTRL_setData( &st_data );							// データセット
+	st_data.f_time 			= p_sla->us_constAngvelTime * 0.001;		// [msec] �? [sec]
+	CTRL_setData( &st_data );							// �?ータセ�?�?
 
-	if( IS_R_SLA( en_type ) == TRUE ) {		// -方向
-		while( ( Get_NowAngle() > st_info.f_angle1_2 ) && ( Get_NowDist() < st_data.f_dist ) ){		// 指定角度＋距離到達待ち
+	if( IS_R_SLA( en_type ) == TRUE ) {		// -方�?
+		while( ( Get_NowAngle() > st_info.f_angle1_2 ) && ( Get_NowDist() < st_data.f_dist ) ){		// �?定角度?��距離到達�?ち
 			if( SYS_isOutOfCtrl() == TRUE ){
 				CTRL_stop();
 				DCM_brakeMot( DCM_R );		// ブレーキ
 				DCM_brakeMot( DCM_L );		// ブレーキ
 				break;
-			}				// 途中で制御不能になった
+			}				// 途中で制御不�?�になっ�?
 		}
 	}
 	else{
-		while( ( Get_NowAngle() < st_info.f_angle1_2 ) && ( Get_NowDist() < st_data.f_dist ) ){		// 指定角度＋距離到達待ち
+		while( ( Get_NowAngle() < st_info.f_angle1_2 ) && ( Get_NowDist() < st_data.f_dist ) ){		// �?定角度?��距離到達�?ち
 			if( SYS_isOutOfCtrl() == TRUE ){
 				CTRL_stop();
 				DCM_brakeMot( DCM_R );		// ブレーキ
 				DCM_brakeMot( DCM_L );		// ブレーキ
 				break;
-			}				// 途中で制御不能になった
+			}				// 途中で制御不�?�になっ�?
 		}
 	}
 //	log_in(0);
@@ -1136,7 +1136,7 @@ void MOT_goSla( enMOT_SURA_CMD en_type, stSLA* p_sla )
 	/*  dec  */
 	/* ------ */
 	st_data.en_type			= CTRL_DEC_SURA;
-	st_data.f_acc			= 0;						// 加速度指定
+	st_data.f_acc			= 0;						// �?速度�?�?
 	st_data.f_now			= st_info.f_now;			// 現在速度
 	st_data.f_trgt			= st_info.f_now;			// 目標速度
 	st_data.f_nowDist		= f_entryLen + st_info.f_now * ( p_sla->us_constAngvelTime + p_sla->us_accAngvelTime ) * 0.001;
@@ -1146,28 +1146,28 @@ void MOT_goSla( enMOT_SURA_CMD en_type, stSLA* p_sla )
 	st_data.f_trgtAngleS		= 0;				// 目標角速度
 	st_data.f_nowAngle		= st_info.f_angle1_2;		// 現在角度
 	st_data.f_angle			= st_info.f_angle;			// 目標角度
-	st_data.f_time			= p_sla->us_accAngvelTime * 0.001;			// [msec] → [sec]
-	CTRL_setData( &st_data );							// データセット
+	st_data.f_time			= p_sla->us_accAngvelTime * 0.001;			// [msec] �? [sec]
+	CTRL_setData( &st_data );							// �?ータセ�?�?
 //	LED = LED_ALL_ON;
-	if( IS_R_SLA( en_type ) == TRUE ) {		// -方向
-		while( ( Get_NowAngle() > st_info.f_angle ) && ( Get_NowDist() < st_data.f_dist ) ){			// 指定角度＋距離到達待ち
+	if( IS_R_SLA( en_type ) == TRUE ) {		// -方�?
+		while( ( Get_NowAngle() > st_info.f_angle ) && ( Get_NowDist() < st_data.f_dist ) ){			// �?定角度?��距離到達�?ち
 			if( SYS_isOutOfCtrl() == TRUE ){
 				CTRL_stop();
 				DCM_brakeMot( DCM_R );		// ブレーキ
 				DCM_brakeMot( DCM_L );		// ブレーキ
 				break;
-			}				// 途中で制御不能になった
+			}				// 途中で制御不�?�になっ�?
 
 		}
 	}
 	else{
-		while( ( Get_NowAngle() < st_info.f_angle ) && ( Get_NowDist() < st_data.f_dist ) ){			// 指定角度＋距離到達待ち
+		while( ( Get_NowAngle() < st_info.f_angle ) && ( Get_NowDist() < st_data.f_dist ) ){			// �?定角度?��距離到達�?ち
 			if( SYS_isOutOfCtrl() == TRUE ){
 				CTRL_stop();
 				DCM_brakeMot( DCM_R );		// ブレーキ
 				DCM_brakeMot( DCM_L );		// ブレーキ
 				break;
-			}				// 途中で制御不能になった
+			}				// 途中で制御不�?�になっ�?
 
 		}
 	}
@@ -1178,32 +1178,33 @@ void MOT_goSla( enMOT_SURA_CMD en_type, stSLA* p_sla )
 	/*  escape  */
 	/* ------------------------ */
 	st_data.en_type			= CTRL_EXIT_SURA;
-	st_data.f_acc			= 0;						// 加速度指定
+	st_data.f_acc			= 0;						// �?速度�?�?
 	st_data.f_now			= st_info.f_now;			// 現在速度
 	st_data.f_trgt			= st_info.f_now;			// 目標速度
-	st_data.f_nowDist		= f_entryLen + st_info.f_now * ( p_sla->us_constAngvelTime + p_sla->us_accAngvelTime * 2 ) * 0.001;
-	st_data.f_dist			= f_escapeLen + f_entryLen + st_info.f_now * ( p_sla->us_constAngvelTime + p_sla->us_accAngvelTime * 2 ) * 0.001;	// スラローム後の前進距離
+	st_data.f_nowDist		= f_entryLen + st_info.f_now * ( p_sla->us_constAngvelTime + p_sla->us_accAngvelTime * 2  ) * 0.001;
+	st_data.f_dist			= f_escapeLen + f_entryLen + st_info.f_now * ( p_sla->us_constAngvelTime + p_sla->us_accAngvelTime * 2 ) * 0.001;	// スラロー�?後�?�前進距離
 	st_data.f_accAngleS		= 0;						// 角加速度
 	st_data.f_nowAngleS		= 0;						// 現在角速度
 	st_data.f_trgtAngleS		= 0;						// 目標角度
 	st_data.f_nowAngle		= 0;						// 現在角度
 	st_data.f_angle			= 0;						// 目標角度
-	st_data.f_time 			= 0;						// 目標時間 [sec] ← 指定しない
-	CTRL_setData( &st_data );							// データセット
+	st_data.f_time 			= 0;						// 目標時�? [sec] �? �?定しな�?
+	CTRL_setData( &st_data );							// �?ータセ�?�?
 //	LED =LED_ALL_OFF;
-	while( Get_NowDist() < ( st_data.f_dist ) ){	// 指定距離到達待ち
+	while( Get_NowDist() < ( st_data.f_dist ) ){	// �?定距離到達�?ち
 		if( SYS_isOutOfCtrl() == TRUE ){
 			CTRL_stop();
 			DCM_brakeMot( DCM_R );		// ブレーキ
 			DCM_brakeMot( DCM_L );		// ブレーキ
 			break;
-		}				// 途中で制御不能になった
+		}				// 途中で制御不�?�になっ�?
 	}
 //	LED_off(LED1);
 //	log_in(f_NowAngle);
 	f_MotNowSpeed = st_info.f_now;			// 現在速度更新
 //	LED =LED_ALL_OFF;
-	GYRO_endErrChkAngle();					// エラー検出終了
+	GYRO_endErrChkAngle();					// エラー検�?�終�?
+	CTRL_clrNowData();
 
 }
 
@@ -1211,7 +1212,7 @@ void turntable(void)
 {
 	stCTRL_DATA test;
 		test.en_type = CTRL_CONST;
-		test.f_acc			= 0;						// 加速度指定
+		test.f_acc			= 0;						// �?速度�?�?
 		test.f_now			= 0;			// 現在速度
 		test.f_trgt			= 0;			// 目標速度
 		test.f_nowDist			= 0;
@@ -1221,12 +1222,13 @@ void turntable(void)
 		test.f_trgtAngleS		= 0;						// 目標角度
 		test.f_nowAngle			= GYRO_getNowAngle();						// 現在角度
 		test.f_angle			= 0;						// 目標角度
-		test.f_time 			= 0;						// 目標時間 [sec] ← 指定しない
+		test.f_time 			= 0;						// 目標時�? [sec] �? �?定しな�?
 
 	CTRL_clrData();
+	CTRL_clrNowData();
 	CTRL_setData(&test);
 	DCM_staMotAll();									// モータON
-	while( 1 ){	// 指定距離到達待ち
+	while( 1 ){	// �?定距離到達�?ち
 		if ( SW_ON == SW_IsOn_0() ){
 			CTRL_stop();
 			break;
@@ -1256,30 +1258,30 @@ bool MOT_setWallEdgeDist( void )
 {
 	float f_addDist;
 
-	/* 壁の切れ目を検知していない */
-	if( ( bl_IsWallEdge == FALSE ) || ( en_WallEdge == MOT_WALL_EDGE_NONE ) ){		// 壁切れ設定されていないか、検出していない場合は処理を抜ける
+	/* 壁�?��?れ目を検知して�?な�? */
+	if( ( bl_IsWallEdge == FALSE ) || ( en_WallEdge == MOT_WALL_EDGE_NONE ) ){		// 壁�??れ設定されて�?な�?か、検�?�して�?な�?場合�?�処�?を抜ける
 
 		return FALSE;
 	}
 
 	f_addDist = Get_NowDist() + MOT_WALL_EDGE_DIST;		// 旋回開始位置
 
-	/* 多く走る必要がある */
+	/* 多く走る�?要がある */
 	if( f_addDist > st_Info.f_dist ){
 
 		f_WallEdgeAddDist = f_addDist - st_Info.f_dist;
 	}
 
-	/* 壁の切れ目補正の変数を初期化 */
-	en_WallEdge   = MOT_WALL_EDGE_NONE;		// 壁の切れ目タイプ
-	bl_IsWallEdge = FALSE;					// 壁の切れ目検知
+	/* 壁�?��?れ目補正の変数を�?�期�? */
+	en_WallEdge   = MOT_WALL_EDGE_NONE;		// 壁�?��?れ目タイ�?
+	bl_IsWallEdge = FALSE;					// 壁�?��?れ目検知
 
 	return TRUE;
 }
 bool MOT_setWallEdgeDist_LoopWait( void )
 {
-	/* 壁の切れ目を検知していない */
-	if( bl_IsWallEdge == FALSE ){		// 壁切れ設定されていないか、検出していない場合は処理を抜ける
+	/* 壁�?��?れ目を検知して�?な�? */
+	if( bl_IsWallEdge == FALSE ){		// 壁�??れ設定されて�?な�?か、検�?�して�?な�?場合�?�処�?を抜ける
 
 		return FALSE;
 	}

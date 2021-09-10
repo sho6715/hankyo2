@@ -1,5 +1,5 @@
-log.c:30:6:log_in2	32	static
-log.c:56:6:log_interrupt	24	static
-log.c:83:6:log_flag_on	4	static
-log.c:88:6:log_flag_off	4	static
-log.c:93:6:log_read2	80	static
+log.c:30:6:log_in2	48	static
+log.c:56:6:log_interrupt	40	static
+log.c:73:6:log_flag_on	4	static
+log.c:78:6:log_flag_off	4	static
+log.c:83:6:log_read2	144	static

@@ -33,11 +33,11 @@ tim.c:287:6:Enable_TIM2	8	static
 tim.c:291:6:Disable_TIM2	8	static
 tim.c:295:6:Enable_TIM3	8	static
 tim.c:299:6:Disable_TIM3	8	static
-tim.c:303:6:Set_DutyTIM2	32	static
-tim.c:311:6:Set_DutyTIM3	32	static
+tim.c:303:6:Set_DutyTIM2	24	static
+tim.c:311:6:Set_DutyTIM3	24	static
 tim.c:319:6:Clear_CounterTIM2	8	static
 tim.c:324:6:Clear_CounterTIM3	8	static
 tim.c:329:6:Clear_CounterTIM8	8	static
 tim.c:334:6:Enable_TIM8	8	static
 tim.c:338:6:Disable_TIM8	8	static
-tim.c:342:6:Set_DutyTIM8	32	static
+tim.c:342:6:Set_DutyTIM8	24	static

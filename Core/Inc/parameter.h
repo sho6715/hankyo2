@@ -34,6 +34,17 @@
 
 #define MOT_WALL_EDGE_DIST			( 28.0f )	// 壁切れセンサOFF～壁まで
 
+#define		f_FF_speed_acc		(0.0016)				// フィードフォワード、加速度
+#define		f_FF_angleS_acc		(0.01)		// フィードフォワード、角加速度
+#define 		f_FB_speed_kp		(1.8)			// フィードバック、速度 比例制御
+#define 		f_FB_speed_ki		(0.2)			// フィードバック、速度 積分制御
+#define 		f_FB_speed_kd		(0.3)			// フィードバック、速度 微分制御
+#define		f_FB_angleS_kp		(0.8)			// フィードバック、角速度 比例制御
+#define		f_FB_angleS_ki		(0.1)			// フィードバック、角速度 積分制御
+#define		f_FB_angleS_kd		(0.08)			// フィードバック、角速度 微分制御
+#define		f_FB_wall_kp		(0.1)			// フィードバック、壁 比例制御
+#define		f_FB_wall_kd		(0.03)			// フィードバック、壁 微分制御
+
 /* 制御方法 */
 typedef enum{
 	
@@ -132,25 +143,20 @@ typedef struct{
 }stSPEED;
 
 /* ゲイン */
+/*
 typedef struct{
 	float			f_FF_speed_acc;				// フィードフォワード、加速度
-	float			f_FF_speed;				// フィードフォワード、速度
 	float			f_FF_angleS_acc;		// フィードフォワード、角加速度
-	float			f_FF_angleS;			// フィードフォワード、角速度
 	float 			f_FB_speed_kp;			// フィードバック、速度 比例制御
 	float 			f_FB_speed_ki;			// フィードバック、速度 積分制御
 	float 			f_FB_speed_kd;			// フィードバック、速度 微分制御
-//	float			f_FB_dist_kp;			// フィードバック、距離 比例制御
-//	float 			f_FB_dist_ki;			// フィードバック、距離 積分制御
 	float			f_FB_angleS_kp;			// フィードバック、角速度 比例制御
 	float			f_FB_angleS_ki;			// フィードバック、角速度 積分制御
 	float			f_FB_angleS_kd;			// フィードバック、角速度 微分制御
-//	float			f_FB_angle_kp;			// フィードバック、角度 比例制御
-//	float			f_FB_angle_ki;			// フィードバック、角度 積分制御
 	float			f_FB_wall_kp;			// フィードバック、壁 比例制御
 	float			f_FB_wall_kd;			// フィードバック、壁 微分制御
 }stGAIN;
-
+*/
 /* スラロームデータ */
 typedef struct{
 	float	f_speed;
@@ -178,7 +184,7 @@ typedef enum{
 
 void PARAM_setSpeedType( enPARAM_MODE en_mode, enPARAM_MOVE_SPEED en_speed );
 const stSPEED* PARAM_getSpeed( enPARAM_MODE en_mode );
-const stGAIN* PARAM_getGain( enPARAM_MODE en_mode );
+//const stGAIN* PARAM_getGain( enPARAM_MODE en_mode );
 
 void PARAM_makeSra( float f_speed, float f_angAcc, float f_g , enSLA_TYPE en_mode);
 stSLA* PARAM_getSra( enSLA_TYPE en_mode );

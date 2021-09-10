@@ -6,7 +6,7 @@ gyro.c:56:6:ICM_42688_init	16	static
 gyro.c:82:6:ICM_42688_GyroRead_DMA	16	static
 gyro.c:87:6:ICM_42688_GyroData	16	static
 gyro.c:92:6:GYRO_SetRef	16	static
-gyro.c:107:7:GYRO_getSpeedErr	32	static
+gyro.c:107:7:GYRO_getSpeedErr	24	static
 gyro.c:125:7:GYRO_getNowAngle	4	static
 gyro.c:130:7:GYRO_getRef	4	static
 gyro.c:135:6:GYRO_Pol	16	static

@@ -25,7 +25,7 @@ typedef enum{
 
 uint8_t now_mode = mode_1;
 
-enMODE		en_Mode;		//現在のモード
+enMODE		en_Mode;		//現在のモー�?
 
 void SYS_start( void )
 {
@@ -37,19 +37,19 @@ void SYS_start( void )
 	printf(" | Project By : RT Corporation|\r\n");
 	printf(" ------------------------------\r\n");
 
-	PARAM_makeSra( (float)SEARCH_SPEED, 100.0f, 2500.0f, SLA_45 );		// 進入速度[mm/s]、角加速度[rad/s^2]、横G[mm/s^2]、スラロームタイプ
-	PARAM_makeSra( (float)SEARCH_SPEED, 150.0f, 3000.0f, SLA_90 );		// 進入速度[mm/s]、角加速度[rad/s^2]、横G[mm/s^2]、スラロームタイプ
-	PARAM_makeSra( (float)SEARCH_SPEED, 150.0f, 6000.0f, SLA_135 );		// 進入速度[mm/s]、角加速度[rad/s^2]、横G[mm/s^2]、スラロームタイプ
-	PARAM_makeSra( (float)SEARCH_SPEED, 200.0f, 7000.0f, SLA_N90 );		// 進入速度[mm/s]、角加速度[rad/s^2]、横G[mm/s^2]、スラロームタイプ
+	PARAM_makeSra( (float)SEARCH_SPEED, 100.0f, 2500.0f, SLA_45 );		// 進入速度[mm/s]、角加速度[rad/s^2]、横G[mm/s^2]、スラロー�?タイ�?
+	PARAM_makeSra( (float)SEARCH_SPEED, 150.0f, 3000.0f, SLA_90 );		// 進入速度[mm/s]、角加速度[rad/s^2]、横G[mm/s^2]、スラロー�?タイ�?
+	PARAM_makeSra( (float)SEARCH_SPEED, 150.0f, 6000.0f, SLA_135 );		// 進入速度[mm/s]、角加速度[rad/s^2]、横G[mm/s^2]、スラロー�?タイ�?
+	PARAM_makeSra( (float)SEARCH_SPEED, 200.0f, 7000.0f, SLA_N90 );		// 進入速度[mm/s]、角加速度[rad/s^2]、横G[mm/s^2]、スラロー�?タイ�?
 
 
 }
 
 void MODE_inc( void )
 {
-	en_Mode++;		// モードを加算
+	en_Mode++;		// モードを�?�?
 
-	/* 最大値チェック */
+	/* 最大値チェ�?ク */
 	if( MODE_MAX == en_Mode ){
 		en_Mode = MODE_0;
 	}
@@ -108,6 +108,15 @@ void MODE_exe_m0( void )
 
 		case MODE_1:
 			SetLED(0x0e);
+			printf("\n");
+			LL_mDelay(1000);
+			SetLED(0x00);
+			while(1){
+				printf("  ENC_R%5d ENC_L%5d \r", 
+					Get_encoder_value(enR),Get_encoder_value(enL)
+				);
+				LL_mDelay( 500 );
+			}
 			break;
 
 		case MODE_2:
@@ -123,43 +132,47 @@ void MODE_exe_m0( void )
 		case MODE_4:
 			SetLED(0x0e);
 			MOT_setTrgtSpeed(SEARCH_SPEED);
-			MOT_setSuraStaSpeed( SEARCH_SPEED );							// スラローム開始速度設定
-			PARAM_setSpeedType( PARAM_ST,   PARAM_VERY_SLOW );							// [直進] 速度普通
-			PARAM_setSpeedType( PARAM_TRUN, PARAM_VERY_SLOW );							// [旋回] 速度普通
-			PARAM_setSpeedType( PARAM_SLA,  PARAM_VERY_SLOW );							// [スラ] 速度普通
+			MOT_setSuraStaSpeed( SEARCH_SPEED );							// スラロー�?開始速度設�?
+			PARAM_setSpeedType( PARAM_ST,   PARAM_VERY_SLOW );							// [直進] 速度普�?
+			PARAM_setSpeedType( PARAM_TRUN, PARAM_VERY_SLOW );							// [旋回] 速度普�?
+			PARAM_setSpeedType( PARAM_SLA,  PARAM_VERY_SLOW );							// [スラ] 速度普�?
 			SetLED(0x00);
 			LL_mDelay(500);
+			CTRL_clrNowData();
 			CTRL_clrData();
 			log_flag_on();
-			MOT_goBlock_FinSpeed(8.0, 0.0);
+			MOT_goBlock_FinSpeed(3.0, 0.0);
 			log_flag_off();
 			break;
 
 		case MODE_5:
 			SetLED(0x0e);
 			MOT_setTrgtSpeed(SEARCH_SPEED);
-			MOT_setSuraStaSpeed( SEARCH_SPEED );							// スラローム開始速度設定
-			PARAM_setSpeedType( PARAM_ST,   PARAM_VERY_SLOW );							// [直進] 速度普通
-			PARAM_setSpeedType( PARAM_TRUN, PARAM_VERY_SLOW );							// [旋回] 速度普通
-			PARAM_setSpeedType( PARAM_SLA,  PARAM_VERY_SLOW );							// [スラ] 速度普通
+			MOT_setSuraStaSpeed( SEARCH_SPEED );							// スラロー�?開始速度設�?
+			PARAM_setSpeedType( PARAM_ST,   PARAM_VERY_SLOW );							// [直進] 速度普�?
+			PARAM_setSpeedType( PARAM_TRUN, PARAM_VERY_SLOW );							// [旋回] 速度普�?
+			PARAM_setSpeedType( PARAM_SLA,  PARAM_VERY_SLOW );							// [スラ] 速度普�?
 			SetLED(0x00);
 			LL_mDelay(500);
 			log_flag_on();
+			CTRL_clrNowData();
 			CTRL_clrData();
 //			log_flag_on();
 			MOT_turn(MOT_R90);
+			MOT_turn(MOT_L90);
 			log_flag_off();
 			break;
 
 		case MODE_6:
 			SetLED(0x0e);
 			MOT_setTrgtSpeed(SEARCH_SPEED);
-			MOT_setSuraStaSpeed( SEARCH_SPEED );							// スラローム開始速度設定
-			PARAM_setSpeedType( PARAM_ST,   PARAM_VERY_SLOW );							// [直進] 速度普通
-			PARAM_setSpeedType( PARAM_TRUN, PARAM_VERY_SLOW );							// [旋回] 速度普通
-			PARAM_setSpeedType( PARAM_SLA,  PARAM_VERY_SLOW );							// [スラ] 速度普通
+			MOT_setSuraStaSpeed( SEARCH_SPEED );							// スラロー�?開始速度設�?
+			PARAM_setSpeedType( PARAM_ST,   PARAM_VERY_SLOW );							// [直進] 速度普�?
+			PARAM_setSpeedType( PARAM_TRUN, PARAM_VERY_SLOW );							// [旋回] 速度普�?
+			PARAM_setSpeedType( PARAM_SLA,  PARAM_VERY_SLOW );							// [スラ] 速度普�?
 			SetLED(0x00);
 			LL_mDelay(500);
+			CTRL_clrNowData();
 			CTRL_clrData();
 			log_flag_on();
 			MOT_goBlock_FinSpeed(0.5, SEARCH_SPEED);
@@ -192,20 +205,20 @@ void MODE_exe( void )
 	/* モード表示 */
 	switch( en_Mode ){
 
-		case MODE_0:	//モジュール調整用プログラム群
+		case MODE_0:	//モジュール調整用プログラ�?群
 			SetLED(0x0e);
-			en_Mode = MODE_0;	//注意：MODE_incを利用するため最初にen_Modeを初期化　最後にen_Modeを戻す操作が必要
+			en_Mode = MODE_0;	//注意：MODE_incを利用するため最初にen_Modeを�?�期化　最後にen_Modeを戻す操作が�?�?
 			LL_mDelay(100);
 			SetLED(0x00);
 			while(1){
 				if ( SW_IsOn_1() == SW_ON ){
 					MODE_inc();								// モードを1つ進める
-					LL_mDelay(200);			// SWが離されるまで待つ
+					LL_mDelay(200);			// SWが離されるまで�?つ
 					printf("mode selecting_0\r\n");
 				}
 				else if (( SW_IsOn_0() == SW_ON )||(TRUE == MODE_CheckExe())){
-					MODE_exe_m0();								// モード実行
-					LL_mDelay(200);				// SWが離されるまで待つ
+					MODE_exe_m0();								// モード実�?
+					LL_mDelay(200);				// SWが離されるまで�?つ
 					if (en_Mode == MODE_7)break;
 				}
 
@@ -217,10 +230,10 @@ void MODE_exe( void )
 			SetLED(0x0e);
 			LL_mDelay(500);
 			MOT_setTrgtSpeed(300.0);
-			MOT_setSuraStaSpeed( 300.0 );							// スラローム開始速度設定
-			PARAM_setSpeedType( PARAM_ST,   PARAM_SLOW );							// [直進] 速度普通
-			PARAM_setSpeedType( PARAM_TRUN, PARAM_SLOW );							// [旋回] 速度普通
-			PARAM_setSpeedType( PARAM_SLA,  PARAM_SLOW );							// [スラ] 速度普通
+			MOT_setSuraStaSpeed( 300.0 );							// スラロー�?開始速度設�?
+			PARAM_setSpeedType( PARAM_ST,   PARAM_SLOW );							// [直進] 速度普�?
+			PARAM_setSpeedType( PARAM_TRUN, PARAM_SLOW );							// [旋回] 速度普�?
+			PARAM_setSpeedType( PARAM_SLA,  PARAM_SLOW );							// [スラ] 速度普�?
 			MOT_goBlock_FinSpeed( 3.0, 0.0);
 			
 			break;
@@ -229,30 +242,30 @@ void MODE_exe( void )
 			SetLED(0x0e);
 			LL_mDelay(500);
 //			MOT_setTrgtSpeed(300.0);
-//			MOT_setSuraStaSpeed( 300.0 );							// スラローム開始速度設定
-			PARAM_setSpeedType( PARAM_ST,   PARAM_SLOW );							// [直進] 速度普通
-			PARAM_setSpeedType( PARAM_TRUN, PARAM_SLOW );							// [旋回] 速度普通
-			PARAM_setSpeedType( PARAM_SLA,  PARAM_SLOW );							// [スラ] 速度普通
+//			MOT_setSuraStaSpeed( 300.0 );							// スラロー�?開始速度設�?
+			PARAM_setSpeedType( PARAM_ST,   PARAM_SLOW );							// [直進] 速度普�?
+			PARAM_setSpeedType( PARAM_TRUN, PARAM_SLOW );							// [旋回] 速度普�?
+			PARAM_setSpeedType( PARAM_SLA,  PARAM_SLOW );							// [スラ] 速度普�?
 			turntable();
 			break;
 
 		case MODE_3:
 			SetLED(0x0e);
 			MOT_setTrgtSpeed(SEARCH_SPEED);
-			MOT_setSuraStaSpeed( SEARCH_SPEED );							// スラローム開始速度設定
-			PARAM_setSpeedType( PARAM_ST,   PARAM_SLOW );							// [直進] 速度普通
-			PARAM_setSpeedType( PARAM_TRUN, PARAM_SLOW );							// [旋回] 速度普通
-			PARAM_setSpeedType( PARAM_SLA,  PARAM_SLOW );							// [スラ] 速度普通
+			MOT_setSuraStaSpeed( SEARCH_SPEED );							// スラロー�?開始速度設�?
+			PARAM_setSpeedType( PARAM_ST,   PARAM_SLOW );							// [直進] 速度普�?
+			PARAM_setSpeedType( PARAM_TRUN, PARAM_SLOW );							// [旋回] 速度普�?
+			PARAM_setSpeedType( PARAM_SLA,  PARAM_SLOW );							// [スラ] 速度普�?
 			SetLED(0x00);
 			LL_mDelay(100);
-			PARAM_makeSra( SEARCH_SPEED, 200.0f, 2500.0f, SLA_90 );		// 進入速度[mm/s]、角加速度[rad/s^2]、横G[mm/s^2]、スラロームタイプ
+			PARAM_makeSra( SEARCH_SPEED, 200.0f, 2500.0f, SLA_90 );		// 進入速度[mm/s]、角加速度[rad/s^2]、横G[mm/s^2]、スラロー�?タイ�?
 			MAP_Goalsize(1);
 			MAP_setPos( 0, 0, NORTH );							// スタート位置
 
-			MAP_searchGoal(GOAL_MAP_X_def, GOAL_MAP_Y_def, SEARCH, SEARCH_SURA );			// ゴール設定
+			MAP_searchGoal(GOAL_MAP_X_def, GOAL_MAP_Y_def, SEARCH, SEARCH_SURA );			// ゴール設�?
 
 
-			/* 帰りのスラローム探索 */
+			/* 帰り�?�スラロー�?探索 */
 			SetLED(0x0e);
 			MOT_setTrgtSpeed(250);
 			MAP_Goalsize(1);
@@ -262,6 +275,7 @@ void MODE_exe( void )
 
 		case MODE_4:
 			SetLED(0x0e);
+			CTRL_clrNowData();
 			CTRL_clrData();
 //			LL_TIM_EnableIT_UPDATE(TIM4);
 //			LL_TIM_EnableCounter(TIM4);
@@ -279,10 +293,10 @@ void MODE_exe( void )
 		case MODE_5:
 			SetLED(0x0e);
 			MOT_setTrgtSpeed(SEARCH_SPEED);
-			MOT_setSuraStaSpeed( SEARCH_SPEED );							// スラローム開始速度設定
-			PARAM_setSpeedType( PARAM_ST,   PARAM_SLOW );							// [直進] 速度普通
-			PARAM_setSpeedType( PARAM_TRUN, PARAM_SLOW );							// [旋回] 速度普通
-			PARAM_setSpeedType( PARAM_SLA,  PARAM_SLOW );							// [スラ] 速度普通
+			MOT_setSuraStaSpeed( SEARCH_SPEED );							// スラロー�?開始速度設�?
+			PARAM_setSpeedType( PARAM_ST,   PARAM_SLOW );							// [直進] 速度普�?
+			PARAM_setSpeedType( PARAM_TRUN, PARAM_SLOW );							// [旋回] 速度普�?
+			PARAM_setSpeedType( PARAM_SLA,  PARAM_SLOW );							// [スラ] 速度普�?
 			SetLED(0x00);
 			LL_mDelay(500);
 			MOT_turn(MOT_R90);
@@ -298,10 +312,10 @@ void MODE_exe( void )
 		case MODE_6:
 			SetLED(0x0e);
 			MOT_setTrgtSpeed(SEARCH_SPEED);
-			MOT_setSuraStaSpeed( SEARCH_SPEED );							// スラローム開始速度設定
-			PARAM_setSpeedType( PARAM_ST,   PARAM_SLOW );							// [直進] 速度普通
-			PARAM_setSpeedType( PARAM_TRUN, PARAM_SLOW );							// [旋回] 速度普通
-			PARAM_setSpeedType( PARAM_SLA,  PARAM_SLOW );							// [スラ] 速度普通
+			MOT_setSuraStaSpeed( SEARCH_SPEED );							// スラロー�?開始速度設�?
+			PARAM_setSpeedType( PARAM_ST,   PARAM_SLOW );							// [直進] 速度普�?
+			PARAM_setSpeedType( PARAM_TRUN, PARAM_SLOW );							// [旋回] 速度普�?
+			PARAM_setSpeedType( PARAM_SLA,  PARAM_SLOW );							// [スラ] 速度普�?
 			SetLED(0x00);
 			LL_mDelay(500);
 			log_flag_on();
@@ -314,10 +328,10 @@ void MODE_exe( void )
 		case MODE_7:
 			SetLED(0x0e);
 			MOT_setTrgtSpeed(SEARCH_SPEED);
-			MOT_setSuraStaSpeed( SEARCH_SPEED );							// スラローム開始速度設定
-			PARAM_setSpeedType( PARAM_ST,   PARAM_SLOW );							// [直進] 速度普通
-			PARAM_setSpeedType( PARAM_TRUN, PARAM_SLOW );							// [旋回] 速度普通
-			PARAM_setSpeedType( PARAM_SLA,  PARAM_SLOW );							// [スラ] 速度普通
+			MOT_setSuraStaSpeed( SEARCH_SPEED );							// スラロー�?開始速度設�?
+			PARAM_setSpeedType( PARAM_ST,   PARAM_SLOW );							// [直進] 速度普�?
+			PARAM_setSpeedType( PARAM_TRUN, PARAM_SLOW );							// [旋回] 速度普�?
+			PARAM_setSpeedType( PARAM_SLA,  PARAM_SLOW );							// [スラ] 速度普�?
 			SetLED(0x00);
 			LL_mDelay(500);
 			log_flag_on();
@@ -369,10 +383,10 @@ bool MODE_setWaitCheck(void){
 
 	bool bl_check;
 
-	if( TRUE == MODE_DistRightCheck() ){	// 右だけ検知
+	if( TRUE == MODE_DistRightCheck() ){	// 右�?け検知
 		SetLED(0x08);
 	}
-	if( TRUE == MODE_DistLeftCheck() ){		// 左だけ検知
+	if( TRUE == MODE_DistLeftCheck() ){		// 左�?け検知
 		SetLED(0x02);
 	}
 
