@@ -5943,11 +5943,12 @@ LOAD c:/st/stm32cubeide_1.3.0/stm32cubeide/plugins/com.st.stm32cube.ide.mcu.exte
                 0x000000000800733a       0x3e ./Core/Src/hal/gyro.o
                 0x000000000800733a                ICM_42688_ReadByte
  .text.ICM_42688_init
-                0x0000000008007378       0x24 ./Core/Src/hal/gyro.o
+                0x0000000008007378       0x22 ./Core/Src/hal/gyro.o
                 0x0000000008007378                ICM_42688_init
  .text.ICM_42688_GyroRead_DMA
-                0x000000000800739c       0x1c ./Core/Src/hal/gyro.o
-                0x000000000800739c                ICM_42688_GyroRead_DMA
+                0x000000000800739a       0x1c ./Core/Src/hal/gyro.o
+                0x000000000800739a                ICM_42688_GyroRead_DMA
+ *fill*         0x00000000080073b6        0x2 
  .text.ICM_42688_GyroData
                 0x00000000080073b8       0x2c ./Core/Src/hal/gyro.o
                 0x00000000080073b8                ICM_42688_GyroData
@@ -6950,7 +6951,7 @@ LOAD c:/st/stm32cubeide_1.3.0/stm32cubeide/plugins/com.st.stm32cube.ide.mcu.exte
                 0x00000000080144e0                . = ALIGN (0x4)
                 0x00000000080144e0                _sidata = LOADADDR (.data)
 
-.data           0x0000000020000000      0x1f4 load address 0x00000000080144e0
+.data           0x0000000020000000      0x1f8 load address 0x00000000080144e0
                 0x0000000020000000                . = ALIGN (0x4)
                 0x0000000020000000                _sdata = .
  *(.data)
@@ -6980,279 +6981,280 @@ LOAD c:/st/stm32cubeide_1.3.0/stm32cubeide/plugins/com.st.stm32cube.ide.mcu.exte
                 0x000000002000000e                us_BatLvAve
  .data.us_batLv.14792
                 0x0000000020000010        0xa ./Core/Src/hal/sen_batt.o
- .data.uc_max_y
+ .data.uc_max_x
                 0x000000002000001a        0x1 ./Core/Src/search/search.o
-                0x000000002000001a                uc_max_y
- .data.SLA_count
+                0x000000002000001a                uc_max_x
+ .data.uc_max_y
                 0x000000002000001b        0x1 ./Core/Src/search/search.o
-                0x000000002000001b                SLA_count
+                0x000000002000001b                uc_max_y
+ .data.SLA_count
+                0x000000002000001c        0x1 ./Core/Src/search/search.o
+                0x000000002000001c                SLA_count
+ *fill*         0x000000002000001d        0x3 
  .data._impure_ptr
-                0x000000002000001c        0x4 c:/st/stm32cubeide_1.3.0/stm32cubeide/plugins/com.st.stm32cube.ide.mcu.externaltools.gnu-tools-for-stm32.9-2020-q2-update.win32_2.0.0.202105311346/tools/bin/../lib/gcc/arm-none-eabi/9.3.1/../../../../arm-none-eabi/lib/thumb/v7e-m+fp/hard\libc_nano.a(lib_a-impure.o)
-                0x000000002000001c                _impure_ptr
+                0x0000000020000020        0x4 c:/st/stm32cubeide_1.3.0/stm32cubeide/plugins/com.st.stm32cube.ide.mcu.externaltools.gnu-tools-for-stm32.9-2020-q2-update.win32_2.0.0.202105311346/tools/bin/../lib/gcc/arm-none-eabi/9.3.1/../../../../arm-none-eabi/lib/thumb/v7e-m+fp/hard\libc_nano.a(lib_a-impure.o)
+                0x0000000020000020                _impure_ptr
  .data.impure_data
-                0x0000000020000020       0x60 c:/st/stm32cubeide_1.3.0/stm32cubeide/plugins/com.st.stm32cube.ide.mcu.externaltools.gnu-tools-for-stm32.9-2020-q2-update.win32_2.0.0.202105311346/tools/bin/../lib/gcc/arm-none-eabi/9.3.1/../../../../arm-none-eabi/lib/thumb/v7e-m+fp/hard\libc_nano.a(lib_a-impure.o)
+                0x0000000020000024       0x60 c:/st/stm32cubeide_1.3.0/stm32cubeide/plugins/com.st.stm32cube.ide.mcu.externaltools.gnu-tools-for-stm32.9-2020-q2-update.win32_2.0.0.202105311346/tools/bin/../lib/gcc/arm-none-eabi/9.3.1/../../../../arm-none-eabi/lib/thumb/v7e-m+fp/hard\libc_nano.a(lib_a-impure.o)
  .data.numempty
-                0x0000000020000080        0x2 c:/st/stm32cubeide_1.3.0/stm32cubeide/plugins/com.st.stm32cube.ide.mcu.externaltools.gnu-tools-for-stm32.9-2020-q2-update.win32_2.0.0.202105311346/tools/bin/../lib/gcc/arm-none-eabi/9.3.1/../../../../arm-none-eabi/lib/thumb/v7e-m+fp/hard\libc_nano.a(lib_a-lnumeric.o)
- *fill*         0x0000000020000082        0x2 
+                0x0000000020000084        0x2 c:/st/stm32cubeide_1.3.0/stm32cubeide/plugins/com.st.stm32cube.ide.mcu.externaltools.gnu-tools-for-stm32.9-2020-q2-update.win32_2.0.0.202105311346/tools/bin/../lib/gcc/arm-none-eabi/9.3.1/../../../../arm-none-eabi/lib/thumb/v7e-m+fp/hard\libc_nano.a(lib_a-lnumeric.o)
+ *fill*         0x0000000020000086        0x2 
  .data.__global_locale
-                0x0000000020000084      0x16c c:/st/stm32cubeide_1.3.0/stm32cubeide/plugins/com.st.stm32cube.ide.mcu.externaltools.gnu-tools-for-stm32.9-2020-q2-update.win32_2.0.0.202105311346/tools/bin/../lib/gcc/arm-none-eabi/9.3.1/../../../../arm-none-eabi/lib/thumb/v7e-m+fp/hard\libc_nano.a(lib_a-locale.o)
-                0x0000000020000084                __global_locale
+                0x0000000020000088      0x16c c:/st/stm32cubeide_1.3.0/stm32cubeide/plugins/com.st.stm32cube.ide.mcu.externaltools.gnu-tools-for-stm32.9-2020-q2-update.win32_2.0.0.202105311346/tools/bin/../lib/gcc/arm-none-eabi/9.3.1/../../../../arm-none-eabi/lib/thumb/v7e-m+fp/hard\libc_nano.a(lib_a-locale.o)
+                0x0000000020000088                __global_locale
  .data.__fdlib_version
-                0x00000000200001f0        0x1 c:/st/stm32cubeide_1.3.0/stm32cubeide/plugins/com.st.stm32cube.ide.mcu.externaltools.gnu-tools-for-stm32.9-2020-q2-update.win32_2.0.0.202105311346/tools/bin/../lib/gcc/arm-none-eabi/9.3.1/../../../../arm-none-eabi/lib/thumb/v7e-m+fp/hard\libm.a(lib_a-s_lib_ver.o)
-                0x00000000200001f0                __fdlib_version
+                0x00000000200001f4        0x1 c:/st/stm32cubeide_1.3.0/stm32cubeide/plugins/com.st.stm32cube.ide.mcu.externaltools.gnu-tools-for-stm32.9-2020-q2-update.win32_2.0.0.202105311346/tools/bin/../lib/gcc/arm-none-eabi/9.3.1/../../../../arm-none-eabi/lib/thumb/v7e-m+fp/hard\libm.a(lib_a-s_lib_ver.o)
+                0x00000000200001f4                __fdlib_version
  *(.RamFunc)
  *(.RamFunc*)
-                0x00000000200001f4                . = ALIGN (0x4)
- *fill*         0x00000000200001f1        0x3 
-                0x00000000200001f4                _edata = .
+                0x00000000200001f8                . = ALIGN (0x4)
+ *fill*         0x00000000200001f5        0x3 
+                0x00000000200001f8                _edata = .
 
-.igot.plt       0x00000000200001f4        0x0 load address 0x00000000080146d4
- .igot.plt      0x00000000200001f4        0x0 c:/st/stm32cubeide_1.3.0/stm32cubeide/plugins/com.st.stm32cube.ide.mcu.externaltools.gnu-tools-for-stm32.9-2020-q2-update.win32_2.0.0.202105311346/tools/bin/../lib/gcc/arm-none-eabi/9.3.1/thumb/v7e-m+fp/hard/crtbegin.o
-                0x00000000200001f4                . = ALIGN (0x4)
+.igot.plt       0x00000000200001f8        0x0 load address 0x00000000080146d8
+ .igot.plt      0x00000000200001f8        0x0 c:/st/stm32cubeide_1.3.0/stm32cubeide/plugins/com.st.stm32cube.ide.mcu.externaltools.gnu-tools-for-stm32.9-2020-q2-update.win32_2.0.0.202105311346/tools/bin/../lib/gcc/arm-none-eabi/9.3.1/thumb/v7e-m+fp/hard/crtbegin.o
+                0x00000000200001f8                . = ALIGN (0x4)
 
-.bss            0x00000000200001f4     0x5fd8 load address 0x00000000080146d4
-                0x00000000200001f4                _sbss = .
-                0x00000000200001f4                __bss_start__ = _sbss
+.bss            0x00000000200001f8     0x5fd8 load address 0x00000000080146d8
+                0x00000000200001f8                _sbss = .
+                0x00000000200001f8                __bss_start__ = _sbss
  *(.bss)
- .bss           0x00000000200001f4       0x1c c:/st/stm32cubeide_1.3.0/stm32cubeide/plugins/com.st.stm32cube.ide.mcu.externaltools.gnu-tools-for-stm32.9-2020-q2-update.win32_2.0.0.202105311346/tools/bin/../lib/gcc/arm-none-eabi/9.3.1/thumb/v7e-m+fp/hard/crtbegin.o
+ .bss           0x00000000200001f8       0x1c c:/st/stm32cubeide_1.3.0/stm32cubeide/plugins/com.st.stm32cube.ide.mcu.externaltools.gnu-tools-for-stm32.9-2020-q2-update.win32_2.0.0.202105311346/tools/bin/../lib/gcc/arm-none-eabi/9.3.1/thumb/v7e-m+fp/hard/crtbegin.o
  *(.bss*)
- .bss.i.14882   0x0000000020000210        0x1 ./Core/Src/stm32g4xx_it.o
- .bss.i.14891   0x0000000020000211        0x1 ./Core/Src/stm32g4xx_it.o
- *fill*         0x0000000020000212        0x2 
+ .bss.i.14882   0x0000000020000214        0x1 ./Core/Src/stm32g4xx_it.o
+ .bss.i.14891   0x0000000020000215        0x1 ./Core/Src/stm32g4xx_it.o
+ *fill*         0x0000000020000216        0x2 
  .bss.__sbrk_heap_end
-                0x0000000020000214        0x4 ./Core/Src/sysmem.o
+                0x0000000020000218        0x4 ./Core/Src/sysmem.o
  .bss.uc_CtrlFlag
-                0x0000000020000218        0x1 ./Core/Src/hal/CTRL.o
-                0x0000000020000218                uc_CtrlFlag
- *fill*         0x0000000020000219        0x3 
- .bss.f_Time    0x000000002000021c        0x4 ./Core/Src/hal/CTRL.o
-                0x000000002000021c                f_Time
- .bss.f_Acc     0x0000000020000220        0x4 ./Core/Src/hal/CTRL.o
-                0x0000000020000220                f_Acc
+                0x000000002000021c        0x1 ./Core/Src/hal/CTRL.o
+                0x000000002000021c                uc_CtrlFlag
+ *fill*         0x000000002000021d        0x3 
+ .bss.f_Time    0x0000000020000220        0x4 ./Core/Src/hal/CTRL.o
+                0x0000000020000220                f_Time
+ .bss.f_Acc     0x0000000020000224        0x4 ./Core/Src/hal/CTRL.o
+                0x0000000020000224                f_Acc
  .bss.f_BaseSpeed
-                0x0000000020000224        0x4 ./Core/Src/hal/CTRL.o
-                0x0000000020000224                f_BaseSpeed
- .bss.f_LastSpeed
                 0x0000000020000228        0x4 ./Core/Src/hal/CTRL.o
-                0x0000000020000228                f_LastSpeed
- .bss.f_NowSpeed
+                0x0000000020000228                f_BaseSpeed
+ .bss.f_LastSpeed
                 0x000000002000022c        0x4 ./Core/Src/hal/CTRL.o
-                0x000000002000022c                f_NowSpeed
- .bss.f_TrgtSpeed
+                0x000000002000022c                f_LastSpeed
+ .bss.f_NowSpeed
                 0x0000000020000230        0x4 ./Core/Src/hal/CTRL.o
-                0x0000000020000230                f_TrgtSpeed
- .bss.f_ErrSpeedBuf
+                0x0000000020000230                f_NowSpeed
+ .bss.f_TrgtSpeed
                 0x0000000020000234        0x4 ./Core/Src/hal/CTRL.o
-                0x0000000020000234                f_ErrSpeedBuf
- .bss.f_SpeedErrSum
+                0x0000000020000234                f_TrgtSpeed
+ .bss.f_ErrSpeedBuf
                 0x0000000020000238        0x4 ./Core/Src/hal/CTRL.o
-                0x0000000020000238                f_SpeedErrSum
- .bss.f_BaseDist
+                0x0000000020000238                f_ErrSpeedBuf
+ .bss.f_SpeedErrSum
                 0x000000002000023c        0x4 ./Core/Src/hal/CTRL.o
-                0x000000002000023c                f_BaseDist
- .bss.f_LastDist
+                0x000000002000023c                f_SpeedErrSum
+ .bss.f_BaseDist
                 0x0000000020000240        0x4 ./Core/Src/hal/CTRL.o
-                0x0000000020000240                f_LastDist
- .bss.f_TrgtDist
+                0x0000000020000240                f_BaseDist
+ .bss.f_LastDist
                 0x0000000020000244        0x4 ./Core/Src/hal/CTRL.o
-                0x0000000020000244                f_TrgtDist
- .bss.f_NowDist
+                0x0000000020000244                f_LastDist
+ .bss.f_TrgtDist
                 0x0000000020000248        0x4 ./Core/Src/hal/CTRL.o
-                0x0000000020000248                f_NowDist
- .bss.f_NowDistR
+                0x0000000020000248                f_TrgtDist
+ .bss.f_NowDist
                 0x000000002000024c        0x4 ./Core/Src/hal/CTRL.o
-                0x000000002000024c                f_NowDistR
- .bss.f_NowDistL
+                0x000000002000024c                f_NowDist
+ .bss.f_NowDistR
                 0x0000000020000250        0x4 ./Core/Src/hal/CTRL.o
-                0x0000000020000250                f_NowDistL
- .bss.f_DistErrSum
+                0x0000000020000250                f_NowDistR
+ .bss.f_NowDistL
                 0x0000000020000254        0x4 ./Core/Src/hal/CTRL.o
-                0x0000000020000254                f_DistErrSum
- .bss.f_AccAngleS
+                0x0000000020000254                f_NowDistL
+ .bss.f_DistErrSum
                 0x0000000020000258        0x4 ./Core/Src/hal/CTRL.o
-                0x0000000020000258                f_AccAngleS
- .bss.f_BaseAngleS
+                0x0000000020000258                f_DistErrSum
+ .bss.f_AccAngleS
                 0x000000002000025c        0x4 ./Core/Src/hal/CTRL.o
-                0x000000002000025c                f_BaseAngleS
- .bss.f_LastAngleS
+                0x000000002000025c                f_AccAngleS
+ .bss.f_BaseAngleS
                 0x0000000020000260        0x4 ./Core/Src/hal/CTRL.o
-                0x0000000020000260                f_LastAngleS
- .bss.f_TrgtAngleS
+                0x0000000020000260                f_BaseAngleS
+ .bss.f_LastAngleS
                 0x0000000020000264        0x4 ./Core/Src/hal/CTRL.o
-                0x0000000020000264                f_TrgtAngleS
- .bss.f_ErrAngleSBuf
+                0x0000000020000264                f_LastAngleS
+ .bss.f_TrgtAngleS
                 0x0000000020000268        0x4 ./Core/Src/hal/CTRL.o
-                0x0000000020000268                f_ErrAngleSBuf
- .bss.f_AngleSErrSum
+                0x0000000020000268                f_TrgtAngleS
+ .bss.f_ErrAngleSBuf
                 0x000000002000026c        0x4 ./Core/Src/hal/CTRL.o
-                0x000000002000026c                f_AngleSErrSum
- .bss.f_BaseAngle
+                0x000000002000026c                f_ErrAngleSBuf
+ .bss.f_AngleSErrSum
                 0x0000000020000270        0x4 ./Core/Src/hal/CTRL.o
-                0x0000000020000270                f_BaseAngle
- .bss.f_LastAngle
+                0x0000000020000270                f_AngleSErrSum
+ .bss.f_BaseAngle
                 0x0000000020000274        0x4 ./Core/Src/hal/CTRL.o
-                0x0000000020000274                f_LastAngle
- .bss.f_NowAngle
+                0x0000000020000274                f_BaseAngle
+ .bss.f_LastAngle
                 0x0000000020000278        0x4 ./Core/Src/hal/CTRL.o
-                0x0000000020000278                f_NowAngle
- .bss.f_TrgtAngle
+                0x0000000020000278                f_LastAngle
+ .bss.f_NowAngle
                 0x000000002000027c        0x4 ./Core/Src/hal/CTRL.o
-                0x000000002000027c                f_TrgtAngle
- .bss.f_AngleErrSum
+                0x000000002000027c                f_NowAngle
+ .bss.f_TrgtAngle
                 0x0000000020000280        0x4 ./Core/Src/hal/CTRL.o
-                0x0000000020000280                f_AngleErrSum
- .bss.l_WallErr
+                0x0000000020000280                f_TrgtAngle
+ .bss.f_AngleErrSum
                 0x0000000020000284        0x4 ./Core/Src/hal/CTRL.o
-                0x0000000020000284                l_WallErr
- .bss.f_ErrDistBuf
+                0x0000000020000284                f_AngleErrSum
+ .bss.l_WallErr
                 0x0000000020000288        0x4 ./Core/Src/hal/CTRL.o
-                0x0000000020000288                f_ErrDistBuf
+                0x0000000020000288                l_WallErr
+ .bss.f_ErrDistBuf
+                0x000000002000028c        0x4 ./Core/Src/hal/CTRL.o
+                0x000000002000028c                f_ErrDistBuf
  .bss.bl_failsafe
-                0x000000002000028c        0x1 ./Core/Src/hal/CTRL.o
-                0x000000002000028c                bl_failsafe
- *fill*         0x000000002000028d        0x1 
+                0x0000000020000290        0x1 ./Core/Src/hal/CTRL.o
+                0x0000000020000290                bl_failsafe
+ *fill*         0x0000000020000291        0x1 
  .bss.log_count
-                0x000000002000028e        0x2 ./Core/Src/hal/log.o
-                0x000000002000028e                log_count
+                0x0000000020000292        0x2 ./Core/Src/hal/log.o
+                0x0000000020000292                log_count
  .bss.b_logflag
-                0x0000000020000290        0x1 ./Core/Src/hal/log.o
-                0x0000000020000290                b_logflag
- *fill*         0x0000000020000291        0x3 
+                0x0000000020000294        0x1 ./Core/Src/hal/log.o
+                0x0000000020000294                b_logflag
+ *fill*         0x0000000020000295        0x3 
  .bss.f_MotNowSpeed
-                0x0000000020000294        0x4 ./Core/Src/hal/run.o
-                0x0000000020000294                f_MotNowSpeed
- .bss.f_MotTrgtSpeed
                 0x0000000020000298        0x4 ./Core/Src/hal/run.o
-                0x0000000020000298                f_MotTrgtSpeed
- .bss.f_MotSuraStaSpeed
+                0x0000000020000298                f_MotNowSpeed
+ .bss.f_MotTrgtSpeed
                 0x000000002000029c        0x4 ./Core/Src/hal/run.o
-                0x000000002000029c                f_MotSuraStaSpeed
+                0x000000002000029c                f_MotTrgtSpeed
+ .bss.f_MotSuraStaSpeed
+                0x00000000200002a0        0x4 ./Core/Src/hal/run.o
+                0x00000000200002a0                f_MotSuraStaSpeed
  .bss.en_WallEdge
-                0x00000000200002a0        0x1 ./Core/Src/hal/run.o
-                0x00000000200002a0                en_WallEdge
+                0x00000000200002a4        0x1 ./Core/Src/hal/run.o
+                0x00000000200002a4                en_WallEdge
  .bss.bl_IsWallEdge
-                0x00000000200002a1        0x1 ./Core/Src/hal/run.o
-                0x00000000200002a1                bl_IsWallEdge
- *fill*         0x00000000200002a2        0x2 
+                0x00000000200002a5        0x1 ./Core/Src/hal/run.o
+                0x00000000200002a5                bl_IsWallEdge
+ *fill*         0x00000000200002a6        0x2 
  .bss.f_WallEdgeAddDist
-                0x00000000200002a4        0x4 ./Core/Src/hal/run.o
-                0x00000000200002a4                f_WallEdgeAddDist
- .bss.i.14793   0x00000000200002a8        0x1 ./Core/Src/hal/sen_batt.o
+                0x00000000200002a8        0x4 ./Core/Src/hal/run.o
+                0x00000000200002a8                f_WallEdgeAddDist
+ .bss.i.14793   0x00000000200002ac        0x1 ./Core/Src/hal/sen_batt.o
  .bss.uc_SlaCnt
-                0x00000000200002a9        0x1 ./Core/Src/search/search.o
-                0x00000000200002a9                uc_SlaCnt
- .bss.uc_max_x  0x00000000200002aa        0x1 ./Core/Src/search/search.o
-                0x00000000200002aa                uc_max_x
- *fill*         0x00000000200002ab        0x1 
+                0x00000000200002ad        0x1 ./Core/Src/search/search.o
+                0x00000000200002ad                uc_SlaCnt
+ *fill*         0x00000000200002ae        0x2 
  .bss.__malloc_free_list
-                0x00000000200002ac        0x4 c:/st/stm32cubeide_1.3.0/stm32cubeide/plugins/com.st.stm32cube.ide.mcu.externaltools.gnu-tools-for-stm32.9-2020-q2-update.win32_2.0.0.202105311346/tools/bin/../lib/gcc/arm-none-eabi/9.3.1/../../../../arm-none-eabi/lib/thumb/v7e-m+fp/hard\libc_nano.a(lib_a-nano-mallocr.o)
-                0x00000000200002ac                __malloc_free_list
- .bss.__malloc_sbrk_start
                 0x00000000200002b0        0x4 c:/st/stm32cubeide_1.3.0/stm32cubeide/plugins/com.st.stm32cube.ide.mcu.externaltools.gnu-tools-for-stm32.9-2020-q2-update.win32_2.0.0.202105311346/tools/bin/../lib/gcc/arm-none-eabi/9.3.1/../../../../arm-none-eabi/lib/thumb/v7e-m+fp/hard\libc_nano.a(lib_a-nano-mallocr.o)
-                0x00000000200002b0                __malloc_sbrk_start
+                0x00000000200002b0                __malloc_free_list
+ .bss.__malloc_sbrk_start
+                0x00000000200002b4        0x4 c:/st/stm32cubeide_1.3.0/stm32cubeide/plugins/com.st.stm32cube.ide.mcu.externaltools.gnu-tools-for-stm32.9-2020-q2-update.win32_2.0.0.202105311346/tools/bin/../lib/gcc/arm-none-eabi/9.3.1/../../../../arm-none-eabi/lib/thumb/v7e-m+fp/hard\libc_nano.a(lib_a-nano-mallocr.o)
+                0x00000000200002b4                __malloc_sbrk_start
  *(COMMON)
- COMMON         0x00000000200002b4      0xc4d ./Core/Src/adc.o
-                0x00000000200002b4                f_GyroNowAngle
-                0x00000000200002b8                Min_in
-                0x00000000200002b9                Return_X
-                0x00000000200002ba                s_AccelVal
-                0x00000000200002bc                templog2
-                0x00000000200002c0                Sec_in
-                0x00000000200002c1                Return_Y
-                0x00000000200002c2                en_Type
-                0x00000000200002c3                bl_ErrChk
-                0x00000000200002c4                s_GyroValBuf
-                0x00000000200002d4                en_Turntype
-                0x00000000200002d6                s_GyroVal
-                0x00000000200002d8                search_flag
-                0x00000000200002dc                g_sysMap
-                0x00000000200006dc                escape_wait
-                0x00000000200006e0                f_ErrChkAngle
-                0x00000000200006e4                l_AccelRef
-                0x00000000200006e8                f_NowAccel
-                0x00000000200006ec                Msec_in
-                0x00000000200006ee                encoderdir
-                0x00000000200006f0                l_GyroRef
-                0x00000000200006f4                templog1
-                0x00000000200006f8                adcConvertData
-                0x0000000020000700                us_cmap
-                0x0000000020000f00                uc_dist_control
- *fill*         0x0000000020000f01        0x3 
- COMMON         0x0000000020000f04       0x90 ./Core/Src/parameter.o
-                0x0000000020000f04                st_Sla
- COMMON         0x0000000020000f94        0xe ./Core/Src/spi.o
-                0x0000000020000f94                SPI1TransmitData
-                0x0000000020000f98                SPI2TransmitData
-                0x0000000020000f9c                SPI1ReciveData
-                0x0000000020000fa0                SPI2ReciveData
- *fill*         0x0000000020000fa2        0x2 
- COMMON         0x0000000020000fa4        0x8 ./Core/Src/hal/CTRL.o
-                0x0000000020000fa4                l_CntL
-                0x0000000020000fa8                l_CntR
- COMMON         0x0000000020000fac        0x8 ./Core/Src/hal/encoder.o
-                0x0000000020000fac                ENC_L_CNT
-                0x0000000020000fae                ENC_L_CNT_old
-                0x0000000020000fb0                ENC_R_CNT
-                0x0000000020000fb2                ENC_R_CNT_old
- COMMON         0x0000000020000fb4     0x1c20 ./Core/Src/hal/log.o
-                0x0000000020000fb4                Log_9
-                0x00000000200012d4                Log_4
-                0x00000000200015f4                Log_7
-                0x0000000020001914                Log_3
-                0x0000000020001c34                Log_2
-                0x0000000020001f54                Log_5
-                0x0000000020002274                Log_6
-                0x0000000020002594                Log_1
-                0x00000000200028b4                Log_8
- COMMON         0x0000000020002bd4        0x1 ./Core/Src/hal/mode.o
-                0x0000000020002bd4                en_Mode
- *fill*         0x0000000020002bd5        0x3 
- COMMON         0x0000000020002bd8       0x44 ./Core/Src/hal/run.o
-                0x0000000020002bd8                st_Info
- COMMON         0x0000000020002c1c       0x58 ./Core/Src/hal/sen_dist.o
-                0x0000000020002c1c                st_senF
-                0x0000000020002c3c                st_sen
- COMMON         0x0000000020002c74     0x313c ./Core/Src/search/map_cmd.o
-                0x0000000020002c74                f_LogPosY
-                0x0000000020002cec                dcom
-                0x0000000020003cec                s_PosDir
-                0x0000000020003cf0                f_PosX
-                0x0000000020003cf4                scom
-                0x0000000020004cf4                us_LogWallCut
-                0x0000000020004d30                tcom
-                0x0000000020005d30                f_LogPosX
-                0x0000000020005da8                us_totalCmd
-                0x0000000020005dac                f_PosY
- COMMON         0x0000000020005db0      0x40c ./Core/Src/search/search.o
-                0x0000000020005db0                uc_back
-                0x00000000200061b0                GOAL_MAP_X
-                0x00000000200061b1                my
-                0x00000000200061b4                f_MoveBackDist
-                0x00000000200061b8                en_Head
-                0x00000000200061b9                GOAL_MAP_Y
-                0x00000000200061ba                GOAL_SIZE
-                0x00000000200061bb                mx
- COMMON         0x00000000200061bc        0x9 c:/st/stm32cubeide_1.3.0/stm32cubeide/plugins/com.st.stm32cube.ide.mcu.externaltools.gnu-tools-for-stm32.9-2020-q2-update.win32_2.0.0.202105311346/tools/bin/../lib/gcc/arm-none-eabi/9.3.1/../../../../arm-none-eabi/lib/thumb/v7e-m+fp/hard\libc_nano.a(lib_a-lock.o)
-                0x00000000200061bc                __lock___atexit_recursive_mutex
-                0x00000000200061bd                __lock___arc4random_mutex
-                0x00000000200061be                __lock___env_recursive_mutex
-                0x00000000200061bf                __lock___sinit_recursive_mutex
-                0x00000000200061c0                __lock___malloc_recursive_mutex
-                0x00000000200061c1                __lock___at_quick_exit_mutex
-                0x00000000200061c2                __lock___dd_hash_mutex
-                0x00000000200061c3                __lock___tz_mutex
-                0x00000000200061c4                __lock___sfp_recursive_mutex
- *fill*         0x00000000200061c5        0x3 
- COMMON         0x00000000200061c8        0x4 c:/st/stm32cubeide_1.3.0/stm32cubeide/plugins/com.st.stm32cube.ide.mcu.externaltools.gnu-tools-for-stm32.9-2020-q2-update.win32_2.0.0.202105311346/tools/bin/../lib/gcc/arm-none-eabi/9.3.1/../../../../arm-none-eabi/lib/thumb/v7e-m+fp/hard\libc_nano.a(lib_a-reent.o)
-                0x00000000200061c8                errno
-                0x00000000200061cc                . = ALIGN (0x4)
-                0x00000000200061cc                _ebss = .
-                0x00000000200061cc                __bss_end__ = _ebss
+ COMMON         0x00000000200002b8      0xc4d ./Core/Src/adc.o
+                0x00000000200002b8                f_GyroNowAngle
+                0x00000000200002bc                Min_in
+                0x00000000200002bd                Return_X
+                0x00000000200002be                s_AccelVal
+                0x00000000200002c0                templog2
+                0x00000000200002c4                Sec_in
+                0x00000000200002c5                Return_Y
+                0x00000000200002c6                en_Type
+                0x00000000200002c7                bl_ErrChk
+                0x00000000200002c8                s_GyroValBuf
+                0x00000000200002d8                en_Turntype
+                0x00000000200002da                s_GyroVal
+                0x00000000200002dc                search_flag
+                0x00000000200002e0                g_sysMap
+                0x00000000200006e0                escape_wait
+                0x00000000200006e4                f_ErrChkAngle
+                0x00000000200006e8                l_AccelRef
+                0x00000000200006ec                f_NowAccel
+                0x00000000200006f0                Msec_in
+                0x00000000200006f2                encoderdir
+                0x00000000200006f4                l_GyroRef
+                0x00000000200006f8                templog1
+                0x00000000200006fc                adcConvertData
+                0x0000000020000704                us_cmap
+                0x0000000020000f04                uc_dist_control
+ *fill*         0x0000000020000f05        0x3 
+ COMMON         0x0000000020000f08       0x90 ./Core/Src/parameter.o
+                0x0000000020000f08                st_Sla
+ COMMON         0x0000000020000f98        0xe ./Core/Src/spi.o
+                0x0000000020000f98                SPI1TransmitData
+                0x0000000020000f9c                SPI2TransmitData
+                0x0000000020000fa0                SPI1ReciveData
+                0x0000000020000fa4                SPI2ReciveData
+ *fill*         0x0000000020000fa6        0x2 
+ COMMON         0x0000000020000fa8        0x8 ./Core/Src/hal/CTRL.o
+                0x0000000020000fa8                l_CntL
+                0x0000000020000fac                l_CntR
+ COMMON         0x0000000020000fb0        0x8 ./Core/Src/hal/encoder.o
+                0x0000000020000fb0                ENC_L_CNT
+                0x0000000020000fb2                ENC_L_CNT_old
+                0x0000000020000fb4                ENC_R_CNT
+                0x0000000020000fb6                ENC_R_CNT_old
+ COMMON         0x0000000020000fb8     0x1c20 ./Core/Src/hal/log.o
+                0x0000000020000fb8                Log_9
+                0x00000000200012d8                Log_4
+                0x00000000200015f8                Log_7
+                0x0000000020001918                Log_3
+                0x0000000020001c38                Log_2
+                0x0000000020001f58                Log_5
+                0x0000000020002278                Log_6
+                0x0000000020002598                Log_1
+                0x00000000200028b8                Log_8
+ COMMON         0x0000000020002bd8        0x1 ./Core/Src/hal/mode.o
+                0x0000000020002bd8                en_Mode
+ *fill*         0x0000000020002bd9        0x3 
+ COMMON         0x0000000020002bdc       0x44 ./Core/Src/hal/run.o
+                0x0000000020002bdc                st_Info
+ COMMON         0x0000000020002c20       0x58 ./Core/Src/hal/sen_dist.o
+                0x0000000020002c20                st_senF
+                0x0000000020002c40                st_sen
+ COMMON         0x0000000020002c78     0x313c ./Core/Src/search/map_cmd.o
+                0x0000000020002c78                f_LogPosY
+                0x0000000020002cf0                dcom
+                0x0000000020003cf0                s_PosDir
+                0x0000000020003cf4                f_PosX
+                0x0000000020003cf8                scom
+                0x0000000020004cf8                us_LogWallCut
+                0x0000000020004d34                tcom
+                0x0000000020005d34                f_LogPosX
+                0x0000000020005dac                us_totalCmd
+                0x0000000020005db0                f_PosY
+ COMMON         0x0000000020005db4      0x40c ./Core/Src/search/search.o
+                0x0000000020005db4                uc_back
+                0x00000000200061b4                GOAL_MAP_X
+                0x00000000200061b5                my
+                0x00000000200061b8                f_MoveBackDist
+                0x00000000200061bc                en_Head
+                0x00000000200061bd                GOAL_MAP_Y
+                0x00000000200061be                GOAL_SIZE
+                0x00000000200061bf                mx
+ COMMON         0x00000000200061c0        0x9 c:/st/stm32cubeide_1.3.0/stm32cubeide/plugins/com.st.stm32cube.ide.mcu.externaltools.gnu-tools-for-stm32.9-2020-q2-update.win32_2.0.0.202105311346/tools/bin/../lib/gcc/arm-none-eabi/9.3.1/../../../../arm-none-eabi/lib/thumb/v7e-m+fp/hard\libc_nano.a(lib_a-lock.o)
+                0x00000000200061c0                __lock___atexit_recursive_mutex
+                0x00000000200061c1                __lock___arc4random_mutex
+                0x00000000200061c2                __lock___env_recursive_mutex
+                0x00000000200061c3                __lock___sinit_recursive_mutex
+                0x00000000200061c4                __lock___malloc_recursive_mutex
+                0x00000000200061c5                __lock___at_quick_exit_mutex
+                0x00000000200061c6                __lock___dd_hash_mutex
+                0x00000000200061c7                __lock___tz_mutex
+                0x00000000200061c8                __lock___sfp_recursive_mutex
+ *fill*         0x00000000200061c9        0x3 
+ COMMON         0x00000000200061cc        0x4 c:/st/stm32cubeide_1.3.0/stm32cubeide/plugins/com.st.stm32cube.ide.mcu.externaltools.gnu-tools-for-stm32.9-2020-q2-update.win32_2.0.0.202105311346/tools/bin/../lib/gcc/arm-none-eabi/9.3.1/../../../../arm-none-eabi/lib/thumb/v7e-m+fp/hard\libc_nano.a(lib_a-reent.o)
+                0x00000000200061cc                errno
+                0x00000000200061d0                . = ALIGN (0x4)
+                0x00000000200061d0                _ebss = .
+                0x00000000200061d0                __bss_end__ = _ebss
 
 ._user_heap_stack
-                0x00000000200061cc      0x604 load address 0x00000000080146d4
+                0x00000000200061d0      0x600 load address 0x00000000080146d8
                 0x00000000200061d0                . = ALIGN (0x8)
- *fill*         0x00000000200061cc        0x4 
                 [!provide]                        PROVIDE (end = .)
                 0x00000000200061d0                PROVIDE (_end = .)
                 0x00000000200063d0                . = (. + _Min_Heap_Size)
@@ -7837,7 +7839,7 @@ LOAD c:/st/stm32cubeide_1.3.0/stm32cubeide/plugins/com.st.stm32cube.ide.mcu.exte
  .debug_macro   0x0000000000029434      0x1ba ./Drivers/STM32G4xx_HAL_Driver/Src/stm32g4xx_ll_utils.o
  .debug_macro   0x00000000000295ee       0x7e ./Drivers/STM32G4xx_HAL_Driver/Src/stm32g4xx_ll_utils.o
 
-.debug_line     0x0000000000000000    0x1a16a
+.debug_line     0x0000000000000000    0x1a172
  .debug_line    0x0000000000000000      0xfb1 ./Core/Src/adc.o
  .debug_line    0x0000000000000fb1      0xa1b ./Core/Src/dma.o
  .debug_line    0x00000000000019cc      0xa43 ./Core/Src/flash.o
@@ -7846,33 +7848,33 @@ LOAD c:/st/stm32cubeide_1.3.0/stm32cubeide/plugins/com.st.stm32cube.ide.mcu.exte
  .debug_line    0x0000000000003d3b      0x8e3 ./Core/Src/parameter.o
  .debug_line    0x000000000000461e      0x685 ./Core/Src/queue.o
  .debug_line    0x0000000000004ca3      0xf84 ./Core/Src/spi.o
- .debug_line    0x0000000000005c27      0xc90 ./Core/Src/stm32g4xx_it.o
- .debug_line    0x00000000000068b7      0x802 ./Core/Src/syscalls.o
- .debug_line    0x00000000000070b9      0x4f8 ./Core/Src/sysmem.o
- .debug_line    0x00000000000075b1      0x4e0 ./Core/Src/system_stm32g4xx.o
- .debug_line    0x0000000000007a91     0x10a3 ./Core/Src/tim.o
- .debug_line    0x0000000000008b34      0xc0c ./Core/Src/usart.o
- .debug_line    0x0000000000009740     0x128b ./Core/Src/hal/CTRL.o
- .debug_line    0x000000000000a9cb      0x9d3 ./Core/Src/hal/DCM.o
- .debug_line    0x000000000000b39e      0xae0 ./Core/Src/hal/encoder.o
- .debug_line    0x000000000000be7e      0xb70 ./Core/Src/hal/gyro.o
- .debug_line    0x000000000000c9ee      0x940 ./Core/Src/hal/init.o
- .debug_line    0x000000000000d32e      0x9f7 ./Core/Src/hal/log.o
- .debug_line    0x000000000000dd25      0xb5d ./Core/Src/hal/mode.o
- .debug_line    0x000000000000e882     0x17de ./Core/Src/hal/run.o
- .debug_line    0x0000000000010060      0x99c ./Core/Src/hal/sen_batt.o
- .debug_line    0x00000000000109fc      0xcec ./Core/Src/hal/sen_dist.o
- .debug_line    0x00000000000116e8     0x1cf3 ./Core/Src/search/map_cmd.o
- .debug_line    0x00000000000133db      0x96d ./Core/Src/search/map_flash.o
- .debug_line    0x0000000000013d48     0x1f6c ./Core/Src/search/search.o
- .debug_line    0x0000000000015cb4       0x89 ./Core/Startup/startup_stm32g474cetx.o
- .debug_line    0x0000000000015d3d      0x8ee ./Drivers/STM32G4xx_HAL_Driver/Src/stm32g4xx_ll_adc.o
- .debug_line    0x000000000001662b      0x7b2 ./Drivers/STM32G4xx_HAL_Driver/Src/stm32g4xx_ll_gpio.o
- .debug_line    0x0000000000016ddd      0xf16 ./Drivers/STM32G4xx_HAL_Driver/Src/stm32g4xx_ll_rcc.o
- .debug_line    0x0000000000017cf3      0x725 ./Drivers/STM32G4xx_HAL_Driver/Src/stm32g4xx_ll_spi.o
- .debug_line    0x0000000000018418      0xc55 ./Drivers/STM32G4xx_HAL_Driver/Src/stm32g4xx_ll_tim.o
- .debug_line    0x000000000001906d      0x71e ./Drivers/STM32G4xx_HAL_Driver/Src/stm32g4xx_ll_usart.o
- .debug_line    0x000000000001978b      0x9df ./Drivers/STM32G4xx_HAL_Driver/Src/stm32g4xx_ll_utils.o
+ .debug_line    0x0000000000005c27      0xc98 ./Core/Src/stm32g4xx_it.o
+ .debug_line    0x00000000000068bf      0x802 ./Core/Src/syscalls.o
+ .debug_line    0x00000000000070c1      0x4f8 ./Core/Src/sysmem.o
+ .debug_line    0x00000000000075b9      0x4e0 ./Core/Src/system_stm32g4xx.o
+ .debug_line    0x0000000000007a99     0x10a3 ./Core/Src/tim.o
+ .debug_line    0x0000000000008b3c      0xc0c ./Core/Src/usart.o
+ .debug_line    0x0000000000009748     0x128b ./Core/Src/hal/CTRL.o
+ .debug_line    0x000000000000a9d3      0x9d3 ./Core/Src/hal/DCM.o
+ .debug_line    0x000000000000b3a6      0xae0 ./Core/Src/hal/encoder.o
+ .debug_line    0x000000000000be86      0xb70 ./Core/Src/hal/gyro.o
+ .debug_line    0x000000000000c9f6      0x940 ./Core/Src/hal/init.o
+ .debug_line    0x000000000000d336      0x9f7 ./Core/Src/hal/log.o
+ .debug_line    0x000000000000dd2d      0xb5d ./Core/Src/hal/mode.o
+ .debug_line    0x000000000000e88a     0x17de ./Core/Src/hal/run.o
+ .debug_line    0x0000000000010068      0x99c ./Core/Src/hal/sen_batt.o
+ .debug_line    0x0000000000010a04      0xcec ./Core/Src/hal/sen_dist.o
+ .debug_line    0x00000000000116f0     0x1cf3 ./Core/Src/search/map_cmd.o
+ .debug_line    0x00000000000133e3      0x96d ./Core/Src/search/map_flash.o
+ .debug_line    0x0000000000013d50     0x1f6c ./Core/Src/search/search.o
+ .debug_line    0x0000000000015cbc       0x89 ./Core/Startup/startup_stm32g474cetx.o
+ .debug_line    0x0000000000015d45      0x8ee ./Drivers/STM32G4xx_HAL_Driver/Src/stm32g4xx_ll_adc.o
+ .debug_line    0x0000000000016633      0x7b2 ./Drivers/STM32G4xx_HAL_Driver/Src/stm32g4xx_ll_gpio.o
+ .debug_line    0x0000000000016de5      0xf16 ./Drivers/STM32G4xx_HAL_Driver/Src/stm32g4xx_ll_rcc.o
+ .debug_line    0x0000000000017cfb      0x725 ./Drivers/STM32G4xx_HAL_Driver/Src/stm32g4xx_ll_spi.o
+ .debug_line    0x0000000000018420      0xc55 ./Drivers/STM32G4xx_HAL_Driver/Src/stm32g4xx_ll_tim.o
+ .debug_line    0x0000000000019075      0x71e ./Drivers/STM32G4xx_HAL_Driver/Src/stm32g4xx_ll_usart.o
+ .debug_line    0x0000000000019793      0x9df ./Drivers/STM32G4xx_HAL_Driver/Src/stm32g4xx_ll_utils.o
 
 .debug_str      0x0000000000000000    0xd3451
  .debug_str     0x0000000000000000    0xc5664 ./Core/Src/adc.o

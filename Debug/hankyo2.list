@@ -9,27 +9,27 @@ Idx Name          Size      VMA       LMA       File off  Algn
                   CONTENTS, ALLOC, LOAD, READONLY, CODE
   2 .rodata       00000b90  08013948  08013948  00023948  2**3
                   CONTENTS, ALLOC, LOAD, READONLY, DATA
-  3 .ARM.extab    00000000  080144d8  080144d8  000301f4  2**0
+  3 .ARM.extab    00000000  080144d8  080144d8  000301f8  2**0
                   CONTENTS
-  4 .ARM          00000000  080144d8  080144d8  000301f4  2**0
+  4 .ARM          00000000  080144d8  080144d8  000301f8  2**0
                   CONTENTS
-  5 .preinit_array 00000000  080144d8  080144d8  000301f4  2**0
+  5 .preinit_array 00000000  080144d8  080144d8  000301f8  2**0
                   CONTENTS, ALLOC, LOAD, DATA
   6 .init_array   00000004  080144d8  080144d8  000244d8  2**2
                   CONTENTS, ALLOC, LOAD, DATA
   7 .fini_array   00000004  080144dc  080144dc  000244dc  2**2
                   CONTENTS, ALLOC, LOAD, DATA
-  8 .data         000001f4  20000000  080144e0  00030000  2**2
+  8 .data         000001f8  20000000  080144e0  00030000  2**2
                   CONTENTS, ALLOC, LOAD, DATA
-  9 .bss          00005fd8  200001f4  080146d4  000301f4  2**2
+  9 .bss          00005fd8  200001f8  080146d8  000301f8  2**2
                   ALLOC
- 10 ._user_heap_stack 00000604  200061cc  080146d4  000361cc  2**0
+ 10 ._user_heap_stack 00000600  200061d0  080146d8  000361d0  2**0
                   ALLOC
- 11 .ARM.attributes 00000030  00000000  00000000  000301f4  2**0
+ 11 .ARM.attributes 00000030  00000000  00000000  000301f8  2**0
                   CONTENTS, READONLY
- 12 .debug_info   00025545  00000000  00000000  00030224  2**0
+ 12 .debug_info   00025545  00000000  00000000  00030228  2**0
                   CONTENTS, READONLY, DEBUGGING, OCTETS
- 13 .debug_abbrev 00005592  00000000  00000000  00055769  2**0
+ 13 .debug_abbrev 00005592  00000000  00000000  0005576d  2**0
                   CONTENTS, READONLY, DEBUGGING, OCTETS
  14 .debug_aranges 00001618  00000000  00000000  0005ad00  2**3
                   CONTENTS, READONLY, DEBUGGING, OCTETS
@@ -37,13 +37,13 @@ Idx Name          Size      VMA       LMA       File off  Algn
                   CONTENTS, READONLY, DEBUGGING, OCTETS
  16 .debug_macro  0002966c  00000000  00000000  0005d708  2**0
                   CONTENTS, READONLY, DEBUGGING, OCTETS
- 17 .debug_line   0001a16a  00000000  00000000  00086d74  2**0
+ 17 .debug_line   0001a172  00000000  00000000  00086d74  2**0
                   CONTENTS, READONLY, DEBUGGING, OCTETS
- 18 .debug_str    000d3451  00000000  00000000  000a0ede  2**0
+ 18 .debug_str    000d3451  00000000  00000000  000a0ee6  2**0
                   CONTENTS, READONLY, DEBUGGING, OCTETS
- 19 .comment      00000053  00000000  00000000  0017432f  2**0
+ 19 .comment      00000053  00000000  00000000  00174337  2**0
                   CONTENTS, READONLY
- 20 .debug_frame  000071f0  00000000  00000000  00174384  2**2
+ 20 .debug_frame  000071f0  00000000  00000000  0017438c  2**2
                   CONTENTS, READONLY, DEBUGGING, OCTETS
 
 Disassembly of section .text:
@@ -60,7 +60,7 @@ Disassembly of section .text:
  80001f2:	2301      	movs	r3, #1
  80001f4:	7023      	strb	r3, [r4, #0]
  80001f6:	bd10      	pop	{r4, pc}
- 80001f8:	200001f4 	.word	0x200001f4
+ 80001f8:	200001f8 	.word	0x200001f8
  80001fc:	00000000 	.word	0x00000000
  8000200:	0801392c 	.word	0x0801392c
 
@@ -73,7 +73,7 @@ Disassembly of section .text:
  800020e:	f3af 8000 	nop.w
  8000212:	bd08      	pop	{r3, pc}
  8000214:	00000000 	.word	0x00000000
- 8000218:	200001f8 	.word	0x200001f8
+ 8000218:	200001fc 	.word	0x200001fc
  800021c:	0801392c 	.word	0x0801392c
 
 08000220 <strlen>:
@@ -5120,7 +5120,7 @@ int main(void)
     if (( SW_IsOn_1() == SW_ON)/*||(Get_NowSpeed()>100) */){
  8002660:	e7dc      	b.n	800261c <main+0x98>
  8002662:	bf00      	nop
- 8002664:	2000001c 	.word	0x2000001c
+ 8002664:	20000020 	.word	0x20000020
  8002668:	08013948 	.word	0x08013948
 
 0800266c <SystemClock_Config>:
@@ -5783,7 +5783,7 @@ void PARAM_makeSra( float f_speed, float f_angAcc, float f_g , enSLA_TYPE en_mod
  8002b66:	2300      	movs	r3, #0
  8002b68:	867b      	strh	r3, [r7, #50]	; 0x32
  8002b6a:	e07d      	b.n	8002c68 <PARAM_makeSra+0x3ec>
- 8002b6c:	20000f04 	.word	0x20000f04
+ 8002b6c:	20000f08 	.word	0x20000f08
  8002b70:	42340000 	.word	0x42340000
  8002b74:	42b40000 	.word	0x42b40000
  8002b78:	3fc90ff9 	.word	0x3fc90ff9
@@ -6162,7 +6162,7 @@ stSLA* PARAM_getSra( enSLA_TYPE en_mode )
  8002f88:	46bd      	mov	sp, r7
  8002f8a:	f85d 7b04 	ldr.w	r7, [sp], #4
  8002f8e:	4770      	bx	lr
- 8002f90:	20000f04 	.word	0x20000f04
+ 8002f90:	20000f08 	.word	0x20000f08
 
 08002f94 <initQueue>:
 	}
@@ -8215,9 +8215,9 @@ void SPI1_DMA_Communication(uint8_t length)
  8003c16:	bf00      	nop
  8003c18:	48000400 	.word	0x48000400
  8003c1c:	40013000 	.word	0x40013000
- 8003c20:	20000f94 	.word	0x20000f94
+ 8003c20:	20000f98 	.word	0x20000f98
  8003c24:	40020000 	.word	0x40020000
- 8003c28:	20000f9c 	.word	0x20000f9c
+ 8003c28:	20000fa0 	.word	0x20000fa0
 
 08003c2c <SPI1_DMA1_ReceiveComplete_Callback>:
 
@@ -8274,7 +8274,7 @@ uint8_t Get_SPI1ReciveData(uint8_t num){
  8003c74:	46bd      	mov	sp, r7
  8003c76:	f85d 7b04 	ldr.w	r7, [sp], #4
  8003c7a:	4770      	bx	lr
- 8003c7c:	20000f9c 	.word	0x20000f9c
+ 8003c7c:	20000fa0 	.word	0x20000fa0
 
 08003c80 <SetSPI1TransmitData>:
 
@@ -8298,7 +8298,7 @@ void SetSPI1TransmitData(uint8_t num, uint8_t data){
  8003c9c:	46bd      	mov	sp, r7
  8003c9e:	f85d 7b04 	ldr.w	r7, [sp], #4
  8003ca2:	4770      	bx	lr
- 8003ca4:	20000f94 	.word	0x20000f94
+ 8003ca4:	20000f98 	.word	0x20000f98
 
 08003ca8 <SPI2_Start>:
 
@@ -8437,9 +8437,9 @@ void SPI2_DMA_Communication(uint8_t length,uint8_t dir)
  8003d86:	bf00      	nop
  8003d88:	48000400 	.word	0x48000400
  8003d8c:	40003800 	.word	0x40003800
- 8003d90:	20000f98 	.word	0x20000f98
+ 8003d90:	20000f9c 	.word	0x20000f9c
  8003d94:	40020000 	.word	0x40020000
- 8003d98:	20000fa0 	.word	0x20000fa0
+ 8003d98:	20000fa4 	.word	0x20000fa4
 
 08003d9c <SPI2_DMA1_ReceiveComplete_Callback>:
 
@@ -8474,7 +8474,7 @@ void SPI2_DMA1_ReceiveComplete_Callback(void)
  8003dc4:	bf00      	nop
  8003dc6:	bd80      	pop	{r7, pc}
  8003dc8:	40020000 	.word	0x40020000
- 8003dcc:	200006ee 	.word	0x200006ee
+ 8003dcc:	200006f2 	.word	0x200006f2
  8003dd0:	48000400 	.word	0x48000400
 
 08003dd4 <SPI2_DMA1_TransmitComplete_Callback>:
@@ -8511,7 +8511,7 @@ uint8_t Get_SPI2ReciveData(uint8_t num){
  8003dfc:	46bd      	mov	sp, r7
  8003dfe:	f85d 7b04 	ldr.w	r7, [sp], #4
  8003e02:	4770      	bx	lr
- 8003e04:	20000fa0 	.word	0x20000fa0
+ 8003e04:	20000fa4 	.word	0x20000fa4
 
 08003e08 <SetSPI2TransmitData>:
 
@@ -8535,7 +8535,7 @@ void SetSPI2TransmitData(uint8_t num, uint8_t data){
  8003e24:	46bd      	mov	sp, r7
  8003e26:	f85d 7b04 	ldr.w	r7, [sp], #4
  8003e2a:	4770      	bx	lr
- 8003e2c:	20000f98 	.word	0x20000f98
+ 8003e2c:	20000f9c 	.word	0x20000f9c
 
 08003e30 <LL_DMA_IsActiveFlag_TC1>:
 {
@@ -9134,7 +9134,7 @@ void TIM4_IRQHandler(void)
  80040cc:	080040dd 	.word	0x080040dd
  80040d0:	080040e5 	.word	0x080040e5
  80040d4:	080040f3 	.word	0x080040f3
- 80040d8:	080040ff 	.word	0x080040ff
+ 80040d8:	08004101 	.word	0x08004101
 		case 0:
 			recv_spi_encoder(enL);
  80040dc:	2000      	movs	r0, #0
@@ -9145,24 +9145,23 @@ void TIM4_IRQHandler(void)
 			Set_encoder_data(enL);
  80040e4:	2000      	movs	r0, #0
  80040e6:	f002 ffdd 	bl	80070a4 <Set_encoder_data>
-			ICM_42688_GyroRead_DMA(0x29);
- 80040ea:	2029      	movs	r0, #41	; 0x29
- 80040ec:	f003 f956 	bl	800739c <ICM_42688_GyroRead_DMA>
+      recv_spi_encoder(enR);
+ 80040ea:	2001      	movs	r0, #1
+ 80040ec:	f002 ffcc 	bl	8007088 <recv_spi_encoder>
 			break;
  80040f0:	e00b      	b.n	800410a <TIM4_IRQHandler+0x62>
 		case 2:
-			ICM_42688_GyroData();
- 80040f2:	f003 f961 	bl	80073b8 <ICM_42688_GyroData>
-			recv_spi_encoder(enR);
- 80040f6:	2001      	movs	r0, #1
- 80040f8:	f002 ffc6 	bl	8007088 <recv_spi_encoder>
+      Set_encoder_data(enR);
+ 80040f2:	2001      	movs	r0, #1
+ 80040f4:	f002 ffd6 	bl	80070a4 <Set_encoder_data>
+      ICM_42688_GyroRead_DMA(0x29);
+ 80040f8:	2029      	movs	r0, #41	; 0x29
+ 80040fa:	f003 f94e 	bl	800739a <ICM_42688_GyroRead_DMA>
 			break;
- 80040fc:	e005      	b.n	800410a <TIM4_IRQHandler+0x62>
+ 80040fe:	e004      	b.n	800410a <TIM4_IRQHandler+0x62>
 		case 3:
-//			ICM_42688_GyroData();
-			Set_encoder_data(enR);
- 80040fe:	2001      	movs	r0, #1
- 8004100:	f002 ffd0 	bl	80070a4 <Set_encoder_data>
+			ICM_42688_GyroData();
+ 8004100:	f003 f95a 	bl	80073b8 <ICM_42688_GyroData>
 			GYRO_Pol();
  8004104:	f003 f9fc 	bl	8007500 <GYRO_Pol>
 			break;
@@ -9188,7 +9187,7 @@ void TIM4_IRQHandler(void)
  8004124:	bf00      	nop
  8004126:	bd80      	pop	{r7, pc}
  8004128:	40000800 	.word	0x40000800
- 800412c:	20000210 	.word	0x20000210
+ 800412c:	20000214 	.word	0x20000214
 
 08004130 <TIM5_IRQHandler>:
 
@@ -9264,7 +9263,7 @@ void TIM5_IRQHandler(void)
  8004198:	bd80      	pop	{r7, pc}
  800419a:	bf00      	nop
  800419c:	40000c00 	.word	0x40000c00
- 80041a0:	20000211 	.word	0x20000211
+ 80041a0:	20000215 	.word	0x20000215
 
 080041a4 <TIM6_DAC_IRQHandler>:
 
@@ -9595,7 +9594,7 @@ void *_sbrk(ptrdiff_t incr)
  8004346:	bd80      	pop	{r7, pc}
  8004348:	20020000 	.word	0x20020000
  800434c:	00000400 	.word	0x00000400
- 8004350:	20000214 	.word	0x20000214
+ 8004350:	20000218 	.word	0x20000218
  8004354:	200061d0 	.word	0x200061d0
 
 08004358 <SystemInit>:
@@ -12286,7 +12285,7 @@ float Get_NowSpeed(void){
  8005568:	46bd      	mov	sp, r7
  800556a:	f85d 7b04 	ldr.w	r7, [sp], #4
  800556e:	4770      	bx	lr
- 8005570:	2000022c 	.word	0x2000022c
+ 8005570:	20000230 	.word	0x20000230
 
 08005574 <Get_NowDist>:
 
@@ -12302,7 +12301,7 @@ float Get_NowDist(void){
  8005584:	46bd      	mov	sp, r7
  8005586:	f85d 7b04 	ldr.w	r7, [sp], #4
  800558a:	4770      	bx	lr
- 800558c:	20000248 	.word	0x20000248
+ 800558c:	2000024c 	.word	0x2000024c
 
 08005590 <Get_TrgtDist>:
 
@@ -12318,7 +12317,7 @@ float Get_TrgtDist(void){
  80055a0:	46bd      	mov	sp, r7
  80055a2:	f85d 7b04 	ldr.w	r7, [sp], #4
  80055a6:	4770      	bx	lr
- 80055a8:	20000244 	.word	0x20000244
+ 80055a8:	20000248 	.word	0x20000248
 
 080055ac <Get_TrgtSpeed>:
 
@@ -12334,7 +12333,7 @@ float Get_TrgtSpeed(void){
  80055bc:	46bd      	mov	sp, r7
  80055be:	f85d 7b04 	ldr.w	r7, [sp], #4
  80055c2:	4770      	bx	lr
- 80055c4:	20000230 	.word	0x20000230
+ 80055c4:	20000234 	.word	0x20000234
 
 080055c8 <Set_TrgtSpeed>:
 
@@ -12353,7 +12352,7 @@ void Set_TrgtSpeed(float speed){
  80055dc:	46bd      	mov	sp, r7
  80055de:	f85d 7b04 	ldr.w	r7, [sp], #4
  80055e2:	4770      	bx	lr
- 80055e4:	20000230 	.word	0x20000230
+ 80055e4:	20000234 	.word	0x20000234
 
 080055e8 <Get_NowAngle>:
 
@@ -12369,7 +12368,7 @@ float Get_NowAngle(void){
  80055f8:	46bd      	mov	sp, r7
  80055fa:	f85d 7b04 	ldr.w	r7, [sp], #4
  80055fe:	4770      	bx	lr
- 8005600:	20000278 	.word	0x20000278
+ 8005600:	2000027c 	.word	0x2000027c
 
 08005604 <Get_TrgtAngle>:
 
@@ -12385,7 +12384,7 @@ float Get_TrgtAngle(void){
  8005614:	46bd      	mov	sp, r7
  8005616:	f85d 7b04 	ldr.w	r7, [sp], #4
  800561a:	4770      	bx	lr
- 800561c:	2000027c 	.word	0x2000027c
+ 800561c:	20000280 	.word	0x20000280
 
 08005620 <Get_TrgtAngleS>:
 
@@ -12401,7 +12400,7 @@ float Get_TrgtAngleS(void){
  8005630:	46bd      	mov	sp, r7
  8005632:	f85d 7b04 	ldr.w	r7, [sp], #4
  8005636:	4770      	bx	lr
- 8005638:	20000264 	.word	0x20000264
+ 8005638:	20000268 	.word	0x20000268
 
 0800563c <INTC_sys>:
 
@@ -12461,9 +12460,9 @@ void INTC_sys(void)
 }
  8005690:	bf00      	nop
  8005692:	bd80      	pop	{r7, pc}
- 8005694:	200006ec 	.word	0x200006ec
- 8005698:	200002c0 	.word	0x200002c0
- 800569c:	200002b8 	.word	0x200002b8
+ 8005694:	200006f0 	.word	0x200006f0
+ 8005698:	200002c4 	.word	0x200002c4
+ 800569c:	200002bc 	.word	0x200002bc
 
 080056a0 <CTRL_sta>:
 
@@ -12480,7 +12479,7 @@ void CTRL_sta( void )
  80056ac:	46bd      	mov	sp, r7
  80056ae:	f85d 7b04 	ldr.w	r7, [sp], #4
  80056b2:	4770      	bx	lr
- 80056b4:	20000218 	.word	0x20000218
+ 80056b4:	2000021c 	.word	0x2000021c
 
 080056b8 <CTRL_stop>:
 
@@ -12502,7 +12501,7 @@ void CTRL_stop( void )
  80056ce:	bf00      	nop
  80056d0:	bd80      	pop	{r7, pc}
  80056d2:	bf00      	nop
- 80056d4:	20000218 	.word	0x20000218
+ 80056d4:	2000021c 	.word	0x2000021c
 
 080056d8 <CTRL_clrData>:
 
@@ -12567,17 +12566,17 @@ void CTRL_clrData( void )
  8005738:	f85d 7b04 	ldr.w	r7, [sp], #4
  800573c:	4770      	bx	lr
  800573e:	bf00      	nop
- 8005740:	20000230 	.word	0x20000230
- 8005744:	20000244 	.word	0x20000244
- 8005748:	20000264 	.word	0x20000264
- 800574c:	2000027c 	.word	0x2000027c
- 8005750:	20000238 	.word	0x20000238
- 8005754:	20000254 	.word	0x20000254
- 8005758:	2000026c 	.word	0x2000026c
- 800575c:	20000280 	.word	0x20000280
- 8005760:	20000234 	.word	0x20000234
- 8005764:	20000288 	.word	0x20000288
- 8005768:	20000268 	.word	0x20000268
+ 8005740:	20000234 	.word	0x20000234
+ 8005744:	20000248 	.word	0x20000248
+ 8005748:	20000268 	.word	0x20000268
+ 800574c:	20000280 	.word	0x20000280
+ 8005750:	2000023c 	.word	0x2000023c
+ 8005754:	20000258 	.word	0x20000258
+ 8005758:	20000270 	.word	0x20000270
+ 800575c:	20000284 	.word	0x20000284
+ 8005760:	20000238 	.word	0x20000238
+ 8005764:	2000028c 	.word	0x2000028c
+ 8005768:	2000026c 	.word	0x2000026c
 
 0800576c <CTRL_clrNowData>:
 
@@ -12629,15 +12628,15 @@ void CTRL_clrNowData(void)
  80057b6:	bf00      	nop
  80057b8:	bd80      	pop	{r7, pc}
  80057ba:	bf00      	nop
- 80057bc:	20000fa8 	.word	0x20000fa8
- 80057c0:	20000fa4 	.word	0x20000fa4
- 80057c4:	20000248 	.word	0x20000248
- 80057c8:	2000024c 	.word	0x2000024c
- 80057cc:	20000250 	.word	0x20000250
- 80057d0:	2000022c 	.word	0x2000022c
- 80057d4:	20000278 	.word	0x20000278
- 80057d8:	200002d6 	.word	0x200002d6
- 80057dc:	200002b4 	.word	0x200002b4
+ 80057bc:	20000fac 	.word	0x20000fac
+ 80057c0:	20000fa8 	.word	0x20000fa8
+ 80057c4:	2000024c 	.word	0x2000024c
+ 80057c8:	20000250 	.word	0x20000250
+ 80057cc:	20000254 	.word	0x20000254
+ 80057d0:	20000230 	.word	0x20000230
+ 80057d4:	2000027c 	.word	0x2000027c
+ 80057d8:	200002da 	.word	0x200002da
+ 80057dc:	200002b8 	.word	0x200002b8
 
 080057e0 <CTRL_setData>:
 
@@ -12735,20 +12734,20 @@ void CTRL_setData( stCTRL_DATA* p_data )
  800585e:	3708      	adds	r7, #8
  8005860:	46bd      	mov	sp, r7
  8005862:	bd80      	pop	{r7, pc}
- 8005864:	200002c2 	.word	0x200002c2
- 8005868:	20000220 	.word	0x20000220
- 800586c:	20000224 	.word	0x20000224
- 8005870:	20000228 	.word	0x20000228
- 8005874:	2000023c 	.word	0x2000023c
- 8005878:	20000240 	.word	0x20000240
- 800587c:	20000258 	.word	0x20000258
- 8005880:	2000025c 	.word	0x2000025c
- 8005884:	20000260 	.word	0x20000260
- 8005888:	20000270 	.word	0x20000270
- 800588c:	20000274 	.word	0x20000274
- 8005890:	2000021c 	.word	0x2000021c
+ 8005864:	200002c6 	.word	0x200002c6
+ 8005868:	20000224 	.word	0x20000224
+ 800586c:	20000228 	.word	0x20000228
+ 8005870:	2000022c 	.word	0x2000022c
+ 8005874:	20000240 	.word	0x20000240
+ 8005878:	20000244 	.word	0x20000244
+ 800587c:	2000025c 	.word	0x2000025c
+ 8005880:	20000260 	.word	0x20000260
+ 8005884:	20000264 	.word	0x20000264
+ 8005888:	20000274 	.word	0x20000274
+ 800588c:	20000278 	.word	0x20000278
+ 8005890:	20000220 	.word	0x20000220
  8005894:	20000008 	.word	0x20000008
- 8005898:	200006dc 	.word	0x200006dc
+ 8005898:	200006e0 	.word	0x200006e0
 
 0800589c <CTRL_refNow>:
 
@@ -12832,14 +12831,14 @@ void CTRL_refNow( void )
  8005964:	f85d 7b04 	ldr.w	r7, [sp], #4
  8005968:	4770      	bx	lr
  800596a:	bf00      	nop
- 800596c:	20000fa8 	.word	0x20000fa8
+ 800596c:	20000fac 	.word	0x20000fac
  8005970:	3a1e560e 	.word	0x3a1e560e
- 8005974:	20000fa4 	.word	0x20000fa4
+ 8005974:	20000fa8 	.word	0x20000fa8
  8005978:	447a0000 	.word	0x447a0000
- 800597c:	2000022c 	.word	0x2000022c
- 8005980:	2000024c 	.word	0x2000024c
- 8005984:	20000250 	.word	0x20000250
- 8005988:	20000248 	.word	0x20000248
+ 800597c:	20000230 	.word	0x20000230
+ 8005980:	20000250 	.word	0x20000250
+ 8005984:	20000254 	.word	0x20000254
+ 8005988:	2000024c 	.word	0x2000024c
  800598c:	00000000 	.word	0x00000000
 
 08005990 <CTRL_refTarget>:
@@ -13151,19 +13150,19 @@ void CTRL_refTarget( void )
  8005c2e:	bf00      	nop
  8005c30:	d2f1a9fc 	.word	0xd2f1a9fc
  8005c34:	3f50624d 	.word	0x3f50624d
- 8005c38:	200002c2 	.word	0x200002c2
- 8005c3c:	20000230 	.word	0x20000230
- 8005c40:	20000228 	.word	0x20000228
- 8005c44:	20000220 	.word	0x20000220
- 8005c48:	2000021c 	.word	0x2000021c
- 8005c4c:	20000224 	.word	0x20000224
- 8005c50:	2000023c 	.word	0x2000023c
- 8005c54:	20000244 	.word	0x20000244
- 8005c58:	20000240 	.word	0x20000240
- 8005c5c:	20000274 	.word	0x20000274
- 8005c60:	20000264 	.word	0x20000264
- 8005c64:	20000260 	.word	0x20000260
- 8005c68:	20000258 	.word	0x20000258
+ 8005c38:	200002c6 	.word	0x200002c6
+ 8005c3c:	20000234 	.word	0x20000234
+ 8005c40:	2000022c 	.word	0x2000022c
+ 8005c44:	20000224 	.word	0x20000224
+ 8005c48:	20000220 	.word	0x20000220
+ 8005c4c:	20000228 	.word	0x20000228
+ 8005c50:	20000240 	.word	0x20000240
+ 8005c54:	20000248 	.word	0x20000248
+ 8005c58:	20000244 	.word	0x20000244
+ 8005c5c:	20000278 	.word	0x20000278
+ 8005c60:	20000268 	.word	0x20000268
+ 8005c64:	20000264 	.word	0x20000264
+ 8005c68:	2000025c 	.word	0x2000025c
  8005c6c:	00000000 	.word	0x00000000
 			break;
 
@@ -13478,19 +13477,19 @@ void CTRL_refTarget( void )
  8005f26:	bf00      	nop
  8005f28:	d2f1a9fc 	.word	0xd2f1a9fc
  8005f2c:	3f50624d 	.word	0x3f50624d
- 8005f30:	20000274 	.word	0x20000274
- 8005f34:	20000264 	.word	0x20000264
- 8005f38:	20000260 	.word	0x20000260
- 8005f3c:	20000258 	.word	0x20000258
- 8005f40:	2000025c 	.word	0x2000025c
- 8005f44:	2000021c 	.word	0x2000021c
- 8005f48:	20000270 	.word	0x20000270
- 8005f4c:	2000027c 	.word	0x2000027c
- 8005f50:	20000224 	.word	0x20000224
- 8005f54:	20000230 	.word	0x20000230
- 8005f58:	20000244 	.word	0x20000244
- 8005f5c:	20000240 	.word	0x20000240
- 8005f60:	2000023c 	.word	0x2000023c
+ 8005f30:	20000278 	.word	0x20000278
+ 8005f34:	20000268 	.word	0x20000268
+ 8005f38:	20000264 	.word	0x20000264
+ 8005f3c:	2000025c 	.word	0x2000025c
+ 8005f40:	20000260 	.word	0x20000260
+ 8005f44:	20000220 	.word	0x20000220
+ 8005f48:	20000274 	.word	0x20000274
+ 8005f4c:	20000280 	.word	0x20000280
+ 8005f50:	20000228 	.word	0x20000228
+ 8005f54:	20000234 	.word	0x20000234
+ 8005f58:	20000248 	.word	0x20000248
+ 8005f5c:	20000244 	.word	0x20000244
+ 8005f60:	20000240 	.word	0x20000240
 				}
 			}
 			/* CW */
@@ -13819,19 +13818,19 @@ void CTRL_refTarget( void )
  8006214:	f3af 8000 	nop.w
  8006218:	d2f1a9fc 	.word	0xd2f1a9fc
  800621c:	3f50624d 	.word	0x3f50624d
- 8006220:	20000264 	.word	0x20000264
- 8006224:	20000260 	.word	0x20000260
- 8006228:	20000258 	.word	0x20000258
- 800622c:	2000021c 	.word	0x2000021c
- 8006230:	2000025c 	.word	0x2000025c
- 8006234:	20000270 	.word	0x20000270
- 8006238:	2000027c 	.word	0x2000027c
- 800623c:	20000274 	.word	0x20000274
- 8006240:	20000240 	.word	0x20000240
- 8006244:	20000244 	.word	0x20000244
- 8006248:	20000230 	.word	0x20000230
- 800624c:	2000023c 	.word	0x2000023c
- 8006250:	20000224 	.word	0x20000224
+ 8006220:	20000268 	.word	0x20000268
+ 8006224:	20000264 	.word	0x20000264
+ 8006228:	2000025c 	.word	0x2000025c
+ 800622c:	20000220 	.word	0x20000220
+ 8006230:	20000260 	.word	0x20000260
+ 8006234:	20000274 	.word	0x20000274
+ 8006238:	20000280 	.word	0x20000280
+ 800623c:	20000278 	.word	0x20000278
+ 8006240:	20000244 	.word	0x20000244
+ 8006244:	20000248 	.word	0x20000248
+ 8006248:	20000234 	.word	0x20000234
+ 800624c:	20000240 	.word	0x20000240
+ 8006250:	20000228 	.word	0x20000228
 
 		/* dec(sura) */
 		case CTRL_DEC_SURA:
@@ -14139,18 +14138,18 @@ void CTRL_refTarget( void )
  80064de:	bf00      	nop
  80064e0:	d2f1a9fc 	.word	0xd2f1a9fc
  80064e4:	3f50624d 	.word	0x3f50624d
- 80064e8:	20000224 	.word	0x20000224
- 80064ec:	20000230 	.word	0x20000230
- 80064f0:	20000274 	.word	0x20000274
- 80064f4:	20000264 	.word	0x20000264
- 80064f8:	20000258 	.word	0x20000258
- 80064fc:	2000021c 	.word	0x2000021c
- 8006500:	2000025c 	.word	0x2000025c
- 8006504:	20000270 	.word	0x20000270
- 8006508:	2000027c 	.word	0x2000027c
- 800650c:	20000240 	.word	0x20000240
- 8006510:	20000244 	.word	0x20000244
- 8006514:	2000023c 	.word	0x2000023c
+ 80064e8:	20000228 	.word	0x20000228
+ 80064ec:	20000234 	.word	0x20000234
+ 80064f0:	20000278 	.word	0x20000278
+ 80064f4:	20000268 	.word	0x20000268
+ 80064f8:	2000025c 	.word	0x2000025c
+ 80064fc:	20000220 	.word	0x20000220
+ 8006500:	20000260 	.word	0x20000260
+ 8006504:	20000274 	.word	0x20000274
+ 8006508:	20000280 	.word	0x20000280
+ 800650c:	20000244 	.word	0x20000244
+ 8006510:	20000248 	.word	0x20000248
+ 8006514:	20000240 	.word	0x20000240
 
 08006518 <CTRL_getFF_speed>:
 		default:			return PARAM_NC;
@@ -14243,8 +14242,8 @@ void CTRL_getFF_speed( float* p_err )
  80065b6:	f85d 7b04 	ldr.w	r7, [sp], #4
  80065ba:	4770      	bx	lr
  80065bc:	3ad1b717 	.word	0x3ad1b717
- 80065c0:	200002c2 	.word	0x200002c2
- 80065c4:	20000220 	.word	0x20000220
+ 80065c0:	200002c6 	.word	0x200002c6
+ 80065c4:	20000224 	.word	0x20000224
 
 080065c8 <CTRL_getFF_angle>:
 
@@ -14352,8 +14351,8 @@ void CTRL_getFF_angle( float* p_err )
  800669e:	f85d 7b04 	ldr.w	r7, [sp], #4
  80066a2:	4770      	bx	lr
  80066a4:	3c23d70a 	.word	0x3c23d70a
- 80066a8:	200002c2 	.word	0x200002c2
- 80066ac:	20000258 	.word	0x20000258
+ 80066a8:	200002c6 	.word	0x200002c6
+ 80066ac:	2000025c 	.word	0x2000025c
 
 080066b0 <CTRL_getSpeedFB>:
 
@@ -14449,15 +14448,15 @@ void CTRL_getSpeedFB( float* p_err )
  8006760:	46bd      	mov	sp, r7
  8006762:	f85d 7b04 	ldr.w	r7, [sp], #4
  8006766:	4770      	bx	lr
- 8006768:	20000230 	.word	0x20000230
- 800676c:	2000022c 	.word	0x2000022c
+ 8006768:	20000234 	.word	0x20000234
+ 800676c:	20000230 	.word	0x20000230
  8006770:	3fe66666 	.word	0x3fe66666
  8006774:	3e4ccccd 	.word	0x3e4ccccd
  8006778:	3e99999a 	.word	0x3e99999a
- 800677c:	20000238 	.word	0x20000238
+ 800677c:	2000023c 	.word	0x2000023c
  8006780:	461c4000 	.word	0x461c4000
  8006784:	461c4000 	.word	0x461c4000
- 8006788:	20000234 	.word	0x20000234
+ 8006788:	20000238 	.word	0x20000238
 
 0800678c <CTRL_getAngleSpeedFB>:
 
@@ -14568,16 +14567,16 @@ void CTRL_getAngleSpeedFB( float* p_err )
  8006860:	ecbd 8b02 	vpop	{d8}
  8006864:	bd80      	pop	{r7, pc}
  8006866:	bf00      	nop
- 8006868:	20000264 	.word	0x20000264
+ 8006868:	20000268 	.word	0x20000268
  800686c:	3f4ccccd 	.word	0x3f4ccccd
  8006870:	3dcccccd 	.word	0x3dcccccd
  8006874:	3da3d70a 	.word	0x3da3d70a
- 8006878:	2000026c 	.word	0x2000026c
+ 8006878:	20000270 	.word	0x20000270
  800687c:	461c4000 	.word	0x461c4000
  8006880:	461c4000 	.word	0x461c4000
  8006884:	c61c4000 	.word	0xc61c4000
  8006888:	c61c4000 	.word	0xc61c4000
- 800688c:	20000268 	.word	0x20000268
+ 800688c:	2000026c 	.word	0x2000026c
 
 08006890 <CTRL_getSenFB>:
 
@@ -14702,11 +14701,11 @@ void CTRL_getSenFB( float* p_err )
  8006962:	46bd      	mov	sp, r7
  8006964:	bd80      	pop	{r7, pc}
  8006966:	bf00      	nop
- 8006968:	200002c2 	.word	0x200002c2
+ 8006968:	200002c6 	.word	0x200002c6
  800696c:	3dcccccd 	.word	0x3dcccccd
  8006970:	3cf5c28f 	.word	0x3cf5c28f
- 8006974:	20000284 	.word	0x20000284
- 8006978:	20000288 	.word	0x20000288
+ 8006974:	20000288 	.word	0x20000288
+ 8006978:	2000028c 	.word	0x2000028c
 
 0800697c <CTRL_outMot>:
 
@@ -15175,18 +15174,18 @@ void CTRL_pol( void )
  8006d74:	f3af 8000 	nop.w
  8006d78:	d2f1a9fc 	.word	0xd2f1a9fc
  8006d7c:	3f50624d 	.word	0x3f50624d
- 8006d80:	20000218 	.word	0x20000218
- 8006d84:	20000254 	.word	0x20000254
- 8006d88:	20000240 	.word	0x20000240
- 8006d8c:	20000248 	.word	0x20000248
- 8006d90:	20000274 	.word	0x20000274
- 8006d94:	20000278 	.word	0x20000278
+ 8006d80:	2000021c 	.word	0x2000021c
+ 8006d84:	20000258 	.word	0x20000258
+ 8006d88:	20000244 	.word	0x20000244
+ 8006d8c:	2000024c 	.word	0x2000024c
+ 8006d90:	20000278 	.word	0x20000278
+ 8006d94:	2000027c 	.word	0x2000027c
  8006d98:	20000008 	.word	0x20000008
- 8006d9c:	2000021c 	.word	0x2000021c
- 8006da0:	20000fa4 	.word	0x20000fa4
- 8006da4:	20000fa8 	.word	0x20000fa8
- 8006da8:	200002c2 	.word	0x200002c2
- 8006dac:	200006dc 	.word	0x200006dc
+ 8006d9c:	20000220 	.word	0x20000220
+ 8006da0:	20000fa8 	.word	0x20000fa8
+ 8006da4:	20000fac 	.word	0x20000fac
+ 8006da8:	200002c6 	.word	0x200002c6
+ 8006dac:	200006e0 	.word	0x200006e0
  8006db0:	42c80000 	.word	0x42c80000
 		}
 		/* �E���� */
@@ -15308,9 +15307,9 @@ void CTRL_pol( void )
  8006e9e:	bf00      	nop
  8006ea0:	d2f1a9fc 	.word	0xd2f1a9fc
  8006ea4:	3f50624d 	.word	0x3f50624d
- 8006ea8:	200006dc 	.word	0x200006dc
- 8006eac:	200002bc 	.word	0x200002bc
- 8006eb0:	2000021c 	.word	0x2000021c
+ 8006ea8:	200006e0 	.word	0x200006e0
+ 8006eac:	200002c0 	.word	0x200002c0
+ 8006eb0:	20000220 	.word	0x20000220
 
 08006eb4 <Failsafe_flag>:
 
@@ -15328,7 +15327,7 @@ void Failsafe_flag(void)
 }
  8006ec4:	bf00      	nop
  8006ec6:	bd80      	pop	{r7, pc}
- 8006ec8:	2000028c 	.word	0x2000028c
+ 8006ec8:	20000290 	.word	0x20000290
 
 08006ecc <Failsafe_flag_off>:
 
@@ -15345,7 +15344,7 @@ void Failsafe_flag_off(void)
  8006ed8:	46bd      	mov	sp, r7
  8006eda:	f85d 7b04 	ldr.w	r7, [sp], #4
  8006ede:	4770      	bx	lr
- 8006ee0:	2000028c 	.word	0x2000028c
+ 8006ee0:	20000290 	.word	0x20000290
 
 08006ee4 <SYS_isOutOfCtrl>:
 
@@ -15371,7 +15370,7 @@ bool SYS_isOutOfCtrl( void )
  8006ef8:	46bd      	mov	sp, r7
  8006efa:	f85d 7b04 	ldr.w	r7, [sp], #4
  8006efe:	4770      	bx	lr
- 8006f00:	2000028c 	.word	0x2000028c
+ 8006f00:	20000290 	.word	0x20000290
 
 08006f04 <DCM_setDirCw>:
  */
@@ -15629,8 +15628,8 @@ uint16_t Get_encoder_value(en_endir dir)
  8007040:	f85d 7b04 	ldr.w	r7, [sp], #4
  8007044:	4770      	bx	lr
  8007046:	bf00      	nop
- 8007048:	20000fac 	.word	0x20000fac
- 800704c:	20000fb0 	.word	0x20000fb0
+ 8007048:	20000fb0 	.word	0x20000fb0
+ 800704c:	20000fb4 	.word	0x20000fb4
 
 08007050 <MA702_ReadByte>:
 
@@ -15665,7 +15664,7 @@ void MA702_ReadByte(en_endir dir)
  800707e:	3708      	adds	r7, #8
  8007080:	46bd      	mov	sp, r7
  8007082:	bd80      	pop	{r7, pc}
- 8007084:	200006ee 	.word	0x200006ee
+ 8007084:	200006f2 	.word	0x200006f2
 
 08007088 <recv_spi_encoder>:
 
@@ -15738,8 +15737,8 @@ void Set_encoder_data(en_endir dir)
  80070fa:	46bd      	mov	sp, r7
  80070fc:	bd90      	pop	{r4, r7, pc}
  80070fe:	bf00      	nop
- 8007100:	20000fac 	.word	0x20000fac
- 8007104:	20000fb0 	.word	0x20000fb0
+ 8007100:	20000fb0 	.word	0x20000fb0
+ 8007104:	20000fb4 	.word	0x20000fb4
 
 08007108 <Runmode_check>:
 
@@ -15824,8 +15823,8 @@ uint8_t Runmode_check( enDCM_ID en_id )
  800717c:	f85d 7b04 	ldr.w	r7, [sp], #4
  8007180:	4770      	bx	lr
  8007182:	bf00      	nop
- 8007184:	200002c2 	.word	0x200002c2
- 8007188:	200002d4 	.word	0x200002d4
+ 8007184:	200002c6 	.word	0x200002c6
+ 8007188:	200002d8 	.word	0x200002d8
 
 0800718c <ENC_GetDiv>:
 
@@ -16008,10 +16007,10 @@ void ENC_GetDiv( int32_t* p_r, int32_t* p_l )
  800728e:	46bd      	mov	sp, r7
  8007290:	bd80      	pop	{r7, pc}
  8007292:	bf00      	nop
- 8007294:	20000fb0 	.word	0x20000fb0
- 8007298:	20000fb2 	.word	0x20000fb2
- 800729c:	20000fae 	.word	0x20000fae
- 80072a0:	20000fac 	.word	0x20000fac
+ 8007294:	20000fb4 	.word	0x20000fb4
+ 8007298:	20000fb6 	.word	0x20000fb6
+ 800729c:	20000fb2 	.word	0x20000fb2
+ 80072a0:	20000fb0 	.word	0x20000fb0
 
 080072a4 <ENC_setref>:
 
@@ -16040,10 +16039,10 @@ void ENC_setref(void)
  80072bc:	f85d 7b04 	ldr.w	r7, [sp], #4
  80072c0:	4770      	bx	lr
  80072c2:	bf00      	nop
- 80072c4:	20000fb0 	.word	0x20000fb0
- 80072c8:	20000fb2 	.word	0x20000fb2
- 80072cc:	20000fac 	.word	0x20000fac
- 80072d0:	20000fae 	.word	0x20000fae
+ 80072c4:	20000fb4 	.word	0x20000fb4
+ 80072c8:	20000fb6 	.word	0x20000fb6
+ 80072cc:	20000fb0 	.word	0x20000fb0
+ 80072d0:	20000fb2 	.word	0x20000fb2
 
 080072d4 <ICM_42688_whoami>:
 uint16_t Get_s_gyro(void)
@@ -16157,53 +16156,53 @@ void ICM_42688_init(void)
  8007378:	b580      	push	{r7, lr}
  800737a:	b082      	sub	sp, #8
  800737c:	af00      	add	r7, sp, #0
-	uint16_t reg78 = 0x4E;	//pwr_mgmt0
+	uint8_t reg78 = 0x4E;	//pwr_mgmt0
  800737e:	234e      	movs	r3, #78	; 0x4e
- 8007380:	80fb      	strh	r3, [r7, #6]
+ 8007380:	71fb      	strb	r3, [r7, #7]
 	uint16_t reg107 = 0x6B;
 	uint16_t reg106 = 0x6A;
 	uint16_t reg27 = 0x1B;
 	uint16_t reg28 = 0x1C;
 */
 	ICM_42688_WriteByte(reg78,0x0F);
- 8007382:	88fb      	ldrh	r3, [r7, #6]
- 8007384:	b2db      	uxtb	r3, r3
- 8007386:	210f      	movs	r1, #15
- 8007388:	4618      	mov	r0, r3
- 800738a:	f7ff ffbd 	bl	8007308 <ICM_42688_WriteByte>
+ 8007382:	79fb      	ldrb	r3, [r7, #7]
+ 8007384:	210f      	movs	r1, #15
+ 8007386:	4618      	mov	r0, r3
+ 8007388:	f7ff ffbe 	bl	8007308 <ICM_42688_WriteByte>
 	LL_mDelay(1);
- 800738e:	2001      	movs	r0, #1
- 8007390:	f006 fb12 	bl	800d9b8 <LL_mDelay>
+ 800738c:	2001      	movs	r0, #1
+ 800738e:	f006 fb13 	bl	800d9b8 <LL_mDelay>
 	ICM_42688_WriteByte(reg27,0x18);
 	LL_mDelay(1);
 	ICM_42688_WriteByte(reg28,0x18);
 	LL_mDelay(1);
 */
 }
- 8007394:	bf00      	nop
- 8007396:	3708      	adds	r7, #8
- 8007398:	46bd      	mov	sp, r7
- 800739a:	bd80      	pop	{r7, pc}
+ 8007392:	bf00      	nop
+ 8007394:	3708      	adds	r7, #8
+ 8007396:	46bd      	mov	sp, r7
+ 8007398:	bd80      	pop	{r7, pc}
 
-0800739c <ICM_42688_GyroRead_DMA>:
+0800739a <ICM_42688_GyroRead_DMA>:
 
 void ICM_42688_GyroRead_DMA(uint8_t reg) //reg 29 2A
 {
- 800739c:	b580      	push	{r7, lr}
- 800739e:	b082      	sub	sp, #8
- 80073a0:	af00      	add	r7, sp, #0
- 80073a2:	4603      	mov	r3, r0
- 80073a4:	71fb      	strb	r3, [r7, #7]
+ 800739a:	b580      	push	{r7, lr}
+ 800739c:	b082      	sub	sp, #8
+ 800739e:	af00      	add	r7, sp, #0
+ 80073a0:	4603      	mov	r3, r0
+ 80073a2:	71fb      	strb	r3, [r7, #7]
 	ICM_42688_ReadByte(reg,3);
- 80073a6:	79fb      	ldrb	r3, [r7, #7]
- 80073a8:	2103      	movs	r1, #3
- 80073aa:	4618      	mov	r0, r3
- 80073ac:	f7ff ffc5 	bl	800733a <ICM_42688_ReadByte>
+ 80073a4:	79fb      	ldrb	r3, [r7, #7]
+ 80073a6:	2103      	movs	r1, #3
+ 80073a8:	4618      	mov	r0, r3
+ 80073aa:	f7ff ffc6 	bl	800733a <ICM_42688_ReadByte>
 }
- 80073b0:	bf00      	nop
- 80073b2:	3708      	adds	r7, #8
- 80073b4:	46bd      	mov	sp, r7
- 80073b6:	bd80      	pop	{r7, pc}
+ 80073ae:	bf00      	nop
+ 80073b0:	3708      	adds	r7, #8
+ 80073b2:	46bd      	mov	sp, r7
+ 80073b4:	bd80      	pop	{r7, pc}
+	...
 
 080073b8 <ICM_42688_GyroData>:
 
@@ -16229,7 +16228,7 @@ void ICM_42688_GyroData(void)
  80073da:	bf00      	nop
  80073dc:	bd98      	pop	{r3, r4, r7, pc}
  80073de:	bf00      	nop
- 80073e0:	200002d6 	.word	0x200002d6
+ 80073e0:	200002da 	.word	0x200002da
 
 080073e4 <GYRO_SetRef>:
 
@@ -16284,9 +16283,9 @@ void GYRO_SetRef( void )
  800742e:	46bd      	mov	sp, r7
  8007430:	bd80      	pop	{r7, pc}
  8007432:	bf00      	nop
- 8007434:	200002d6 	.word	0x200002d6
+ 8007434:	200002da 	.word	0x200002da
  8007438:	51eb851f 	.word	0x51eb851f
- 800743c:	200006f0 	.word	0x200006f0
+ 800743c:	200006f4 	.word	0x200006f4
 
 08007440 <GYRO_getSpeedErr>:
 
@@ -16351,8 +16350,8 @@ float GYRO_getSpeedErr( void )
  80074ae:	bf00      	nop
  80074b0:	66666666 	.word	0x66666666
  80074b4:	40306666 	.word	0x40306666
- 80074b8:	200002d6 	.word	0x200002d6
- 80074bc:	200006f0 	.word	0x200006f0
+ 80074b8:	200002da 	.word	0x200002da
+ 80074bc:	200006f4 	.word	0x200006f4
  80074c0:	40590000 	.word	0x40590000
 
 080074c4 <GYRO_getNowAngle>:
@@ -16370,7 +16369,7 @@ float GYRO_getNowAngle( void )
  80074d4:	46bd      	mov	sp, r7
  80074d6:	f85d 7b04 	ldr.w	r7, [sp], #4
  80074da:	4770      	bx	lr
- 80074dc:	200002b4 	.word	0x200002b4
+ 80074dc:	200002b8 	.word	0x200002b8
 
 080074e0 <GYRO_getRef>:
 
@@ -16388,7 +16387,7 @@ float GYRO_getRef( void )
  80074f4:	46bd      	mov	sp, r7
  80074f6:	f85d 7b04 	ldr.w	r7, [sp], #4
  80074fa:	4770      	bx	lr
- 80074fc:	200006f0 	.word	0x200006f0
+ 80074fc:	200006f4 	.word	0x200006f4
 
 08007500 <GYRO_Pol>:
 
@@ -16468,9 +16467,9 @@ void GYRO_Pol( void )
  80075a4:	46bd      	mov	sp, r7
  80075a6:	bd80      	pop	{r7, pc}
  80075a8:	447a0000 	.word	0x447a0000
- 80075ac:	200002b4 	.word	0x200002b4
- 80075b0:	200002c3 	.word	0x200002c3
- 80075b4:	200006e0 	.word	0x200006e0
+ 80075ac:	200002b8 	.word	0x200002b8
+ 80075b0:	200002c7 	.word	0x200002c7
+ 80075b4:	200006e4 	.word	0x200006e4
  80075b8:	c3fa0000 	.word	0xc3fa0000
  80075bc:	43fa0000 	.word	0x43fa0000
  80075c0:	c4bb8000 	.word	0xc4bb8000
@@ -16499,8 +16498,8 @@ void GYRO_staErrChkAngle( void )
  80075dc:	46bd      	mov	sp, r7
  80075de:	f85d 7b04 	ldr.w	r7, [sp], #4
  80075e2:	4770      	bx	lr
- 80075e4:	200006e0 	.word	0x200006e0
- 80075e8:	200002c3 	.word	0x200002c3
+ 80075e4:	200006e4 	.word	0x200006e4
+ 80075e8:	200002c7 	.word	0x200002c7
 
 080075ec <GYRO_endErrChkAngle>:
 
@@ -16522,8 +16521,8 @@ void GYRO_endErrChkAngle( void )
  8007600:	46bd      	mov	sp, r7
  8007602:	f85d 7b04 	ldr.w	r7, [sp], #4
  8007606:	4770      	bx	lr
- 8007608:	200006e0 	.word	0x200006e0
- 800760c:	200002c3 	.word	0x200002c3
+ 8007608:	200006e4 	.word	0x200006e4
+ 800760c:	200002c7 	.word	0x200002c7
 
 08007610 <HAL_init>:
 
@@ -16586,10 +16585,10 @@ void HAL_init( void )
 }
  800766c:	bf00      	nop
  800766e:	bd80      	pop	{r7, pc}
- 8007670:	200002b4 	.word	0x200002b4
- 8007674:	200006f0 	.word	0x200006f0
- 8007678:	200006e0 	.word	0x200006e0
- 800767c:	200002c3 	.word	0x200002c3
+ 8007670:	200002b8 	.word	0x200002b8
+ 8007674:	200006f4 	.word	0x200006f4
+ 8007678:	200006e4 	.word	0x200006e4
+ 800767c:	200002c7 	.word	0x200002c7
 
 08007680 <TIME_init>:
 
@@ -16615,9 +16614,9 @@ void TIME_init( void )
  8007698:	46bd      	mov	sp, r7
  800769a:	f85d 7b04 	ldr.w	r7, [sp], #4
  800769e:	4770      	bx	lr
- 80076a0:	200006ec 	.word	0x200006ec
- 80076a4:	200002c0 	.word	0x200002c0
- 80076a8:	200002b8 	.word	0x200002b8
+ 80076a0:	200006f0 	.word	0x200006f0
+ 80076a4:	200002c4 	.word	0x200002c4
+ 80076a8:	200002bc 	.word	0x200002bc
 
 080076ac <log_in2>:
 			float log5,float log6,
@@ -16737,17 +16736,17 @@ void TIME_init( void )
  8007774:	46bd      	mov	sp, r7
  8007776:	f85d 7b04 	ldr.w	r7, [sp], #4
  800777a:	4770      	bx	lr
- 800777c:	20000290 	.word	0x20000290
- 8007780:	2000028e 	.word	0x2000028e
- 8007784:	20002594 	.word	0x20002594
- 8007788:	20001c34 	.word	0x20001c34
- 800778c:	20001914 	.word	0x20001914
- 8007790:	200012d4 	.word	0x200012d4
- 8007794:	20001f54 	.word	0x20001f54
- 8007798:	20002274 	.word	0x20002274
- 800779c:	200015f4 	.word	0x200015f4
- 80077a0:	200028b4 	.word	0x200028b4
- 80077a4:	20000fb4 	.word	0x20000fb4
+ 800777c:	20000294 	.word	0x20000294
+ 8007780:	20000292 	.word	0x20000292
+ 8007784:	20002598 	.word	0x20002598
+ 8007788:	20001c38 	.word	0x20001c38
+ 800778c:	20001918 	.word	0x20001918
+ 8007790:	200012d8 	.word	0x200012d8
+ 8007794:	20001f58 	.word	0x20001f58
+ 8007798:	20002278 	.word	0x20002278
+ 800779c:	200015f8 	.word	0x200015f8
+ 80077a0:	200028b8 	.word	0x200028b8
+ 80077a4:	20000fb8 	.word	0x20000fb8
 
 080077a8 <log_interrupt>:
 
@@ -16798,7 +16797,7 @@ void log_interrupt ( void )
  8007820:	46bd      	mov	sp, r7
  8007822:	ecbd 8b08 	vpop	{d8-d11}
  8007826:	bd80      	pop	{r7, pc}
- 8007828:	200002bc 	.word	0x200002bc
+ 8007828:	200002c0 	.word	0x200002c0
 
 0800782c <log_flag_on>:
 
@@ -16815,7 +16814,7 @@ void log_flag_on(void)
  8007838:	46bd      	mov	sp, r7
  800783a:	f85d 7b04 	ldr.w	r7, [sp], #4
  800783e:	4770      	bx	lr
- 8007840:	20000290 	.word	0x20000290
+ 8007840:	20000294 	.word	0x20000294
 
 08007844 <log_flag_off>:
 
@@ -16832,7 +16831,7 @@ void log_flag_off(void)
  8007850:	46bd      	mov	sp, r7
  8007852:	f85d 7b04 	ldr.w	r7, [sp], #4
  8007856:	4770      	bx	lr
- 8007858:	20000290 	.word	0x20000290
+ 8007858:	20000294 	.word	0x20000294
 
 0800785c <log_read2>:
 
@@ -16979,15 +16978,15 @@ void log_read2(void)
  8007984:	3730      	adds	r7, #48	; 0x30
  8007986:	46bd      	mov	sp, r7
  8007988:	e8bd 8fb0 	ldmia.w	sp!, {r4, r5, r7, r8, r9, sl, fp, pc}
- 800798c:	20002594 	.word	0x20002594
- 8007990:	20001c34 	.word	0x20001c34
- 8007994:	20001914 	.word	0x20001914
- 8007998:	200012d4 	.word	0x200012d4
- 800799c:	20001f54 	.word	0x20001f54
- 80079a0:	20002274 	.word	0x20002274
- 80079a4:	200015f4 	.word	0x200015f4
- 80079a8:	200028b4 	.word	0x200028b4
- 80079ac:	20000fb4 	.word	0x20000fb4
+ 800798c:	20002598 	.word	0x20002598
+ 8007990:	20001c38 	.word	0x20001c38
+ 8007994:	20001918 	.word	0x20001918
+ 8007998:	200012d8 	.word	0x200012d8
+ 800799c:	20001f58 	.word	0x20001f58
+ 80079a0:	20002278 	.word	0x20002278
+ 80079a4:	200015f8 	.word	0x200015f8
+ 80079a8:	200028b8 	.word	0x200028b8
+ 80079ac:	20000fb8 	.word	0x20000fb8
  80079b0:	08013aa0 	.word	0x08013aa0
 
 080079b4 <SYS_start>:
@@ -17198,7 +17197,7 @@ void MODE_inc( void )
 }
  8007b34:	bf00      	nop
  8007b36:	bd80      	pop	{r7, pc}
- 8007b38:	20002bd4 	.word	0x20002bd4
+ 8007b38:	20002bd8 	.word	0x20002bd8
  8007b3c:	2000000c 	.word	0x2000000c
 
 08007b40 <MODE_exe_m0>:
@@ -17331,9 +17330,9 @@ void MODE_exe_m0( void )
  8007c24:	f7fd fd58 	bl	80056d8 <CTRL_clrData>
 			log_flag_on();
  8007c28:	f7ff fe00 	bl	800782c <log_flag_on>
-			MOT_goBlock_FinSpeed(3.0, 0.0);
+			MOT_goBlock_FinSpeed(8.0, 0.0);
  8007c2c:	eddf 0a3f 	vldr	s1, [pc, #252]	; 8007d2c <MODE_exe_m0+0x1ec>
- 8007c30:	eeb0 0a08 	vmov.f32	s0, #8	; 0x40400000  3.0
+ 8007c30:	eeb2 0a00 	vmov.f32	s0, #32	; 0x41000000  8.0
  8007c34:	f001 f940 	bl	8008eb8 <MOT_goBlock_FinSpeed>
 			log_flag_off();
  8007c38:	f7ff fe04 	bl	8007844 <log_flag_off>
@@ -17455,7 +17454,7 @@ void MODE_exe_m0( void )
  8007d18:	bf00      	nop
  8007d1a:	bd98      	pop	{r3, r4, r7, pc}
  8007d1c:	2000000c 	.word	0x2000000c
- 8007d20:	20002bd4 	.word	0x20002bd4
+ 8007d20:	20002bd8 	.word	0x20002bd8
  8007d24:	08013b8c 	.word	0x08013b8c
  8007d28:	43960000 	.word	0x43960000
  8007d2c:	00000000 	.word	0x00000000
@@ -17670,8 +17669,8 @@ void MODE_exe( void )
 			MAP_searchGoal(GOAL_MAP_X_def, GOAL_MAP_Y_def, SEARCH, SEARCH_SURA );			// ゴール設�?
  8007eb2:	2301      	movs	r3, #1
  8007eb4:	2200      	movs	r2, #0
- 8007eb6:	2103      	movs	r1, #3
- 8007eb8:	2000      	movs	r0, #0
+ 8007eb6:	2108      	movs	r1, #8
+ 8007eb8:	2008      	movs	r0, #8
  8007eba:	f003 ffb9 	bl	800be30 <MAP_searchGoal>
 
 
@@ -17882,7 +17881,7 @@ void MODE_exe( void )
  8008044:	46bd      	mov	sp, r7
  8008046:	bdb0      	pop	{r4, r5, r7, pc}
  8008048:	2000000c 	.word	0x2000000c
- 800804c:	20002bd4 	.word	0x20002bd4
+ 800804c:	20002bd8 	.word	0x20002bd8
  8008050:	08013ba4 	.word	0x08013ba4
  8008054:	43960000 	.word	0x43960000
  8008058:	00000000 	.word	0x00000000
@@ -18547,11 +18546,11 @@ void MOT_goBlock_AccConstDec( float f_fin, enMOT_ST_TYPE en_type, enMOT_GO_ST_TY
  8008482:	d4e1      	bmi.n	8008448 <MOT_goBlock_AccConstDec+0x2ac>
  8008484:	e00d      	b.n	80084a2 <MOT_goBlock_AccConstDec+0x306>
  8008486:	bf00      	nop
- 8008488:	20002bd8 	.word	0x20002bd8
- 800848c:	200006dc 	.word	0x200006dc
- 8008490:	200002d8 	.word	0x200002d8
- 8008494:	200002a0 	.word	0x200002a0
- 8008498:	200002a1 	.word	0x200002a1
+ 8008488:	20002bdc 	.word	0x20002bdc
+ 800848c:	200006e0 	.word	0x200006e0
+ 8008490:	200002dc 	.word	0x200002dc
+ 8008494:	200002a4 	.word	0x200002a4
+ 8008498:	200002a5 	.word	0x200002a5
  800849c:	42340000 	.word	0x42340000
 			if( MOT_setWallEdgeDist_LoopWait() == TRUE ) break;	// 壁�??れ補正を実行する距離を設�?
  80084a0:	bf00      	nop
@@ -18681,9 +18680,9 @@ void MOT_goBlock_AccConstDec( float f_fin, enMOT_ST_TYPE en_type, enMOT_GO_ST_TY
  8008582:	3738      	adds	r7, #56	; 0x38
  8008584:	46bd      	mov	sp, r7
  8008586:	bd80      	pop	{r7, pc}
- 8008588:	200002a4 	.word	0x200002a4
- 800858c:	20002bd8 	.word	0x20002bd8
- 8008590:	20000294 	.word	0x20000294
+ 8008588:	200002a8 	.word	0x200002a8
+ 800858c:	20002bdc 	.word	0x20002bdc
+ 8008590:	20000298 	.word	0x20000298
 
 08008594 <MOT_setData_ACC_CONST_DEC>:
 
@@ -18799,9 +18798,9 @@ void MOT_setData_ACC_CONST_DEC( float f_num, float f_fin, enMOT_GO_ST_TYPE en_ty
  800867e:	bd80      	pop	{r7, pc}
  8008680:	42b40000 	.word	0x42b40000
  8008684:	42fe8f5c 	.word	0x42fe8f5c
- 8008688:	20002bd8 	.word	0x20002bd8
- 800868c:	20000294 	.word	0x20000294
- 8008690:	20000298 	.word	0x20000298
+ 8008688:	20002bdc 	.word	0x20002bdc
+ 800868c:	20000298 	.word	0x20000298
+ 8008690:	2000029c 	.word	0x2000029c
 
 08008694 <MOT_setData_MOT_ACC_CONST_DEC_CUSTOM>:
 
@@ -18971,8 +18970,8 @@ void MOT_setData_MOT_ACC_CONST_DEC_CUSTOM( float f_num, float f_fin, enMOT_GO_ST
  8008822:	bd80      	pop	{r7, pc}
  8008824:	42b40000 	.word	0x42b40000
  8008828:	42fe8f5c 	.word	0x42fe8f5c
- 800882c:	20002bd8 	.word	0x20002bd8
- 8008830:	20000294 	.word	0x20000294
+ 800882c:	20002bdc 	.word	0x20002bdc
+ 8008830:	20000298 	.word	0x20000298
 
 08008834 <MOT_setData_MOT_ACC_CONST>:
 
@@ -19063,8 +19062,8 @@ void MOT_setData_MOT_ACC_CONST( float f_num, float f_fin, enMOT_GO_ST_TYPE en_ty
  80088d2:	bd80      	pop	{r7, pc}
  80088d4:	42b40000 	.word	0x42b40000
  80088d8:	42fe8f5c 	.word	0x42fe8f5c
- 80088dc:	20002bd8 	.word	0x20002bd8
- 80088e0:	20000294 	.word	0x20000294
+ 80088dc:	20002bdc 	.word	0x20002bdc
+ 80088e0:	20000298 	.word	0x20000298
 
 080088e4 <MOT_setData_MOT_ACC_CONST_CUSTOM>:
 
@@ -19171,8 +19170,8 @@ void MOT_setData_MOT_ACC_CONST_CUSTOM( float f_num, float f_fin, enMOT_GO_ST_TYP
  80089b2:	bf00      	nop
  80089b4:	42b40000 	.word	0x42b40000
  80089b8:	42fe8f5c 	.word	0x42fe8f5c
- 80089bc:	20000294 	.word	0x20000294
- 80089c0:	20002bd8 	.word	0x20002bd8
+ 80089bc:	20000298 	.word	0x20000298
+ 80089c0:	20002bdc 	.word	0x20002bdc
 
 080089c4 <MOT_setData_MOT_CONST_DEC>:
 
@@ -19267,8 +19266,8 @@ void MOT_setData_MOT_CONST_DEC( float f_num, float f_fin, enMOT_GO_ST_TYPE en_ty
  8008a6e:	bf00      	nop
  8008a70:	42b40000 	.word	0x42b40000
  8008a74:	42fe8f5c 	.word	0x42fe8f5c
- 8008a78:	20002bd8 	.word	0x20002bd8
- 8008a7c:	20000294 	.word	0x20000294
+ 8008a78:	20002bdc 	.word	0x20002bdc
+ 8008a7c:	20000298 	.word	0x20000298
 
 08008a80 <MOT_setData_MOT_CONST_DEC_CUSTOM>:
 
@@ -19378,8 +19377,8 @@ void MOT_setData_MOT_CONST_DEC_CUSTOM( float f_num, float f_fin, enMOT_GO_ST_TYP
  8008b5a:	4770      	bx	lr
  8008b5c:	42b40000 	.word	0x42b40000
  8008b60:	42fe8f5c 	.word	0x42fe8f5c
- 8008b64:	20000294 	.word	0x20000294
- 8008b68:	20002bd8 	.word	0x20002bd8
+ 8008b64:	20000298 	.word	0x20000298
+ 8008b68:	20002bdc 	.word	0x20002bdc
 
 08008b6c <MOT_getStType>:
 
@@ -19621,8 +19620,8 @@ enMOT_ST_TYPE MOT_getStType( float f_num, float f_fin, enMOT_GO_ST_TYPE en_type 
  8008d86:	bf00      	nop
  8008d88:	42b40000 	.word	0x42b40000
  8008d8c:	42fe8f5c 	.word	0x42fe8f5c
- 8008d90:	20000294 	.word	0x20000294
- 8008d94:	20000298 	.word	0x20000298
+ 8008d90:	20000298 	.word	0x20000298
+ 8008d94:	2000029c 	.word	0x2000029c
 
 08008d98 <MOT_go_FinSpeed>:
 
@@ -19909,7 +19908,7 @@ void MOT_goBlock_Const(float f_num)
  8008f9c:	46bd      	mov	sp, r7
  8008f9e:	bd80      	pop	{r7, pc}
  8008fa0:	42b40000 	.word	0x42b40000
- 8008fa4:	20000294 	.word	0x20000294
+ 8008fa4:	20000298 	.word	0x20000298
 
 08008fa8 <MOT_getAccAngle1>:
 	CTRL_clrData();
@@ -20316,7 +20315,7 @@ void MOT_turn( enMOT_TURN_CMD en_type )
  80092cc:	43b40000 	.word	0x43b40000
  80092d0:	08013bd0 	.word	0x08013bd0
  80092d4:	00000000 	.word	0x00000000
- 80092d8:	200002d4 	.word	0x200002d4
+ 80092d8:	200002d8 	.word	0x200002d8
  80092dc:	c1c80000 	.word	0xc1c80000
  80092e0:	41c80000 	.word	0x41c80000
  80092e4:	c1a00000 	.word	0xc1a00000
@@ -20634,8 +20633,8 @@ void MOT_turn( enMOT_TURN_CMD en_type )
  800954e:	ecbd 8b02 	vpop	{d8}
  8009552:	bd80      	pop	{r7, pc}
  8009554:	41a00000 	.word	0x41a00000
- 8009558:	200006dc 	.word	0x200006dc
- 800955c:	200002d8 	.word	0x200002d8
+ 8009558:	200006e0 	.word	0x200006e0
+ 800955c:	200002dc 	.word	0x200002dc
 
 08009560 <MOT_setSuraStaSpeed>:
 
@@ -20656,7 +20655,7 @@ void MOT_setSuraStaSpeed( float f_speed )
  8009574:	46bd      	mov	sp, r7
  8009576:	f85d 7b04 	ldr.w	r7, [sp], #4
  800957a:	4770      	bx	lr
- 800957c:	2000029c 	.word	0x2000029c
+ 800957c:	200002a0 	.word	0x200002a0
 
 08009580 <MOT_setTrgtSpeed>:
 {
@@ -20684,7 +20683,7 @@ float MOT_setTrgtSpeed(float f_speed)
  80095a0:	f85d 7b04 	ldr.w	r7, [sp], #4
  80095a4:	4770      	bx	lr
  80095a6:	bf00      	nop
- 80095a8:	20000298 	.word	0x20000298
+ 80095a8:	2000029c 	.word	0x2000029c
 
 080095ac <MOT_setNowSpeed>:
 
@@ -20704,7 +20703,7 @@ void MOT_setNowSpeed(float f_speed)
  80095c0:	46bd      	mov	sp, r7
  80095c2:	f85d 7b04 	ldr.w	r7, [sp], #4
  80095c6:	4770      	bx	lr
- 80095c8:	20000294 	.word	0x20000294
+ 80095c8:	20000298 	.word	0x20000298
 
 080095cc <MOT_goHitBackWall>:
 
@@ -20808,7 +20807,7 @@ void MOT_goHitBackWall(void)
  8009660:	46bd      	mov	sp, r7
  8009662:	bd80      	pop	{r7, pc}
  8009664:	44960000 	.word	0x44960000
- 8009668:	20000294 	.word	0x20000294
+ 8009668:	20000298 	.word	0x20000298
  800966c:	00000000 	.word	0x00000000
 
 08009670 <MOT_goSla>:
@@ -21404,7 +21403,7 @@ void MOT_goSla( enMOT_SURA_CMD en_type, stSLA* p_sla )
  8009afe:	bf00      	nop
  8009b00:	d2f1a9fc 	.word	0xd2f1a9fc
  8009b04:	3f50624d 	.word	0x3f50624d
- 8009b08:	20000f00 	.word	0x20000f00
+ 8009b08:	20000f04 	.word	0x20000f04
 		while( ( Get_NowAngle() < st_info.f_angle1_2 ) && ( Get_NowDist() < st_data.f_dist ) ){		// �?定角度?��距離到達�?ち
  8009b0c:	f7fb fd6c 	bl	80055e8 <Get_NowAngle>
  8009b10:	eeb0 7a40 	vmov.f32	s14, s0
@@ -21759,7 +21758,7 @@ void MOT_goSla( enMOT_SURA_CMD en_type, stSLA* p_sla )
  8009e20:	bdb0      	pop	{r4, r5, r7, pc}
  8009e22:	bf00      	nop
  8009e24:	f3af 8000 	nop.w
- 8009e28:	20000294 	.word	0x20000294
+ 8009e28:	20000298 	.word	0x20000298
  8009e2c:	d2f1a9fc 	.word	0xd2f1a9fc
  8009e30:	3f50624d 	.word	0x3f50624d
 
@@ -21856,7 +21855,7 @@ enMOT_WALL_EDGE_TYPE MOT_getWallEdgeType( void )
  8009ec4:	f85d 7b04 	ldr.w	r7, [sp], #4
  8009ec8:	4770      	bx	lr
  8009eca:	bf00      	nop
- 8009ecc:	200002a0 	.word	0x200002a0
+ 8009ecc:	200002a4 	.word	0x200002a4
 
 08009ed0 <MOT_setWallEdge>:
 
@@ -21878,7 +21877,7 @@ void MOT_setWallEdge( bool bl_val )
  8009ee4:	46bd      	mov	sp, r7
  8009ee6:	f85d 7b04 	ldr.w	r7, [sp], #4
  8009eea:	4770      	bx	lr
- 8009eec:	200002a1 	.word	0x200002a1
+ 8009eec:	200002a5 	.word	0x200002a5
 
 08009ef0 <MOT_setWallEdgeDist>:
 
@@ -21950,10 +21949,10 @@ bool MOT_setWallEdgeDist( void )
  8009f5e:	46bd      	mov	sp, r7
  8009f60:	bd80      	pop	{r7, pc}
  8009f62:	bf00      	nop
- 8009f64:	200002a1 	.word	0x200002a1
- 8009f68:	200002a0 	.word	0x200002a0
- 8009f6c:	20002bd8 	.word	0x20002bd8
- 8009f70:	200002a4 	.word	0x200002a4
+ 8009f64:	200002a5 	.word	0x200002a5
+ 8009f68:	200002a4 	.word	0x200002a4
+ 8009f6c:	20002bdc 	.word	0x20002bdc
+ 8009f70:	200002a8 	.word	0x200002a8
 
 08009f74 <MOT_setWallEdgeDist_LoopWait>:
 bool MOT_setWallEdgeDist_LoopWait( void )
@@ -21986,8 +21985,8 @@ bool MOT_setWallEdgeDist_LoopWait( void )
  8009f94:	46bd      	mov	sp, r7
  8009f96:	f85d 7b04 	ldr.w	r7, [sp], #4
  8009f9a:	4770      	bx	lr
- 8009f9c:	200002a1 	.word	0x200002a1
- 8009fa0:	200002a4 	.word	0x200002a4
+ 8009f9c:	200002a5 	.word	0x200002a5
+ 8009fa0:	200002a8 	.word	0x200002a8
  8009fa4:	41e00000 	.word	0x41e00000
 
 08009fa8 <BAT_Pol>:
@@ -22117,7 +22116,7 @@ void BAT_Pol( void )
  800a064:	20000010 	.word	0x20000010
  800a068:	66666667 	.word	0x66666667
  800a06c:	2000000e 	.word	0x2000000e
- 800a070:	200002a8 	.word	0x200002a8
+ 800a070:	200002ac 	.word	0x200002ac
  800a074:	00000000 	.word	0x00000000
 
 0800a078 <get_battLv>:
@@ -22267,8 +22266,8 @@ void DIST_init( void )
  800a196:	bf00      	nop
  800a198:	bd80      	pop	{r7, pc}
  800a19a:	bf00      	nop
- 800a19c:	20002c3c 	.word	0x20002c3c
- 800a1a0:	20002c1c 	.word	0x20002c1c
+ 800a19c:	20002c40 	.word	0x20002c40
+ 800a1a0:	20002c20 	.word	0x20002c20
 
 0800a1a4 <DIST_getNowVal>:
 
@@ -22295,7 +22294,7 @@ int16_t DIST_getNowVal( enDIST_SEN_ID en_id )
  800a1c4:	46bd      	mov	sp, r7
  800a1c6:	f85d 7b04 	ldr.w	r7, [sp], #4
  800a1ca:	4770      	bx	lr
- 800a1cc:	20002c3c 	.word	0x20002c3c
+ 800a1cc:	20002c40 	.word	0x20002c40
 
 0800a1d0 <DIST_getErr>:
 
@@ -22546,7 +22545,7 @@ void DIST_getErr( int32_t* p_err )
  800a334:	f85d 7b04 	ldr.w	r7, [sp], #4
  800a338:	4770      	bx	lr
  800a33a:	bf00      	nop
- 800a33c:	20002c3c 	.word	0x20002c3c
+ 800a33c:	20002c40 	.word	0x20002c40
 
 0800a340 <DIST_getErrSkew>:
 
@@ -22650,8 +22649,8 @@ void DIST_getErrSkew( int32_t* p_err )
  800a3d0:	f85d 7b04 	ldr.w	r7, [sp], #4
  800a3d4:	4770      	bx	lr
  800a3d6:	bf00      	nop
- 800a3d8:	20002c3c 	.word	0x20002c3c
- 800a3dc:	20002c1c 	.word	0x20002c1c
+ 800a3d8:	20002c40 	.word	0x20002c40
+ 800a3dc:	20002c20 	.word	0x20002c20
  800a3e0:	fffffed4 	.word	0xfffffed4
 
 0800a3e4 <DIST_Pol_FL>:
@@ -22710,7 +22709,7 @@ void DIST_Pol_FL( void )
  800a43a:	46bd      	mov	sp, r7
  800a43c:	bd80      	pop	{r7, pc}
  800a43e:	bf00      	nop
- 800a440:	20002c3c 	.word	0x20002c3c
+ 800a440:	20002c40 	.word	0x20002c40
 
 0800a444 <DIST_Pol_FR>:
 
@@ -22770,7 +22769,7 @@ void DIST_Pol_FR( void )
  800a49a:	46bd      	mov	sp, r7
  800a49c:	bd80      	pop	{r7, pc}
  800a49e:	bf00      	nop
- 800a4a0:	20002c3c 	.word	0x20002c3c
+ 800a4a0:	20002c40 	.word	0x20002c40
 
 0800a4a4 <DIST_Pol_SL>:
 
@@ -22831,7 +22830,7 @@ void DIST_Pol_SL( void )
  800a4fa:	46bd      	mov	sp, r7
  800a4fc:	bd80      	pop	{r7, pc}
  800a4fe:	bf00      	nop
- 800a500:	20002c3c 	.word	0x20002c3c
+ 800a500:	20002c40 	.word	0x20002c40
 
 0800a504 <DIST_Pol_SR>:
 
@@ -22889,7 +22888,7 @@ void DIST_Pol_SR( void )
  800a556:	46bd      	mov	sp, r7
  800a558:	bd80      	pop	{r7, pc}
  800a55a:	bf00      	nop
- 800a55c:	20002c3c 	.word	0x20002c3c
+ 800a55c:	20002c40 	.word	0x20002c40
 
 0800a560 <Get_Sen_Nowdata>:
 
@@ -22925,7 +22924,7 @@ void Get_Sen_Nowdata(void){
  800a586:	bf00      	nop
  800a588:	46bd      	mov	sp, r7
  800a58a:	bd80      	pop	{r7, pc}
- 800a58c:	20002c3c 	.word	0x20002c3c
+ 800a58c:	20002c40 	.word	0x20002c40
  800a590:	08013bd8 	.word	0x08013bd8
 
 0800a594 <DIST_isWall_FRONT>:
@@ -22968,7 +22967,7 @@ bool DIST_isWall_FRONT( void )
  800a5c0:	46bd      	mov	sp, r7
  800a5c2:	f85d 7b04 	ldr.w	r7, [sp], #4
  800a5c6:	4770      	bx	lr
- 800a5c8:	20002c3c 	.word	0x20002c3c
+ 800a5c8:	20002c40 	.word	0x20002c40
 
 0800a5cc <DIST_isWall_R_SIDE>:
 
@@ -23001,7 +23000,7 @@ bool DIST_isWall_R_SIDE( void )
  800a5ec:	46bd      	mov	sp, r7
  800a5ee:	f85d 7b04 	ldr.w	r7, [sp], #4
  800a5f2:	4770      	bx	lr
- 800a5f4:	20002c3c 	.word	0x20002c3c
+ 800a5f4:	20002c40 	.word	0x20002c40
 
 0800a5f8 <DIST_isWall_L_SIDE>:
 
@@ -23034,7 +23033,7 @@ bool DIST_isWall_L_SIDE( void )
  800a618:	46bd      	mov	sp, r7
  800a61a:	f85d 7b04 	ldr.w	r7, [sp], #4
  800a61e:	4770      	bx	lr
- 800a620:	20002c3c 	.word	0x20002c3c
+ 800a620:	20002c40 	.word	0x20002c40
 
 0800a624 <MAP_setCmdPos>:
 	
@@ -23078,8 +23077,8 @@ void MAP_setCmdPos( uint8_t uc_x, uint8_t uc_y, enMAP_HEAD_DIR en_dir )
  800a668:	46bd      	mov	sp, r7
  800a66a:	f85d 7b04 	ldr.w	r7, [sp], #4
  800a66e:	4770      	bx	lr
- 800a670:	20003cf0 	.word	0x20003cf0
- 800a674:	20003cec 	.word	0x20003cec
+ 800a670:	20003cf4 	.word	0x20003cf4
+ 800a674:	20003cf0 	.word	0x20003cf0
 
 0800a678 <MAP_searchCmdList>:
 	uint8_t uc_staY,					///< [in] �J�nY���W
@@ -23457,10 +23456,10 @@ void MAP_setCmdPos( uint8_t uc_x, uint8_t uc_y, enMAP_HEAD_DIR en_dir )
  800a940:	e070      	b.n	800aa24 <MAP_searchCmdList+0x3ac>
 			else   while (1);
  800a942:	e7fe      	b.n	800a942 <MAP_searchCmdList+0x2ca>
- 800a944:	20000700 	.word	0x20000700
- 800a948:	200002dc 	.word	0x200002dc
- 800a94c:	200002b9 	.word	0x200002b9
- 800a950:	200002c1 	.word	0x200002c1
+ 800a944:	20000704 	.word	0x20000704
+ 800a948:	200002e0 	.word	0x200002e0
+ 800a94c:	200002bd 	.word	0x200002bd
+ 800a950:	200002c5 	.word	0x200002c5
 		}
 		else if (en_staDir == WEST) {
  800a954:	797b      	ldrb	r3, [r7, #5]
@@ -23646,10 +23645,10 @@ void MAP_setCmdPos( uint8_t uc_x, uint8_t uc_y, enMAP_HEAD_DIR en_dir )
  800aa9a:	46bd      	mov	sp, r7
  800aa9c:	bc90      	pop	{r4, r7}
  800aa9e:	4770      	bx	lr
- 800aaa0:	200002dc 	.word	0x200002dc
- 800aaa4:	20000700 	.word	0x20000700
- 800aaa8:	200002b9 	.word	0x200002b9
- 800aaac:	200002c1 	.word	0x200002c1
+ 800aaa0:	200002e0 	.word	0x200002e0
+ 800aaa4:	20000704 	.word	0x20000704
+ 800aaa8:	200002bd 	.word	0x200002bd
+ 800aaac:	200002c5 	.word	0x200002c5
 
 0800aab0 <map_write>:
 
@@ -23683,7 +23682,7 @@ void map_write(void)
  800aad2:	46bd      	mov	sp, r7
  800aad4:	bd80      	pop	{r7, pc}
  800aad6:	bf00      	nop
- 800aad8:	200002dc 	.word	0x200002dc
+ 800aad8:	200002e0 	.word	0x200002e0
  800aadc:	0807f800 	.word	0x0807f800
 
 0800aae0 <MAP_init>:
@@ -23726,11 +23725,11 @@ void MAP_init( void )
 }
  800ab08:	bf00      	nop
  800ab0a:	bd80      	pop	{r7, pc}
- 800ab0c:	200061b8 	.word	0x200061b8
- 800ab10:	200061bb 	.word	0x200061bb
- 800ab14:	200061b1 	.word	0x200061b1
- 800ab18:	200061b4 	.word	0x200061b4
- 800ab1c:	200002a9 	.word	0x200002a9
+ 800ab0c:	200061bc 	.word	0x200061bc
+ 800ab10:	200061bf 	.word	0x200061bf
+ 800ab14:	200061b5 	.word	0x200061b5
+ 800ab18:	200061b8 	.word	0x200061b8
+ 800ab1c:	200002ad 	.word	0x200002ad
 
 0800ab20 <MAP_Goal_init>:
 
@@ -23740,11 +23739,11 @@ void MAP_Goal_init( void )
  800ab22:	af00      	add	r7, sp, #0
 	GOAL_MAP_X = GOAL_MAP_X_def;
  800ab24:	4b05      	ldr	r3, [pc, #20]	; (800ab3c <MAP_Goal_init+0x1c>)
- 800ab26:	2200      	movs	r2, #0
+ 800ab26:	2208      	movs	r2, #8
  800ab28:	701a      	strb	r2, [r3, #0]
 	GOAL_MAP_Y = GOAL_MAP_Y_def;
  800ab2a:	4b05      	ldr	r3, [pc, #20]	; (800ab40 <MAP_Goal_init+0x20>)
- 800ab2c:	2203      	movs	r2, #3
+ 800ab2c:	2208      	movs	r2, #8
  800ab2e:	701a      	strb	r2, [r3, #0]
 }
  800ab30:	bf00      	nop
@@ -23752,8 +23751,8 @@ void MAP_Goal_init( void )
  800ab34:	f85d 7b04 	ldr.w	r7, [sp], #4
  800ab38:	4770      	bx	lr
  800ab3a:	bf00      	nop
- 800ab3c:	200061b0 	.word	0x200061b0
- 800ab40:	200061b9 	.word	0x200061b9
+ 800ab3c:	200061b4 	.word	0x200061b4
+ 800ab40:	200061bd 	.word	0x200061bd
 
 0800ab44 <MAP_setPos>:
 
@@ -23796,9 +23795,9 @@ void MAP_setPos( uint8_t uc_x, uint8_t uc_y, enMAP_HEAD_DIR en_dir )
  800ab76:	3708      	adds	r7, #8
  800ab78:	46bd      	mov	sp, r7
  800ab7a:	bd80      	pop	{r7, pc}
- 800ab7c:	200061bb 	.word	0x200061bb
- 800ab80:	200061b1 	.word	0x200061b1
- 800ab84:	200061b8 	.word	0x200061b8
+ 800ab7c:	200061bf 	.word	0x200061bf
+ 800ab80:	200061b5 	.word	0x200061b5
+ 800ab84:	200061bc 	.word	0x200061bc
 
 0800ab88 <MAP_clearMap>:
 		printf("\n\r");
@@ -23935,7 +23934,7 @@ void MAP_clearMap( void )
  800ac54:	46bd      	mov	sp, r7
  800ac56:	f85d 7b04 	ldr.w	r7, [sp], #4
  800ac5a:	4770      	bx	lr
- 800ac5c:	200002dc 	.word	0x200002dc
+ 800ac5c:	200002e0 	.word	0x200002e0
 
 0800ac60 <MAP_getWallData>:
 
@@ -24032,7 +24031,7 @@ uint8_t MAP_getWallData( void )
  800acda:	46bd      	mov	sp, r7
  800acdc:	bd80      	pop	{r7, pc}
  800acde:	bf00      	nop
- 800ace0:	200061b8 	.word	0x200061b8
+ 800ace0:	200061bc 	.word	0x200061bc
 
 0800ace4 <MAP_makeMapData>:
 
@@ -24259,9 +24258,9 @@ void MAP_makeMapData( void )
  800ae7e:	3708      	adds	r7, #8
  800ae80:	46bd      	mov	sp, r7
  800ae82:	bd80      	pop	{r7, pc}
- 800ae84:	200061bb 	.word	0x200061bb
- 800ae88:	200061b1 	.word	0x200061b1
- 800ae8c:	200002dc 	.word	0x200002dc
+ 800ae84:	200061bf 	.word	0x200061bf
+ 800ae88:	200061b5 	.word	0x200061b5
+ 800ae8c:	200002e0 	.word	0x200002e0
 
 0800ae90 <setStep>:
 	}
@@ -24312,7 +24311,7 @@ void setStep(const int8_t x, const int8_t y, const uint16_t step) {
  800aee0:	46bd      	mov	sp, r7
  800aee2:	bd80      	pop	{r7, pc}
  800aee4:	08013ccc 	.word	0x08013ccc
- 800aee8:	20000700 	.word	0x20000700
+ 800aee8:	20000704 	.word	0x20000704
 
 0800aeec <MAP_makeContourMap_kai2>:
 
@@ -24693,8 +24692,8 @@ void  MAP_makeContourMap_kai2(
  800b220:	f507 779a 	add.w	r7, r7, #308	; 0x134
  800b224:	46bd      	mov	sp, r7
  800b226:	bd90      	pop	{r4, r7, pc}
- 800b228:	20000700 	.word	0x20000700
- 800b22c:	200002dc 	.word	0x200002dc
+ 800b228:	20000704 	.word	0x20000704
+ 800b22c:	200002e0 	.word	0x200002e0
 
 0800b230 <MAP_calcMouseDir>:
 }
@@ -25008,11 +25007,11 @@ void MAP_calcMouseDir(
  800b42c:	f85d 7b04 	ldr.w	r7, [sp], #4
  800b430:	4770      	bx	lr
  800b432:	bf00      	nop
- 800b434:	200061b1 	.word	0x200061b1
- 800b438:	200061bb 	.word	0x200061bb
- 800b43c:	200002dc 	.word	0x200002dc
- 800b440:	20000700 	.word	0x20000700
- 800b444:	200061b8 	.word	0x200061b8
+ 800b434:	200061b5 	.word	0x200061b5
+ 800b438:	200061bf 	.word	0x200061bf
+ 800b43c:	200002e0 	.word	0x200002e0
+ 800b440:	20000704 	.word	0x20000704
+ 800b444:	200061bc 	.word	0x200061bc
 
 0800b448 <MAP_refMousePos>:
 
@@ -25086,8 +25085,8 @@ void MAP_refMousePos(
  800b4b0:	f85d 7b04 	ldr.w	r7, [sp], #4
  800b4b4:	4770      	bx	lr
  800b4b6:	bf00      	nop
- 800b4b8:	200061b1 	.word	0x200061b1
- 800b4bc:	200061bb 	.word	0x200061bb
+ 800b4b8:	200061b5 	.word	0x200061b5
+ 800b4bc:	200061bf 	.word	0x200061bf
 
 0800b4c0 <MAP_moveNextBlock>:
 
@@ -25285,12 +25284,12 @@ void MAP_moveNextBlock(
  800b602:	3708      	adds	r7, #8
  800b604:	46bd      	mov	sp, r7
  800b606:	bd80      	pop	{r7, pc}
- 800b608:	200061b4 	.word	0x200061b4
+ 800b608:	200061b8 	.word	0x200061b8
  800b60c:	00000000 	.word	0x00000000
- 800b610:	200061b8 	.word	0x200061b8
- 800b614:	200061b1 	.word	0x200061b1
- 800b618:	200061bb 	.word	0x200061bb
- 800b61c:	200002dc 	.word	0x200002dc
+ 800b610:	200061bc 	.word	0x200061bc
+ 800b614:	200061b5 	.word	0x200061b5
+ 800b618:	200061bf 	.word	0x200061bf
+ 800b61c:	200002e0 	.word	0x200002e0
  800b620:	3e75c28f 	.word	0x3e75c28f
 
 0800b624 <MAP_moveNextBlock_Sura>:
@@ -25694,15 +25693,15 @@ void MAP_moveNextBlock_Sura(
  800b8ce:	220a      	movs	r2, #10
  800b8d0:	701a      	strb	r2, [r3, #0]
  800b8d2:	e018      	b.n	800b906 <MAP_moveNextBlock_Sura+0x2e2>
- 800b8d4:	200061b4 	.word	0x200061b4
+ 800b8d4:	200061b8 	.word	0x200061b8
  800b8d8:	43960000 	.word	0x43960000
- 800b8dc:	200061b8 	.word	0x200061b8
- 800b8e0:	200061b1 	.word	0x200061b1
- 800b8e4:	200061bb 	.word	0x200061bb
- 800b8e8:	200002dc 	.word	0x200002dc
- 800b8ec:	20000f00 	.word	0x20000f00
- 800b8f0:	200002a9 	.word	0x200002a9
- 800b8f4:	2000001b 	.word	0x2000001b
+ 800b8dc:	200061bc 	.word	0x200061bc
+ 800b8e0:	200061b5 	.word	0x200061b5
+ 800b8e4:	200061bf 	.word	0x200061bf
+ 800b8e8:	200002e0 	.word	0x200002e0
+ 800b8ec:	20000f04 	.word	0x20000f04
+ 800b8f0:	200002ad 	.word	0x200002ad
+ 800b8f4:	2000001c 	.word	0x2000001c
  800b8f8:	00000000 	.word	0x00000000
  800b8fc:	3e75c28f 	.word	0x3e75c28f
 				}
@@ -25998,15 +25997,15 @@ void MAP_moveNextBlock_Sura(
  800baea:	3708      	adds	r7, #8
  800baec:	46bd      	mov	sp, r7
  800baee:	bd80      	pop	{r7, pc}
- 800baf0:	20000f00 	.word	0x20000f00
- 800baf4:	200002a9 	.word	0x200002a9
- 800baf8:	2000001b 	.word	0x2000001b
- 800bafc:	200061b8 	.word	0x200061b8
- 800bb00:	200061b1 	.word	0x200061b1
- 800bb04:	200061bb 	.word	0x200061bb
- 800bb08:	200002dc 	.word	0x200002dc
+ 800baf0:	20000f04 	.word	0x20000f04
+ 800baf4:	200002ad 	.word	0x200002ad
+ 800baf8:	2000001c 	.word	0x2000001c
+ 800bafc:	200061bc 	.word	0x200061bc
+ 800bb00:	200061b5 	.word	0x200061b5
+ 800bb04:	200061bf 	.word	0x200061bf
+ 800bb08:	200002e0 	.word	0x200002e0
  800bb0c:	00000000 	.word	0x00000000
- 800bb10:	200061b4 	.word	0x200061b4
+ 800bb10:	200061b8 	.word	0x200061b8
  800bb14:	3e75c28f 	.word	0x3e75c28f
 
 0800bb18 <MAP_actGoal>:
@@ -26049,7 +26048,7 @@ void MAP_actGoal( void )
  800bb58:	bf00      	nop
  800bb5a:	bd80      	pop	{r7, pc}
  800bb5c:	00000000 	.word	0x00000000
- 800bb60:	200061b8 	.word	0x200061b8
+ 800bb60:	200061bc 	.word	0x200061bc
 
 0800bb64 <MAP_actGoalLED>:
 
@@ -26179,9 +26178,9 @@ void MAP_Goalsize(int size)
  800bc24:	f85d 7b04 	ldr.w	r7, [sp], #4
  800bc28:	4770      	bx	lr
  800bc2a:	bf00      	nop
- 800bc2c:	200061ba 	.word	0x200061ba
- 800bc30:	200002aa 	.word	0x200002aa
- 800bc34:	2000001a 	.word	0x2000001a
+ 800bc2c:	200061be 	.word	0x200061be
+ 800bc30:	2000001a 	.word	0x2000001a
+ 800bc34:	2000001b 	.word	0x2000001b
 
 0800bc38 <MAP_makeReturnContourMap>:
 
@@ -26463,8 +26462,8 @@ void  MAP_makeReturnContourMap(uint8_t uc_staX,uint8_t uc_staY)
  800be20:	46bd      	mov	sp, r7
  800be22:	f85d 7b04 	ldr.w	r7, [sp], #4
  800be26:	4770      	bx	lr
- 800be28:	20000700 	.word	0x20000700
- 800be2c:	200002dc 	.word	0x200002dc
+ 800be28:	20000704 	.word	0x20000704
+ 800be2c:	200002e0 	.word	0x200002e0
 
 0800be30 <MAP_searchGoal>:
 void MAP_searchGoal(
@@ -26861,18 +26860,18 @@ void MAP_searchGoal(
  800c0a6:	46bd      	mov	sp, r7
  800c0a8:	bd90      	pop	{r4, r7, pc}
  800c0aa:	bf00      	nop
- 800c0ac:	200002d8 	.word	0x200002d8
- 800c0b0:	200061bb 	.word	0x200061bb
- 800c0b4:	200061b1 	.word	0x200061b1
- 800c0b8:	200061b8 	.word	0x200061b8
- 800c0bc:	200002b9 	.word	0x200002b9
- 800c0c0:	200002c1 	.word	0x200002c1
+ 800c0ac:	200002dc 	.word	0x200002dc
+ 800c0b0:	200061bf 	.word	0x200061bf
+ 800c0b4:	200061b5 	.word	0x200061b5
+ 800c0b8:	200061bc 	.word	0x200061bc
+ 800c0bc:	200002bd 	.word	0x200002bd
+ 800c0c0:	200002c5 	.word	0x200002c5
  800c0c4:	43960000 	.word	0x43960000
  800c0c8:	00000000 	.word	0x00000000
- 800c0cc:	200061b4 	.word	0x200061b4
- 800c0d0:	200002a9 	.word	0x200002a9
- 800c0d4:	200061b0 	.word	0x200061b0
- 800c0d8:	200061b9 	.word	0x200061b9
+ 800c0cc:	200061b8 	.word	0x200061b8
+ 800c0d0:	200002ad 	.word	0x200002ad
+ 800c0d4:	200061b4 	.word	0x200061b4
+ 800c0d8:	200061bd 	.word	0x200061bd
  800c0dc:	3e75c28f 	.word	0x3e75c28f
 
 0800c0e0 <Reset_Handler>:
@@ -26964,13 +26963,13 @@ LoopForever:
   ldr r0, =_sdata
  800c11c:	20000000 	.word	0x20000000
   ldr r1, =_edata
- 800c120:	200001f4 	.word	0x200001f4
+ 800c120:	200001f8 	.word	0x200001f8
   ldr r2, =_sidata
  800c124:	080144e0 	.word	0x080144e0
   ldr r2, =_sbss
- 800c128:	200001f4 	.word	0x200001f4
+ 800c128:	200001f8 	.word	0x200001f8
   ldr r4, =_ebss
- 800c12c:	200061cc 	.word	0x200061cc
+ 800c12c:	200061d0 	.word	0x200061d0
 
 0800c130 <ADC1_2_IRQHandler>:
  * @retval : None
@@ -31201,7 +31200,7 @@ void LL_SetSystemCoreClock(uint32_t HCLKFrequency)
  800da2a:	6818      	ldr	r0, [r3, #0]
  800da2c:	4770      	bx	lr
  800da2e:	bf00      	nop
- 800da30:	2000001c 	.word	0x2000001c
+ 800da30:	20000020 	.word	0x20000020
 
 0800da34 <__libc_init_array>:
  800da34:	b570      	push	{r4, r5, r6, lr}
@@ -32596,7 +32595,7 @@ void LL_SetSystemCoreClock(uint32_t HCLKFrequency)
  800e7c0:	e8bd 4010 	ldmia.w	sp!, {r4, lr}
  800e7c4:	b004      	add	sp, #16
  800e7c6:	4770      	bx	lr
- 800e7c8:	2000001c 	.word	0x2000001c
+ 800e7c8:	20000020 	.word	0x20000020
 
 0800e7cc <putchar>:
  800e7cc:	4b09      	ldr	r3, [pc, #36]	; (800e7f4 <putchar+0x28>)
@@ -32616,7 +32615,7 @@ void LL_SetSystemCoreClock(uint32_t HCLKFrequency)
  800e7ea:	e8bd 4010 	ldmia.w	sp!, {r4, lr}
  800e7ee:	f003 bd31 	b.w	8012254 <_putc_r>
  800e7f2:	bf00      	nop
- 800e7f4:	2000001c 	.word	0x2000001c
+ 800e7f4:	20000020 	.word	0x20000020
 
 0800e7f8 <_puts_r>:
  800e7f8:	b570      	push	{r4, r5, r6, lr}
@@ -32724,7 +32723,7 @@ void LL_SetSystemCoreClock(uint32_t HCLKFrequency)
  800e8d8:	6818      	ldr	r0, [r3, #0]
  800e8da:	f7ff bf8d 	b.w	800e7f8 <_puts_r>
  800e8de:	bf00      	nop
- 800e8e0:	2000001c 	.word	0x2000001c
+ 800e8e0:	20000020 	.word	0x20000020
 
 0800e8e4 <setbuf>:
  800e8e4:	2900      	cmp	r1, #0
@@ -32891,7 +32890,7 @@ void LL_SetSystemCoreClock(uint32_t HCLKFrequency)
  800ea6a:	2500      	movs	r5, #0
  800ea6c:	e7b7      	b.n	800e9de <setvbuf+0xea>
  800ea6e:	bf00      	nop
- 800ea70:	2000001c 	.word	0x2000001c
+ 800ea70:	20000020 	.word	0x20000020
  800ea74:	08014090 	.word	0x08014090
  800ea78:	080140b0 	.word	0x080140b0
  800ea7c:	08014070 	.word	0x08014070
@@ -32927,7 +32926,7 @@ void LL_SetSystemCoreClock(uint32_t HCLKFrequency)
  800eabc:	f85d eb04 	ldr.w	lr, [sp], #4
  800eac0:	b003      	add	sp, #12
  800eac2:	4770      	bx	lr
- 800eac4:	2000001c 	.word	0x2000001c
+ 800eac4:	20000020 	.word	0x20000020
  800eac8:	ffff0208 	.word	0xffff0208
 
 0800eacc <sulp>:
@@ -34135,7 +34134,7 @@ void LL_SetSystemCoreClock(uint32_t HCLKFrequency)
  800f71c:	4b01      	ldr	r3, [pc, #4]	; (800f724 <_strtod_r+0x8>)
  800f71e:	f7ff b9f3 	b.w	800eb08 <_strtod_l>
  800f722:	bf00      	nop
- 800f724:	20000084 	.word	0x20000084
+ 800f724:	20000088 	.word	0x20000088
 
 0800f728 <_strtol_l.isra.0>:
  800f728:	2b01      	cmp	r3, #1
@@ -34412,7 +34411,7 @@ void LL_SetSystemCoreClock(uint32_t HCLKFrequency)
  800f99e:	2000      	movs	r0, #0
  800f9a0:	e7f7      	b.n	800f992 <__swsetup_r+0xba>
  800f9a2:	bf00      	nop
- 800f9a4:	2000001c 	.word	0x2000001c
+ 800f9a4:	20000020 	.word	0x20000020
  800f9a8:	08014090 	.word	0x08014090
  800f9ac:	080140b0 	.word	0x080140b0
  800f9b0:	08014070 	.word	0x08014070
@@ -35939,25 +35938,25 @@ void LL_SetSystemCoreClock(uint32_t HCLKFrequency)
  80108ac:	4801      	ldr	r0, [pc, #4]	; (80108b4 <__sfp_lock_acquire+0x8>)
  80108ae:	f000 bc26 	b.w	80110fe <__retarget_lock_acquire_recursive>
  80108b2:	bf00      	nop
- 80108b4:	200061c4 	.word	0x200061c4
+ 80108b4:	200061c8 	.word	0x200061c8
 
 080108b8 <__sfp_lock_release>:
  80108b8:	4801      	ldr	r0, [pc, #4]	; (80108c0 <__sfp_lock_release+0x8>)
  80108ba:	f000 bc21 	b.w	8011100 <__retarget_lock_release_recursive>
  80108be:	bf00      	nop
- 80108c0:	200061c4 	.word	0x200061c4
+ 80108c0:	200061c8 	.word	0x200061c8
 
 080108c4 <__sinit_lock_acquire>:
  80108c4:	4801      	ldr	r0, [pc, #4]	; (80108cc <__sinit_lock_acquire+0x8>)
  80108c6:	f000 bc1a 	b.w	80110fe <__retarget_lock_acquire_recursive>
  80108ca:	bf00      	nop
- 80108cc:	200061bf 	.word	0x200061bf
+ 80108cc:	200061c3 	.word	0x200061c3
 
 080108d0 <__sinit_lock_release>:
  80108d0:	4801      	ldr	r0, [pc, #4]	; (80108d8 <__sinit_lock_release+0x8>)
  80108d2:	f000 bc15 	b.w	8011100 <__retarget_lock_release_recursive>
  80108d6:	bf00      	nop
- 80108d8:	200061bf 	.word	0x200061bf
+ 80108d8:	200061c3 	.word	0x200061c3
 
 080108dc <__sinit>:
  80108dc:	b510      	push	{r4, lr}
@@ -36797,7 +36796,7 @@ void LL_SetSystemCoreClock(uint32_t HCLKFrequency)
 080110f4 <_localeconv_r>:
  80110f4:	4800      	ldr	r0, [pc, #0]	; (80110f8 <_localeconv_r+0x4>)
  80110f6:	4770      	bx	lr
- 80110f8:	20000174 	.word	0x20000174
+ 80110f8:	20000178 	.word	0x20000178
 
 080110fc <__retarget_lock_init_recursive>:
  80110fc:	4770      	bx	lr
@@ -36902,7 +36901,7 @@ void LL_SetSystemCoreClock(uint32_t HCLKFrequency)
  80111d0:	6818      	ldr	r0, [r3, #0]
  80111d2:	f000 bd2f 	b.w	8011c34 <_malloc_r>
  80111d6:	bf00      	nop
- 80111d8:	2000001c 	.word	0x2000001c
+ 80111d8:	20000020 	.word	0x20000020
 
 080111dc <__ascii_mbtowc>:
  80111dc:	b082      	sub	sp, #8
@@ -37957,7 +37956,7 @@ void LL_SetSystemCoreClock(uint32_t HCLKFrequency)
  8011c2a:	e7c7      	b.n	8011bbc <_free_r+0x28>
  8011c2c:	b003      	add	sp, #12
  8011c2e:	bd30      	pop	{r4, r5, pc}
- 8011c30:	200002ac 	.word	0x200002ac
+ 8011c30:	200002b0 	.word	0x200002b0
 
 08011c34 <_malloc_r>:
  8011c34:	b5f8      	push	{r3, r4, r5, r6, r7, lr}
@@ -38036,8 +38035,8 @@ void LL_SetSystemCoreClock(uint32_t HCLKFrequency)
  8011cda:	d1dd      	bne.n	8011c98 <_malloc_r+0x64>
  8011cdc:	e7cf      	b.n	8011c7e <_malloc_r+0x4a>
  8011cde:	bf00      	nop
- 8011ce0:	200002ac 	.word	0x200002ac
- 8011ce4:	200002b0 	.word	0x200002b0
+ 8011ce0:	200002b0 	.word	0x200002b0
+ 8011ce4:	200002b4 	.word	0x200002b4
 
 08011ce8 <__ssputs_r>:
  8011ce8:	e92d 47f0 	stmdb	sp!, {r4, r5, r6, r7, r8, r9, sl, lr}
@@ -38703,7 +38702,7 @@ void LL_SetSystemCoreClock(uint32_t HCLKFrequency)
  801230e:	b103      	cbz	r3, 8012312 <_sbrk_r+0x1a>
  8012310:	6023      	str	r3, [r4, #0]
  8012312:	bd38      	pop	{r3, r4, r5, pc}
- 8012314:	200061c8 	.word	0x200061c8
+ 8012314:	200061cc 	.word	0x200061cc
 
 08012318 <__sread>:
  8012318:	b510      	push	{r4, lr}
@@ -38812,7 +38811,7 @@ void LL_SetSystemCoreClock(uint32_t HCLKFrequency)
  80123f6:	b103      	cbz	r3, 80123fa <_write_r+0x1e>
  80123f8:	6023      	str	r3, [r4, #0]
  80123fa:	bd38      	pop	{r3, r4, r5, pc}
- 80123fc:	200061c8 	.word	0x200061c8
+ 80123fc:	200061cc 	.word	0x200061cc
 
 08012400 <__assert_func>:
  8012400:	b51f      	push	{r0, r1, r2, r3, r4, lr}
@@ -38834,7 +38833,7 @@ void LL_SetSystemCoreClock(uint32_t HCLKFrequency)
  8012426:	461c      	mov	r4, r3
  8012428:	e7f3      	b.n	8012412 <__assert_func+0x12>
  801242a:	bf00      	nop
- 801242c:	2000001c 	.word	0x2000001c
+ 801242c:	20000020 	.word	0x20000020
  8012430:	080142bd 	.word	0x080142bd
  8012434:	080142ca 	.word	0x080142ca
  8012438:	080142f8 	.word	0x080142f8
@@ -38853,7 +38852,7 @@ void LL_SetSystemCoreClock(uint32_t HCLKFrequency)
  8012452:	b103      	cbz	r3, 8012456 <_close_r+0x1a>
  8012454:	6023      	str	r3, [r4, #0]
  8012456:	bd38      	pop	{r3, r4, r5, pc}
- 8012458:	200061c8 	.word	0x200061c8
+ 8012458:	200061cc 	.word	0x200061cc
 
 0801245c <fiprintf>:
  801245c:	b40e      	push	{r1, r2, r3}
@@ -38869,7 +38868,7 @@ void LL_SetSystemCoreClock(uint32_t HCLKFrequency)
  8012474:	f85d eb04 	ldr.w	lr, [sp], #4
  8012478:	b003      	add	sp, #12
  801247a:	4770      	bx	lr
- 801247c:	2000001c 	.word	0x2000001c
+ 801247c:	20000020 	.word	0x20000020
 
 08012480 <_fstat_r>:
  8012480:	b538      	push	{r3, r4, r5, lr}
@@ -38887,7 +38886,7 @@ void LL_SetSystemCoreClock(uint32_t HCLKFrequency)
  801249a:	6023      	str	r3, [r4, #0]
  801249c:	bd38      	pop	{r3, r4, r5, pc}
  801249e:	bf00      	nop
- 80124a0:	200061c8 	.word	0x200061c8
+ 80124a0:	200061cc 	.word	0x200061cc
 
 080124a4 <_isatty_r>:
  80124a4:	b538      	push	{r3, r4, r5, lr}
@@ -38903,7 +38902,7 @@ void LL_SetSystemCoreClock(uint32_t HCLKFrequency)
  80124ba:	b103      	cbz	r3, 80124be <_isatty_r+0x1a>
  80124bc:	6023      	str	r3, [r4, #0]
  80124be:	bd38      	pop	{r3, r4, r5, pc}
- 80124c0:	200061c8 	.word	0x200061c8
+ 80124c0:	200061cc 	.word	0x200061cc
 
 080124c4 <_lseek_r>:
  80124c4:	b538      	push	{r3, r4, r5, lr}
@@ -38921,7 +38920,7 @@ void LL_SetSystemCoreClock(uint32_t HCLKFrequency)
  80124de:	b103      	cbz	r3, 80124e2 <_lseek_r+0x1e>
  80124e0:	6023      	str	r3, [r4, #0]
  80124e2:	bd38      	pop	{r3, r4, r5, pc}
- 80124e4:	200061c8 	.word	0x200061c8
+ 80124e4:	200061cc 	.word	0x200061cc
 
 080124e8 <memmove>:
  80124e8:	4288      	cmp	r0, r1
@@ -38950,13 +38949,13 @@ void LL_SetSystemCoreClock(uint32_t HCLKFrequency)
  801251c:	4801      	ldr	r0, [pc, #4]	; (8012524 <__malloc_lock+0x8>)
  801251e:	f7fe bdee 	b.w	80110fe <__retarget_lock_acquire_recursive>
  8012522:	bf00      	nop
- 8012524:	200061c0 	.word	0x200061c0
+ 8012524:	200061c4 	.word	0x200061c4
 
 08012528 <__malloc_unlock>:
  8012528:	4801      	ldr	r0, [pc, #4]	; (8012530 <__malloc_unlock+0x8>)
  801252a:	f7fe bde9 	b.w	8011100 <__retarget_lock_release_recursive>
  801252e:	bf00      	nop
- 8012530:	200061c0 	.word	0x200061c0
+ 8012530:	200061c4 	.word	0x200061c4
 
 08012534 <_realloc_r>:
  8012534:	b5f8      	push	{r3, r4, r5, r6, r7, lr}
@@ -39007,7 +39006,7 @@ void LL_SetSystemCoreClock(uint32_t HCLKFrequency)
  801259a:	b103      	cbz	r3, 801259e <_read_r+0x1e>
  801259c:	6023      	str	r3, [r4, #0]
  801259e:	bd38      	pop	{r3, r4, r5, pc}
- 80125a0:	200061c8 	.word	0x200061c8
+ 80125a0:	200061cc 	.word	0x200061cc
 
 080125a4 <abort>:
  80125a4:	b508      	push	{r3, lr}
@@ -39068,7 +39067,7 @@ void LL_SetSystemCoreClock(uint32_t HCLKFrequency)
  8012618:	6818      	ldr	r0, [r3, #0]
  801261a:	f7ff bfd2 	b.w	80125c2 <_raise_r>
  801261e:	bf00      	nop
- 8012620:	2000001c 	.word	0x2000001c
+ 8012620:	20000020 	.word	0x20000020
 
 08012624 <_kill_r>:
  8012624:	b538      	push	{r3, r4, r5, lr}
@@ -39086,7 +39085,7 @@ void LL_SetSystemCoreClock(uint32_t HCLKFrequency)
  801263e:	6023      	str	r3, [r4, #0]
  8012640:	bd38      	pop	{r3, r4, r5, pc}
  8012642:	bf00      	nop
- 8012644:	200061c8 	.word	0x200061c8
+ 8012644:	200061cc 	.word	0x200061cc
 
 08012648 <_getpid_r>:
  8012648:	f7f1 bdc0 	b.w	80041cc <_getpid>
@@ -39237,7 +39236,7 @@ void LL_SetSystemCoreClock(uint32_t HCLKFrequency)
  80127f4:	ecbd 8b02 	vpop	{d8}
  80127f8:	bd38      	pop	{r3, r4, r5, pc}
  80127fa:	bf00      	nop
- 80127fc:	200001f0 	.word	0x200001f0
+ 80127fc:	200001f4 	.word	0x200001f4
 
 08012800 <__ieee754_rem_pio2>:
  8012800:	e92d 4ff0 	stmdb	sp!, {r4, r5, r6, r7, r8, r9, sl, fp, lr}

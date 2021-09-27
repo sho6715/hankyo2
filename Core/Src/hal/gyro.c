@@ -55,7 +55,7 @@ void ICM_42688_ReadByte(uint8_t reg,uint8_t length)
 
 void ICM_42688_init(void)
 {
-	uint16_t reg78 = 0x4E;	//pwr_mgmt0
+	uint8_t reg78 = 0x4E;	//pwr_mgmt0
 //	uint16_t reg79 = 0x4F;	//gyro_config0 default
 
 /*
