@@ -35,12 +35,12 @@
 #define MOT_WALL_EDGE_DIST			( 28.0f )	// 壁切れセンサOFF～壁まで
 
 #define		f_FF_speed_acc		(0.0016)				// フィードフォワード、加速度
-#define		f_FF_angleS_acc		(0.01)		// フィードフォワード、角加速度
+#define		f_FF_angleS_acc		(0.001)		// フィードフォワード、角加速度
 #define 		f_FB_speed_kp		(1.8)			// フィードバック、速度 比例制御
 #define 		f_FB_speed_ki		(0.2)			// フィードバック、速度 積分制御
 #define 		f_FB_speed_kd		(0.3)			// フィードバック、速度 微分制御
-#define		f_FB_angleS_kp		(0.8)			// フィードバック、角速度 比例制御
-#define		f_FB_angleS_ki		(0.1)			// フィードバック、角速度 積分制御
+#define		f_FB_angleS_kp		(1.2)			// フィードバック、角速度 比例制御
+#define		f_FB_angleS_ki		(0.08)			// フィードバック、角速度 積分制御
 #define		f_FB_angleS_kd		(0.08)			// フィードバック、角速度 微分制御
 #define		f_FB_wall_kp		(0.1)			// フィードバック、壁 比例制御
 #define		f_FB_wall_kd		(0.03)			// フィードバック、壁 微分制御
