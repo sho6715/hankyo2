@@ -38,6 +38,7 @@ extern "C" {
 void MX_USART1_UART_Init(void);
 
 /* USER CODE BEGIN Prototypes */
+void Communication_Initialize(void);
 void USART_TransmitByte(uint8_t ch);
 /* USER CODE END Prototypes */
 

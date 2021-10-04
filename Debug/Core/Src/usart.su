@@ -18,4 +18,5 @@ stm32g4xx_ll_usart.h:3190:26:LL_USART_IsActiveFlag_TEACK	16	static
 stm32g4xx_ll_usart.h:3201:26:LL_USART_IsActiveFlag_REACK	16	static
 stm32g4xx_ll_usart.h:4277:22:LL_USART_TransmitData8	16	static
 usart.c:29:6:MX_USART1_UART_Init	64	static
-usart.c:123:6:USART_TransmitByte	16	static
+usart.c:123:6:Communication_Initialize	8	static
+usart.c:128:6:USART_TransmitByte	16	static

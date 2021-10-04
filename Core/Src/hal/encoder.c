@@ -128,24 +128,13 @@ void ENC_GetDiv( int32_t* p_r, int32_t* p_l )
 
 void ENC_setref(void)
 {
-/*
-	recv_spi_encoder(enR);
-	LL_mDelay(1);
-	Set_encoder_data(enR);
-	ENC_R_CNT_old = ENC_R_CNT;
-	LL_mDelay(1);
-	recv_spi_encoder(enL);
-	LL_mDelay(1);
-	Set_encoder_data(enL);
-	ENC_L_CNT_old = ENC_L_CNT;
-*/
 	ENC_R_CNT_old = ENC_R_CNT;
 	ENC_L_CNT_old = ENC_L_CNT;
 }
 
 void ENC_print(void)
 {
-	printf("エンコーダ [R]=%d [L]=%d \r",ENC_R_CNT*360/65536,ENC_L_CNT*360/65536);
+//	printf("エンコーダ [R]=%d [L]=%d \r",ENC_R_CNT*360/65536,ENC_L_CNT*360/65536);
 //	printf("%d,%d \r\n",ENC_R_CNT*360/65536,ENC_L_CNT*360/65536);
 }
 

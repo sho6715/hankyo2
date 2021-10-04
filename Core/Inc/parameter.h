@@ -14,10 +14,10 @@
 #include "glob.h"
 #endif
 
-#define HALF_BLOCK			( 45.0f )					// 半区間 [mm]
-#define BLOCK				( 90.0f )					// １区間 [mm]
-#define HALF_BLOCK_SKEW			( 63.64f )				// 斜め半区間 [mm]
-#define BLOCK_SKEW			( 127.28f )				// 斜め１区間 [mm]
+#define HALF_BLOCK			( 0.045f )					// 半区間 [mm]
+#define BLOCK				( 0.09f )					// １区間 [mm]
+#define HALF_BLOCK_SKEW			( 0.06364f )				// 斜め半区間 [mm]
+#define BLOCK_SKEW			( 0.12728f )				// 斜め１区間 [mm]
 
 #define		SW_CHATTERING_WAIT		(200) 		//スイッチのチャタリング対策
 
@@ -26,8 +26,8 @@
 #define FF_HIT_BALANCE_R			(1.00f)						//バック時のバランス係数
 #define FF_HIT_BALANCE_L			(1.00f)
 
-#define SEARCH_SPEED				(300)
-#define MAP_KNOWN_ACC_SPEED			(500)
+#define SEARCH_SPEED				(0.3)
+#define MAP_KNOWN_ACC_SPEED			(0.5)
 
 #define DEG_TO_RAD  (3.1416f/180.0f)
 #define RAD_TO_DEG  (180.0f/3.1416f)

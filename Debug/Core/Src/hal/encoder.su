@@ -5,4 +5,4 @@ encoder.c:36:6:Set_encoder_data	24	static
 encoder.c:43:9:Runmode_check	16	static
 encoder.c:63:6:ENC_GetDiv	32	static
 encoder.c:129:6:ENC_setref	4	static
-encoder.c:146:6:ENC_print	8	static
+encoder.c:135:6:ENC_print	4	static

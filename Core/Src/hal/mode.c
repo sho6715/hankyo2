@@ -37,10 +37,10 @@ void SYS_start( void )
 	printf(" | Project By : RT Corporation|\r\n");
 	printf(" ------------------------------\r\n");
 
-	PARAM_makeSra( (float)SEARCH_SPEED, 100.0f, 2500.0f, SLA_45 );		// 進入速度[mm/s]、角加速度[rad/s^2]、横G[mm/s^2]、スラロー�?タイ�?
-	PARAM_makeSra( (float)SEARCH_SPEED, 150.0f, 3000.0f, SLA_90 );		// 進入速度[mm/s]、角加速度[rad/s^2]、横G[mm/s^2]、スラロー�?タイ�?
-	PARAM_makeSra( (float)SEARCH_SPEED, 150.0f, 6000.0f, SLA_135 );		// 進入速度[mm/s]、角加速度[rad/s^2]、横G[mm/s^2]、スラロー�?タイ�?
-	PARAM_makeSra( (float)SEARCH_SPEED, 200.0f, 7000.0f, SLA_N90 );		// 進入速度[mm/s]、角加速度[rad/s^2]、横G[mm/s^2]、スラロー�?タイ�?
+	PARAM_makeSra( (float)SEARCH_SPEED, 100.0f, 2.50f, SLA_45 );		// 進入速度[m/s]、角加速度[rad/s^2]、横G[m/s^2]、スラロー�?タイ�?
+	PARAM_makeSra( (float)SEARCH_SPEED, 150.0f, 3.00f, SLA_90 );		// 進入速度[m/s]、角加速度[rad/s^2]、横G[m/s^2]、スラロー�?タイ�?
+	PARAM_makeSra( (float)SEARCH_SPEED, 150.0f, 6.00f, SLA_135 );		// 進入速度[m/s]、角加速度[rad/s^2]、横G[m/s^2]、スラロー�?タイ�?
+	PARAM_makeSra( (float)SEARCH_SPEED, 200.0f, 7.00f, SLA_N90 );		// 進入速度[m/s]、角加速度[rad/s^2]、横G[m/s^2]、スラロー�?タイ�?
 
 
 }

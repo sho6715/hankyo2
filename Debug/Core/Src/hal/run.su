@@ -2,12 +2,12 @@ run.c:68:7:MOT_getAcc1	8	static
 run.c:73:7:MOT_getAcc3	8	static
 run.c:78:6:MOT_goBlock_AccConstDec	64	static
 run.c:266:6:MOT_setData_ACC_CONST_DEC	32	static
-run.c:297:6:MOT_setData_MOT_ACC_CONST_DEC_CUSTOM	32	static
+run.c:297:6:MOT_setData_MOT_ACC_CONST_DEC_CUSTOM	48	static
 run.c:332:6:MOT_setData_MOT_ACC_CONST	32	static
-run.c:359:6:MOT_setData_MOT_ACC_CONST_CUSTOM	32	static
+run.c:359:6:MOT_setData_MOT_ACC_CONST_CUSTOM	40	static
 run.c:388:6:MOT_setData_MOT_CONST_DEC	32	static
-run.c:415:6:MOT_setData_MOT_CONST_DEC_CUSTOM	32	static
-run.c:444:15:MOT_getStType	64	static
+run.c:415:6:MOT_setData_MOT_CONST_DEC_CUSTOM	40	static
+run.c:444:15:MOT_getStType	72	static
 run.c:535:6:MOT_go_FinSpeed	32	static
 run.c:578:6:MOT_goBlock_FinSpeed	16	static
 run.c:583:6:MOT_goSkewBlock_FinSpeed	16	static

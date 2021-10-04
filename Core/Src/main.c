@@ -77,7 +77,6 @@ void __io_putchar(uint8_t ch){
 int main(void)
 {
   /* USER CODE BEGIN 1 */
-	setbuf(stdout,NULL);
 
   /* USER CODE END 1 */
 
@@ -124,15 +123,16 @@ int main(void)
   MX_TIM6_Init();
   MX_TIM8_Init();
   /* USER CODE BEGIN 2 */
+  SetLED(0x0E);
+  LL_mDelay(200);
+  SetLED(0x00);
+  LL_mDelay(200);
+  SetLED(0x0E);
+  LL_mDelay(200);
+  SetLED(0x00);
+
+  Communication_Initialize();
   HAL_init();
-  
-  SetLED(0x0E);
-  LL_mDelay(200);
-  SetLED(0x00);
-  LL_mDelay(200);
-  SetLED(0x0E);
-  LL_mDelay(200);
-  SetLED(0x00);
   /* USER CODE END 2 */
 
   /* Infinite loop */

@@ -120,6 +120,11 @@ void MX_USART1_UART_Init(void)
 }
 
 /* USER CODE BEGIN 1 */
+void Communication_Initialize(void)
+{
+    setbuf(stdout,NULL);
+}
+
 void USART_TransmitByte(uint8_t ch){
 	LL_USART_TransmitData8(USART1,ch);
 	while(LL_USART_IsActiveFlag_TXE(USART1)==0);

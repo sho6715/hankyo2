@@ -30,10 +30,16 @@
 #define PI							( 3.14159f )								// π
 
 #define VCC_MAX						( 4.2f )									// バッ�?リ最大電圧[V]�?4.2[V]�?1[セル]
-#define TIRE_R						( 12.6f )	//推定値								// タイヤ直�? [mm]
+#define TIRE_R						( 0.0126f )	//推定値								// タイヤ直�? [m]
+#define TREAD						( 0.0335f )
 #define ROTATE_PULSE				( 65536 )									// 1周の最大数値
-#define DIST_1STEP					( PI * TIRE_R / ROTATE_PULSE )				// 1パルスで進む距離 [mm]
-#define F_CNT2MM(cnt)				( (float)cnt * DIST_1STEP )				// [カウント値]から[mm]へ換�?
+#define DIST_1STEP					( PI * TIRE_R / ROTATE_PULSE )				// 1パルスで進む距離 [m]
+#define F_CNT2MM(cnt)				( (float)cnt * DIST_1STEP )				// [カウント値]から[m]へ換�?
+#define GEAR_RATIO					(36.0f/10.0f)
+
+#define Weight						(0.018f)
+#define Torque_constant				(0.594f)
+#define Motor_Register				(4.5f)
 
 typedef enum{
 	DIST_SEN_R_FRONT = 0,
