@@ -37,10 +37,10 @@ void SYS_start( void )
 	printf(" | Project By : RT Corporation|\r\n");
 	printf(" ------------------------------\r\n");
 
-	PARAM_makeSra( (float)SEARCH_SPEED, 100.0f, 2.50f, SLA_45 );		// 進入速度[m/s]、角加速度[rad/s^2]、横G[m/s^2]、スラロー�?タイ�?
+//	PARAM_makeSra( (float)SEARCH_SPEED, 100.0f, 2.50f, SLA_45 );		// 進入速度[m/s]、角加速度[rad/s^2]、横G[m/s^2]、スラロー�?タイ�?
 	PARAM_makeSra( (float)SEARCH_SPEED, 150.0f, 3.00f, SLA_90 );		// 進入速度[m/s]、角加速度[rad/s^2]、横G[m/s^2]、スラロー�?タイ�?
-	PARAM_makeSra( (float)SEARCH_SPEED, 150.0f, 6.00f, SLA_135 );		// 進入速度[m/s]、角加速度[rad/s^2]、横G[m/s^2]、スラロー�?タイ�?
-	PARAM_makeSra( (float)SEARCH_SPEED, 200.0f, 7.00f, SLA_N90 );		// 進入速度[m/s]、角加速度[rad/s^2]、横G[m/s^2]、スラロー�?タイ�?
+//	PARAM_makeSra( (float)SEARCH_SPEED, 150.0f, 6.00f, SLA_135 );		// 進入速度[m/s]、角加速度[rad/s^2]、横G[m/s^2]、スラロー�?タイ�?
+//	PARAM_makeSra( (float)SEARCH_SPEED, 200.0f, 7.00f, SLA_N90 );		// 進入速度[m/s]、角加速度[rad/s^2]、横G[m/s^2]、スラロー�?タイ�?
 
 
 }
@@ -141,7 +141,7 @@ void MODE_exe_m0( void )
 			CTRL_clrNowData();
 			CTRL_clrData();
 			log_flag_on();
-			MOT_goBlock_FinSpeed(8.0, 0.0);
+			MOT_goBlock_FinSpeed(3.0, 0.0);
 			log_flag_off();
 			break;
 
@@ -158,8 +158,9 @@ void MODE_exe_m0( void )
 			CTRL_clrNowData();
 			CTRL_clrData();
 //			log_flag_on();
-			MOT_turn(MOT_R90);
 			MOT_turn(MOT_L90);
+			LL_mDelay(500);
+			MOT_turn(MOT_R90);
 			log_flag_off();
 			break;
 
