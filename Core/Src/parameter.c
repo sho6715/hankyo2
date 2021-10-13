@@ -313,8 +313,8 @@ void PARAM_makeSra( float f_speed, float f_angAcc, float f_g , enSLA_TYPE en_mod
 		default:
 			break;
 	}
-	printf("entry %5.2f\n\r",f_final_x - f_x);
-	printf("escape %5.2f\n\r",f_final_y - f_y);
+	printf("entry %6.4f\n\r",f_final_x - f_x);
+	printf("escape %6.4f\n\r",f_final_y - f_y);
 }
 
 stSLA* PARAM_getSra( enSLA_TYPE en_mode )

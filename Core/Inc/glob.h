@@ -38,7 +38,7 @@
 #define GEAR_RATIO					(36.0f/10.0f)
 
 #define Weight						(0.018f)
-#define Inertia						(5.0f/1000000.0f)
+#define Inertia						(7.0f/1000000.0f)
 #define Torque_constant				(0.594f/1000.0f)
 #define Motor_Register				(4.5f)
 

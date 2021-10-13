@@ -259,7 +259,7 @@ void MODE_exe( void )
 			PARAM_setSpeedType( PARAM_SLA,  PARAM_SLOW );							// [スラ] 速度普�?
 			SetLED(0x00);
 			LL_mDelay(100);
-			PARAM_makeSra( SEARCH_SPEED, 200.0f, 2500.0f, SLA_90 );		// 進入速度[mm/s]、角加速度[rad/s^2]、横G[mm/s^2]、スラロー�?タイ�?
+			PARAM_makeSra( (float)SEARCH_SPEED, 150.0f, 3.00f, SLA_90 );
 			MAP_Goalsize(1);
 			MAP_setPos( 0, 0, NORTH );							// スタート位置
 
