@@ -21,7 +21,7 @@
 #endif
 
 #define DIST_NO_WALL_DIV_FILTER				( 20 )
-#define DIST_REF_UP					( 300 )
+#define DIST_REF_UP					( 30 )
 
 #define R_FRONT_REF					(450)
 #define L_FRONT_REF					(560)//( 210 )

@@ -31,6 +31,7 @@
 
 #define VCC_MAX						( 4.2f )									// バッ�?リ最大電圧[V]�?4.2[V]�?1[セル]
 #define TIRE_D						( 0.0126f )	//推定値								// タイヤ直�? [m]
+#define TREAD_imagin					(0.0386f)
 #define TREAD						( 0.0335f )
 #define ROTATE_PULSE				( 65536 )									// 1周の最大数値
 #define DIST_1STEP					( PI * TIRE_D / ROTATE_PULSE )				// 1パルスで進む距離 [m]
@@ -38,7 +39,7 @@
 #define GEAR_RATIO					(36.0f/10.0f)
 
 #define Weight						(0.018f)
-#define Inertia						(7.0f/1000000.0f)
+#define Inertia						(4.4f/1000000.0f)
 #define Torque_constant				(0.594f/1000.0f)
 #define Motor_Register				(4.5f)
 
