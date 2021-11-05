@@ -35,8 +35,8 @@ void recv_spi_encoder(en_endir dir)
 
 void Set_encoder_data(en_endir dir)
 {
-	if(dir == enL) ENC_L_CNT = ((uint16_t)Get_SPI2ReciveData(0)<<8|Get_SPI2ReciveData(1));
-	else ENC_R_CNT = ((uint16_t)Get_SPI2ReciveData(0)<<8|Get_SPI2ReciveData(1));
+	if(dir == enL) ENC_L_CNT = ((uint16_t)Get_SPI2ReciveData(0)<<4|Get_SPI2ReciveData(1)>>4);
+	else ENC_R_CNT = ((uint16_t)Get_SPI2ReciveData(0)<<4|Get_SPI2ReciveData(1)>>4);
 }
 
 
@@ -73,22 +73,22 @@ void ENC_GetDiv( int32_t* p_r, int32_t* p_l )
 	//モードを使って正�?をチェ�?クして�?算方法を決める
 	if(Runmode_check(DCM_R) == 1){	//正方向カウン�?
 		//右
-		if(cntR_dif<-32768){
-			cntR = cntR_dif + 65536;
+		if(cntR_dif<(-32768>>4)){
+			cntR = cntR_dif + (65536>>4);
 		}
-		else if (cntR_dif>32768){
-			cntR = cntR_dif - 65536;
+		else if (cntR_dif>(32768>>4)){
+			cntR = cntR_dif - (65536>>4);
 		}
 		else{
 			cntR = cntR_dif;
 		}
 	}
 	else{
-		if(cntR_dif>32768){
-			cntR = cntR_dif - 65536;
+		if(cntR_dif>(32768>>4)){
+			cntR = cntR_dif - (65536>>4);
 		}
-		else if(cntR_dif<-32768){
-			cntR = cntR_dif + 65536;
+		else if(cntR_dif<(-32768>>4)){
+			cntR = cntR_dif + (65536>>4);
 		}
 		else{
 			cntR = cntR_dif;
@@ -97,22 +97,22 @@ void ENC_GetDiv( int32_t* p_r, int32_t* p_l )
 
 	if(Runmode_check(DCM_L) == 1){
 		//左
-		if(cntL_dif<-32768){
-			cntL = cntL_dif + 65536;
+		if(cntL_dif<(-32768>>4)){
+			cntL = cntL_dif + (65536>>4);
 		}
-		else if (cntL_dif >32768){
-			cntL = cntL_dif -65536;
+		else if (cntL_dif >(32768>>4)){
+			cntL = cntL_dif -(65536>>4);
 		}
 		else{
 			cntL = cntL_dif;
 		}
 	}
 	else{
-		if(cntL_dif>32768){
-			cntL = cntL_dif - 65536;
+		if(cntL_dif>(32768>>4)){
+			cntL = cntL_dif - (65536>>4);
 		}
-		else if(cntL_dif<-32768){
-			cntL = cntL_dif + 65536;
+		else if(cntL_dif<(-32768>>4)){
+			cntL = cntL_dif + (65536>>4);
 		}
 		else{
 			cntL = cntL_dif;

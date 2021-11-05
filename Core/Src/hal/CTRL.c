@@ -733,8 +733,8 @@ void CTRL_pol( void )
 
 	/* 壁あて制御 */
 	else if( en_Type == CTRL_HIT_WALL ){
-		TR = (TIRE_D/2/2)*(Weight*(f_feedFoard_speed * FF_HIT_BALANCE_R/300 ))/get_battLv();																		// 右モータPWM-DUTY比[0.1%]
-		TL = (TIRE_D/2/2)*(Weight*(f_feedFoard_speed * FF_HIT_BALANCE_R/300 ))/get_battLv();
+		TR = (TIRE_D/2/2)*(Weight*(f_feedFoard_speed * FF_HIT_BALANCE_R/500 ))/get_battLv();																		// 右モータPWM-DUTY比[0.1%]
+		TL = (TIRE_D/2/2)*(Weight*(f_feedFoard_speed * FF_HIT_BALANCE_R/500 ))/get_battLv();
 		Ir = (TR-0.0255/1000.0)/Torque_constant;//(Jr*domega * Br*f_MotorR_AngleS +TR+TrR)/Torque_constant;
 		Il = (TL-0.0255/1000.0)/Torque_constant;//(Jl*domega * Bl*f_MotorL_AngleS +TL+TrL)/Torque_constant;
 	}
