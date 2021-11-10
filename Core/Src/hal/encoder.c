@@ -119,7 +119,7 @@ void ENC_GetDiv( int32_t* p_r, int32_t* p_l )
 		}
 	}
 
-	*p_r = cntR;		//2^16(65536) LSB/1回転
+	*p_r = cntR;		//2^12(4096) LSB/1回転
 	*p_l = cntL;
 
 	ENC_R_CNT_old = ENC_R_CNT;
