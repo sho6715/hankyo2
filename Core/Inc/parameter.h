@@ -36,14 +36,23 @@
 
 #define 		f_FB_speed_kp		(35.0)
 #define 		f_FB_speed_ki		(4.0)
-#define 		f_FB_speed_kd		(10.0)
-#define		f_FB_angleS_kp		(93.0)
-#define		f_FB_angleS_ki		(5.8)
-#define		f_FB_angleS_kd		(0.1)
+#define 		f_FB_speed_kd		(0.5)
+#define		f_FB_angleS_kp		(130.0)//130
+#define		f_FB_angleS_ki		(9.5)//9.5
+#define		f_FB_angleS_kd		(0.2)//0.2
 #define		f_FB_wall_kp		(0.5)
 #define		f_FB_wall_kd		(0.1)
 
-
+/*
+#define 		f_FB_speed_kp		(10.0)
+#define 		f_FB_speed_ki		(3.0)
+#define 		f_FB_speed_kd		(0.2)
+#define		f_FB_angleS_kp		(10.0)
+#define		f_FB_angleS_ki		(0.4)
+#define		f_FB_angleS_kd		(0.1)
+#define		f_FB_wall_kp		(0.5)
+#define		f_FB_wall_kd		(0.1)
+*/
 typedef enum{
 	
 	PARAM_ST_TOP = 0,		

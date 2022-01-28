@@ -1,3 +1,5 @@
+flash.h:19:22:FLASH_Lock	4	static
+flash.h:24:22:FLASH_Unlock	4	static
 map_flash.c:11:6:map_write	16	static
 map_flash.c:22:6:map_copy	24	static
 map_flash.c:35:6:map_erase	8	static

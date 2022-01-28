@@ -1,8 +1,9 @@
 mode.c:30:6:SYS_start	8	static
 mode.c:48:6:MODE_inc	8	static
-mode.c:97:6:MODE_exe_m0	16	static
-mode.c:194:6:MODE_exe	24	static
-mode.c:348:6:MODE_DistRightCheck	16	static
-mode.c:365:6:MODE_DistLeftCheck	16	static
-mode.c:383:6:MODE_setWaitCheck	16	static
-mode.c:404:6:MODE_CheckExe	16	static
+mode.c:97:6:MODE_exe_m0	24	static
+mode.c:207:6:MODE_exe_m1	16	static
+mode.c:259:6:MODE_exe	24	static
+mode.c:454:6:MODE_DistRightCheck	16	static
+mode.c:471:6:MODE_DistLeftCheck	16	static
+mode.c:489:6:MODE_setWaitCheck	16	static
+mode.c:510:6:MODE_CheckExe	16	static

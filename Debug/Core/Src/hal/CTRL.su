@@ -20,9 +20,9 @@ CTRL.c:514:6:CTRL_getFF_angle	16	static
 CTRL.c:550:6:CTRL_getSpeedFB	32	static
 CTRL.c:574:6:CTRL_getAngleSpeedFB	40	static
 CTRL.c:601:6:CTRL_getSenFB	32	static
-CTRL.c:635:6:CTRL_getFloorFriction	16	static
-CTRL.c:650:6:CTRL_outMot	24	static
-CTRL.c:687:6:CTRL_pol	72	static
-CTRL.c:827:6:Failsafe_flag	8	static
-CTRL.c:833:6:Failsafe_flag_off	4	static
-CTRL.c:838:6:SYS_isOutOfCtrl	4	static
+CTRL.c:636:6:CTRL_getFloorFriction	24	static
+CTRL.c:688:6:CTRL_outMot	24	static
+CTRL.c:725:6:CTRL_pol	72	static
+CTRL.c:862:6:Failsafe_flag	8	static
+CTRL.c:868:6:Failsafe_flag_off	4	static
+CTRL.c:873:6:SYS_isOutOfCtrl	4	static

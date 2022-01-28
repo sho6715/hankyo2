@@ -565,9 +565,9 @@ void CTRL_getSpeedFB( float* p_err )
 		f_SpeedErrSum = 10000.0;			// 上限リミッター
 	}
 
-	f_ErrSpeedBuf = f_speedErr;		// 偏差をバ??��?��?ファリング
-
 	*p_err = f_speedErr * f_kp + f_SpeedErrSum* f_ki + ( f_speedErr - f_ErrSpeedBuf ) * f_kd;				// PI制御量算�???��?��
+
+	f_ErrSpeedBuf = f_speedErr;		// 偏差をバ??��?��?ファリング
 
 }
 
@@ -593,9 +593,9 @@ void CTRL_getAngleSpeedFB( float* p_err )
 		f_AngleSErrSum = -10000.0;
 	}
 
-	f_ErrAngleSBuf = f_err;		// 偏差をバ??��?��?ファリング
-
 	*p_err = f_err * f_kp + f_AngleSErrSum*f_ki + ( f_err - f_ErrAngleSBuf ) * f_kd;		// PID制御
+
+	f_ErrAngleSBuf = f_err;		// 偏差をバ??��?��?ファリング
 }
 
 void CTRL_getSenFB( float* p_err )
@@ -617,9 +617,10 @@ void CTRL_getSenFB( float* p_err )
 		f_err = (float)l_WallErr;
 //		templog2 = f_err;
 		/* PD制御 */
-		*p_err = f_err * f_kp + ( f_err - f_ErrDistBuf ) * f_kd;		// PD制御
 
 		f_ErrDistBuf = f_err;		// 偏差をバ??��?��?ファリング
+
+		*p_err = f_err * f_kp + ( f_err - f_ErrDistBuf ) * f_kd;		// PD制御
 	}
 	else if( ( en_Type == CTRL_SKEW_ACC ) || ( en_Type == CTRL_SKEW_CONST ) || ( en_Type == CTRL_SKEW_DEC ) ){
 
@@ -633,18 +634,55 @@ void CTRL_getSenFB( float* p_err )
 }
 
 void CTRL_getFloorFriction(float* p_err){
-	if(f_TrgtAngleS<0){
-		if(Get_NowAngle() < -0.004)
-			*p_err = (-1)*0.33/1000.0 + (-1)*0.0/1000.0+f_TrgtAngleS*TREAD/2/PI/63.0;
-		else
-			*p_err = (-1)*0.33/1000.0;
+	float tread;
+	if(( en_Type == CTRL_ACC_TRUN) || (en_Type == CTRL_CONST_TRUN)||( en_Type == CTRL_DEC_TRUN )){
+		tread = TREAD_imagin;
+	}else{
+		tread = TREAD;
+	}
+//	*p_err = 0;
+	if( ( en_Type == CTRL_ACC_SURA ) || (en_Type == CTRL_CONST_SURA)||( en_Type == CTRL_DEC_SURA ) ){
+		if(f_TrgtAngleS<0){
+			if(Get_NowAngle() < -0.002)
+				*p_err = (-1)*0.35/1000.0 + (-1)*0.3/1000.0+f_TrgtAngleS*FABS(f_TrgtAngleS)*tread/2/PI/2200.0;
+	//			*p_err = (-1)*0.35/1000.0 + (-1)*0.45/1000.0+f_TrgtAngleS*tread/2/PI/109.0;
+			else
+				*p_err = (-1)*0.3/1000.0;
+			}
+		else if(f_TrgtAngleS>0){
+			if(Get_NowAngle() > 0.002)
+				*p_err = 0.35/1000.0 + 0.3/1000.0+f_TrgtAngleS*FABS(f_TrgtAngleS)*tread/2/PI/2200.0;
+	//			*p_err = 0.35/1000.0 + 0.45/1000.0+f_TrgtAngleS*tread/2/PI/109.0;
+			else
+				*p_err = 0.35/1000.0;
+		}else{
+			*p_err = 0;
 		}
+	}
 	else{
-		if(Get_NowAngle() > 0.004)
-			*p_err = 0.33/1000.0 + 0.0/1000.0+f_TrgtAngleS*TREAD/2/PI/63.0;
-		else
-			*p_err = 0.33/1000.0;
-	}	
+		if(f_TrgtAngleS<0){
+			if(Get_NowAngle() < -0.002)
+				*p_err = (-1)*0.4/1000.0 + (-1)*0.44/1000.0+f_TrgtAngleS*FABS(f_TrgtAngleS)*tread/2/PI/740.0;
+	//			*p_err = (-1)*0.35/1000.0 + (-1)*0.45/1000.0+f_TrgtAngleS*tread/2/PI/109.0;
+			else
+				*p_err = (-1)*0.35/1000.0;
+			}
+		else if(f_TrgtAngleS>0){
+			if(Get_NowAngle() > 0.002)
+				*p_err = 0.4/1000.0 + 0.44/1000.0+f_TrgtAngleS*FABS(f_TrgtAngleS)*tread/2/PI/740.0;
+	//			*p_err = 0.35/1000.0 + 0.45/1000.0+f_TrgtAngleS*tread/2/PI/109.0;
+			else
+				*p_err = 0.35/1000.0;
+		}else{
+			*p_err = 0;
+		}
+	}
+
+/*	if(*p_err>0.0014)
+		*p_err = 0.0014;
+	if(*p_err<-0.0014)
+		*p_err = -0.0014;
+*/
 }
 
 void CTRL_outMot( float f_duty10_R, float f_duty10_L )
@@ -728,8 +766,6 @@ void CTRL_pol( void )
 	CTRL_refNow();									// 制御に使用する値を現在の状態に更新
 	CTRL_refTarget();								// 制御に使用する値を目標値に更新
 
-//	templog1 = l_CntR;
-//	templog2 = l_CntL;
 	f_NowAngle = GYRO_getNowAngle();					// 現在角度[deg]
 
 	/* 制御値取�? */
@@ -744,35 +780,35 @@ void CTRL_pol( void )
 	if( ( en_Type == CTRL_ACC ) || ( en_Type == CTRL_CONST ) || ( en_Type == CTRL_DEC ) ||( en_Type == CTRL_ENTRY_SURA ) || ( en_Type == CTRL_EXIT_SURA ) ||
 		( en_Type == CTRL_SKEW_ACC ) || ( en_Type == CTRL_SKEW_CONST ) || ( en_Type == CTRL_SKEW_DEC )
 	){
-		TR = ((TIRE_D/2/2)*(Weight*(f_feedFoard_speed + f_speedCtrl))+(TIRE_D/2/TREAD)*(Inertia*(f_feedFoard_angle + f_angleSpeedCtrl+ f_distSenCtrl)))/GEAR_RATIO;/*+Fr*/ /*+(TIRE_D/2/TREAD)*Inertia*(f_feedFoard_angle+f_angleSpeedCtrl + Tr)*/
-		TL = ((TIRE_D/2/2)*(Weight*(f_feedFoard_speed + f_speedCtrl))-(TIRE_D/2/TREAD)*(Inertia*(f_feedFoard_angle + f_angleSpeedCtrl+ f_distSenCtrl)))/GEAR_RATIO;/*+Fr*/ /*-(TIRE_D/2/TREAD)*Inertia*(f_feedFoard_angle+f_angleSpeedCtrl + Tr)*/
-		Ir = (TR+0.0255/1000.0)/Torque_constant;//(Jr*domega * Br*f_MotorR_AngleS +TR+TrR)/Torque_constant;
-		Il = (TL+0.0255/1000.0)/Torque_constant;//(Jl*domega * Bl*f_MotorL_AngleS +TL+TrL)/Torque_constant;
+		TR = ((TIRE_D/2/2)*(Weight*(f_feedFoard_speed + f_speedCtrl))+(TIRE_D/2/TREAD)*(Inertia*(f_feedFoard_angle + f_angleSpeedCtrl+ f_distSenCtrl)))/GEAR_RATIO;
+		TL = ((TIRE_D/2/2)*(Weight*(f_feedFoard_speed + f_speedCtrl))-(TIRE_D/2/TREAD)*(Inertia*(f_feedFoard_angle + f_angleSpeedCtrl+ f_distSenCtrl)))/GEAR_RATIO;
+		Ir = (TR+0.0255/1000.0)/Torque_constant;
+		Il = (TL+0.0255/1000.0)/Torque_constant;
 	}
 
 	/* 壁あて制御 */
 	else if( en_Type == CTRL_HIT_WALL ){
-		TR = (TIRE_D/2/2)*(Weight*(f_feedFoard_speed * FF_HIT_BALANCE_R/500.0 ))/get_battLv();																		// 右モータPWM-DUTY比[0.1%]
-		TL = (TIRE_D/2/2)*(Weight*(f_feedFoard_speed * FF_HIT_BALANCE_R/500.0 ))/get_battLv();
-		Ir = (TR-0.0255/1000.0)/Torque_constant;//(Jr*domega * Br*f_MotorR_AngleS +TR+TrR)/Torque_constant;
-		Il = (TL-0.0255/1000.0)/Torque_constant;//(Jl*domega * Bl*f_MotorL_AngleS +TL+TrL)/Torque_constant;
+		TR = (TIRE_D/2/2)*(Weight*(f_feedFoard_speed * FF_HIT_BALANCE_R/200.0 ));		// 右モータPWM-DUTY比[0.1%]
+		TL = (TIRE_D/2/2)*(Weight*(f_feedFoard_speed * FF_HIT_BALANCE_R/200.0 ));
+		Ir = (TR-0.0255/1000.0)/Torque_constant;
+		Il = (TL-0.0255/1000.0)/Torque_constant;
 	}
 
 	/* スラロー??��?��?制御 */
 	else if( ( en_Type == CTRL_ACC_SURA ) || (en_Type == CTRL_CONST_SURA)||( en_Type == CTRL_DEC_SURA ) ){
 		/* 左旋回 */
 		if( f_LastAngle > 0 ){
-			TR = ((TIRE_D/2/2)*(Weight*(f_feedFoard_speed + f_speedCtrl))+(TIRE_D/2/TREAD)*(3.9/1000000.0*(f_feedFoard_angle + f_angleSpeedCtrl)+f_floorfriction))/GEAR_RATIO;/*+Fr*/ /*+(TIRE_D/2/TREAD)*Inertia*(f_feedFoard_angle+f_angleSpeedCtrl + Tr)*/
-			TL = ((TIRE_D/2/2)*(Weight*(f_feedFoard_speed + f_speedCtrl))-(TIRE_D/2/TREAD)*(3.9/1000000.0*(f_feedFoard_angle + f_angleSpeedCtrl)+f_floorfriction))/GEAR_RATIO;/*+Fr*/ /*-(TIRE_D/2/TREAD)*Inertia*(f_feedFoard_angle+f_angleSpeedCtrl + Tr)*/
-			Ir = (TR+0.0255/1000.0)/Torque_constant;//(Jr*domega * Br*f_MotorR_AngleS +TR+TrR)/Torque_constant;
-			Il = (TL+0.0255/1000.0)/Torque_constant;//(Jl*domega * Bl*f_MotorL_AngleS +TL+TrL)/Torque_constant;
+			TR = ((TIRE_D/2/2)*(Weight*(f_feedFoard_speed + f_speedCtrl))+(TIRE_D/2/TREAD)*(4.65/1000000.0*(f_feedFoard_angle + f_angleSpeedCtrl)+f_floorfriction))/GEAR_RATIO;
+			TL = ((TIRE_D/2/2)*(Weight*(f_feedFoard_speed + f_speedCtrl))-(TIRE_D/2/TREAD)*(4.65/1000000.0*(f_feedFoard_angle + f_angleSpeedCtrl)+f_floorfriction))/GEAR_RATIO;
+			Ir = (TR+0.0255/1000.0)/Torque_constant;
+			Il = (TL+0.0255/1000.0)/Torque_constant;
 		}
 		/*右旋回 */
 		else{			
-			TR = ((TIRE_D/2/2)*(Weight*(f_feedFoard_speed + f_speedCtrl))+(TIRE_D/2/TREAD)*(3.9/1000000.0*(f_feedFoard_angle*(-1) + f_angleSpeedCtrl)+f_floorfriction))/GEAR_RATIO;/*+Fr*/ /*+(TIRE_D/2/TREAD)*Inertia*(f_feedFoard_angle+f_angleSpeedCtrl + Tr)*/
-			TL = ((TIRE_D/2/2)*(Weight*(f_feedFoard_speed + f_speedCtrl))-(TIRE_D/2/TREAD)*(3.9/1000000.0*(f_feedFoard_angle*(-1) + f_angleSpeedCtrl)+f_floorfriction))/GEAR_RATIO;/*+Fr*/ /*-(TIRE_D/2/TREAD)*Inertia*(f_feedFoard_angle+f_angleSpeedCtrl + Tr)*/
-			Ir = (TR+0.0255/1000.0)/Torque_constant;//(Jr*domega * Br*f_MotorR_AngleS +TR+TrR)/Torque_constant;
-			Il = (TL+0.0255/1000.0)/Torque_constant;//(Jl*domega * Bl*f_MotorL_AngleS +TL+TrL)/Torque_constant;
+			TR = ((TIRE_D/2/2)*(Weight*(f_feedFoard_speed + f_speedCtrl))+(TIRE_D/2/TREAD)*(4.65/1000000.0*(f_feedFoard_angle*(-1) + f_angleSpeedCtrl)+f_floorfriction))/GEAR_RATIO;
+			TL = ((TIRE_D/2/2)*(Weight*(f_feedFoard_speed + f_speedCtrl))-(TIRE_D/2/TREAD)*(4.65/1000000.0*(f_feedFoard_angle*(-1) + f_angleSpeedCtrl)+f_floorfriction))/GEAR_RATIO;
+			Ir = (TR+0.0255/1000.0)/Torque_constant;
+			Il = (TL+0.0255/1000.0)/Torque_constant;
 		}
 	}
 
@@ -782,22 +818,21 @@ void CTRL_pol( void )
 		if( f_LastAngle > 0 ){			
 			TR = ((TIRE_D/2/2)*(Weight*(f_feedFoard_speed + f_speedCtrl))+(TIRE_D/2/TREAD_imagin)*(Inertia*(f_feedFoard_angle + f_angleSpeedCtrl)+f_floorfriction))/GEAR_RATIO;
 			TL = ((TIRE_D/2/2)*(Weight*(f_feedFoard_speed + f_speedCtrl))-(TIRE_D/2/TREAD_imagin)*(Inertia*(f_feedFoard_angle + f_angleSpeedCtrl)+f_floorfriction))/GEAR_RATIO;
-			Ir = (TR+0.0255/1000.0)/Torque_constant;//(Jr*domega * Br*f_MotorR_AngleS +TR+TrR)/Torque_constant;
-			Il = (TL-0.0255/1000.0)/Torque_constant;//(Jl*domega * Bl*f_MotorL_AngleS +TL+TrL)/Torque_constant;
+			Ir = (TR+0.0255/1000.0)/Torque_constant;
+			Il = (TL-0.0255/1000.0)/Torque_constant;
 		}
 		/* ??��?��E??��?��??��?��??��?��??��?�� */
 		else{			
 			TR = ((TIRE_D/2/2)*(Weight*(f_feedFoard_speed + f_speedCtrl))+(TIRE_D/2/TREAD_imagin)*(Inertia*(f_feedFoard_angle*(-1) + f_angleSpeedCtrl)+f_floorfriction))/GEAR_RATIO;
 			TL = ((TIRE_D/2/2)*(Weight*(f_feedFoard_speed + f_speedCtrl))-(TIRE_D/2/TREAD_imagin)*(Inertia*(f_feedFoard_angle*(-1) + f_angleSpeedCtrl)+f_floorfriction))/GEAR_RATIO;
-			Ir = (TR-0.0255/1000.0)/Torque_constant;//(Jr*domega * Br*f_MotorR_AngleS +TR+TrR)/Torque_constant;
-			Il = (TL+0.0255/1000.0)/Torque_constant;//(Jl*domega * Bl*f_MotorL_AngleS +TL+TrL)/Torque_constant;
+			Ir = (TR-0.0255/1000.0)/Torque_constant;
+			Il = (TL+0.0255/1000.0)/Torque_constant;
 		}
 	}
-	f_duty10_R = FF_BALANCE_R*(Motor_Register*Ir+f_MotorR_AngleS*0.001033/1000.0/2.0/PI)/get_battLv();	//(Motor_Register*Ir + KeR * f_MotorR_AngleS) /get_battLv() + f_distSenCtrl;
-	f_duty10_L = FF_BALANCE_L*(Motor_Register*Il+f_MotorL_AngleS*0.001033/1000.0/2.0/PI)/get_battLv();	//(Motor_Register*Il + KeL * f_MotorL_AngleS) /get_battLv() - f_distSenCtrl;
-	
+	f_duty10_R = FF_BALANCE_R*(Motor_Register*Ir+f_MotorR_AngleS*0.001033/1000.0/2.0/PI)/get_battLv();	
+	f_duty10_L = FF_BALANCE_L*(Motor_Register*Il+f_MotorL_AngleS*0.001033/1000.0/2.0/PI)/get_battLv();	
 
-	templog1 = f_angleSpeedCtrl;
+	templog1 = f_floorfriction;
 	templog2 = f_duty10_R;
 
 	escape_wait = escape_wait+0.001;

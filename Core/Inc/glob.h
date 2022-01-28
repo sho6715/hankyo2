@@ -39,9 +39,9 @@
 #define GEAR_RATIO					(36.0f/10.0f)
 
 #define Weight						(0.018f)
-#define Inertia						(4.4f/1000000.0f)
+#define Inertia						(4.6f/1000000.0f)
 #define Torque_constant				(0.594f/1000.0f)
-#define Motor_Register				(4.5f)
+#define Motor_Register				(4.8f)
 
 typedef enum{
 	DIST_SEN_R_FRONT = 0,
