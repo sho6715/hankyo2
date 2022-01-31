@@ -153,7 +153,7 @@ void MODE_exe_m0( void )
 			CTRL_clrNowData();
 			CTRL_clrData();
 			log_flag_on();
-			MOT_goBlock_FinSpeed(3.0, 0.0);
+			MOT_goBlock_FinSpeed(31.0, 0.0);
 			log_flag_off();
 			break;
 
@@ -356,6 +356,7 @@ void MODE_exe( void )
 			
 			SetLED(0x0e);
 			MAP_Goalsize(1);
+			SetLED(0x00);
 
 			MAP_searchGoal( 0, 0, SEARCH, SEARCH_SURA );
 
@@ -379,15 +380,15 @@ void MODE_exe( void )
 			PARAM_setSpeedType( PARAM_TRUN, PARAM_SLOW );							
 			PARAM_setSpeedType( PARAM_SLA,  PARAM_SLOW );							
 			SetLED(0x00);
-			LL_mDelay(500);
-			Set_DutyTIM8(600);
-			LL_mDelay(2000);
 			MAP_setPos( 0, 0, NORTH );												// ?ｿｽX?ｿｽ^?ｿｽ[?ｿｽg?ｿｽﾊ置
 			MAP_Goalsize(1);
 			MAP_makeContourMap_run( GOAL_MAP_X_def, GOAL_MAP_Y_def, BEST_WAY );					// ?ｿｽ?ｿｽ?ｿｽ?ｿｽ?ｿｽ?ｿｽ?ｿｽ}?ｿｽb?ｿｽv?ｿｽ?ｿｽ?ｿｽ?ｿｽ?ｿｽ
 			MAP_makeCmdList( 0, 0, NORTH, GOAL_MAP_X_def, GOAL_MAP_Y_def, &en_endDir );		// ?ｿｽh?ｿｽ?ｿｽ?ｿｽC?ｿｽu?ｿｽR?ｿｽ}?ｿｽ?ｿｽ?ｿｽh?ｿｽ?成
 			MAP_makeSuraCmdList();													// ?ｿｽX?ｿｽ?ｿｽ?ｿｽ?ｿｽ?ｿｽ[?ｿｽ?ｿｽ?ｿｽR?ｿｽ}?ｿｽ?ｿｽ?ｿｽh?ｿｽ?成
 			MAP_makeSkewCmdList();													// ?ｿｽﾎめコ?ｿｽ}?ｿｽ?ｿｽ?ｿｽh?ｿｽ?成
+			LL_mDelay(500);
+			Set_DutyTIM8(600);
+			LL_mDelay(2000);													// ?ｿｽﾎめコ?ｿｽ}?ｿｽ?ｿｽ?ｿｽh?ｿｽ?成
 			MAP_drive( MAP_DRIVE_SURA );
 			Set_DutyTIM8(0);
 			LL_mDelay(500);
@@ -401,20 +402,20 @@ void MODE_exe( void )
 			SetLED(0x0e);
 			MOT_setTrgtSpeed(SEARCH_SPEED*4.0);
 			MOT_setSuraStaSpeed( SEARCH_SPEED );							
-			PARAM_setSpeedType( PARAM_ST,   PARAM_SLOW );							
-			PARAM_setSpeedType( PARAM_TRUN, PARAM_SLOW );							
-			PARAM_setSpeedType( PARAM_SLA,  PARAM_SLOW );							
+			PARAM_setSpeedType( PARAM_ST,   PARAM_FAST );							
+			PARAM_setSpeedType( PARAM_TRUN, PARAM_FAST );							
+			PARAM_setSpeedType( PARAM_SLA,  PARAM_FAST );							
 			SetLED(0x00);
-			LL_mDelay(500);
-			Set_DutyTIM8(600);
-			LL_mDelay(2000);
 			MAP_setPos( 0, 0, NORTH );												// ?ｿｽX?ｿｽ^?ｿｽ[?ｿｽg?ｿｽﾊ置
 			MAP_Goalsize(1);
 			MAP_makeContourMap_run( GOAL_MAP_X_def, GOAL_MAP_Y_def, BEST_WAY );					// ?ｿｽ?ｿｽ?ｿｽ?ｿｽ?ｿｽ?ｿｽ?ｿｽ}?ｿｽb?ｿｽv?ｿｽ?ｿｽ?ｿｽ?ｿｽ?ｿｽ
 			MAP_makeCmdList( 0, 0, NORTH, GOAL_MAP_X_def, GOAL_MAP_Y_def, &en_endDir );		// ?ｿｽh?ｿｽ?ｿｽ?ｿｽC?ｿｽu?ｿｽR?ｿｽ}?ｿｽ?ｿｽ?ｿｽh?ｿｽ?成
 			MAP_makeSuraCmdList();													// ?ｿｽX?ｿｽ?ｿｽ?ｿｽ?ｿｽ?ｿｽ[?ｿｽ?ｿｽ?ｿｽR?ｿｽ}?ｿｽ?ｿｽ?ｿｽh?ｿｽ?成
 			MAP_makeSkewCmdList();													// ?ｿｽﾎめコ?ｿｽ}?ｿｽ?ｿｽ?ｿｽh?ｿｽ?成
-			MAP_drive( MAP_DRIVE_SKEW );
+			LL_mDelay(500);
+			Set_DutyTIM8(600);
+			LL_mDelay(2000);													// ?ｿｽﾎめコ?ｿｽ}?ｿｽ?ｿｽ?ｿｽh?ｿｽ?成
+			MAP_drive( MAP_DRIVE_SURA );
 			Set_DutyTIM8(0);
 			LL_mDelay(500);
 			MOT_turn(MOT_R180);
@@ -424,13 +425,27 @@ void MODE_exe( void )
 
 		case MODE_6:
 			SetLED(0x0e);
-			MOT_setTrgtSpeed(SEARCH_SPEED);
+			MOT_setTrgtSpeed(SEARCH_SPEED*4.0);
 			MOT_setSuraStaSpeed( SEARCH_SPEED );							
 			PARAM_setSpeedType( PARAM_ST,   PARAM_SLOW );							
 			PARAM_setSpeedType( PARAM_TRUN, PARAM_SLOW );							
 			PARAM_setSpeedType( PARAM_SLA,  PARAM_SLOW );							
 			SetLED(0x00);
+			MAP_setPos( 0, 0, NORTH );												// ?ｿｽX?ｿｽ^?ｿｽ[?ｿｽg?ｿｽﾊ置
+			MAP_Goalsize(1);
+			MAP_makeContourMap_run( GOAL_MAP_X_def, GOAL_MAP_Y_def, BEST_WAY );					// ?ｿｽ?ｿｽ?ｿｽ?ｿｽ?ｿｽ?ｿｽ?ｿｽ}?ｿｽb?ｿｽv?ｿｽ?ｿｽ?ｿｽ?ｿｽ?ｿｽ
+			MAP_makeCmdList( 0, 0, NORTH, GOAL_MAP_X_def, GOAL_MAP_Y_def, &en_endDir );		// ?ｿｽh?ｿｽ?ｿｽ?ｿｽC?ｿｽu?ｿｽR?ｿｽ}?ｿｽ?ｿｽ?ｿｽh?ｿｽ?成
+			MAP_makeSuraCmdList();													// ?ｿｽX?ｿｽ?ｿｽ?ｿｽ?ｿｽ?ｿｽ[?ｿｽ?ｿｽ?ｿｽR?ｿｽ}?ｿｽ?ｿｽ?ｿｽh?ｿｽ?成
+			MAP_makeSkewCmdList();													// ?ｿｽﾎめコ?ｿｽ}?ｿｽ?ｿｽ?ｿｽh?ｿｽ?成
 			LL_mDelay(500);
+			Set_DutyTIM8(600);
+			LL_mDelay(2000);												// ?ｿｽﾎめコ?ｿｽ}?ｿｽ?ｿｽ?ｿｽh?ｿｽ?成
+			MAP_drive( MAP_DRIVE_SKEW );
+			Set_DutyTIM8(0);
+			LL_mDelay(500);
+			MOT_turn(MOT_R180);
+			MAP_actGoalLED();
+			Set_DutyTIM8(0);
 
 			break;
 

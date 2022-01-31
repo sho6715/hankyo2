@@ -27,8 +27,8 @@
 #define L_FRONT_REF					(560)//( 210 )
 #define R_SIDE_REF					(450)//( 240 )
 #define L_SIDE_REF					(450)//( 200 )
-#define R_FRONT_WALL					(75)//( 45 )
-#define L_FRONT_WALL					(75)//( 45 )
+#define R_FRONT_WALL					(65)//( 45 )
+#define L_FRONT_WALL					(65)//( 45 )
 #define R_SIDE_WALL					(180)//( 110 )
 #define L_SIDE_WALL					(200)//( 70 )
 #define R_FRONT_SKEW_ERR1				( 80 )//仮
