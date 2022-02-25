@@ -202,7 +202,7 @@ void MOT_goBlock_AccConstDec( float f_fin, enMOT_ST_TYPE en_type, enMOT_GO_ST_TY
 		st_data.f_now			= st_Info.f_last;			// 現在速度
 		st_data.f_trgt			= st_Info.f_last;			// 目標速度
 		st_data.f_nowDist		= Get_NowDist();				// 現在位置
-		st_data.f_dist			= Get_NowDist() + 45.0f;		// 等速完�?位置?�?45.0f?��壁�??れをどこまで救うか�?�距離?��、ここではf_NowDistをクリアしては�?けな�?�?
+		st_data.f_dist			= Get_NowDist() + 0.045f;		// 等速完�?位置?�?45.0f?��壁�??れをどこまで救うか�?�距離?��、ここではf_NowDistをクリアしては�?けな�?�?
 		st_data.f_accAngleS		= 0;						// 角加速度
 		st_data.f_nowAngleS		= 0;						// 現在角速度
 		st_data.f_trgtAngleS	= 0;						// 目標角度
@@ -843,7 +843,7 @@ void MOT_turn( enMOT_TURN_CMD en_type )
 	st_data.f_time 			= 0;						// 目標時�? [sec] �? �?定しな�?
 	CTRL_setData( &st_data );							// �?ータセ�?�?
 	if( ( en_type == MOT_R90 ) || ( en_type == MOT_R180 ) || ( en_type == MOT_R360 ) ){		// -方�?
-		while( Get_NowAngle() > ( st_info.f_angle) ){		// �?定距離到達�?ち
+		while( Get_NowAngle() > ( st_info.f_angle-0.002) ){		// �?定距離到達�?ち
 //			DCMC_getAngleSpeedFB(&f_err);
 //			printf("[NOW]%d [Trgt]%d [TrgtS]%d  \n\r", (int32_t)f_NowAngle, (int32_t)f_TrgtAngle, (int32_t)f_TrgtAngleS );
 			if( SYS_isOutOfCtrl() == TRUE ){
@@ -856,7 +856,7 @@ void MOT_turn( enMOT_TURN_CMD en_type )
 		}
 	}
 	else{
-		while( Get_NowAngle() < ( st_info.f_angle ) ){		// �?定距離到達�?ち
+		while( Get_NowAngle() < ( st_info.f_angle+0.002 ) ){		// �?定距離到達�?ち
 //			DCMC_getAngleSpeedFB(&f_err);
 //			printf("[NOW]%d [Trgt]%d [TrgtS]%d  \n\r", (int32_t)f_NowAngle, (int32_t)f_TrgtAngle, (int32_t)f_TrgtAngleS);
 			if( SYS_isOutOfCtrl() == TRUE ){

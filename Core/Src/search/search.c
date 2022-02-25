@@ -803,7 +803,7 @@ void MAP_moveNextBlock_Sura(
 					( ( en_Head == SOUTH ) && ( ( g_sysMap[my][mx] & 0x08 ) != 0 ) )  ||		// ?¿½?¿½?¿½?¿½?¿½?¿½?¿½?¿½Ä‚ï¿½?¿½Äï¿½?¿½É•Ç‚ï¿½?¿½?¿½?¿½?¿½
 					( ( en_Head == WEST  ) && ( ( g_sysMap[my][mx] & 0x01 ) != 0 ) ) 			// ?¿½?¿½?¿½?¿½?¿½?¿½?¿½?¿½?¿½Ä‚ï¿½?¿½Ä–k?¿½É•Ç‚ï¿½?¿½?¿½?¿½?¿½
 				){
-				uc_dist_control = 10;
+				uc_dist_control = 0.01;
 				}
 			else{
 				uc_dist_control = 0;
@@ -840,7 +840,7 @@ void MAP_moveNextBlock_Sura(
 					( ( en_Head == SOUTH ) && ( ( g_sysMap[my][mx] & 0x02 ) != 0 ) )  ||		// ?¿½?¿½?¿½?¿½?¿½?¿½?¿½?¿½Ä‚ï¿½?¿½Ä“ï¿½?¿½É•Ç‚ï¿½?¿½?¿½?¿½?¿½
 					( ( en_Head == WEST  ) && ( ( g_sysMap[my][mx] & 0x04 ) != 0 ) ) 			// ?¿½?¿½?¿½?¿½?¿½?¿½?¿½?¿½?¿½Ä‚ï¿½?¿½Ä“ï¿½É•Ç‚ï¿½?¿½?¿½?¿½?¿½
 				){
-				uc_dist_control = 10;
+				uc_dist_control = 0.01;
 				}
 			else{
 				uc_dist_control = 0;
@@ -963,55 +963,73 @@ void  MAP_makeReturnContourMap(uint8_t uc_staX,uint8_t uc_staY)
 	uint16_t		uc_level;		// ?¿½?¿½?¿½?¿½?¿½?¿½
 	uint8_t		uc_wallData;	// ?¿½Çï¿½?¿½
 
+
+	queue_t queue;
+	queue_t* pQueue = &queue;
+
+	initQueue(pQueue);
+
 	/* ?¿½?¿½?¿½?¿½?¿½?¿½?¿½}?¿½b?¿½v?¿½?¿½?¿½?¿½?¿½?¿½?¿½?¿½?¿½?¿½?¿½?¿½ */
 	for (i = 0; i < MAP_SMAP_MAX_VAL; i++) {
 		us_cmap[i / MAP_Y_SIZE][i & (MAP_X_SIZE - 1)] = MAP_SMAP_MAX_VAL - 1;
 	}
 	/* ?¿½Ú•W?¿½n?¿½_?¿½Ì“ï¿½?¿½?¿½?¿½?¿½?¿½?¿½0?¿½Éİ’ï¿½ */
-	us_cmap[0][0] = 0;
+//	us_cmap[0][0] = 0;
+	setStep(0, 0, 0);
+	st_pos.x = 0;
+	st_pos.y = 0;
+	st_pos.step = 0;
+
+	enqueue(pQueue,st_pos);
 
 	/* ?¿½?¿½?¿½?¿½?¿½?¿½?¿½}?¿½b?¿½v?¿½?¿½?¿½?¬ */
-	uc_dase = 0;
-	do {
-		uc_level = 0;
-		uc_new = uc_dase + 1;
-		for (y = 0; y < MAP_Y_SIZE; y++) {
-			for (x = 0; x < MAP_X_SIZE; x++) {
-				if ((us_cmap[uc_staY][uc_staX] != MAP_SMAP_MAX_VAL - 1) && (us_cmap[uc_staY][uc_staX] + 2 < uc_new))break;
-				if (us_cmap[y][x] == uc_dase) {
-					uc_wallData = g_sysMap[y][x];
-					/* ?¿½T?¿½?¿½?¿½?¿½?¿½s */
-	
-						if (((uc_wallData & 0x01) == 0x00) && (y != (MAP_Y_SIZE - 1))) {
-							if (us_cmap[y + 1][x] == MAP_SMAP_MAX_VAL - 1) {
-								us_cmap[y + 1][x] = uc_new;
-								uc_level++;
-							}
-						}
-						if (((uc_wallData & 0x02) == 0x00) && (x != (MAP_X_SIZE - 1))) {
-							if (us_cmap[y][x + 1] == MAP_SMAP_MAX_VAL - 1) {
-								us_cmap[y][x + 1] = uc_new;
-								uc_level++;
-							}
-						}
-						if (((uc_wallData & 0x04) == 0x00) && (y != 0)) {
-							if (us_cmap[y - 1][x] == MAP_SMAP_MAX_VAL - 1) {
-								us_cmap[y - 1][x] = uc_new;
-								uc_level++;
-							}
-						}
-						if (((uc_wallData & 0x08) == 0x00) && (x != 0)) {
-							if (us_cmap[y][x - 1] == MAP_SMAP_MAX_VAL - 1) {
-								us_cmap[y][x - 1] = uc_new;
-								uc_level++;
-							}
-						}
+	while (pQueue->flag != EMPTY) {
+		const stPOSITION focus = dequeue(pQueue);
+//		q.pop();
+		const uint16_t focus_step = focus.step;
+		x = focus.x;
+		y = focus.y;
+		stPOSITION next = focus;
+		uc_wallData = g_sysMap[y][x];
 
-				}
+		if (((uc_wallData & 0x01) == 0x00) && (y != (MAP_Y_SIZE - 1))) {
+			if (us_cmap[y + 1][x] > focus_step + 1) {
+				next.step = focus_step + 1;
+				us_cmap[y + 1][x] = focus_step + 1;
+				next.x = x;
+				next.y = y + 1;
+				enqueue(pQueue,next);
 			}
 		}
-		uc_dase = uc_dase + 1;
-	} while (uc_level != 0);
+		if (((uc_wallData & 0x02) == 0x00) && (x != (MAP_X_SIZE - 1))) {
+			if (us_cmap[y][x + 1] > focus_step + 1) {
+				next.step = focus_step + 1;
+				us_cmap[y][x + 1] = focus_step + 1;
+				next.x = x + 1;
+				next.y = y;
+				enqueue(pQueue, next);
+			}
+		}
+		if (((uc_wallData & 0x04) == 0x00) && (y != 0)) {
+			if (us_cmap[y - 1][x] > focus_step + 1) {
+				next.step = focus_step + 1;
+				us_cmap[y - 1][x] = focus_step + 1;
+				next.x = x;
+				next.y = y - 1;
+				enqueue(pQueue, next);
+			}
+		}
+		if (((uc_wallData & 0x08) == 0x00) && (x != 0)) {
+			if (us_cmap[y][x - 1] > focus_step + 1) {
+				next.step = focus_step + 1;
+				us_cmap[y][x - 1] = focus_step + 1;
+				next.x = x - 1;
+				next.y = y;
+				enqueue(pQueue, next);
+			}
+		}
+
+	}
 
 }
 
@@ -1108,7 +1126,7 @@ void MAP_moveNextBlock_acc(enMAP_HEAD_DIR en_head, bool* p_type)
 					( ( en_Head == SOUTH ) && ( ( g_sysMap[my][mx] & 0x08 ) != 0 ) )  ||		// ?¿½?¿½?¿½?¿½?¿½?¿½?¿½?¿½Ä‚ï¿½?¿½Äï¿½?¿½É•Ç‚ï¿½?¿½?¿½?¿½?¿½
 					( ( en_Head == WEST  ) && ( ( g_sysMap[my][mx] & 0x01 ) != 0 ) ) 			// ?¿½?¿½?¿½?¿½?¿½?¿½?¿½?¿½?¿½Ä‚ï¿½?¿½Ä–k?¿½É•Ç‚ï¿½?¿½?¿½?¿½?¿½
 			){
-			uc_dist_control = 10;
+			uc_dist_control = 0.01;
 			}
 		else{
 			uc_dist_control = 0;
@@ -1146,7 +1164,7 @@ void MAP_moveNextBlock_acc(enMAP_HEAD_DIR en_head, bool* p_type)
 					( ( en_Head == SOUTH ) && ( ( g_sysMap[my][mx] & 0x02 ) != 0 ) )  ||		// ?¿½?¿½?¿½?¿½?¿½?¿½?¿½?¿½Ä‚ï¿½?¿½Ä“ï¿½?¿½É•Ç‚ï¿½?¿½?¿½?¿½?¿½
 					( ( en_Head == WEST  ) && ( ( g_sysMap[my][mx] & 0x04 ) != 0 ) ) 			// ?¿½?¿½?¿½?¿½?¿½?¿½?¿½?¿½?¿½Ä‚ï¿½?¿½Ä“ï¿½É•Ç‚ï¿½?¿½?¿½?¿½?¿½
 			){
-			uc_dist_control = 10;
+			uc_dist_control = 0.01;
 			}
 		else{
 			uc_dist_control = 0;

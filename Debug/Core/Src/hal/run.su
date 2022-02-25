@@ -15,7 +15,7 @@ run.c:588:6:MOT_goBlock_Const	136	static
 run.c:634:6:testrun	56	static
 run.c:649:7:MOT_getAccAngle1	8	static
 run.c:655:7:MOT_getAccAngle3	8	static
-run.c:661:6:MOT_turn	152	static
+run.c:661:6:MOT_turn	160	static
 run.c:882:6:MOT_setSuraStaSpeed	16	static
 run.c:888:7:MOT_getSuraStaSpeed	4	static
 run.c:893:7:MOT_setTrgtSpeed	16	static

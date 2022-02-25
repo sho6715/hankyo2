@@ -150,8 +150,8 @@ int main(void)
 		LL_mDelay(200);			// SWãŒé›¢ã•ã‚Œã‚‹ã¾ã§???¿½?¿½??¿½?¿½?ã¤
 	}
     LL_mDelay(100);
-//  Get_Sen_Nowdata();
-  printf("batt %5.2f \r",get_battLv());
+  Get_Sen_Nowdata();
+//  printf("batt %5.2f \r",get_battLv());
 //  printf("s_val%x\n\r",Get_s_gyro());
 
     //encoder count 
