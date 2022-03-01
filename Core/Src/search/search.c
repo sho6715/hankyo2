@@ -963,7 +963,7 @@ void  MAP_makeReturnContourMap(uint8_t uc_staX,uint8_t uc_staY)
 	uint16_t		uc_level;		// ?øΩ?øΩ?øΩ?øΩ?øΩ?øΩ
 	uint8_t		uc_wallData;	// ?øΩ«èÔøΩ?øΩ
 
-
+	stPOSITION		st_pos;
 	queue_t queue;
 	queue_t* pQueue = &queue;
 

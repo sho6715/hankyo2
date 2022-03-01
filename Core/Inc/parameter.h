@@ -22,7 +22,7 @@
 #define		SW_CHATTERING_WAIT		(200) 	
 
 #define	FF_BALANCE_R				( 1.00f )					
-#define	FF_BALANCE_L				( 1.40f )		
+#define	FF_BALANCE_L				( 1.03f )		
 #define FF_HIT_BALANCE_R			(1.00f)				
 #define FF_HIT_BALANCE_L			(1.00f)
 

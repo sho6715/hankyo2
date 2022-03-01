@@ -153,7 +153,7 @@ void MODE_exe_m0( void )
 			CTRL_clrNowData();
 			CTRL_clrData();
 			log_flag_on();
-			MOT_goBlock_FinSpeed(31.0, 0.0);
+			MOT_goBlock_FinSpeed(3.0, 0.0);
 			log_flag_off();
 			break;
 

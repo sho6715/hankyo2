@@ -11,30 +11,30 @@
 #define		DIST_REF_NUM		(400)
 
 
-/* 距離センサ情報（前壁のみ、データフラッシュ用構造体としても使用する） */
+/* 距離センサ�?報?��前壁�?�み、データフラ�?シュ用構�?体としても使用する?�? */
 typedef struct{
-	uint16_t		s_wallHit;					///< @var : 壁に当たっていてもおかしくない値         ( AD 値 ) （前壁とマウス間が約2mmの時の値）					///< @var : 斜め走行時の補正閾値3                    ( AD 値 )
+	uint16_t		s_wallHit;					///< @var : 壁に当たって�?てもおかしくな�?値         ( AD 値 ) ?��前壁とマウス間が�?2mmの時�?�値?�?					///< @var : 斜め走行時の補正閾値3                    ( AD 値 )
 	uint16_t		s_skewErr1;					///< @var : 斜め走行時の補正閾値1                    ( AD 値 )
 	uint16_t		s_skewErr2;					///< @var : 斜め走行時の補正閾値2                    ( AD 値 )
 	uint16_t		s_skewErr3;					///< @var : 斜め走行時の補正閾値3
 }stDIST_FRONT_SEN;
 
 
-/* 距離センサ情報（全センサ共通、データフラッシュ用構造体のみに使用） */
+/* 距離センサ�?報?���?�センサ共通、データフラ�?シュ用構�?体�?�みに使用?�? */
 typedef struct{
-	uint16_t		s_ref;						///< @var : 区画の中心に置いた時の距離センサの基準値 ( AD 値 )
-	uint16_t		s_limit;					///< @var : 距離センサの閾値                         ( AD 値 ) ( この値より大きい場合、壁ありと判断する )
+	uint16_t		s_ref;						///< @var : 区画の中�?に置�?た時の距離センサの基準値 ( AD 値 )
+	uint16_t		s_limit;					///< @var : 距離センサの閾値                         ( AD 値 ) ( こ�?�値より大きい場合、壁ありと判断する )
 	uint16_t		s_ctrl;						///< @var : 制御有効化する際の閾値                   ( AD 値 ) 主に前壁で使用
 	uint16_t		s_noCtrl;					///< @var : 壁に近すぎるため制御無効化する際の閾値   ( AD 値 ) 主に前壁で使用
 }stDIST_SEN_DATA;
 
-/* 距離センサ情報（全センサ共通） 注　hal.hに移行*/
+/* 距離センサ�?報?���?�センサ共通�? 注　hal.hに移�?*/
 typedef struct{
 	uint16_t		s_now;						// LED 点灯中の距離センサの現在値           ( AD 値 )
-	uint16_t		s_old;						// LED 点灯中の距離センサの1つ前の値        ( AD 値 )
-	uint16_t		s_limit;					// 距離センサの閾値                         ( AD 値 ) ( この値より大きい場合、壁ありと判断する )
-	uint16_t		s_ref;						// 区画の中心に置いた時の距離センサの基準値 ( AD 値 )
-	uint16_t		s_offset;					// LED 消灯中の距離センサの値               ( AD 値 )
+	uint16_t		s_old;						// LED 点灯中の距離センサの1つ前�?�値        ( AD 値 )
+	uint16_t		s_limit;					// 距離センサの閾値                         ( AD 値 ) ( こ�?�値より大きい場合、壁ありと判断する )
+	uint16_t		s_ref;						// 区画の中�?に置�?た時の距離センサの基準値 ( AD 値 )
+	uint16_t		s_offset;					// LED 消�?�中の距離センサの値               ( AD 値 )
 	uint16_t		s_ctrl;						// 制御有効化する際の閾値                   ( AD 値 ) 主に前壁で使用
 	uint16_t		s_noCtrl;					// 壁に近すぎるため制御無効化する際の閾値   ( AD 値 ) 主に前壁で使用
 }stDIST_SEN;
@@ -45,7 +45,7 @@ stDIST_FRONT_SEN		st_senF[DIST_SEN_NUM];
 
 void DIST_init( void )
 {
-	memset( st_sen, 0, sizeof(st_sen) );				// 距離センサ(全センサ共通)
+	memset( st_sen, 0, sizeof(st_sen) );				// 距離センサ(全センサ共�?)
 	st_sen[DIST_SEN_R_FRONT].s_ref       = R_FRONT_REF;
 	st_sen[DIST_SEN_L_FRONT].s_ref       = L_FRONT_REF;
 	st_sen[DIST_SEN_R_SIDE].s_ref        = R_SIDE_REF;
@@ -82,12 +82,12 @@ void DIST_getErr( int32_t* p_err )
 	/* ---------- */
 	/*  右壁制御  */
 	/* ---------- */
-	/* 壁の切れ目対策 */
-	// 急激にセンサの値が変化した場合は、壁の有無の基準値を閾値に変更する
+	/* 壁�?��?れ目対�? */
+	// 急激にセンサの値が変化した場合�?�、壁�?�有無の基準値を閾値に変更する
 	s_temp = st_sen[DIST_SEN_R_SIDE].s_now - st_sen[DIST_SEN_R_SIDE].s_old;
 	if( ( s_temp < -1 * DIST_NO_WALL_DIV_FILTER ) || ( DIST_NO_WALL_DIV_FILTER < s_temp )
 	){
-		s_threshold_R = st_sen[DIST_SEN_R_SIDE].s_ref + DIST_REF_UP;		// 基準値＋αを壁の存在する閾値にする
+		s_threshold_R = st_sen[DIST_SEN_R_SIDE].s_ref + DIST_REF_UP;		// 基準値?��αを壁�?�存在する閾値にする
 	}
 	else{
 		s_threshold_R = st_sen[DIST_SEN_R_SIDE].s_limit;		// 通常通り
@@ -96,30 +96,30 @@ void DIST_getErr( int32_t* p_err )
 	/* ---------- */
 	/*  左壁制御  */
 	/* ---------- */
-	/* 壁の切れ目対策 */
-	// 急激にセンサの値が変化した場合は、壁の有無の基準値を閾値に変更する
+	/* 壁�?��?れ目対�? */
+	// 急激にセンサの値が変化した場合�?�、壁�?�有無の基準値を閾値に変更する
 	s_temp = st_sen[DIST_SEN_L_SIDE].s_now - st_sen[DIST_SEN_L_SIDE].s_old;
 	if( ( s_temp < -1 * DIST_NO_WALL_DIV_FILTER ) || ( DIST_NO_WALL_DIV_FILTER < s_temp )
 	){
-		s_threshold_L = st_sen[DIST_SEN_L_SIDE].s_ref + DIST_REF_UP;		// 基準値＋αを壁の存在する閾値にする
+		s_threshold_L = st_sen[DIST_SEN_L_SIDE].s_ref + DIST_REF_UP;		// 基準値?��αを壁�?�存在する閾値にする
 	}
 	else{
 		s_threshold_L = st_sen[DIST_SEN_L_SIDE].s_limit;		// 通常通り
 	}
 
 	/* ------------ */
-	/*  制御値算出  */
+	/*  制御値算�?�  */
 	/* ------------ */
 	*p_err = 0;		// クリア
 
-	/* 前壁がものすごく近い時 */
+	/* 前壁がも�?�すごく近い�? */
 	if( ( st_sen[DIST_SEN_R_FRONT].s_now > st_sen[DIST_SEN_R_FRONT].s_noCtrl ) &&
 		( st_sen[DIST_SEN_L_FRONT].s_now > st_sen[DIST_SEN_L_FRONT].s_noCtrl )
 	){
-//		printf("[Val]%6d 前壁がものすごい近い 	\n\r", *p_err);
+//		printf("[Val]%6d 前壁がも�?�すご�?近い 	\n\r", *p_err);
 		*p_err = 0;
 	}
-	/* 前壁 */
+	/* 前�? */
 	else if( ( st_sen[DIST_SEN_R_FRONT].s_now > st_sen[DIST_SEN_R_FRONT].s_ctrl ) &&
 		( st_sen[DIST_SEN_L_FRONT].s_now > st_sen[DIST_SEN_L_FRONT].s_ctrl )
 	){
@@ -127,19 +127,19 @@ void DIST_getErr( int32_t* p_err )
 				 ( st_sen[DIST_SEN_R_FRONT].s_now - st_sen[DIST_SEN_R_FRONT].s_ref );
 //		printf("[Val]%6d 前壁制御 	\n\r", *p_err);
 	}
-	/* 右壁と左壁あり */
+	/* 右壁と左壁あ�? */
 	else if( ( s_threshold_R < st_sen[DIST_SEN_R_SIDE].s_now ) && ( s_threshold_L < st_sen[DIST_SEN_L_SIDE].s_now )
 	){
 		*p_err = ( st_sen[DIST_SEN_R_SIDE].s_now - st_sen[DIST_SEN_R_SIDE].s_ref ) +
 				 ( st_sen[DIST_SEN_L_SIDE].s_ref - st_sen[DIST_SEN_L_SIDE].s_now );
 //		printf("[Val]%6d 両壁制御 	\n\r", *p_err);
 	}
-	/* 右壁あり */
+	/* 右壁あ�? */
 	else if( s_threshold_R < st_sen[DIST_SEN_R_SIDE].s_now ){
 		*p_err = ( st_sen[DIST_SEN_R_SIDE].s_now - st_sen[DIST_SEN_R_SIDE].s_ref ) * 2;
 //		printf("[Val]%6d 右壁制御 	\n\r", *p_err);
 	}
-	/* 左壁あり */
+	/* 左壁あ�? */
 	else if( s_threshold_L < st_sen[DIST_SEN_L_SIDE].s_now ){
 		*p_err = ( st_sen[DIST_SEN_L_SIDE].s_ref - st_sen[DIST_SEN_L_SIDE].s_now ) * 2;
 //		printf("[Val]%6d 左壁制御 	\n\r", *p_err);
@@ -153,11 +153,11 @@ void DIST_getErrSkew( int32_t* p_err )
 	/* 進行方向に壁が存在する場合によける動作を行う */
 	if( st_sen[DIST_SEN_R_FRONT].s_now > st_senF[DIST_SEN_R_FRONT].s_skewErr3 ){
 		*p_err = 300;
-//		printf("右前が超近い  [NOW]%d > [ERR3]%d", st_sen[DIST_SEN_R_FRONT].s_now, st_senF[DIST_SEN_R_FRONT].s_skewErr3 );
+//		printf("右前が�?近い  [NOW]%d > [ERR3]%d", st_sen[DIST_SEN_R_FRONT].s_now, st_senF[DIST_SEN_R_FRONT].s_skewErr3 );
 	}
 	else if( st_sen[DIST_SEN_L_FRONT].s_now > st_senF[DIST_SEN_L_FRONT].s_skewErr3 ){
 		*p_err = -300;
-//		printf("左前が超近い  [NOW]%d > [ERR3]%d", st_sen[DIST_SEN_L_FRONT].s_now, st_senF[DIST_SEN_L_FRONT].s_skewErr3 );
+//		printf("左前が�?近い  [NOW]%d > [ERR3]%d", st_sen[DIST_SEN_L_FRONT].s_now, st_senF[DIST_SEN_L_FRONT].s_skewErr3 );
 	}
 	else if( st_sen[DIST_SEN_R_FRONT].s_now > st_senF[DIST_SEN_R_FRONT].s_skewErr2 ){
 		*p_err = 200;
@@ -190,6 +190,7 @@ void DIST_Pol_FL( void )
 
 	st_sen[DIST_SEN_L_FRONT].s_old = st_sen[DIST_SEN_L_FRONT].s_now;
 	st_sen[DIST_SEN_L_FRONT].s_now = GetSensor_FL()- st_sen[DIST_SEN_L_FRONT].s_offset;
+	if(st_sen[DIST_SEN_L_FRONT].s_now>(65535/2))st_sen[DIST_SEN_L_FRONT].s_now =0;
 	ADC3_clearEOS();
 
 	Set_SenFL(0);
@@ -206,6 +207,7 @@ void DIST_Pol_FR( void )
 
 	st_sen[DIST_SEN_R_FRONT].s_old = st_sen[DIST_SEN_R_FRONT].s_now;
 	st_sen[DIST_SEN_R_FRONT].s_now = GetSensor_FR()- st_sen[DIST_SEN_R_FRONT].s_offset;
+	if(st_sen[DIST_SEN_R_FRONT].s_now>(65535/2))st_sen[DIST_SEN_R_FRONT].s_now =0;
 	ADC2_clearEOS();
 
 	Set_SenFR(0);
@@ -224,6 +226,7 @@ void DIST_Pol_SL( void )
 
 	st_sen[DIST_SEN_L_SIDE].s_old = st_sen[DIST_SEN_L_SIDE].s_now;
 	st_sen[DIST_SEN_L_SIDE].s_now = GetSensor_SL()- st_sen[DIST_SEN_L_SIDE].s_offset;
+	if(st_sen[DIST_SEN_L_SIDE].s_now>(65535/2))st_sen[DIST_SEN_L_SIDE].s_now =0;
 	ADC1_clearEOS();
 
 	Set_SenSL(0);
@@ -241,6 +244,7 @@ void DIST_Pol_SR( void )
 
 	st_sen[DIST_SEN_R_SIDE].s_old = st_sen[DIST_SEN_R_SIDE].s_now;
 	st_sen[DIST_SEN_R_SIDE].s_now = GetSensor_SR()- st_sen[DIST_SEN_R_SIDE].s_offset;
+	if(st_sen[DIST_SEN_R_SIDE].s_now>(65535/2))st_sen[DIST_SEN_R_SIDE].s_now =0;
 
 	Set_SenSR(0);
 
