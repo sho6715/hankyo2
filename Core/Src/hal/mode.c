@@ -330,19 +330,6 @@ void MODE_exe( void )
 
 		case MODE_2:
 			SetLED(0x0e);
-			LL_mDelay(500);
-			MOT_setTrgtSpeed(300.0);
-			MOT_setSuraStaSpeed( 300.0 );							
-			PARAM_setSpeedType( PARAM_ST,   PARAM_SLOW );							
-			PARAM_setSpeedType( PARAM_TRUN, PARAM_SLOW );							
-			PARAM_setSpeedType( PARAM_SLA,  PARAM_SLOW );							
-			SetLED(0x00);
-			LL_mDelay(500);
-
-			break;
-
-		case MODE_3:
-			SetLED(0x0e);
 			MOT_setTrgtSpeed(SEARCH_SPEED);
 			MOT_setSuraStaSpeed( SEARCH_SPEED );							
 			PARAM_setSpeedType( PARAM_ST,   PARAM_SLOW );							
@@ -350,7 +337,7 @@ void MODE_exe( void )
 			PARAM_setSpeedType( PARAM_SLA,  PARAM_SLOW );							
 			SetLED(0x00);
 			LL_mDelay(100);
-			PARAM_makeSra( (float)SEARCH_SPEED, 150.0f, 3.00f, SLA_90 );
+//			PARAM_makeSra( (float)SEARCH_SPEED, 150.0f, 3.00f, SLA_90 );
 			MAP_Goalsize(1);
 			MAP_setPos( 0, 0, NORTH );							
 
@@ -366,6 +353,47 @@ void MODE_exe( void )
 			SetLED(0x00);
 
 			MAP_searchGoal( 0, 0, SEARCH, SEARCH_SURA );
+
+			if (( SW_IsOn_1() == SW_ON)||(SYS_isOutOfCtrl() == TRUE)){}
+			else{
+				map_write();
+				MAP_setPos( 0, 0, NORTH );								// ??ｿｽ?ｿｽX??ｿｽ?ｿｽ^??ｿｽ?ｿｽ[??ｿｽ?ｿｽg??ｿｽ?ｿｽﾊ置
+				MAP_makeContourMap_run( GOAL_MAP_X_def, GOAL_MAP_Y_def, BEST_WAY );					// ??ｿｽ?ｿｽ??ｿｽ?ｿｽ??ｿｽ?ｿｽ??ｿｽ?ｿｽ??ｿｽ?ｿｽ??ｿｽ?ｿｽ??ｿｽ?ｿｽ}??ｿｽ?ｿｽb??ｿｽ?ｿｽv??ｿｽ?ｿｽ??ｿｽ?ｿｽ??ｿｽ?ｿｽ??ｿｽ?ｿｽ??ｿｽ?ｿｽ
+				MAP_makeCmdList( 0, 0, NORTH, GOAL_MAP_X_def, GOAL_MAP_Y_def, &en_endDir );		// ??ｿｽ?ｿｽh??ｿｽ?ｿｽ??ｿｽ?ｿｽ??ｿｽ?ｿｽC??ｿｽ?ｿｽu??ｿｽ?ｿｽR??ｿｽ?ｿｽ}??ｿｽ?ｿｽ??ｿｽ?ｿｽ??ｿｽ?ｿｽh??ｿｽ?ｿｽ??ｿｽ?ｿｽ
+				MAP_makeSuraCmdList();													// ??ｿｽ?ｿｽX??ｿｽ?ｿｽ??ｿｽ?ｿｽ??ｿｽ?ｿｽ??ｿｽ?ｿｽ??ｿｽ?ｿｽ[??ｿｽ?ｿｽ??ｿｽ?ｿｽ??ｿｽ?ｿｽR??ｿｽ?ｿｽ}??ｿｽ?ｿｽ??ｿｽ?ｿｽ??ｿｽ?ｿｽh??ｿｽ?ｿｽ??ｿｽ?ｿｽ
+				MAP_makeSkewCmdList();
+				SetLED(0x00);
+			}
+			break;
+
+			break;
+
+		case MODE_3:
+			SetLED(0x0e);
+			MOT_setTrgtSpeed(SEARCH_SPEED);
+			MOT_setSuraStaSpeed( SEARCH_SPEED );							
+			PARAM_setSpeedType( PARAM_ST,   PARAM_SLOW );							
+			PARAM_setSpeedType( PARAM_TRUN, PARAM_SLOW );							
+			PARAM_setSpeedType( PARAM_SLA,  PARAM_SLOW );							
+			SetLED(0x00);
+			LL_mDelay(100);
+//			PARAM_makeSra( (float)SEARCH_SPEED, 150.0f, 3.00f, SLA_90 );
+			MAP_Goalsize(1);
+			MAP_setPos( 0, 0, NORTH );							
+
+			MAP_searchGoal(GOAL_MAP_X_def, GOAL_MAP_Y_def, SEARCH, SEARCH_SURA );			
+
+			if (( SW_IsOn_1() == SW_ON)||(SYS_isOutOfCtrl() == TRUE)){}
+			else{
+				map_write();
+			}
+			
+			SetLED(0x0e);
+			MAP_Goalsize(1);
+			SetLED(0x00);
+
+//			MAP_searchGoal( 0, 0, SEARCH, SEARCH_SURA );
+			MAP_searchGoal( 0, 0, SEARCH, SEARCH_RETURN );
 
 			if (( SW_IsOn_1() == SW_ON)||(SYS_isOutOfCtrl() == TRUE)){}
 			else{
@@ -458,27 +486,42 @@ void MODE_exe( void )
 
 		case MODE_7:
 			SetLED(0x0e);
-			MOT_setTrgtSpeed(SEARCH_SPEED*4.0);
+			MOT_setTrgtSpeed(SEARCH_SPEED);
 			MOT_setSuraStaSpeed( SEARCH_SPEED );							
 			PARAM_setSpeedType( PARAM_ST,   PARAM_SLOW );							
 			PARAM_setSpeedType( PARAM_TRUN, PARAM_SLOW );							
 			PARAM_setSpeedType( PARAM_SLA,  PARAM_SLOW );							
 			SetLED(0x00);
-			MAP_setPos( 0, 0, NORTH );												// ??ｿｽ?ｿｽX??ｿｽ?ｿｽ^??ｿｽ?ｿｽ[??ｿｽ?ｿｽg??ｿｽ?ｿｽﾊ置
+			LL_mDelay(100);
+//			PARAM_makeSra( (float)SEARCH_SPEED, 150.0f, 3.00f, SLA_90 );
 			MAP_Goalsize(1);
-			MAP_makeContourMap_run( GOAL_MAP_X_def, GOAL_MAP_Y_def, BEST_WAY );					// ??ｿｽ?ｿｽ??ｿｽ?ｿｽ??ｿｽ?ｿｽ??ｿｽ?ｿｽ??ｿｽ?ｿｽ??ｿｽ?ｿｽ??ｿｽ?ｿｽ}??ｿｽ?ｿｽb??ｿｽ?ｿｽv??ｿｽ?ｿｽ??ｿｽ?ｿｽ??ｿｽ?ｿｽ??ｿｽ?ｿｽ??ｿｽ?ｿｽ
-			MAP_makeCmdList( 0, 0, NORTH, GOAL_MAP_X_def, GOAL_MAP_Y_def, &en_endDir );		// ??ｿｽ?ｿｽh??ｿｽ?ｿｽ??ｿｽ?ｿｽ??ｿｽ?ｿｽC??ｿｽ?ｿｽu??ｿｽ?ｿｽR??ｿｽ?ｿｽ}??ｿｽ?ｿｽ??ｿｽ?ｿｽ??ｿｽ?ｿｽh??ｿｽ?ｿｽ??ｿｽ?ｿｽ
-			MAP_makeSuraCmdList();													// ??ｿｽ?ｿｽX??ｿｽ?ｿｽ??ｿｽ?ｿｽ??ｿｽ?ｿｽ??ｿｽ?ｿｽ??ｿｽ?ｿｽ[??ｿｽ?ｿｽ??ｿｽ?ｿｽ??ｿｽ?ｿｽR??ｿｽ?ｿｽ}??ｿｽ?ｿｽ??ｿｽ?ｿｽ??ｿｽ?ｿｽh??ｿｽ?ｿｽ??ｿｽ?ｿｽ
-			MAP_makeSkewCmdList();													// ??ｿｽ?ｿｽﾎめコ??ｿｽ?ｿｽ}??ｿｽ?ｿｽ??ｿｽ?ｿｽ??ｿｽ?ｿｽh??ｿｽ?ｿｽ??ｿｽ?ｿｽ
-			LL_mDelay(500);
-			Set_DutyTIM8(600);
-			LL_mDelay(2000);													// ??ｿｽ?ｿｽﾎめコ??ｿｽ?ｿｽ}??ｿｽ?ｿｽ??ｿｽ?ｿｽ??ｿｽ?ｿｽh??ｿｽ?ｿｽ??ｿｽ?ｿｽ
-			MAP_drive( MAP_DRIVE_TURN );
-			Set_DutyTIM8(0);
-			LL_mDelay(500);
-			MOT_turn(MOT_R180);
-			MAP_actGoalLED();
-			Set_DutyTIM8(0);
+			MAP_setPos( 0, 0, NORTH );							
+
+			MAP_searchGoalKnown(GOAL_MAP_X_def, GOAL_MAP_Y_def, SEARCH, SEARCH_SURA );			
+
+			if (( SW_IsOn_1() == SW_ON)||(SYS_isOutOfCtrl() == TRUE)){}
+			else{
+				map_write();
+			}
+			
+			SetLED(0x0e);
+			MAP_Goalsize(1);
+			SetLED(0x00);
+
+//			MAP_searchGoal( 0, 0, SEARCH, SEARCH_SURA );
+			MAP_searchGoalKnown( 0, 0, SEARCH, SEARCH_RETURN );
+
+			if (( SW_IsOn_1() == SW_ON)||(SYS_isOutOfCtrl() == TRUE)){}
+			else{
+				map_write();
+				MAP_setPos( 0, 0, NORTH );								// ??ｿｽ?ｿｽX??ｿｽ?ｿｽ^??ｿｽ?ｿｽ[??ｿｽ?ｿｽg??ｿｽ?ｿｽﾊ置
+				MAP_makeContourMap_run( GOAL_MAP_X_def, GOAL_MAP_Y_def, BEST_WAY );					// ??ｿｽ?ｿｽ??ｿｽ?ｿｽ??ｿｽ?ｿｽ??ｿｽ?ｿｽ??ｿｽ?ｿｽ??ｿｽ?ｿｽ??ｿｽ?ｿｽ}??ｿｽ?ｿｽb??ｿｽ?ｿｽv??ｿｽ?ｿｽ??ｿｽ?ｿｽ??ｿｽ?ｿｽ??ｿｽ?ｿｽ??ｿｽ?ｿｽ
+				MAP_makeCmdList( 0, 0, NORTH, GOAL_MAP_X_def, GOAL_MAP_Y_def, &en_endDir );		// ??ｿｽ?ｿｽh??ｿｽ?ｿｽ??ｿｽ?ｿｽ??ｿｽ?ｿｽC??ｿｽ?ｿｽu??ｿｽ?ｿｽR??ｿｽ?ｿｽ}??ｿｽ?ｿｽ??ｿｽ?ｿｽ??ｿｽ?ｿｽh??ｿｽ?ｿｽ??ｿｽ?ｿｽ
+				MAP_makeSuraCmdList();													// ??ｿｽ?ｿｽX??ｿｽ?ｿｽ??ｿｽ?ｿｽ??ｿｽ?ｿｽ??ｿｽ?ｿｽ??ｿｽ?ｿｽ[??ｿｽ?ｿｽ??ｿｽ?ｿｽ??ｿｽ?ｿｽR??ｿｽ?ｿｽ}??ｿｽ?ｿｽ??ｿｽ?ｿｽ??ｿｽ?ｿｽh??ｿｽ?ｿｽ??ｿｽ?ｿｽ
+				MAP_makeSkewCmdList();
+				SetLED(0x00);
+			}
+			break;
 
 			break;
 

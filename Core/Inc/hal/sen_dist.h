@@ -23,14 +23,14 @@
 #define DIST_NO_WALL_DIV_FILTER				( 20 )
 #define DIST_REF_UP					( 30 )
 
-#define R_FRONT_REF					(450)
+#define R_FRONT_REF					(430)
 #define L_FRONT_REF					(560)//( 210 )
-#define R_SIDE_REF					(450)//( 240 )
-#define L_SIDE_REF					(450)//( 200 )
-#define R_FRONT_WALL					(75)//( 45 )
-#define L_FRONT_WALL					(75)//( 45 )
-#define R_SIDE_WALL					(180)//( 110 )
-#define L_SIDE_WALL					(200)//( 70 )
+#define R_SIDE_REF					(400)//( 240 )
+#define L_SIDE_REF					(200)//( 200 )
+#define R_FRONT_WALL					(65)//( 45 )
+#define L_FRONT_WALL					(65)//( 45 )
+#define R_SIDE_WALL					(120)//( 110 )
+#define L_SIDE_WALL					(120)//( 70 )
 #define R_FRONT_SKEW_ERR1				( 80 )//仮
 #define L_FRONT_SKEW_ERR1				( 70 )
 #define R_FRONT_SKEW_ERR2				( 192 )
@@ -43,14 +43,14 @@
 #define L_FRONT_NOCTRL					(1200)//( 450 )
 
 
-/*距離センサポ�?�リングタイ�?*/
+/*距離センサポ�?�リングタイ�?*/
 typedef enum{
 	DIST_POL_FRONT = 0,
 	DIST_POL_SIDE,
 	DISR_POL_MAX
 }enDIST_POL;
 
-/*距離センサ動作状�?*/
+/*距離センサ動作状�?*/
 typedef enum{
 	DIST_STANDBAY = 0,
 	DIST_NO_CTRL,
