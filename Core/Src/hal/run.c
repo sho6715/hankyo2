@@ -196,7 +196,6 @@ void MOT_goBlock_AccConstDec( float f_fin, enMOT_ST_TYPE en_type, enMOT_GO_ST_TY
 	/* -------------------- */
 	/* not found edge */
 	if( ( en_WallEdge != MOT_WALL_EDGE_NONE ) && ( bl_IsWallEdge == FALSE )  ){
-
 		st_data.en_type			= CTRL_CONST;
 		st_data.f_acc			= 0;						// �?速度�?�?
 		st_data.f_now			= st_Info.f_last;			// 現在速度
@@ -843,7 +842,7 @@ void MOT_turn( enMOT_TURN_CMD en_type )
 	st_data.f_time 			= 0;						// 目標時�? [sec] �? �?定しな�?
 	CTRL_setData( &st_data );							// �?ータセ�?�?
 	if( ( en_type == MOT_R90 ) || ( en_type == MOT_R180 ) || ( en_type == MOT_R360 ) ){		// -方�?
-		while( Get_NowAngle() > ( st_info.f_angle-0.002) ){		// �?定距離到達�?ち
+		while( Get_NowAngle() > ( st_info.f_angle-0.004) ){		// �?定距離到達�?ち
 //			DCMC_getAngleSpeedFB(&f_err);
 //			printf("[NOW]%d [Trgt]%d [TrgtS]%d  \n\r", (int32_t)f_NowAngle, (int32_t)f_TrgtAngle, (int32_t)f_TrgtAngleS );
 			if( SYS_isOutOfCtrl() == TRUE ){
@@ -852,11 +851,11 @@ void MOT_turn( enMOT_TURN_CMD en_type )
 				DCM_brakeMot( DCM_L );		// ブレーキ
 				break;
 			}				// 途中で制御不�?�になっ�?
-			if((escape_wait>2.0)&&(search_flag == TRUE))break;
+			if((escape_wait>0.5)&&(search_flag == TRUE))break;
 		}
 	}
 	else{
-		while( Get_NowAngle() < ( st_info.f_angle+0.002 ) ){		// �?定距離到達�?ち
+		while( Get_NowAngle() < ( st_info.f_angle+0.004 ) ){		// �?定距離到達�?ち
 //			DCMC_getAngleSpeedFB(&f_err);
 //			printf("[NOW]%d [Trgt]%d [TrgtS]%d  \n\r", (int32_t)f_NowAngle, (int32_t)f_TrgtAngle, (int32_t)f_TrgtAngleS);
 			if( SYS_isOutOfCtrl() == TRUE ){
@@ -865,7 +864,7 @@ void MOT_turn( enMOT_TURN_CMD en_type )
 				DCM_brakeMot( DCM_L );		// ブレーキ
 				break;
 			}				// 途中で制御不�?�になっ�?
-			if((escape_wait>2.0)&&(search_flag == TRUE))break;
+			if((escape_wait>0.5)&&(search_flag == TRUE))break;
 //			log_in(f_TrgtAngle);
 		}
 	}
@@ -1258,13 +1257,12 @@ bool MOT_setWallEdgeDist( void )
 {
 	float f_addDist;
 
+//	f_addDist = Get_NowDist() + MOT_WALL_EDGE_DIST;		// 旋回開始位置
+
 	/* 壁�?��?れ目を検知して�?な�? */
 	if( ( bl_IsWallEdge == FALSE ) || ( en_WallEdge == MOT_WALL_EDGE_NONE ) ){		// 壁�??れ設定されて�?な�?か、検�?�して�?な�?場合�?�処�?を抜ける
-
 		return FALSE;
 	}
-
-	f_addDist = Get_NowDist() + MOT_WALL_EDGE_DIST;		// 旋回開始位置
 
 	/* 多く走る�?要がある */
 	if( f_addDist > st_Info.f_dist ){
@@ -1275,11 +1273,11 @@ bool MOT_setWallEdgeDist( void )
 	/* 壁�?��?れ目補正の変数を�?�期�? */
 	en_WallEdge   = MOT_WALL_EDGE_NONE;		// 壁�?��?れ目タイ�?
 	bl_IsWallEdge = FALSE;					// 壁�?��?れ目検知
-
 	return TRUE;
 }
 bool MOT_setWallEdgeDist_LoopWait( void )
 {
+	SetLED(0x11);
 	/* 壁�?��?れ目を検知して�?な�? */
 	if( bl_IsWallEdge == FALSE ){		// 壁�??れ設定されて�?な�?か、検�?�して�?な�?場合�?�処�?を抜ける
 

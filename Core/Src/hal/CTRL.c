@@ -568,7 +568,10 @@ void CTRL_getSpeedFB( float* p_err )
 	*p_err = f_speedErr * f_kp + f_SpeedErrSum* f_ki + ( f_speedErr - f_ErrSpeedBuf ) * f_kd;				// PI制御量算�???��?��
 
 	f_ErrSpeedBuf = f_speedErr;		// 偏差をバ??��?��?ファリング
-
+/*	if((f_speedErr>1.5)||(f_speedErr<-1.5)){
+		Failsafe_flag();
+	}
+*/
 }
 
 void CTRL_getAngleSpeedFB( float* p_err )
@@ -596,6 +599,11 @@ void CTRL_getAngleSpeedFB( float* p_err )
 	*p_err = f_err * f_kp + f_AngleSErrSum*f_ki + ( f_err - f_ErrAngleSBuf ) * f_kd;		// PID制御
 
 	f_ErrAngleSBuf = f_err;		// 偏差をバ??��?��?ファリング
+	if((f_err>14.0)||(f_err<-14.0)){
+		if(!(en_Type == CTRL_HIT_WALL)){
+			Failsafe_flag();
+		}
+	}
 }
 
 void CTRL_getSenFB( float* p_err )
@@ -644,17 +652,17 @@ void CTRL_getFloorFriction(float* p_err){
 	if( ( en_Type == CTRL_ACC_SURA ) || (en_Type == CTRL_CONST_SURA)||( en_Type == CTRL_DEC_SURA ) ){
 		if(f_TrgtAngleS<0){
 			if(Get_NowAngle() < -0.002)
-				*p_err = (-1)*0.35/1000.0 + (-1)*0.3/1000.0+f_TrgtAngleS*FABS(f_TrgtAngleS)*tread/2/PI/2200.0;
+				*p_err = (-1)*0.37/1000.0 + (-1)*0.32/1000.0+f_TrgtAngleS*FABS(f_TrgtAngleS)*tread/2/PI/2200.0;
 	//			*p_err = (-1)*0.35/1000.0 + (-1)*0.45/1000.0+f_TrgtAngleS*tread/2/PI/109.0;
 			else
-				*p_err = (-1)*0.3/1000.0;
+				*p_err = (-1)*0.37/1000.0;
 			}
 		else if(f_TrgtAngleS>0){
 			if(Get_NowAngle() > 0.002)
-				*p_err = 0.35/1000.0 + 0.3/1000.0+f_TrgtAngleS*FABS(f_TrgtAngleS)*tread/2/PI/2200.0;
+				*p_err = 0.37/1000.0 + 0.32/1000.0+f_TrgtAngleS*FABS(f_TrgtAngleS)*tread/2/PI/2200.0;
 	//			*p_err = 0.35/1000.0 + 0.45/1000.0+f_TrgtAngleS*tread/2/PI/109.0;
 			else
-				*p_err = 0.35/1000.0;
+				*p_err = 0.37/1000.0;
 		}else{
 			*p_err = 0;
 		}
@@ -662,17 +670,17 @@ void CTRL_getFloorFriction(float* p_err){
 	else{
 		if(f_TrgtAngleS<0){
 			if(Get_NowAngle() < -0.002)
-				*p_err = (-1)*0.4/1000.0 + (-1)*0.44/1000.0+f_TrgtAngleS*FABS(f_TrgtAngleS)*tread/2/PI/740.0;
+				*p_err = (-1)*0.42/1000.0 + (-1)*0.46/1000.0+f_TrgtAngleS*FABS(f_TrgtAngleS)*tread/2/PI/740.0;
 	//			*p_err = (-1)*0.35/1000.0 + (-1)*0.45/1000.0+f_TrgtAngleS*tread/2/PI/109.0;
 			else
-				*p_err = (-1)*0.35/1000.0;
+				*p_err = (-1)*0.37/1000.0;
 			}
 		else if(f_TrgtAngleS>0){
 			if(Get_NowAngle() > 0.002)
-				*p_err = 0.4/1000.0 + 0.44/1000.0+f_TrgtAngleS*FABS(f_TrgtAngleS)*tread/2/PI/740.0;
+				*p_err = 0.42/1000.0 + 0.46/1000.0+f_TrgtAngleS*FABS(f_TrgtAngleS)*tread/2/PI/740.0;
 	//			*p_err = 0.35/1000.0 + 0.45/1000.0+f_TrgtAngleS*tread/2/PI/109.0;
 			else
-				*p_err = 0.35/1000.0;
+				*p_err = 0.37/1000.0;
 		}else{
 			*p_err = 0;
 		}
@@ -788,8 +796,8 @@ void CTRL_pol( void )
 
 	/* 壁あて制御 */
 	else if( en_Type == CTRL_HIT_WALL ){
-		TR = (TIRE_D/2/2)*(Weight*(f_feedFoard_speed * FF_HIT_BALANCE_R/1500.0 ));		// 右モータPWM-DUTY比[0.1%]
-		TL = (TIRE_D/2/2)*(Weight*(f_feedFoard_speed * FF_HIT_BALANCE_R/1500.0 ));
+		TR = (TIRE_D/2/2)*(Weight*(f_feedFoard_speed * FF_HIT_BALANCE_R/1800.0 ));		// 右モータPWM-DUTY比[0.1%]
+		TL = (TIRE_D/2/2)*(Weight*(f_feedFoard_speed * FF_HIT_BALANCE_R/1800.0 ));
 		Ir = (TR-0.0255/1000.0)/Torque_constant;
 		Il = (TL-0.0255/1000.0)/Torque_constant;
 	}
@@ -845,7 +853,6 @@ void CTRL_pol( void )
 
 		/* 壁抜??��?��? */
 		if( DIST_isWall_R_SIDE() == FALSE ){
-
 			MOT_setWallEdge( TRUE );		// ?��???��?��???��?��??��?��?れ目を検知
 		}
 	}
@@ -853,7 +860,6 @@ void CTRL_pol( void )
 
 		/* 壁抜??��?��? */
 		if( DIST_isWall_L_SIDE() == FALSE ){
-
 			MOT_setWallEdge( TRUE );		// ?��???��?��???��?��??��?��?れ目を検知
 		}
 	}
@@ -872,12 +878,7 @@ void Failsafe_flag_off(void)
 
 bool SYS_isOutOfCtrl( void )
 {
-	if( bl_failsafe == TRUE ){
-		return TRUE;
-	}
-	else{
-		return FALSE;
-	}
+	return bl_failsafe;
 }
 
 

@@ -27,18 +27,18 @@
 #define L_FRONT_REF					(560)//( 210 )
 #define R_SIDE_REF					(400)//( 240 )
 #define L_SIDE_REF					(200)//( 200 )
-#define R_FRONT_WALL					(65)//( 45 )
-#define L_FRONT_WALL					(65)//( 45 )
-#define R_SIDE_WALL					(120)//( 110 )
-#define L_SIDE_WALL					(120)//( 70 )
+#define R_FRONT_WALL					(55)//( 45 )
+#define L_FRONT_WALL					(50)//( 45 )
+#define R_SIDE_WALL					(105)//( 110 )
+#define L_SIDE_WALL					(85)//( 70 )
 #define R_FRONT_SKEW_ERR1				( 80 )//仮
 #define L_FRONT_SKEW_ERR1				( 70 )
 #define R_FRONT_SKEW_ERR2				( 192 )
 #define L_FRONT_SKEW_ERR2				( 160 )
 #define R_FRONT_SKEW_ERR3				( 250 )
 #define L_FRONT_SKEW_ERR3				( 250 )
-#define R_FRONT_CTRL					(500)//( 370 )	//maekabehoseiniryuuyou
-#define L_FRONT_CTRL					(620)//( 300 )
+#define R_FRONT_CTRL					(520)//( 370 )	//maekabehoseiniryuuyou
+#define L_FRONT_CTRL					(640)//( 300 )
 #define R_FRONT_NOCTRL					(1000)//( 530 )
 #define L_FRONT_NOCTRL					(1200)//( 450 )
 

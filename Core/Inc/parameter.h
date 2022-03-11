@@ -32,16 +32,16 @@
 #define DEG_TO_RAD  (3.1416f/180.0f)
 #define RAD_TO_DEG  (180.0f/3.1416f)
 
-#define MOT_WALL_EDGE_DIST			( 0.028f )
+#define MOT_WALL_EDGE_DIST			( 0.040f )//28
 
 #define 		f_FB_speed_kp		(35.0)
 #define 		f_FB_speed_ki		(4.0)
 #define 		f_FB_speed_kd		(0.5)
-#define		f_FB_angleS_kp		(130.0)//130
-#define		f_FB_angleS_ki		(9.5)//9.5
-#define		f_FB_angleS_kd		(0.2)//0.2
-#define		f_FB_wall_kp		(0.5)
-#define		f_FB_wall_kd		(0.1)
+#define		f_FB_angleS_kp		(140.0)//130
+#define		f_FB_angleS_ki		(10.5)//9.5
+#define		f_FB_angleS_kd		(0.4)//0.2
+#define		f_FB_wall_kp		(0.6)
+#define		f_FB_wall_kd		(0.3)
 
 /*
 #define 		f_FB_speed_kp		(10.0)

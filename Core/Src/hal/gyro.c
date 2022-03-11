@@ -143,12 +143,12 @@ void GYRO_Pol( void )
 	if( bl_ErrChk == TRUE ){
 
 		f_ErrChkAngle += f_speed/1000;		// 角度設�?   (0.001sec毎に�?算するた�?)
-
-		if( ( f_ErrChkAngle < -500 ) || ( 500 < f_ErrChkAngle )||(f_speed <-1500)||(1500<f_speed) ){
+/*
+		if( ( f_ErrChkAngle < -0.5 ) || ( 0.5 < f_ErrChkAngle )){//||(f_speed <-1.500)||(1.500<f_speed) ){
 
 			Failsafe_flag();
 		}
-
+*/
 	}
 }
 
