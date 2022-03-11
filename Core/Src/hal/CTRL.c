@@ -652,14 +652,14 @@ void CTRL_getFloorFriction(float* p_err){
 	if( ( en_Type == CTRL_ACC_SURA ) || (en_Type == CTRL_CONST_SURA)||( en_Type == CTRL_DEC_SURA ) ){
 		if(f_TrgtAngleS<0){
 			if(Get_NowAngle() < -0.002)
-				*p_err = (-1)*0.37/1000.0 + (-1)*0.32/1000.0+f_TrgtAngleS*FABS(f_TrgtAngleS)*tread/2/PI/2200.0;
+				*p_err = (-1)*0.38/1000.0 + (-1)*0.43/1000.0+f_TrgtAngleS*FABS(f_TrgtAngleS)*tread/2/PI/2300.0;
 	//			*p_err = (-1)*0.35/1000.0 + (-1)*0.45/1000.0+f_TrgtAngleS*tread/2/PI/109.0;
 			else
 				*p_err = (-1)*0.37/1000.0;
 			}
 		else if(f_TrgtAngleS>0){
 			if(Get_NowAngle() > 0.002)
-				*p_err = 0.37/1000.0 + 0.32/1000.0+f_TrgtAngleS*FABS(f_TrgtAngleS)*tread/2/PI/2200.0;
+				*p_err = 0.38/1000.0 + 0.43/1000.0+f_TrgtAngleS*FABS(f_TrgtAngleS)*tread/2/PI/2300.0;
 	//			*p_err = 0.35/1000.0 + 0.45/1000.0+f_TrgtAngleS*tread/2/PI/109.0;
 			else
 				*p_err = 0.37/1000.0;
@@ -670,14 +670,14 @@ void CTRL_getFloorFriction(float* p_err){
 	else{
 		if(f_TrgtAngleS<0){
 			if(Get_NowAngle() < -0.002)
-				*p_err = (-1)*0.42/1000.0 + (-1)*0.46/1000.0+f_TrgtAngleS*FABS(f_TrgtAngleS)*tread/2/PI/740.0;
+				*p_err = (-1)*0.43/1000.0 + (-1)*0.46/1000.0+f_TrgtAngleS*FABS(f_TrgtAngleS)*tread/2/PI/740.0;
 	//			*p_err = (-1)*0.35/1000.0 + (-1)*0.45/1000.0+f_TrgtAngleS*tread/2/PI/109.0;
 			else
 				*p_err = (-1)*0.37/1000.0;
 			}
 		else if(f_TrgtAngleS>0){
 			if(Get_NowAngle() > 0.002)
-				*p_err = 0.42/1000.0 + 0.46/1000.0+f_TrgtAngleS*FABS(f_TrgtAngleS)*tread/2/PI/740.0;
+				*p_err = 0.43/1000.0 + 0.46/1000.0+f_TrgtAngleS*FABS(f_TrgtAngleS)*tread/2/PI/740.0;
 	//			*p_err = 0.35/1000.0 + 0.45/1000.0+f_TrgtAngleS*tread/2/PI/109.0;
 			else
 				*p_err = 0.37/1000.0;

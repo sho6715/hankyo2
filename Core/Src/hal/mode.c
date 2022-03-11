@@ -27,6 +27,8 @@ uint8_t now_mode = mode_1;
 
 enMODE		en_Mode;		//現在のモー??��?��?
 
+extern uint8_t			SLA_count;
+
 void SYS_start( void )
 {
 	/* タイトル表示 */
@@ -389,6 +391,7 @@ void MODE_exe_m2( void )
 
 		case MODE_3:
 			SetLED(0x0e);
+			
 			break;
 
 		case MODE_4:
@@ -710,9 +713,15 @@ void MODE_exe( void )
 
 		case MODE_4:
 			SetLED(0x0e);
+			SLA_count = 20;
+			LL_mDelay(500);
+			SetLED(0x0e);
 			break;
 
 		case MODE_5:
+			SetLED(0x0e);
+			SLA_count = 30;
+			LL_mDelay(500);
 			SetLED(0x0e);
 			break;
 
