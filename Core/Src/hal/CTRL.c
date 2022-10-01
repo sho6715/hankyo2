@@ -29,12 +29,12 @@ float			f_MotorL_AngleS = 0;
 
 // dist
 float			f_BaseDist		= 0;		// [dist]   initial distance[m]		(set value)
-float			f_LastDist 		= 0;		// [è·é›¢åˆ¶å¾¡]   æœ€çµ‚ç§»å‹•è·é›¢					???ï¿½ï¿½?ï¿½ï¿½??ï¿½ï¿½?ï¿½ï¿½è¨­å®šå€¤???ï¿½ï¿½?ï¿½ï¿½?
-float			f_TrgtDist 		= 0;		// [è·é›¢åˆ¶å¾¡]   ç›®æ¨™ç§»å‹•è·é›¢					???ï¿½ï¿½?ï¿½ï¿½?1[msec]æ¯ã«æ›´æ–°ã•ã‚Œã‚‹ï¿½?
-volatile float 		f_NowDist		= 0;		// [è·é›¢åˆ¶å¾¡]   ç¾åœ¨è·é›¢						???ï¿½ï¿½?ï¿½ï¿½?1[msec]æ¯ã«æ›´æ–°ã•ã‚Œã‚‹ï¿½?
-float			f_NowDistR		= 0;		// [è·é›¢åˆ¶å¾¡]   ç¾åœ¨è·é›¢???ï¿½ï¿½?ï¿½ï¿½??ï¿½ï¿½?ï¿½ï¿½å³???ï¿½ï¿½?ï¿½ï¿½?					???ï¿½ï¿½?ï¿½ï¿½?1[msec]æ¯ã«æ›´æ–°ã•ã‚Œã‚‹ï¿½?
-float 			f_NowDistL		= 0;		// [è·é›¢åˆ¶å¾¡]   ç¾åœ¨è·é›¢???ï¿½ï¿½?ï¿½ï¿½??ï¿½ï¿½?ï¿½ï¿½å·¦???ï¿½ï¿½?ï¿½ï¿½?					???ï¿½ï¿½?ï¿½ï¿½?1[msec]æ¯ã«æ›´æ–°ã•ã‚Œã‚‹ï¿½?
-float			f_DistErrSum 		= 0;		// [è·é›¢åˆ¶å¾¡]   è·é›¢ç©ï¿½??åˆ¶å¾¡ã®ã‚µ??ï¿½ï¿½?ï¿½ï¿½?å€¤			???ï¿½ï¿½?ï¿½ï¿½?1[msec]æ¯ã«æ›´æ–°ã•ã‚Œã‚‹ï¿½?
+float			f_LastDist 		= 0;		// [è·é›¢åˆ¶å¾¡]   æœ€çµ‚ç§»å‹•è·é›¢					????¿½?¿½??¿½?¿½???¿½?¿½??¿½?¿½è¨­å®šå€¤????¿½?¿½??¿½?¿½?
+float			f_TrgtDist 		= 0;		// [è·é›¢åˆ¶å¾¡]   ç›®æ¨™ç§»å‹•è·é›¢					????¿½?¿½??¿½?¿½?1[msec]æ¯ã«æ›´æ–°ã•ã‚Œã‚‹ï¿½?
+volatile float 		f_NowDist		= 0;		// [è·é›¢åˆ¶å¾¡]   ç¾åœ¨è·é›¢						????¿½?¿½??¿½?¿½?1[msec]æ¯ã«æ›´æ–°ã•ã‚Œã‚‹ï¿½?
+float			f_NowDistR		= 0;		// [è·é›¢åˆ¶å¾¡]   ç¾åœ¨è·é›¢????¿½?¿½??¿½?¿½???¿½?¿½??¿½?¿½å³????¿½?¿½??¿½?¿½?					????¿½?¿½??¿½?¿½?1[msec]æ¯ã«æ›´æ–°ã•ã‚Œã‚‹ï¿½?
+float 			f_NowDistL		= 0;		// [è·é›¢åˆ¶å¾¡]   ç¾åœ¨è·é›¢????¿½?¿½??¿½?¿½???¿½?¿½??¿½?¿½å·¦????¿½?¿½??¿½?¿½?					????¿½?¿½??¿½?¿½?1[msec]æ¯ã«æ›´æ–°ã•ã‚Œã‚‹ï¿½?
+float			f_DistErrSum 		= 0;		// [è·é›¢åˆ¶å¾¡]   è·é›¢ç©ï¿½??åˆ¶å¾¡ã®ã‚µ???¿½?¿½??¿½?¿½?å€¤			????¿½?¿½??¿½?¿½?1[msec]æ¯ã«æ›´æ–°ã•ã‚Œã‚‹ï¿½?
 // angular velocity control
 float 			f_AccAngleS		= 0;		// [angle velocity control] angular acceleration[rad/s2]	(set value)
 float			f_BaseAngleS		= 0;		// [angle velocity control] initial angular velocity[rad/s]		(set value)
@@ -43,19 +43,19 @@ float			f_TrgtAngleS 		= 0;		// [angle velocity control] target angular velocity
 float			f_ErrAngleSBuf		= 0;		// [angle velocity control] angular velocity buffer	(updated 1[msec])
 float			f_AngleSErrSum 		= 0;		// [angle velocity control] sum of angular velocity integral contorol	(updated 1[msec])
 // angle
-float			f_BaseAngle		= 0;		// [è§’åº¦åˆ¶å¾¡]   åˆæœŸè§’åº¦						???ï¿½ï¿½?ï¿½ï¿½??ï¿½ï¿½?ï¿½ï¿½è¨­å®šå€¤???ï¿½ï¿½?ï¿½ï¿½?
-float			f_LastAngle 		= 0;		// [è§’åº¦åˆ¶å¾¡]   æœ€çµ‚ç›®æ¨™è§’åº¦					???ï¿½ï¿½?ï¿½ï¿½??ï¿½ï¿½?ï¿½ï¿½è¨­å®šå€¤???ï¿½ï¿½?ï¿½ï¿½?
-volatile float 		f_NowAngle		= 0;		// [è§’åº¦åˆ¶å¾¡]   ç¾åœ¨è§’åº¦ã€€	volatileã‚’ã¤ã‘ãª??ï¿½ï¿½?ï¿½ï¿½?ã¨whileã‹ã‚‰æŠœã‘ã‚‰ã‚Œãªããªã‚‹ï¼ˆæœ€é©åŒ–ï¿½???ï¿½ï¿½?ï¿½ï¿½ã›ã„???ï¿½ï¿½?ï¿½ï¿½??ï¿½ï¿½?ï¿½ï¿½??ï¿½ï¿½?ï¿½ï¿½?1[msec]æ¯ã«æ›´æ–°ã•ã‚Œã‚‹ï¿½?
-float			f_TrgtAngle 		= 0;		// [è§’åº¦åˆ¶å¾¡]   ç›®æ¨™è§’åº¦						???ï¿½ï¿½?ï¿½ï¿½?1[msec]æ¯ã«æ›´æ–°ã•ã‚Œã‚‹ï¿½?
-float			f_AngleErrSum 		= 0;		// [è§’åº¦åˆ¶å¾¡]   è§’åº¦ç©ï¿½??åˆ¶å¾¡ã®ã‚µ??ï¿½ï¿½?ï¿½ï¿½?å€¤			???ï¿½ï¿½?ï¿½ï¿½?1[msec]æ¯ã«æ›´æ–°ã•ã‚Œã‚‹ï¿½?
+float			f_BaseAngle		= 0;		// [è§’åº¦åˆ¶å¾¡]   åˆæœŸè§’åº¦						????¿½?¿½??¿½?¿½???¿½?¿½??¿½?¿½è¨­å®šå€¤????¿½?¿½??¿½?¿½?
+float			f_LastAngle 		= 0;		// [è§’åº¦åˆ¶å¾¡]   æœ€çµ‚ç›®æ¨™è§’åº¦					????¿½?¿½??¿½?¿½???¿½?¿½??¿½?¿½è¨­å®šå€¤????¿½?¿½??¿½?¿½?
+volatile float 		f_NowAngle		= 0;		// [è§’åº¦åˆ¶å¾¡]   ç¾åœ¨è§’åº¦ã€€	volatileã‚’ã¤ã‘ãª???¿½?¿½??¿½?¿½?ã¨whileã‹ã‚‰æŠœã‘ã‚‰ã‚Œãªããªã‚‹ï¼ˆæœ€é©åŒ–ï¿½????¿½?¿½??¿½?¿½ã›ã„????¿½?¿½??¿½?¿½???¿½?¿½??¿½?¿½???¿½?¿½??¿½?¿½?1[msec]æ¯ã«æ›´æ–°ã•ã‚Œã‚‹ï¿½?
+float			f_TrgtAngle 		= 0;		// [è§’åº¦åˆ¶å¾¡]   ç›®æ¨™è§’åº¦						????¿½?¿½??¿½?¿½?1[msec]æ¯ã«æ›´æ–°ã•ã‚Œã‚‹ï¿½?
+float			f_AngleErrSum 		= 0;		// [è§’åº¦åˆ¶å¾¡]   è§’åº¦ç©ï¿½??åˆ¶å¾¡ã®ã‚µ???¿½?¿½??¿½?¿½?å€¤			????¿½?¿½??¿½?¿½?1[msec]æ¯ã«æ›´æ–°ã•ã‚Œã‚‹ï¿½?
 // wall control
 int32_t 			l_WallErr 		= 0;		// [wall control]     wall error		(updated 1[msec])
 float			f_ErrDistBuf		= 0;		// [wall control]     wall error buffer	(updated 1[msec])	
 
 //fail safe
-float  			f_ErrChkAngle; 			  // ã‚¸ãƒ£ã‚¤ãƒ­ã‚»ãƒ³ã‚µã®ã‚¨ãƒ©ãƒ¼æ¤œï¿½???ï¿½ï¿½?ï¿½ï¿½ç”¨ã®è§’åº¦
-bool   			bl_ErrChk; 				  // ã‚¸ãƒ£ã‚¤ãƒ­ã‚»ãƒ³ã‚µã®ã‚¨ãƒ©ãƒ¼æ¤œï¿½???ï¿½ï¿½?ï¿½ï¿½???ï¿½ï¿½?ï¿½ï¿½?FALSE???ï¿½ï¿½?ï¿½ï¿½??ï¿½ï¿½?ï¿½ï¿½æ¤œçŸ¥ã—ãª??ï¿½ï¿½?ï¿½ï¿½?ã€TRUE???ï¿½ï¿½?ï¿½ï¿½??ï¿½ï¿½?ï¿½ï¿½æ¤œçŸ¥ã™ã‚‹???ï¿½ï¿½?ï¿½ï¿½?
-bool			bl_failsafe		= FALSE;	// ãƒã‚¦ã‚¹ãŒï¿½???ï¿½ï¿½?ï¿½ï¿½åˆ¶å¾¡ä¸ï¿½???ï¿½ï¿½?ï¿½ï¿½???ï¿½ï¿½?ï¿½ï¿½?TRUE???ï¿½ï¿½?ï¿½ï¿½??ï¿½ï¿½?ï¿½ï¿½åˆ¶å¾¡ä¸ï¿½???ï¿½ï¿½?ï¿½ï¿½ã€FALSE???ï¿½ï¿½?ï¿½ï¿½??ï¿½ï¿½?ï¿½ï¿½åˆ¶å¾¡å¯èƒ½???ï¿½ï¿½?ï¿½ï¿½?
+float  			f_ErrChkAngle; 			  // ã‚¸ãƒ£ã‚¤ãƒ­ã‚»ãƒ³ã‚µã®ã‚¨ãƒ©ãƒ¼æ¤œï¿½????¿½?¿½??¿½?¿½ç”¨ã®è§’åº¦
+bool   			bl_ErrChk; 				  // ã‚¸ãƒ£ã‚¤ãƒ­ã‚»ãƒ³ã‚µã®ã‚¨ãƒ©ãƒ¼æ¤œï¿½????¿½?¿½??¿½?¿½????¿½?¿½??¿½?¿½?FALSE????¿½?¿½??¿½?¿½???¿½?¿½??¿½?¿½æ¤œçŸ¥ã—ãª???¿½?¿½??¿½?¿½?ã€TRUE????¿½?¿½??¿½?¿½???¿½?¿½??¿½?¿½æ¤œçŸ¥ã™ã‚‹????¿½?¿½??¿½?¿½?
+bool			bl_failsafe		= FALSE;	// ãƒã‚¦ã‚¹ãŒï¿½????¿½?¿½??¿½?¿½åˆ¶å¾¡ä¸ï¿½????¿½?¿½??¿½?¿½????¿½?¿½??¿½?¿½?TRUE????¿½?¿½??¿½?¿½???¿½?¿½??¿½?¿½åˆ¶å¾¡ä¸ï¿½????¿½?¿½??¿½?¿½ã€FALSE????¿½?¿½??¿½?¿½???¿½?¿½??¿½?¿½åˆ¶å¾¡å¯èƒ½????¿½?¿½??¿½?¿½?
 
 
 float Get_NowSpeed(void){
@@ -93,11 +93,11 @@ float Get_TrgtAngleS(void){
 void INTC_sys(void)
 {
 	Msec_in++;					// msec
-	if( Msec_in > 999 ){		// msec ??ï¿½ï¿½?ï¿½ï¿½? sec
+	if( Msec_in > 999 ){		// msec ???¿½?¿½??¿½?¿½? sec
 		Msec_in  = 0;
 		Sec_in++;
 	}
-	if( Sec_in > 59 ){			// sec ??ï¿½ï¿½?ï¿½ï¿½? min
+	if( Sec_in > 59 ){			// sec ???¿½?¿½??¿½?¿½? min
 		Sec_in = 0;
 		Min_in++;
 	}
@@ -119,7 +119,7 @@ void CTRL_stop( void )
 
 void CTRL_clrData( void )
 {
-//	recv_spi_encoder();								// ã‚¨ãƒ³ã‚³ãƒ¼ãƒ€ãƒ¢ã‚¸ãƒ¥ãƒ¼ãƒ«åˆæœŸ??ï¿½ï¿½?ï¿½ï¿½?
+//	recv_spi_encoder();								// ã‚¨ãƒ³ã‚³ãƒ¼ãƒ€ãƒ¢ã‚¸ãƒ¥ãƒ¼ãƒ«åˆæœŸ???¿½?¿½??¿½?¿½?
 //	ENC_R_CNT_old	= ENC_R_CNT;
 //	ENC_L_CNT_old	= ENC_L_CNT;
 /*	ENC_setref();
@@ -127,27 +127,27 @@ void CTRL_clrData( void )
 	l_CntL			= 0;						// ã‚«ã‚¦ãƒ³ã‚¿ã‚¯ãƒªã‚¢
 */
 	/* ç¾åœ¨å€¤ */
-/*	f_NowDist 		= 0;						// ç§»å‹•è·é›¢ãƒªã‚»??ï¿½ï¿½?ï¿½ï¿½???ï¿½ï¿½?ï¿½ï¿½?
+/*	f_NowDist 		= 0;						// ç§»å‹•è·é›¢ãƒªã‚»???¿½?¿½??¿½?¿½????¿½?¿½??¿½?¿½?
 	f_NowDistR 		= 0;
 	f_NowDistL 		= 0;
-	f_NowSpeed		= 0;						// [é€Ÿåº¦åˆ¶å¾¡]   ç¾åœ¨ã®é€Ÿåº¦ [m/s]			???ï¿½ï¿½?ï¿½ï¿½?1[msec]æ¯ã«æ›´æ–°ã•ã‚Œã‚‹ï¿½?
-	f_NowAngle		= 0;						// [è§’åº¦åˆ¶å¾¡]   ç¾åœ¨è§’åº¦					???ï¿½ï¿½?ï¿½ï¿½?1[msec]æ¯ã«æ›´æ–°ã•ã‚Œã‚‹ï¿½?
+	f_NowSpeed		= 0;						// [é€Ÿåº¦åˆ¶å¾¡]   ç¾åœ¨ã®é€Ÿåº¦ [m/s]			????¿½?¿½??¿½?¿½?1[msec]æ¯ã«æ›´æ–°ã•ã‚Œã‚‹ï¿½?
+	f_NowAngle		= 0;						// [è§’åº¦åˆ¶å¾¡]   ç¾åœ¨è§’åº¦					????¿½?¿½??¿½?¿½?1[msec]æ¯ã«æ›´æ–°ã•ã‚Œã‚‹ï¿½?
 	s_GyroVal		= 0;						// ã‚¸ãƒ£ã‚¤ãƒ­å€¤ã‚¯ãƒªã‚¢
 	f_GyroNowAngle	= 0;							// ã‚¸ãƒ£ã‚¤ãƒ­å€¤ã‚¯ãƒªã‚¢
 */
 	/* ç›®æ¨™å€¤ */
-	f_TrgtSpeed		= 0;						// [é€Ÿåº¦åˆ¶å¾¡]   ç›®æ¨™ç§»å‹•é€Ÿåº¦ [m/s]			???ï¿½ï¿½?ï¿½ï¿½?1[msec]æ¯ã«æ›´æ–°ã•ã‚Œã‚‹ï¿½?
-	f_TrgtDist 		= 0;						// [è·é›¢åˆ¶å¾¡]   ç›®æ¨™ç§»å‹•è·é›¢				???ï¿½ï¿½?ï¿½ï¿½?1[msec]æ¯ã«æ›´æ–°ã•ã‚Œã‚‹ï¿½?
-	f_TrgtAngleS	= 0;							// [è§’é€Ÿåº¦åˆ¶å¾¡] ç›®æ¨™è§’é€Ÿåº¦ [rad/s]			???ï¿½ï¿½?ï¿½ï¿½?1[msec]æ¯ã«æ›´æ–°ã•ã‚Œã‚‹ï¿½?
-	f_TrgtAngle		= 0;						// [è§’åº¦åˆ¶å¾¡]   ç›®æ¨™è§’åº¦					???ï¿½ï¿½?ï¿½ï¿½?1[msec]æ¯ã«æ›´æ–°ã•ã‚Œã‚‹ï¿½?
+	f_TrgtSpeed		= 0;						// [é€Ÿåº¦åˆ¶å¾¡]   ç›®æ¨™ç§»å‹•é€Ÿåº¦ [m/s]			????¿½?¿½??¿½?¿½?1[msec]æ¯ã«æ›´æ–°ã•ã‚Œã‚‹ï¿½?
+	f_TrgtDist 		= 0;						// [è·é›¢åˆ¶å¾¡]   ç›®æ¨™ç§»å‹•è·é›¢				????¿½?¿½??¿½?¿½?1[msec]æ¯ã«æ›´æ–°ã•ã‚Œã‚‹ï¿½?
+	f_TrgtAngleS	= 0;							// [è§’é€Ÿåº¦åˆ¶å¾¡] ç›®æ¨™è§’é€Ÿåº¦ [rad/s]			????¿½?¿½??¿½?¿½?1[msec]æ¯ã«æ›´æ–°ã•ã‚Œã‚‹ï¿½?
+	f_TrgtAngle		= 0;						// [è§’åº¦åˆ¶å¾¡]   ç›®æ¨™è§’åº¦					????¿½?¿½??¿½?¿½?1[msec]æ¯ã«æ›´æ–°ã•ã‚Œã‚‹ï¿½?
 
-	/* åˆ¶å¾¡??ï¿½ï¿½?ï¿½ï¿½?ãƒ¼ã‚¿ */
+	/* åˆ¶å¾¡???¿½?¿½??¿½?¿½?ãƒ¼ã‚¿ */
 	f_SpeedErrSum	= 0;
-	f_DistErrSum 	= 0;						// [è·é›¢åˆ¶å¾¡]   è·é›¢ç©ï¿½??åˆ¶å¾¡ã®ã‚µ??ï¿½ï¿½?ï¿½ï¿½?å€¤			???ï¿½ï¿½?ï¿½ï¿½?1[msec]æ¯ã«æ›´æ–°ã•ã‚Œã‚‹ï¿½?
+	f_DistErrSum 	= 0;						// [è·é›¢åˆ¶å¾¡]   è·é›¢ç©ï¿½??åˆ¶å¾¡ã®ã‚µ???¿½?¿½??¿½?¿½?å€¤			????¿½?¿½??¿½?¿½?1[msec]æ¯ã«æ›´æ–°ã•ã‚Œã‚‹ï¿½?
 	f_AngleSErrSum	= 0;
-	f_AngleErrSum 	= 0;						// [è§’åº¦åˆ¶å¾¡]   è§’åº¦ç©ï¿½??åˆ¶å¾¡ã®ã‚µ??ï¿½ï¿½?ï¿½ï¿½?å€¤			???ï¿½ï¿½?ï¿½ï¿½?1[msec]æ¯ã«æ›´æ–°ã•ã‚Œã‚‹ï¿½?
+	f_AngleErrSum 	= 0;						// [è§’åº¦åˆ¶å¾¡]   è§’åº¦ç©ï¿½??åˆ¶å¾¡ã®ã‚µ???¿½?¿½??¿½?¿½?å€¤			????¿½?¿½??¿½?¿½?1[msec]æ¯ã«æ›´æ–°ã•ã‚Œã‚‹ï¿½?
 	f_ErrSpeedBuf	= 0;
-	f_ErrDistBuf	= 0;						// [å£åˆ¶å¾¡]     è·é›¢ã‚»ãƒ³ã‚µãƒ¼ã‚¨ãƒ©ãƒ¼å€¤ã®ãƒãƒƒãƒ•ã‚¡		???ï¿½ï¿½?ï¿½ï¿½?1[msec]æ¯ã«æ›´æ–°ã•ã‚Œã‚‹ï¿½?
+	f_ErrDistBuf	= 0;						// [å£åˆ¶å¾¡]     è·é›¢ã‚»ãƒ³ã‚µãƒ¼ã‚¨ãƒ©ãƒ¼å€¤ã®ãƒãƒƒãƒ•ã‚¡		????¿½?¿½??¿½?¿½?1[msec]æ¯ã«æ›´æ–°ã•ã‚Œã‚‹ï¿½?
 	f_ErrAngleSBuf  = 0;
 }
 
@@ -158,18 +158,18 @@ void CTRL_clrNowData(void)
 	l_CntL			= 0;						// ã‚«ã‚¦ãƒ³ã‚¿ã‚¯ãƒªã‚¢
 
 	/* ç¾åœ¨å€¤ */
-	f_NowDist 		= 0;						// ç§»å‹•è·é›¢ãƒªã‚»??ï¿½ï¿½?ï¿½ï¿½???ï¿½ï¿½?ï¿½ï¿½?
+	f_NowDist 		= 0;						// ç§»å‹•è·é›¢ãƒªã‚»???¿½?¿½??¿½?¿½????¿½?¿½??¿½?¿½?
 	f_NowDistR 		= 0;
 	f_NowDistL 		= 0;
-	f_NowSpeed		= 0;						// [é€Ÿåº¦åˆ¶å¾¡]   ç¾åœ¨ã®é€Ÿåº¦ [m/s]			???ï¿½ï¿½?ï¿½ï¿½?1[msec]æ¯ã«æ›´æ–°ã•ã‚Œã‚‹ï¿½?
-	f_NowAngle		= 0;						// [è§’åº¦åˆ¶å¾¡]   ç¾åœ¨è§’åº¦					???ï¿½ï¿½?ï¿½ï¿½?1[msec]æ¯ã«æ›´æ–°ã•ã‚Œã‚‹ï¿½?
+	f_NowSpeed		= 0;						// [é€Ÿåº¦åˆ¶å¾¡]   ç¾åœ¨ã®é€Ÿåº¦ [m/s]			????¿½?¿½??¿½?¿½?1[msec]æ¯ã«æ›´æ–°ã•ã‚Œã‚‹ï¿½?
+	f_NowAngle		= 0;						// [è§’åº¦åˆ¶å¾¡]   ç¾åœ¨è§’åº¦					????¿½?¿½??¿½?¿½?1[msec]æ¯ã«æ›´æ–°ã•ã‚Œã‚‹ï¿½?
 	s_GyroVal		= 0;						// ã‚¸ãƒ£ã‚¤ãƒ­å€¤ã‚¯ãƒªã‚¢
 	f_GyroNowAngle	= 0;							// ã‚¸ãƒ£ã‚¤ãƒ­å€¤ã‚¯ãƒªã‚¢
 }
 
 void CTRL_setData( stCTRL_DATA* p_data )
 {
-	/* åˆ¶å¾¡æ–¹??ï¿½ï¿½?ï¿½ï¿½? */
+	/* åˆ¶å¾¡æ–¹???¿½?¿½??¿½?¿½? */
 	en_Type					= p_data->en_type;
 
 	/* é€Ÿåº¦åˆ¶å¾¡ */
@@ -207,9 +207,9 @@ void CTRL_refNow( void )
 	float f_l 			= F_CNT2MM(l_CntL);				// å·¦ãƒ¢ãƒ¼ã‚¿ã®é€²ã‚“ã è·é›¢ [m]
 
 	/* é€Ÿåº¦æ›´æ–° */
-	f_speedR = f_r * 1000.0;								// å³ãƒ¢ãƒ¼ã‚¿é€Ÿåº¦ [m/s] ( ç§»å‹•è·é›¢[ã‚«ã‚¦ãƒ³??ï¿½ï¿½?ï¿½ï¿½?] * 1ãƒ‘ãƒ«ã‚¹ã®ç§»å‹•é‡(0.0509[mm]) * 1000(msecâ†’sec)
-	f_speedL = f_l * 1000.0;								// å·¦ãƒ¢ãƒ¼ã‚¿é€Ÿåº¦ [m/s] ( ç§»å‹•è·é›¢[ã‚«ã‚¦ãƒ³??ï¿½ï¿½?ï¿½ï¿½?] * 1ãƒ‘ãƒ«ã‚¹ã®ç§»å‹•é‡(0.0509[mm]) * 1000(msecâ†’sec)
-	f_NowSpeed  = ( f_speedR + f_speedL ) / 2;			// ãƒã‚¦ã‚¹???ï¿½ï¿½?ï¿½ï¿½??ï¿½ï¿½?ï¿½ï¿½é€²è¡Œæ–¹å‘ä¸­??ï¿½ï¿½?ï¿½ï¿½?è»¸???ï¿½ï¿½?ï¿½ï¿½? [1m/s]
+	f_speedR = f_r * 1000.0;								// å³ãƒ¢ãƒ¼ã‚¿é€Ÿåº¦ [m/s] ( ç§»å‹•è·é›¢[ã‚«ã‚¦ãƒ³???¿½?¿½??¿½?¿½?] * 1ãƒ‘ãƒ«ã‚¹ã®ç§»å‹•é‡(0.0509[mm]) * 1000(msecâ†’sec)
+	f_speedL = f_l * 1000.0;								// å·¦ãƒ¢ãƒ¼ã‚¿é€Ÿåº¦ [m/s] ( ç§»å‹•è·é›¢[ã‚«ã‚¦ãƒ³???¿½?¿½??¿½?¿½?] * 1ãƒ‘ãƒ«ã‚¹ã®ç§»å‹•é‡(0.0509[mm]) * 1000(msecâ†’sec)
+	f_NowSpeed  = ( f_speedR + f_speedL ) / 2;			// ãƒã‚¦ã‚¹????¿½?¿½??¿½?¿½???¿½?¿½??¿½?¿½é€²è¡Œæ–¹å‘ä¸­???¿½?¿½??¿½?¿½?è»¸????¿½?¿½??¿½?¿½? [1m/s]
 
 	/*motor AngleS*/
 	f_MotorR_AngleS	= f_speedR /(PI*TIRE_D)/GEAR_RATIO;
@@ -218,7 +218,7 @@ void CTRL_refNow( void )
 	/* è·é›¢æ›´æ–° */
 	f_NowDistR += f_r;									// ã‚«ã‚¦ãƒ³ãƒˆæ›´æ–°
 	f_NowDistL += f_l;									// ã‚«ã‚¦ãƒ³ãƒˆæ›´æ–°
-	f_NowDist  = ( f_NowDistR + f_NowDistL ) / 2;		// å¹³??ï¿½ï¿½?ï¿½ï¿½?å€¤æ›´æ–°
+	f_NowDist  = ( f_NowDistR + f_NowDistL ) / 2;		// å¹³???¿½?¿½??¿½?¿½?å€¤æ›´æ–°
 }
 
 void CTRL_refTarget( void )
@@ -229,7 +229,7 @@ void CTRL_refTarget( void )
 		/* acc(straight) */
 		case CTRL_ACC:
 		case CTRL_SKEW_ACC:
-			if( f_TrgtSpeed < (f_LastSpeed -(f_Acc * 0.001)) ){												// ??ï¿½ï¿½?ï¿½ï¿½?é€Ÿç›®æ¨™æ›´æ–°åŒº??ï¿½ï¿½?ï¿½ï¿½?
+			if( f_TrgtSpeed < (f_LastSpeed -(f_Acc * 0.001)) ){												// ???¿½?¿½??¿½?¿½?é€Ÿç›®æ¨™æ›´æ–°åŒº???¿½?¿½??¿½?¿½?
 				f_TrgtSpeed = f_BaseSpeed + f_Acc * f_Time;									// ç›®æ¨™é€Ÿåº¦
 			}
 			else{
@@ -247,7 +247,7 @@ void CTRL_refTarget( void )
 		case CTRL_DEC:
 		case CTRL_SKEW_DEC:
 			/* speed CTRL + position CTRL */
-			if( f_TrgtSpeed > (f_LastSpeed +(f_Acc * 0.001))){												// æ¸›é€Ÿç›®æ¨™æ›´æ–°åŒº??ï¿½ï¿½?ï¿½ï¿½?
+			if( f_TrgtSpeed > (f_LastSpeed +(f_Acc * 0.001))){												// æ¸›é€Ÿç›®æ¨™æ›´æ–°åŒº???¿½?¿½??¿½?¿½?
 				f_TrgtSpeed = f_BaseSpeed - f_Acc * f_Time;									// ç›®æ¨™é€Ÿåº¦
 				f_TrgtDist  = f_BaseDist + ( f_BaseSpeed + f_TrgtSpeed ) * f_Time / 2;		// ç›®æ¨™è·é›¢
 			}
@@ -292,7 +292,7 @@ void CTRL_refTarget( void )
 			if( f_LastAngle > 0 ){
 
 				/* Angle speed CTRL + Angle CTRL */
-				if( f_TrgtAngleS > (f_LastAngleS +(f_AccAngleS * 0.001)) ){												// æ¸›é€Ÿç›®æ¨™æ›´æ–°åŒº??ï¿½ï¿½?ï¿½ï¿½?
+				if( f_TrgtAngleS > (f_LastAngleS +(f_AccAngleS * 0.001)) ){												// æ¸›é€Ÿç›®æ¨™æ›´æ–°åŒº???¿½?¿½??¿½?¿½?
 					f_TrgtAngleS = f_BaseAngleS - f_AccAngleS * f_Time;							// ç›®æ¨™è§’é€Ÿåº¦
 					f_TrgtAngle  = f_BaseAngle + ( f_BaseAngleS + f_TrgtAngleS ) * f_Time / 2;	// ç›®æ¨™è§’åº¦
 				}
@@ -306,7 +306,7 @@ void CTRL_refTarget( void )
 			else{
 
 				/* Angle speed CTRL + Angle CTRL */
-				if( f_TrgtAngleS < (f_LastAngleS -(f_AccAngleS * 0.001))){												// æ¸›é€Ÿç›®æ¨™æ›´æ–°åŒº??ï¿½ï¿½?ï¿½ï¿½?
+				if( f_TrgtAngleS < (f_LastAngleS -(f_AccAngleS * 0.001))){												// æ¸›é€Ÿç›®æ¨™æ›´æ–°åŒº???¿½?¿½??¿½?¿½?
 					f_TrgtAngleS = f_BaseAngleS + f_AccAngleS * f_Time;							// ç›®æ¨™è§’é€Ÿåº¦
 					f_TrgtAngle  = f_BaseAngle + ( f_BaseAngleS + f_TrgtAngleS ) * f_Time / 2;	// ç›®æ¨™è§’åº¦
 				}
@@ -326,7 +326,7 @@ void CTRL_refTarget( void )
 			}
 			break;
 
-		/* acc(ã‚¹ãƒ©ãƒ­ãƒ¼??ï¿½ï¿½?ï¿½ï¿½?) */
+		/* acc(ã‚¹ãƒ©ãƒ­ãƒ¼???¿½?¿½??¿½?¿½?) */
 		case CTRL_ACC_SURA:
 			f_TrgtSpeed = f_BaseSpeed;
 
@@ -354,7 +354,7 @@ void CTRL_refTarget( void )
 			}
 
 			/* Position CTRL */
-			if( f_LastDist > (f_TrgtDist - (f_TrgtSpeed * 0.001)) ){													// ç›®æ¨™æ›´æ–°åŒº??ï¿½ï¿½?ï¿½ï¿½?
+			if( f_LastDist > (f_TrgtDist - (f_TrgtSpeed * 0.001)) ){													// ç›®æ¨™æ›´æ–°åŒº???¿½?¿½??¿½?¿½?
 				f_TrgtDist  = f_BaseDist + f_TrgtSpeed * f_Time;							// ç›®æ¨™ä½ç½®
 			}
 			else{
@@ -387,7 +387,7 @@ void CTRL_refTarget( void )
 			}
 
 			/* Position CTRL */
-			if( f_LastDist > (f_TrgtDist - (f_TrgtSpeed * 0.001)) ){													// ç›®æ¨™æ›´æ–°åŒº??ï¿½ï¿½?ï¿½ï¿½?
+			if( f_LastDist > (f_TrgtDist - (f_TrgtSpeed * 0.001)) ){													// ç›®æ¨™æ›´æ–°åŒº???¿½?¿½??¿½?¿½?
 				f_TrgtDist  = f_BaseDist + f_TrgtSpeed * f_Time;							// ç›®æ¨™ä½ç½®
 			}
 			else{
@@ -423,7 +423,7 @@ void CTRL_refTarget( void )
 			}
 
 			/* Position CTRL */
-			if( f_LastDist > (f_TrgtDist - (f_TrgtSpeed * 0.001)) ){													// ç›®æ¨™æ›´æ–°åŒº??ï¿½ï¿½?ï¿½ï¿½?
+			if( f_LastDist > (f_TrgtDist - (f_TrgtSpeed * 0.001)) ){													// ç›®æ¨™æ›´æ–°åŒº???¿½?¿½??¿½?¿½?
 				f_TrgtDist  = f_BaseDist + f_TrgtSpeed * f_Time;							// ç›®æ¨™ä½ç½®
 			}
 			else{
@@ -452,34 +452,34 @@ void CTRL_refTarget( void )
 enPARAM_MODE Chg_ParamID( enCTRL_TYPE en_type )
 {
 	switch( en_type ){
-		case CTRL_ACC:			return PARAM_ACC;				// ??ï¿½ï¿½?ï¿½ï¿½?é€Ÿä¸­(ç›´é€²)
+		case CTRL_ACC:			return PARAM_ACC;				// ???¿½?¿½??¿½?¿½?é€Ÿä¸­(ç›´é€²)
 		case CTRL_CONST:		return PARAM_CONST;				// ç­‰é€Ÿä¸­(ç›´é€²)
 		case CTRL_DEC:			return PARAM_DEC;				// æ¸›é€Ÿä¸­(ç›´é€²)
 		case CTRL_HIT_WALL:		return PARAM_HIT_WALL;			// å£ã‚ã¦åˆ¶å¾¡
-//		case DCMC_BACK_ACC:		return PARAM_BACK_ACC;			// ??ï¿½ï¿½?ï¿½ï¿½?é€Ÿä¸­(å¾Œé€²)
+//		case DCMC_BACK_ACC:		return PARAM_BACK_ACC;			// ???¿½?¿½??¿½?¿½?é€Ÿä¸­(å¾Œé€²)
 //		case DCMC_BACK_CONST:		return PARAM_BACK_CONST;		// ç­‰é€Ÿä¸­(å¾Œé€²)
 //		case DCMC_BACK_DEC:		return PARAM_BACK_DEC;			// æ¸›é€Ÿä¸­(å¾Œé€²)
-		case CTRL_SKEW_ACC:		return PARAM_SKEW_ACC;			// ??ï¿½ï¿½?ï¿½ï¿½?é€Ÿä¸­(ç›´é€²)
+		case CTRL_SKEW_ACC:		return PARAM_SKEW_ACC;			// ???¿½?¿½??¿½?¿½?é€Ÿä¸­(ç›´é€²)
 		case CTRL_SKEW_CONST:		return PARAM_SKEW_CONST;		// ç­‰é€Ÿä¸­(ç›´é€²)
 		case CTRL_SKEW_DEC:		return PARAM_SKEW_DEC;			// æ¸›é€Ÿä¸­(ç›´é€²)
-		case CTRL_ACC_TRUN:		return PARAM_ACC_TRUN;			// ??ï¿½ï¿½?ï¿½ï¿½?é€Ÿä¸­(??ï¿½ï¿½?ï¿½ï¿½?åœ°ä¿¡æ—‹å›)
-		case CTRL_CONST_TRUN:		return PARAM_CONST_TRUN;		// ç­‰é€Ÿä¸­(??ï¿½ï¿½?ï¿½ï¿½?åœ°ä¿¡æ—‹å›)
-		case CTRL_DEC_TRUN:		return PARAM_DEC_TRUN;			// æ¸›é€Ÿä¸­(??ï¿½ï¿½?ï¿½ï¿½?åœ°ä¿¡æ—‹å›)
-		case CTRL_ENTRY_SURA:		return PARAM_ENTRY_SURA;		// ã‚¹ãƒ©ãƒ­ãƒ¼??ï¿½ï¿½?ï¿½ï¿½?å‰ï¿½???ï¿½ï¿½?ï¿½ï¿½å‰é€²å‹•ï¿½?(ã‚¹ãƒ©ãƒ­ãƒ¼??ï¿½ï¿½?ï¿½ï¿½?)
-		case CTRL_ACC_SURA:		return PARAM_ACC_SURA;			// ??ï¿½ï¿½?ï¿½ï¿½?é€Ÿä¸­(ã‚¹ãƒ©ãƒ­ãƒ¼??ï¿½ï¿½?ï¿½ï¿½?)
-		case CTRL_CONST_SURA:		return PARAM_CONST_SURA;		// ç­‰é€Ÿä¸­(ã‚¹ãƒ©ãƒ­ãƒ¼??ï¿½ï¿½?ï¿½ï¿½?)
-		case CTRL_DEC_SURA:		return PARAM_DEC_SURA;			// æ¸›é€Ÿä¸­(ã‚¹ãƒ©ãƒ­ãƒ¼??ï¿½ï¿½?ï¿½ï¿½?)
-		case CTRL_EXIT_SURA:		return PARAM_EXIT_SURA;			// ã‚¹ãƒ©ãƒ­ãƒ¼??ï¿½ï¿½?ï¿½ï¿½?å¾Œï¿½???ï¿½ï¿½?ï¿½ï¿½å‰é€²å‹•ï¿½?(ã‚¹ãƒ©ãƒ­ãƒ¼??ï¿½ï¿½?ï¿½ï¿½?)
+		case CTRL_ACC_TRUN:		return PARAM_ACC_TRUN;			// ???¿½?¿½??¿½?¿½?é€Ÿä¸­(???¿½?¿½??¿½?¿½?åœ°ä¿¡æ—‹å›)
+		case CTRL_CONST_TRUN:		return PARAM_CONST_TRUN;		// ç­‰é€Ÿä¸­(???¿½?¿½??¿½?¿½?åœ°ä¿¡æ—‹å›)
+		case CTRL_DEC_TRUN:		return PARAM_DEC_TRUN;			// æ¸›é€Ÿä¸­(???¿½?¿½??¿½?¿½?åœ°ä¿¡æ—‹å›)
+		case CTRL_ENTRY_SURA:		return PARAM_ENTRY_SURA;		// ã‚¹ãƒ©ãƒ­ãƒ¼???¿½?¿½??¿½?¿½?å‰ï¿½????¿½?¿½??¿½?¿½å‰é€²å‹•ï¿½?(ã‚¹ãƒ©ãƒ­ãƒ¼???¿½?¿½??¿½?¿½?)
+		case CTRL_ACC_SURA:		return PARAM_ACC_SURA;			// ???¿½?¿½??¿½?¿½?é€Ÿä¸­(ã‚¹ãƒ©ãƒ­ãƒ¼???¿½?¿½??¿½?¿½?)
+		case CTRL_CONST_SURA:		return PARAM_CONST_SURA;		// ç­‰é€Ÿä¸­(ã‚¹ãƒ©ãƒ­ãƒ¼???¿½?¿½??¿½?¿½?)
+		case CTRL_DEC_SURA:		return PARAM_DEC_SURA;			// æ¸›é€Ÿä¸­(ã‚¹ãƒ©ãƒ­ãƒ¼???¿½?¿½??¿½?¿½?)
+		case CTRL_EXIT_SURA:		return PARAM_EXIT_SURA;			// ã‚¹ãƒ©ãƒ­ãƒ¼???¿½?¿½??¿½?¿½?å¾Œï¿½????¿½?¿½??¿½?¿½å‰é€²å‹•ï¿½?(ã‚¹ãƒ©ãƒ­ãƒ¼???¿½?¿½??¿½?¿½?)
 		default:			return PARAM_NC;
 	}
 }
 
 void CTRL_getFF_speed( float* p_err )
 {
-	/* å‹•ä½œãƒ¢ãƒ¼ãƒ‰ã«å¿œã˜??ï¿½ï¿½?ï¿½ï¿½? */
+	/* å‹•ä½œãƒ¢ãƒ¼ãƒ‰ã«å¿œã˜???¿½?¿½??¿½?¿½? */
 	switch( en_Type ){
 
-		// ??ï¿½ï¿½?ï¿½ï¿½???ï¿½ï¿½?ï¿½ï¿½?
+		// ???¿½?¿½??¿½?¿½????¿½?¿½??¿½?¿½?
 		case CTRL_ACC:
 		case CTRL_SKEW_ACC:
 		case CTRL_ACC_TRUN:
@@ -503,20 +503,20 @@ void CTRL_getFF_speed( float* p_err )
 			*p_err = f_Acc * (-1);
 			break;
 
-		// ??ï¿½ï¿½?ï¿½ï¿½?é€Ÿä»¥??ï¿½ï¿½?ï¿½ï¿½?
+		// ???¿½?¿½??¿½?¿½?é€Ÿä»¥???¿½?¿½??¿½?¿½?
 		default:
 			*p_err = 0;
-			break;										// ä½•ã‚‚ã—ãª??ï¿½ï¿½?ï¿½ï¿½?
+			break;										// ä½•ã‚‚ã—ãª???¿½?¿½??¿½?¿½?
 	}
 
 }
 
 void CTRL_getFF_angle( float* p_err )
 {
-	/* å‹•ä½œãƒ¢ãƒ¼ãƒ‰ã«å¿œã˜??ï¿½ï¿½?ï¿½ï¿½? */
+	/* å‹•ä½œãƒ¢ãƒ¼ãƒ‰ã«å¿œã˜???¿½?¿½??¿½?¿½? */
 	switch( en_Type ){
 
-		// ??ï¿½ï¿½?ï¿½ï¿½???ï¿½ï¿½?ï¿½ï¿½?
+		// ???¿½?¿½??¿½?¿½????¿½?¿½??¿½?¿½?
 		case CTRL_ACC:
 		case CTRL_SKEW_ACC:
 		case CTRL_ACC_TRUN:
@@ -539,10 +539,10 @@ void CTRL_getFF_angle( float* p_err )
 			*p_err = FABS(f_AccAngleS) *(-1);
 			break;
 
-		// ??ï¿½ï¿½?ï¿½ï¿½?é€Ÿä»¥??ï¿½ï¿½?ï¿½ï¿½?
+		// ???¿½?¿½??¿½?¿½?é€Ÿä»¥???¿½?¿½??¿½?¿½?
 		default:
 			*p_err = 0;
-			break;										// ä½•ã‚‚ã—ãª??ï¿½ï¿½?ï¿½ï¿½?
+			break;										// ä½•ã‚‚ã—ãª???¿½?¿½??¿½?¿½?
 	}
 
 }
@@ -565,9 +565,9 @@ void CTRL_getSpeedFB( float* p_err )
 		f_SpeedErrSum = 10000.0;			// ä¸Šé™ãƒªãƒŸãƒƒã‚¿ãƒ¼
 	}
 
-	*p_err = f_speedErr * f_kp + f_SpeedErrSum* f_ki + ( f_speedErr - f_ErrSpeedBuf ) * f_kd;				// PIåˆ¶å¾¡é‡ç®—ï¿½???ï¿½ï¿½?ï¿½ï¿½
+	*p_err = f_speedErr * f_kp + f_SpeedErrSum* f_ki + ( f_speedErr - f_ErrSpeedBuf ) * f_kd;				// PIåˆ¶å¾¡é‡ç®—ï¿½????¿½?¿½??¿½?¿½
 
-	f_ErrSpeedBuf = f_speedErr;		// åå·®ã‚’ãƒ??ï¿½ï¿½?ï¿½ï¿½?ãƒ•ã‚¡ãƒªãƒ³ã‚°
+	f_ErrSpeedBuf = f_speedErr;		// åå·®ã‚’ãƒ???¿½?¿½??¿½?¿½?ãƒ•ã‚¡ãƒªãƒ³ã‚°
 /*	if((f_speedErr>1.5)||(f_speedErr<-1.5)){
 		Failsafe_flag();
 	}
@@ -598,7 +598,7 @@ void CTRL_getAngleSpeedFB( float* p_err )
 
 	*p_err = f_err * f_kp + f_AngleSErrSum*f_ki + ( f_err - f_ErrAngleSBuf ) * f_kd;		// PIDåˆ¶å¾¡
 
-	f_ErrAngleSBuf = f_err;		// åå·®ã‚’ãƒ??ï¿½ï¿½?ï¿½ï¿½?ãƒ•ã‚¡ãƒªãƒ³ã‚°
+	f_ErrAngleSBuf = f_err;		// åå·®ã‚’ãƒ???¿½?¿½??¿½?¿½?ãƒ•ã‚¡ãƒªãƒ³ã‚°
 	if((f_err>14.0)||(f_err<-14.0)){
 		if(!(en_Type == CTRL_HIT_WALL)){
 			Failsafe_flag();
@@ -610,10 +610,10 @@ void CTRL_getSenFB( float* p_err )
 {
 	float f_err 	= 0;
 	float f_kp 		= 0.0f;				// æ¯”ä¾‹ã‚²ã‚¤ãƒ³
-	float f_kd 		= 0.0f;				// å¾®??ï¿½ï¿½?ï¿½ï¿½?ã‚²ã‚¤ãƒ³
+	float f_kd 		= 0.0f;				// å¾®???¿½?¿½??¿½?¿½?ã‚²ã‚¤ãƒ³
 	float gyro		= 0.0f;
 
-	/* ç›´é€²??ï¿½ï¿½?ï¿½ï¿½? */
+	/* ç›´é€²???¿½?¿½??¿½?¿½? */
 	if( ( en_Type == CTRL_ACC ) || ( en_Type == CTRL_CONST ) || ( en_Type == CTRL_DEC )||
 			 ( en_Type == CTRL_ENTRY_SURA ) || ( en_Type == CTRL_EXIT_SURA ) ){
 
@@ -626,7 +626,7 @@ void CTRL_getSenFB( float* p_err )
 //		templog2 = f_err;
 		/* PDåˆ¶å¾¡ */
 
-		f_ErrDistBuf = f_err;		// åå·®ã‚’ãƒ??ï¿½ï¿½?ï¿½ï¿½?ãƒ•ã‚¡ãƒªãƒ³ã‚°
+		f_ErrDistBuf = f_err;		// åå·®ã‚’ãƒ???¿½?¿½??¿½?¿½?ãƒ•ã‚¡ãƒªãƒ³ã‚°
 
 		*p_err = f_err * f_kp + ( f_err - f_ErrDistBuf ) * f_kd;		// PDåˆ¶å¾¡
 	}
@@ -734,9 +734,9 @@ void CTRL_pol( void )
 {
 	float f_feedFoard_speed		= 0;		// [åˆ¶å¾¡] ãƒ•ã‚£ãƒ¼ãƒ‰ãƒ•ã‚©ãƒ¯ãƒ¼ãƒ‰åˆ¶å¾¡
 	float f_feedFoard_angle		= 0;
-	float f_speedCtrl			= 0;		// [åˆ¶å¾¡] é€Ÿåº¦åˆ¶å¾¡??ï¿½ï¿½?ï¿½ï¿½?
-	float f_angleSpeedCtrl			= 0;		// [åˆ¶å¾¡] è§’é€Ÿåº¦åˆ¶å¾¡??ï¿½ï¿½?ï¿½ï¿½?
-	float f_distSenCtrl			= 0;		// [åˆ¶å¾¡] è·é›¢ã‚»ãƒ³ã‚µãƒ¼åˆ¶å¾¡??ï¿½ï¿½?ï¿½ï¿½?
+	float f_speedCtrl			= 0;		// [åˆ¶å¾¡] é€Ÿåº¦åˆ¶å¾¡???¿½?¿½??¿½?¿½?
+	float f_angleSpeedCtrl			= 0;		// [åˆ¶å¾¡] è§’é€Ÿåº¦åˆ¶å¾¡???¿½?¿½??¿½?¿½?
+	float f_distSenCtrl			= 0;		// [åˆ¶å¾¡] è·é›¢ã‚»ãƒ³ã‚µãƒ¼åˆ¶å¾¡???¿½?¿½??¿½?¿½?
 	float f_floorfriction		= 0;
 	float f_duty10_R;						// [å‡ºåŠ›] å³ãƒ¢ãƒ¼ã‚¿PWM-DUTYæ¯”[0.1%]
 	float f_duty10_L;						// [å‡ºåŠ›] å·¦ãƒ¢ãƒ¼ã‚¿PWM-DUTYæ¯”[0.1%]
@@ -746,30 +746,30 @@ void CTRL_pol( void )
 	float Ir = 0.0;
 	float Il = 0.0;
 
-	/* åˆ¶å¾¡ã‚’è¡Œã†ã‹ï¿½???ï¿½ï¿½?ï¿½ï¿½ãƒã‚§??ï¿½ï¿½?ï¿½ï¿½?ã‚¯ */
+	/* åˆ¶å¾¡ã‚’è¡Œã†ã‹ï¿½????¿½?¿½??¿½?¿½ãƒã‚§???¿½?¿½??¿½?¿½?ã‚¯ */
 	if( uc_CtrlFlag != TRUE ){
-		 return;		// åˆ¶å¾¡ç„¡åŠ¹çŠ¶??ï¿½ï¿½?ï¿½ï¿½?
+		 return;		// åˆ¶å¾¡ç„¡åŠ¹çŠ¶???¿½?¿½??¿½?¿½?
 	}
 	if(SW_ON == SW_IsOn_0()){
 		Failsafe_flag();
 	}
 
-	/* åˆ¶å¾¡ä¸ï¿½???ï¿½ï¿½?ï¿½ï¿½ */
+	/* åˆ¶å¾¡ä¸ï¿½????¿½?¿½??¿½?¿½ */
 	if (SYS_isOutOfCtrl() == TRUE ){
 
 		f_DistErrSum = 0;				// ç´¯ç©åå·®ã‚¯ãƒªã‚¢
-		f_NowDist = f_LastDist;			// å¼·åˆ¶??ï¿½ï¿½?ï¿½ï¿½?ã«æœ€çµ‚ç›®æ¨™ä½ç½®ã«å¤‰æ›´
-		f_NowAngle = f_LastAngle;		// å¼·åˆ¶??ï¿½ï¿½?ï¿½ï¿½?ã«æœ€çµ‚ç›®æ¨™æ™‚é–“ã«å¤‰æ›´
-		f_Time = f_TrgtTime;			// å¼·åˆ¶??ï¿½ï¿½?ï¿½ï¿½?ã«æœ€çµ‚ç›®æ¨™æ™‚é–“ã«å¤‰æ›´
+		f_NowDist = f_LastDist;			// å¼·åˆ¶???¿½?¿½??¿½?¿½?ã«æœ€çµ‚ç›®æ¨™ä½ç½®ã«å¤‰æ›´
+		f_NowAngle = f_LastAngle;		// å¼·åˆ¶???¿½?¿½??¿½?¿½?ã«æœ€çµ‚ç›®æ¨™æ™‚é–“ã«å¤‰æ›´
+		f_Time = f_TrgtTime;			// å¼·åˆ¶???¿½?¿½??¿½?¿½?ã«æœ€çµ‚ç›®æ¨™æ™‚é–“ã«å¤‰æ›´
 
 	 	CTRL_stop();				// åˆ¶å¾¡åœæ­¢
-		CTRL_clrData();					// ??ï¿½ï¿½?ï¿½ï¿½?ãƒ¼ã‚¿ã‚¯ãƒªã‚¢
+		CTRL_clrData();					// ???¿½?¿½??¿½?¿½?ãƒ¼ã‚¿ã‚¯ãƒªã‚¢
 		DCM_brakeMot( DCM_R );			// ãƒ–ãƒ¬ãƒ¼ã‚­
 		DCM_brakeMot( DCM_L );			// ãƒ–ãƒ¬ãƒ¼ã‚­
 	}
 
-	/* ??ï¿½ï¿½?ï¿½ï¿½?ç¨®ã‚»ãƒ³ã‚µå…¥??ï¿½ï¿½?ï¿½ï¿½? */
-	ENC_GetDiv( &l_CntR, &l_CntL );					// ç§»å‹•é‡[ã‚«ã‚¦ãƒ³ãƒˆå€¤]ã‚’å–??ï¿½ï¿½?ï¿½ï¿½?
+	/* ???¿½?¿½??¿½?¿½?ç¨®ã‚»ãƒ³ã‚µå…¥???¿½?¿½??¿½?¿½? */
+	ENC_GetDiv( &l_CntR, &l_CntL );					// ç§»å‹•é‡[ã‚«ã‚¦ãƒ³ãƒˆå€¤]ã‚’å–???¿½?¿½??¿½?¿½?
 	//add get_motor_omega(l_CntR,l_CntL);
 	CTRL_refNow();									// åˆ¶å¾¡ã«ä½¿ç”¨ã™ã‚‹å€¤ã‚’ç¾åœ¨ã®çŠ¶æ…‹ã«æ›´æ–°
 	CTRL_refTarget();								// åˆ¶å¾¡ã«ä½¿ç”¨ã™ã‚‹å€¤ã‚’ç›®æ¨™å€¤ã«æ›´æ–°
@@ -777,11 +777,11 @@ void CTRL_pol( void )
 	f_NowAngle = GYRO_getNowAngle();					// ç¾åœ¨è§’åº¦[deg]
 
 	/* åˆ¶å¾¡å€¤å–ï¿½? */
-	CTRL_getFF_speed( &f_feedFoard_speed );					// [åˆ¶å¾¡] ãƒ•ã‚£ãƒ¼ãƒ‰ãƒ•ã‚©ãƒ¯ãƒ¼??ï¿½ï¿½?ï¿½ï¿½?
-	CTRL_getFF_angle( &f_feedFoard_angle );					// [åˆ¶å¾¡] ãƒ•ã‚£ãƒ¼ãƒ‰ãƒ•ã‚©ãƒ¯ãƒ¼??ï¿½ï¿½?ï¿½ï¿½?
+	CTRL_getFF_speed( &f_feedFoard_speed );					// [åˆ¶å¾¡] ãƒ•ã‚£ãƒ¼ãƒ‰ãƒ•ã‚©ãƒ¯ãƒ¼???¿½?¿½??¿½?¿½?
+	CTRL_getFF_angle( &f_feedFoard_angle );					// [åˆ¶å¾¡] ãƒ•ã‚£ãƒ¼ãƒ‰ãƒ•ã‚©ãƒ¯ãƒ¼???¿½?¿½??¿½?¿½?
 	CTRL_getSpeedFB( &f_speedCtrl );				// [åˆ¶å¾¡] é€Ÿåº¦
 	CTRL_getAngleSpeedFB( &f_angleSpeedCtrl );			// [åˆ¶å¾¡] è§’é€Ÿåº¦
-	CTRL_getSenFB( &f_distSenCtrl );				// [åˆ¶å¾¡] ??ï¿½ï¿½?ï¿½ï¿½?
+	CTRL_getSenFB( &f_distSenCtrl );				// [åˆ¶å¾¡] ???¿½?¿½??¿½?¿½?
 	CTRL_getFloorFriction( &f_floorfriction );
 
 	/* ç›´é€²åˆ¶å¾¡ */
@@ -796,13 +796,13 @@ void CTRL_pol( void )
 
 	/* å£ã‚ã¦åˆ¶å¾¡ */
 	else if( en_Type == CTRL_HIT_WALL ){
-		TR = (TIRE_D/2/2)*(Weight*(f_feedFoard_speed * FF_HIT_BALANCE_R/1800.0 ));		// å³ãƒ¢ãƒ¼ã‚¿PWM-DUTYæ¯”[0.1%]
-		TL = (TIRE_D/2/2)*(Weight*(f_feedFoard_speed * FF_HIT_BALANCE_R/1800.0 ));
+		TR = (TIRE_D/2/2)*(Weight*(f_feedFoard_speed * FF_HIT_BALANCE_R/2500.0 ));		// å³ãƒ¢ãƒ¼ã‚¿PWM-DUTYæ¯”[0.1%]
+		TL = (TIRE_D/2/2)*(Weight*(f_feedFoard_speed * FF_HIT_BALANCE_R/2500.0 ));
 		Ir = (TR-0.0255/1000.0)/Torque_constant;
 		Il = (TL-0.0255/1000.0)/Torque_constant;
 	}
 
-	/* ã‚¹ãƒ©ãƒ­ãƒ¼??ï¿½ï¿½?ï¿½ï¿½?åˆ¶å¾¡ */
+	/* ã‚¹ãƒ©ãƒ­ãƒ¼???¿½?¿½??¿½?¿½?åˆ¶å¾¡ */
 	else if( ( en_Type == CTRL_ACC_SURA ) || (en_Type == CTRL_CONST_SURA)||( en_Type == CTRL_DEC_SURA ) ){
 		/* å·¦æ—‹å› */
 		if( f_LastAngle > 0 ){
@@ -820,16 +820,16 @@ void CTRL_pol( void )
 		}
 	}
 
-	/* ??ï¿½ï¿½?ï¿½ï¿½?ä¿¡åœ°æ—‹å› */
+	/* ???¿½?¿½??¿½?¿½?ä¿¡åœ°æ—‹å› */
 	else{
-		/* ??ï¿½ï¿½?ï¿½ï¿½??ï¿½ï¿½?ï¿½ï¿½??ï¿½ï¿½?ï¿½ï¿½??ï¿½ï¿½?ï¿½ï¿½??ï¿½ï¿½?ï¿½ï¿½??ï¿½ï¿½?ï¿½ï¿½ */
+		/* ???¿½?¿½??¿½?¿½???¿½?¿½??¿½?¿½???¿½?¿½??¿½?¿½???¿½?¿½??¿½?¿½???¿½?¿½??¿½?¿½???¿½?¿½??¿½?¿½ */
 		if( f_LastAngle > 0 ){			
 			TR = ((TIRE_D/2/2)*(Weight*(f_feedFoard_speed + f_speedCtrl))+(TIRE_D/2/TREAD_imagin)*(Inertia*(f_feedFoard_angle + f_angleSpeedCtrl)+f_floorfriction))/GEAR_RATIO;
 			TL = ((TIRE_D/2/2)*(Weight*(f_feedFoard_speed + f_speedCtrl))-(TIRE_D/2/TREAD_imagin)*(Inertia*(f_feedFoard_angle + f_angleSpeedCtrl)+f_floorfriction))/GEAR_RATIO;
 			Ir = (TR+0.0255/1000.0)/Torque_constant;
 			Il = (TL-0.0255/1000.0)/Torque_constant;
 		}
-		/* ??ï¿½ï¿½?ï¿½ï¿½E??ï¿½ï¿½?ï¿½ï¿½??ï¿½ï¿½?ï¿½ï¿½??ï¿½ï¿½?ï¿½ï¿½??ï¿½ï¿½?ï¿½ï¿½ */
+		/* ???¿½?¿½??¿½?¿½E???¿½?¿½??¿½?¿½???¿½?¿½??¿½?¿½???¿½?¿½??¿½?¿½???¿½?¿½??¿½?¿½ */
 		else{			
 			TR = ((TIRE_D/2/2)*(Weight*(f_feedFoard_speed + f_speedCtrl))+(TIRE_D/2/TREAD_imagin)*(Inertia*(f_feedFoard_angle*(-1) + f_angleSpeedCtrl)+f_floorfriction))/GEAR_RATIO;
 			TL = ((TIRE_D/2/2)*(Weight*(f_feedFoard_speed + f_speedCtrl))-(TIRE_D/2/TREAD_imagin)*(Inertia*(f_feedFoard_angle*(-1) + f_angleSpeedCtrl)+f_floorfriction))/GEAR_RATIO;
@@ -844,23 +844,23 @@ void CTRL_pol( void )
 	templog2 = f_duty10_R;
 
 	escape_wait = escape_wait+0.001;
-	CTRL_outMot( f_duty10_R, f_duty10_L );				// ãƒ¢ãƒ¼ã‚¿ã¸å‡º??ï¿½ï¿½?ï¿½ï¿½?
+	CTRL_outMot( f_duty10_R, f_duty10_L );				// ãƒ¢ãƒ¼ã‚¿ã¸å‡º???¿½?¿½??¿½?¿½?
 
 	f_Time += 0.001;
 
-	/* ?ï¿½ï¿½???ï¿½ï¿½?ï¿½ï¿½??ã‚Œãƒã‚§??ï¿½ï¿½?ï¿½ï¿½?ã‚¯ */
+	/* ??¿½?¿½????¿½?¿½??¿½?¿½??ã‚Œãƒã‚§???¿½?¿½??¿½?¿½?ã‚¯ */
 	if( MOT_getWallEdgeType() == MOT_WALL_EDGE_RIGHT ){
 
-		/* å£æŠœ??ï¿½ï¿½?ï¿½ï¿½? */
+		/* å£æŠœ???¿½?¿½??¿½?¿½? */
 		if( DIST_isWall_R_SIDE() == FALSE ){
-			MOT_setWallEdge( TRUE );		// ?ï¿½ï¿½???ï¿½ï¿½?ï¿½ï¿½???ï¿½ï¿½?ï¿½ï¿½??ï¿½ï¿½?ï¿½ï¿½?ã‚Œç›®ã‚’æ¤œçŸ¥
+			MOT_setWallEdge( TRUE );		// ??¿½?¿½????¿½?¿½??¿½?¿½????¿½?¿½??¿½?¿½???¿½?¿½??¿½?¿½?ã‚Œç›®ã‚’æ¤œçŸ¥
 		}
 	}
 	else if( MOT_getWallEdgeType() == MOT_WALL_EDGE_LEFT ){
 
-		/* å£æŠœ??ï¿½ï¿½?ï¿½ï¿½? */
+		/* å£æŠœ???¿½?¿½??¿½?¿½? */
 		if( DIST_isWall_L_SIDE() == FALSE ){
-			MOT_setWallEdge( TRUE );		// ?ï¿½ï¿½???ï¿½ï¿½?ï¿½ï¿½???ï¿½ï¿½?ï¿½ï¿½??ï¿½ï¿½?ï¿½ï¿½?ã‚Œç›®ã‚’æ¤œçŸ¥
+			MOT_setWallEdge( TRUE );		// ??¿½?¿½????¿½?¿½??¿½?¿½????¿½?¿½??¿½?¿½???¿½?¿½??¿½?¿½?ã‚Œç›®ã‚’æ¤œçŸ¥
 		}
 	}
 }
