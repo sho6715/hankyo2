@@ -19,7 +19,7 @@
 /* マクロ */
 #define FABS(x)						( (x)>=0 ? (x) : -(x) )
 
-#define GOAL_MAP_X_def					( 10 )				// ゴールのX区画数??��?��横方向�? [区画]17
+#define GOAL_MAP_X_def					( 6 )				// ゴールのX区画数??��?��横方向�? [区画]17
 #define GOAL_MAP_Y_def					( 9 )				// ゴールのY区画数??��?��縦方向�? [区画]13
 #define MAP_X_SIZE					( 32 )				// 迷路のX区画数??��?��横方向�? [区画]
 #define MAP_Y_SIZE					( 32 )				// 迷路のY区画数??��?��縦方向�? [区画]
