@@ -27,8 +27,8 @@
 #define L_FRONT_REF					(560)//( 210 )
 #define R_SIDE_REF					(400)//( 240 )
 #define L_SIDE_REF					(200)//( 200 )
-#define R_FRONT_WALL					(55)//( 45 )
-#define L_FRONT_WALL					(50)//( 45 )
+#define R_FRONT_WALL					(45)//( 45 )
+#define L_FRONT_WALL					(40)//( 45 )
 #define R_SIDE_WALL					(105)//( 110 )
 #define L_SIDE_WALL					(85)//( 70 )
 #define R_FRONT_SKEW_ERR1				( 80 )//仮
@@ -43,14 +43,14 @@
 #define L_FRONT_NOCTRL					(1200)//( 450 )
 
 
-/*距離センサポ�?�リングタイ�?*/
+/*距離センサポ�??��リングタイ?��?*/
 typedef enum{
 	DIST_POL_FRONT = 0,
 	DIST_POL_SIDE,
 	DISR_POL_MAX
 }enDIST_POL;
 
-/*距離センサ動作状�?*/
+/*距離センサ動作状?��?*/
 typedef enum{
 	DIST_STANDBAY = 0,
 	DIST_NO_CTRL,

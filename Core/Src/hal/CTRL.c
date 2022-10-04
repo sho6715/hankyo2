@@ -21,7 +21,7 @@ float			f_BaseSpeed		= 0;		// [velocity control]   initial velocity[m/s]	(set va
 float			f_LastSpeed 		= 0;		// [velocity control]   last target velocity[m/s]	(set value)
 float			f_NowSpeed		= 0;		// [velocity control]   now velocity [m/s]	(updated 1[msec])
  float			f_TrgtSpeed 		= 0;		// [velocity control]   target velocity[m/s]		(updated 1[msec])
-float			f_ErrSpeedBuf		= 0;		// [velocity control] 　velocity error buffer	(updated 1[msec])
+float			f_ErrSpeedBuf		= 0;		// [velocity control] 縲velocity error buffer	(updated 1[msec])
 float			f_SpeedErrSum 		= 0;		// [velocity control]   sum of velocity integral control	(updated 1[msec])
 
 float			f_MotorR_AngleS = 0;
@@ -29,12 +29,12 @@ float			f_MotorL_AngleS = 0;
 
 // dist
 float			f_BaseDist		= 0;		// [dist]   initial distance[m]		(set value)
-float			f_LastDist 		= 0;		// [距離制御]   最終移動距離					???��?��??��?��設定値???��?��?
-float			f_TrgtDist 		= 0;		// [距離制御]   目標移動距離					???��?��?1[msec]毎に更新される�?
-volatile float 		f_NowDist		= 0;		// [距離制御]   現在距離						???��?��?1[msec]毎に更新される�?
-float			f_NowDistR		= 0;		// [距離制御]   現在距離???��?��??��?��右???��?��?					???��?��?1[msec]毎に更新される�?
-float 			f_NowDistL		= 0;		// [距離制御]   現在距離???��?��??��?��左???��?��?					???��?��?1[msec]毎に更新される�?
-float			f_DistErrSum 		= 0;		// [距離制御]   距離積�??制御のサ??��?��?値			???��?��?1[msec]毎に更新される�?
+float			f_LastDist 		= 0;		// [霍晞屬蛻ｶ蠕｡]   譛邨らｧｻ蜍戊ｷ晞屬					???�ｿｽ�ｿｽ?�ｿｽ�ｿｽ??�ｿｽ�ｿｽ?�ｿｽ�ｿｽ險ｭ螳壼､???�ｿｽ�ｿｽ?�ｿｽ�ｿｽ?
+float			f_TrgtDist 		= 0;		// [霍晞屬蛻ｶ蠕｡]   逶ｮ讓咏ｧｻ蜍戊ｷ晞屬					???�ｿｽ�ｿｽ?�ｿｽ�ｿｽ?1[msec]豈弱↓譖ｴ譁ｰ縺輔ｌ繧具ｿｽ?
+volatile float 		f_NowDist		= 0;		// [霍晞屬蛻ｶ蠕｡]   迴ｾ蝨ｨ霍晞屬						???�ｿｽ�ｿｽ?�ｿｽ�ｿｽ?1[msec]豈弱↓譖ｴ譁ｰ縺輔ｌ繧具ｿｽ?
+float			f_NowDistR		= 0;		// [霍晞屬蛻ｶ蠕｡]   迴ｾ蝨ｨ霍晞屬???�ｿｽ�ｿｽ?�ｿｽ�ｿｽ??�ｿｽ�ｿｽ?�ｿｽ�ｿｽ蜿ｳ???�ｿｽ�ｿｽ?�ｿｽ�ｿｽ?					???�ｿｽ�ｿｽ?�ｿｽ�ｿｽ?1[msec]豈弱↓譖ｴ譁ｰ縺輔ｌ繧具ｿｽ?
+float 			f_NowDistL		= 0;		// [霍晞屬蛻ｶ蠕｡]   迴ｾ蝨ｨ霍晞屬???�ｿｽ�ｿｽ?�ｿｽ�ｿｽ??�ｿｽ�ｿｽ?�ｿｽ�ｿｽ蟾ｦ???�ｿｽ�ｿｽ?�ｿｽ�ｿｽ?					???�ｿｽ�ｿｽ?�ｿｽ�ｿｽ?1[msec]豈弱↓譖ｴ譁ｰ縺輔ｌ繧具ｿｽ?
+float			f_DistErrSum 		= 0;		// [霍晞屬蛻ｶ蠕｡]   霍晞屬遨搾ｿｽ??蛻ｶ蠕｡縺ｮ繧ｵ??�ｿｽ�ｿｽ?�ｿｽ�ｿｽ?蛟､			???�ｿｽ�ｿｽ?�ｿｽ�ｿｽ?1[msec]豈弱↓譖ｴ譁ｰ縺輔ｌ繧具ｿｽ?
 // angular velocity control
 float 			f_AccAngleS		= 0;		// [angle velocity control] angular acceleration[rad/s2]	(set value)
 float			f_BaseAngleS		= 0;		// [angle velocity control] initial angular velocity[rad/s]		(set value)
@@ -43,19 +43,19 @@ float			f_TrgtAngleS 		= 0;		// [angle velocity control] target angular velocity
 float			f_ErrAngleSBuf		= 0;		// [angle velocity control] angular velocity buffer	(updated 1[msec])
 float			f_AngleSErrSum 		= 0;		// [angle velocity control] sum of angular velocity integral contorol	(updated 1[msec])
 // angle
-float			f_BaseAngle		= 0;		// [角度制御]   初期角度						???��?��??��?��設定値???��?��?
-float			f_LastAngle 		= 0;		// [角度制御]   最終目標角度					???��?��??��?��設定値???��?��?
-volatile float 		f_NowAngle		= 0;		// [角度制御]   現在角度　	volatileをつけな??��?��?とwhileから抜けられなくなる（最適化�???��?��せい???��?��??��?��??��?��?1[msec]毎に更新される�?
-float			f_TrgtAngle 		= 0;		// [角度制御]   目標角度						???��?��?1[msec]毎に更新される�?
-float			f_AngleErrSum 		= 0;		// [角度制御]   角度積�??制御のサ??��?��?値			???��?��?1[msec]毎に更新される�?
+float			f_BaseAngle		= 0;		// [隗貞ｺｦ蛻ｶ蠕｡]   蛻晄悄隗貞ｺｦ						???�ｿｽ�ｿｽ?�ｿｽ�ｿｽ??�ｿｽ�ｿｽ?�ｿｽ�ｿｽ險ｭ螳壼､???�ｿｽ�ｿｽ?�ｿｽ�ｿｽ?
+float			f_LastAngle 		= 0;		// [隗貞ｺｦ蛻ｶ蠕｡]   譛邨ら岼讓呵ｧ貞ｺｦ					???�ｿｽ�ｿｽ?�ｿｽ�ｿｽ??�ｿｽ�ｿｽ?�ｿｽ�ｿｽ險ｭ螳壼､???�ｿｽ�ｿｽ?�ｿｽ�ｿｽ?
+volatile float 		f_NowAngle		= 0;		// [隗貞ｺｦ蛻ｶ蠕｡]   迴ｾ蝨ｨ隗貞ｺｦ縲	volatile繧偵▽縺代↑??�ｿｽ�ｿｽ?�ｿｽ�ｿｽ?縺ｨwhile縺九ｉ謚懊￠繧峨ｌ縺ｪ縺上↑繧具ｼ域怙驕ｩ蛹厄ｿｽ???�ｿｽ�ｿｽ?�ｿｽ�ｿｽ縺帙＞???�ｿｽ�ｿｽ?�ｿｽ�ｿｽ??�ｿｽ�ｿｽ?�ｿｽ�ｿｽ??�ｿｽ�ｿｽ?�ｿｽ�ｿｽ?1[msec]豈弱↓譖ｴ譁ｰ縺輔ｌ繧具ｿｽ?
+float			f_TrgtAngle 		= 0;		// [隗貞ｺｦ蛻ｶ蠕｡]   逶ｮ讓呵ｧ貞ｺｦ						???�ｿｽ�ｿｽ?�ｿｽ�ｿｽ?1[msec]豈弱↓譖ｴ譁ｰ縺輔ｌ繧具ｿｽ?
+float			f_AngleErrSum 		= 0;		// [隗貞ｺｦ蛻ｶ蠕｡]   隗貞ｺｦ遨搾ｿｽ??蛻ｶ蠕｡縺ｮ繧ｵ??�ｿｽ�ｿｽ?�ｿｽ�ｿｽ?蛟､			???�ｿｽ�ｿｽ?�ｿｽ�ｿｽ?1[msec]豈弱↓譖ｴ譁ｰ縺輔ｌ繧具ｿｽ?
 // wall control
 int32_t 			l_WallErr 		= 0;		// [wall control]     wall error		(updated 1[msec])
 float			f_ErrDistBuf		= 0;		// [wall control]     wall error buffer	(updated 1[msec])	
 
 //fail safe
-float  			f_ErrChkAngle; 			  // ジャイロセンサのエラー検�???��?��用の角度
-bool   			bl_ErrChk; 				  // ジャイロセンサのエラー検�???��?��???��?��?FALSE???��?��??��?��検知しな??��?��?、TRUE???��?��??��?��検知する???��?��?
-bool			bl_failsafe		= FALSE;	// マウスが�???��?��制御不�???��?��???��?��?TRUE???��?��??��?��制御不�???��?��、FALSE???��?��??��?��制御可能???��?��?
+float  			f_ErrChkAngle; 			  // 繧ｸ繝｣繧､繝ｭ繧ｻ繝ｳ繧ｵ縺ｮ繧ｨ繝ｩ繝ｼ讀懶ｿｽ???�ｿｽ�ｿｽ?�ｿｽ�ｿｽ逕ｨ縺ｮ隗貞ｺｦ
+bool   			bl_ErrChk; 				  // 繧ｸ繝｣繧､繝ｭ繧ｻ繝ｳ繧ｵ縺ｮ繧ｨ繝ｩ繝ｼ讀懶ｿｽ???�ｿｽ�ｿｽ?�ｿｽ�ｿｽ???�ｿｽ�ｿｽ?�ｿｽ�ｿｽ?FALSE???�ｿｽ�ｿｽ?�ｿｽ�ｿｽ??�ｿｽ�ｿｽ?�ｿｽ�ｿｽ讀懃衍縺励↑??�ｿｽ�ｿｽ?�ｿｽ�ｿｽ?縲ゝRUE???�ｿｽ�ｿｽ?�ｿｽ�ｿｽ??�ｿｽ�ｿｽ?�ｿｽ�ｿｽ讀懃衍縺吶ｋ???�ｿｽ�ｿｽ?�ｿｽ�ｿｽ?
+bool			bl_failsafe		= FALSE;	// 繝槭え繧ｹ縺鯉ｿｽ???�ｿｽ�ｿｽ?�ｿｽ�ｿｽ蛻ｶ蠕｡荳搾ｿｽ???�ｿｽ�ｿｽ?�ｿｽ�ｿｽ???�ｿｽ�ｿｽ?�ｿｽ�ｿｽ?TRUE???�ｿｽ�ｿｽ?�ｿｽ�ｿｽ??�ｿｽ�ｿｽ?�ｿｽ�ｿｽ蛻ｶ蠕｡荳搾ｿｽ???�ｿｽ�ｿｽ?�ｿｽ�ｿｽ縲：ALSE???�ｿｽ�ｿｽ?�ｿｽ�ｿｽ??�ｿｽ�ｿｽ?�ｿｽ�ｿｽ蛻ｶ蠕｡蜿ｯ閭ｽ???�ｿｽ�ｿｽ?�ｿｽ�ｿｽ?
 
 
 float Get_NowSpeed(void){
@@ -93,11 +93,11 @@ float Get_TrgtAngleS(void){
 void INTC_sys(void)
 {
 	Msec_in++;					// msec
-	if( Msec_in > 999 ){		// msec ??��?��? sec
+	if( Msec_in > 999 ){		// msec ??�ｿｽ�ｿｽ?�ｿｽ�ｿｽ? sec
 		Msec_in  = 0;
 		Sec_in++;
 	}
-	if( Sec_in > 59 ){			// sec ??��?��? min
+	if( Sec_in > 59 ){			// sec ??�ｿｽ�ｿｽ?�ｿｽ�ｿｽ? min
 		Sec_in = 0;
 		Min_in++;
 	}
@@ -113,80 +113,80 @@ void CTRL_sta( void )
 void CTRL_stop( void )
 {
 	uc_CtrlFlag = FALSE;
-	DCM_brakeMot( DCM_R );		// ブレーキ
-	DCM_brakeMot( DCM_L );		// ブレーキ
+	DCM_brakeMot( DCM_R );		// 繝悶Ξ繝ｼ繧ｭ
+	DCM_brakeMot( DCM_L );		// 繝悶Ξ繝ｼ繧ｭ
 }
 
 void CTRL_clrData( void )
 {
-//	recv_spi_encoder();								// エンコーダモジュール初期??��?��?
+//	recv_spi_encoder();								// 繧ｨ繝ｳ繧ｳ繝ｼ繝繝｢繧ｸ繝･繝ｼ繝ｫ蛻晄悄??�ｿｽ�ｿｽ?�ｿｽ�ｿｽ?
 //	ENC_R_CNT_old	= ENC_R_CNT;
 //	ENC_L_CNT_old	= ENC_L_CNT;
 /*	ENC_setref();
-	l_CntR			= 0;						// カウンタクリア
-	l_CntL			= 0;						// カウンタクリア
+	l_CntR			= 0;						// 繧ｫ繧ｦ繝ｳ繧ｿ繧ｯ繝ｪ繧｢
+	l_CntL			= 0;						// 繧ｫ繧ｦ繝ｳ繧ｿ繧ｯ繝ｪ繧｢
 */
-	/* 現在値 */
-/*	f_NowDist 		= 0;						// 移動距離リセ??��?��???��?��?
+	/* 迴ｾ蝨ｨ蛟､ */
+/*	f_NowDist 		= 0;						// 遘ｻ蜍戊ｷ晞屬繝ｪ繧ｻ??�ｿｽ�ｿｽ?�ｿｽ�ｿｽ???�ｿｽ�ｿｽ?�ｿｽ�ｿｽ?
 	f_NowDistR 		= 0;
 	f_NowDistL 		= 0;
-	f_NowSpeed		= 0;						// [速度制御]   現在の速度 [m/s]			???��?��?1[msec]毎に更新される�?
-	f_NowAngle		= 0;						// [角度制御]   現在角度					???��?��?1[msec]毎に更新される�?
-	s_GyroVal		= 0;						// ジャイロ値クリア
-	f_GyroNowAngle	= 0;							// ジャイロ値クリア
+	f_NowSpeed		= 0;						// [騾溷ｺｦ蛻ｶ蠕｡]   迴ｾ蝨ｨ縺ｮ騾溷ｺｦ [m/s]			???�ｿｽ�ｿｽ?�ｿｽ�ｿｽ?1[msec]豈弱↓譖ｴ譁ｰ縺輔ｌ繧具ｿｽ?
+	f_NowAngle		= 0;						// [隗貞ｺｦ蛻ｶ蠕｡]   迴ｾ蝨ｨ隗貞ｺｦ					???�ｿｽ�ｿｽ?�ｿｽ�ｿｽ?1[msec]豈弱↓譖ｴ譁ｰ縺輔ｌ繧具ｿｽ?
+	s_GyroVal		= 0;						// 繧ｸ繝｣繧､繝ｭ蛟､繧ｯ繝ｪ繧｢
+	f_GyroNowAngle	= 0;							// 繧ｸ繝｣繧､繝ｭ蛟､繧ｯ繝ｪ繧｢
 */
-	/* 目標値 */
-	f_TrgtSpeed		= 0;						// [速度制御]   目標移動速度 [m/s]			???��?��?1[msec]毎に更新される�?
-	f_TrgtDist 		= 0;						// [距離制御]   目標移動距離				???��?��?1[msec]毎に更新される�?
-	f_TrgtAngleS	= 0;							// [角速度制御] 目標角速度 [rad/s]			???��?��?1[msec]毎に更新される�?
-	f_TrgtAngle		= 0;						// [角度制御]   目標角度					???��?��?1[msec]毎に更新される�?
+	/* 逶ｮ讓吝､ */
+	f_TrgtSpeed		= 0;						// [騾溷ｺｦ蛻ｶ蠕｡]   逶ｮ讓咏ｧｻ蜍暮溷ｺｦ [m/s]			???�ｿｽ�ｿｽ?�ｿｽ�ｿｽ?1[msec]豈弱↓譖ｴ譁ｰ縺輔ｌ繧具ｿｽ?
+	f_TrgtDist 		= 0;						// [霍晞屬蛻ｶ蠕｡]   逶ｮ讓咏ｧｻ蜍戊ｷ晞屬				???�ｿｽ�ｿｽ?�ｿｽ�ｿｽ?1[msec]豈弱↓譖ｴ譁ｰ縺輔ｌ繧具ｿｽ?
+	f_TrgtAngleS	= 0;							// [隗帝溷ｺｦ蛻ｶ蠕｡] 逶ｮ讓呵ｧ帝溷ｺｦ [rad/s]			???�ｿｽ�ｿｽ?�ｿｽ�ｿｽ?1[msec]豈弱↓譖ｴ譁ｰ縺輔ｌ繧具ｿｽ?
+	f_TrgtAngle		= 0;						// [隗貞ｺｦ蛻ｶ蠕｡]   逶ｮ讓呵ｧ貞ｺｦ					???�ｿｽ�ｿｽ?�ｿｽ�ｿｽ?1[msec]豈弱↓譖ｴ譁ｰ縺輔ｌ繧具ｿｽ?
 
-	/* 制御??��?��?ータ */
+	/* 蛻ｶ蠕｡??�ｿｽ�ｿｽ?�ｿｽ�ｿｽ?繝ｼ繧ｿ */
 	f_SpeedErrSum	= 0;
-	f_DistErrSum 	= 0;						// [距離制御]   距離積�??制御のサ??��?��?値			???��?��?1[msec]毎に更新される�?
+	f_DistErrSum 	= 0;						// [霍晞屬蛻ｶ蠕｡]   霍晞屬遨搾ｿｽ??蛻ｶ蠕｡縺ｮ繧ｵ??�ｿｽ�ｿｽ?�ｿｽ�ｿｽ?蛟､			???�ｿｽ�ｿｽ?�ｿｽ�ｿｽ?1[msec]豈弱↓譖ｴ譁ｰ縺輔ｌ繧具ｿｽ?
 	f_AngleSErrSum	= 0;
-	f_AngleErrSum 	= 0;						// [角度制御]   角度積�??制御のサ??��?��?値			???��?��?1[msec]毎に更新される�?
+	f_AngleErrSum 	= 0;						// [隗貞ｺｦ蛻ｶ蠕｡]   隗貞ｺｦ遨搾ｿｽ??蛻ｶ蠕｡縺ｮ繧ｵ??�ｿｽ�ｿｽ?�ｿｽ�ｿｽ?蛟､			???�ｿｽ�ｿｽ?�ｿｽ�ｿｽ?1[msec]豈弱↓譖ｴ譁ｰ縺輔ｌ繧具ｿｽ?
 	f_ErrSpeedBuf	= 0;
-	f_ErrDistBuf	= 0;						// [壁制御]     距離センサーエラー値のバッファ		???��?��?1[msec]毎に更新される�?
+	f_ErrDistBuf	= 0;						// [螢∝宛蠕｡]     霍晞屬繧ｻ繝ｳ繧ｵ繝ｼ繧ｨ繝ｩ繝ｼ蛟､縺ｮ繝舌ャ繝輔ぃ		???�ｿｽ�ｿｽ?�ｿｽ�ｿｽ?1[msec]豈弱↓譖ｴ譁ｰ縺輔ｌ繧具ｿｽ?
 	f_ErrAngleSBuf  = 0;
 }
 
 void CTRL_clrNowData(void)
 {
 	ENC_setref();
-	l_CntR			= 0;						// カウンタクリア
-	l_CntL			= 0;						// カウンタクリア
+	l_CntR			= 0;						// 繧ｫ繧ｦ繝ｳ繧ｿ繧ｯ繝ｪ繧｢
+	l_CntL			= 0;						// 繧ｫ繧ｦ繝ｳ繧ｿ繧ｯ繝ｪ繧｢
 
-	/* 現在値 */
-	f_NowDist 		= 0;						// 移動距離リセ??��?��???��?��?
+	/* 迴ｾ蝨ｨ蛟､ */
+	f_NowDist 		= 0;						// 遘ｻ蜍戊ｷ晞屬繝ｪ繧ｻ??�ｿｽ�ｿｽ?�ｿｽ�ｿｽ???�ｿｽ�ｿｽ?�ｿｽ�ｿｽ?
 	f_NowDistR 		= 0;
 	f_NowDistL 		= 0;
-	f_NowSpeed		= 0;						// [速度制御]   現在の速度 [m/s]			???��?��?1[msec]毎に更新される�?
-	f_NowAngle		= 0;						// [角度制御]   現在角度					???��?��?1[msec]毎に更新される�?
-	s_GyroVal		= 0;						// ジャイロ値クリア
-	f_GyroNowAngle	= 0;							// ジャイロ値クリア
+	f_NowSpeed		= 0;						// [騾溷ｺｦ蛻ｶ蠕｡]   迴ｾ蝨ｨ縺ｮ騾溷ｺｦ [m/s]			???�ｿｽ�ｿｽ?�ｿｽ�ｿｽ?1[msec]豈弱↓譖ｴ譁ｰ縺輔ｌ繧具ｿｽ?
+	f_NowAngle		= 0;						// [隗貞ｺｦ蛻ｶ蠕｡]   迴ｾ蝨ｨ隗貞ｺｦ					???�ｿｽ�ｿｽ?�ｿｽ�ｿｽ?1[msec]豈弱↓譖ｴ譁ｰ縺輔ｌ繧具ｿｽ?
+	s_GyroVal		= 0;						// 繧ｸ繝｣繧､繝ｭ蛟､繧ｯ繝ｪ繧｢
+	f_GyroNowAngle	= 0;							// 繧ｸ繝｣繧､繝ｭ蛟､繧ｯ繝ｪ繧｢
 }
 
 void CTRL_setData( stCTRL_DATA* p_data )
 {
-	/* 制御方??��?��? */
+	/* 蛻ｶ蠕｡譁ｹ??�ｿｽ�ｿｽ?�ｿｽ�ｿｽ? */
 	en_Type					= p_data->en_type;
 
-	/* 速度制御 */
+	/* 騾溷ｺｦ蛻ｶ蠕｡ */
 	f_Acc 					= p_data->f_acc;
 	f_BaseSpeed				= p_data->f_now;
 	f_LastSpeed				= p_data->f_trgt;
 
-	/* 距離制御 */
+	/* 霍晞屬蛻ｶ蠕｡ */
 	f_BaseDist 				= p_data->f_nowDist;
 	f_LastDist 				= p_data->f_dist;
 
-	/* 角速度制御 */
+	/* 隗帝溷ｺｦ蛻ｶ蠕｡ */
 	f_AccAngleS 			= p_data->f_accAngleS;
 	f_BaseAngleS			= p_data->f_nowAngleS;
 	f_LastAngleS			= p_data->f_trgtAngleS;
 
-	/* 角度制御 */
+	/* 隗貞ｺｦ蛻ｶ蠕｡ */
 	f_BaseAngle 			= p_data->f_nowAngle;
 	f_LastAngle 			= p_data->f_angle;
 
@@ -195,30 +195,30 @@ void CTRL_setData( stCTRL_DATA* p_data )
 
 	escape_wait			= 0;
 
-	CTRL_sta();				// 制御開�?
+	CTRL_sta();				// 蛻ｶ蠕｡髢具ｿｽ?
 
 }
 
 void CTRL_refNow( void )
 {
-	float f_speedR		= 0;							// 右モータ現在速度 [m/s]
-	float f_speedL		= 0;							// 左モータ現在速度 [m/s]
-	float f_r 			= F_CNT2MM(l_CntR);				// 右モータの進んだ距離 [m]
-	float f_l 			= F_CNT2MM(l_CntL);				// 左モータの進んだ距離 [m]
+	float f_speedR		= 0;							// 蜿ｳ繝｢繝ｼ繧ｿ迴ｾ蝨ｨ騾溷ｺｦ [m/s]
+	float f_speedL		= 0;							// 蟾ｦ繝｢繝ｼ繧ｿ迴ｾ蝨ｨ騾溷ｺｦ [m/s]
+	float f_r 			= F_CNT2MM(l_CntR);				// 蜿ｳ繝｢繝ｼ繧ｿ縺ｮ騾ｲ繧薙□霍晞屬 [m]
+	float f_l 			= F_CNT2MM(l_CntL);				// 蟾ｦ繝｢繝ｼ繧ｿ縺ｮ騾ｲ繧薙□霍晞屬 [m]
 
-	/* 速度更新 */
-	f_speedR = f_r * 1000.0;								// 右モータ速度 [m/s] ( 移動距離[カウン??��?��?] * 1パルスの移動量(0.0509[mm]) * 1000(msec→sec)
-	f_speedL = f_l * 1000.0;								// 左モータ速度 [m/s] ( 移動距離[カウン??��?��?] * 1パルスの移動量(0.0509[mm]) * 1000(msec→sec)
-	f_NowSpeed  = ( f_speedR + f_speedL ) / 2;			// マウス???��?��??��?��進行方向中??��?��?軸???��?��? [1m/s]
+	/* 騾溷ｺｦ譖ｴ譁ｰ */
+	f_speedR = f_r * 1000.0;								// 蜿ｳ繝｢繝ｼ繧ｿ騾溷ｺｦ [m/s] ( 遘ｻ蜍戊ｷ晞屬[繧ｫ繧ｦ繝ｳ??�ｿｽ�ｿｽ?�ｿｽ�ｿｽ?] * 1繝代Ν繧ｹ縺ｮ遘ｻ蜍暮㍼(0.0509[mm]) * 1000(msec竊痴ec)
+	f_speedL = f_l * 1000.0;								// 蟾ｦ繝｢繝ｼ繧ｿ騾溷ｺｦ [m/s] ( 遘ｻ蜍戊ｷ晞屬[繧ｫ繧ｦ繝ｳ??�ｿｽ�ｿｽ?�ｿｽ�ｿｽ?] * 1繝代Ν繧ｹ縺ｮ遘ｻ蜍暮㍼(0.0509[mm]) * 1000(msec竊痴ec)
+	f_NowSpeed  = ( f_speedR + f_speedL ) / 2;			// 繝槭え繧ｹ???�ｿｽ�ｿｽ?�ｿｽ�ｿｽ??�ｿｽ�ｿｽ?�ｿｽ�ｿｽ騾ｲ陦梧婿蜷台ｸｭ??�ｿｽ�ｿｽ?�ｿｽ�ｿｽ?霆ｸ???�ｿｽ�ｿｽ?�ｿｽ�ｿｽ? [1m/s]
 
 	/*motor AngleS*/
 	f_MotorR_AngleS	= f_speedR /(PI*TIRE_D)/GEAR_RATIO;
 	f_MotorL_AngleS = f_speedL /(PI*TIRE_D)/GEAR_RATIO;
 
-	/* 距離更新 */
-	f_NowDistR += f_r;									// カウント更新
-	f_NowDistL += f_l;									// カウント更新
-	f_NowDist  = ( f_NowDistR + f_NowDistL ) / 2;		// 平??��?��?値更新
+	/* 霍晞屬譖ｴ譁ｰ */
+	f_NowDistR += f_r;									// 繧ｫ繧ｦ繝ｳ繝域峩譁ｰ
+	f_NowDistL += f_l;									// 繧ｫ繧ｦ繝ｳ繝域峩譁ｰ
+	f_NowDist  = ( f_NowDistR + f_NowDistL ) / 2;		// 蟷ｳ??�ｿｽ�ｿｽ?�ｿｽ�ｿｽ?蛟､譖ｴ譁ｰ
 }
 
 void CTRL_refTarget( void )
@@ -229,8 +229,8 @@ void CTRL_refTarget( void )
 		/* acc(straight) */
 		case CTRL_ACC:
 		case CTRL_SKEW_ACC:
-			if( f_TrgtSpeed < (f_LastSpeed -(f_Acc * 0.001)) ){												// ??��?��?速目標更新区??��?��?
-				f_TrgtSpeed = f_BaseSpeed + f_Acc * f_Time;									// 目標速度
+			if( f_TrgtSpeed < (f_LastSpeed -(f_Acc * 0.001)) ){												// ??�ｿｽ�ｿｽ?�ｿｽ�ｿｽ?騾溽岼讓呎峩譁ｰ蛹ｺ??�ｿｽ�ｿｽ?�ｿｽ�ｿｽ?
+				f_TrgtSpeed = f_BaseSpeed + f_Acc * f_Time;									// 逶ｮ讓咎溷ｺｦ
 			}
 			else{
 				f_TrgtSpeed = f_LastSpeed;
@@ -240,21 +240,21 @@ void CTRL_refTarget( void )
 		/* const(straight) */
 		case CTRL_CONST:
 		case CTRL_SKEW_CONST:
-			f_TrgtSpeed = f_BaseSpeed;														// 目標速度
+			f_TrgtSpeed = f_BaseSpeed;														// 逶ｮ讓咎溷ｺｦ
 			break;
 
 		/* dec(straight) */
 		case CTRL_DEC:
 		case CTRL_SKEW_DEC:
 			/* speed CTRL + position CTRL */
-			if( f_TrgtSpeed > (f_LastSpeed +(f_Acc * 0.001))){												// 減速目標更新区??��?��?
-				f_TrgtSpeed = f_BaseSpeed - f_Acc * f_Time;									// 目標速度
-				f_TrgtDist  = f_BaseDist + ( f_BaseSpeed + f_TrgtSpeed ) * f_Time / 2;		// 目標距離
+			if( f_TrgtSpeed > (f_LastSpeed +(f_Acc * 0.001))){												// 貂幃溽岼讓呎峩譁ｰ蛹ｺ??�ｿｽ�ｿｽ?�ｿｽ�ｿｽ?
+				f_TrgtSpeed = f_BaseSpeed - f_Acc * f_Time;									// 逶ｮ讓咎溷ｺｦ
+				f_TrgtDist  = f_BaseDist + ( f_BaseSpeed + f_TrgtSpeed ) * f_Time / 2;		// 逶ｮ讓呵ｷ晞屬
 			}
 			/* position CTRL */
 			else{
 				f_TrgtSpeed = f_LastSpeed;
-				f_TrgtDist  = f_LastDist;													// 目標距離
+				f_TrgtDist  = f_LastDist;													// 逶ｮ讓呵ｷ晞屬
 			}
 			break;
 
@@ -264,7 +264,7 @@ void CTRL_refTarget( void )
 			/* CCW  hidari*/
 			if( f_LastAngle > 0 ){
 				if ( f_TrgtAngleS < (f_LastAngleS -(f_AccAngleS * 0.001)) ){
-					f_TrgtAngleS = 0.0 + f_AccAngleS * f_Time;									// 目標角速度
+					f_TrgtAngleS = 0.0 + f_AccAngleS * f_Time;									// 逶ｮ讓呵ｧ帝溷ｺｦ
 				}
 				else{
 					f_TrgtAngleS = f_LastAngleS;
@@ -273,7 +273,7 @@ void CTRL_refTarget( void )
 			/* CW  migi */
 			else{
 				if( f_TrgtAngleS > (f_LastAngleS +(f_AccAngleS * 0.001)) ){
-				f_TrgtAngleS = 0.0 - f_AccAngleS * f_Time;									// 目標角速度
+				f_TrgtAngleS = 0.0 - f_AccAngleS * f_Time;									// 逶ｮ讓呵ｧ帝溷ｺｦ
 				}
 				else{
 					f_TrgtAngleS = f_LastAngleS;
@@ -292,28 +292,28 @@ void CTRL_refTarget( void )
 			if( f_LastAngle > 0 ){
 
 				/* Angle speed CTRL + Angle CTRL */
-				if( f_TrgtAngleS > (f_LastAngleS +(f_AccAngleS * 0.001)) ){												// 減速目標更新区??��?��?
-					f_TrgtAngleS = f_BaseAngleS - f_AccAngleS * f_Time;							// 目標角速度
-					f_TrgtAngle  = f_BaseAngle + ( f_BaseAngleS + f_TrgtAngleS ) * f_Time / 2;	// 目標角度
+				if( f_TrgtAngleS > (f_LastAngleS +(f_AccAngleS * 0.001)) ){												// 貂幃溽岼讓呎峩譁ｰ蛹ｺ??�ｿｽ�ｿｽ?�ｿｽ�ｿｽ?
+					f_TrgtAngleS = f_BaseAngleS - f_AccAngleS * f_Time;							// 逶ｮ讓呵ｧ帝溷ｺｦ
+					f_TrgtAngle  = f_BaseAngle + ( f_BaseAngleS + f_TrgtAngleS ) * f_Time / 2;	// 逶ｮ讓呵ｧ貞ｺｦ
 				}
 				/* Angle CTRL */
 				else{
 					f_TrgtAngleS = f_LastAngleS;
-					f_TrgtAngle  = f_LastAngle;													// 目標距離
+					f_TrgtAngle  = f_LastAngle;													// 逶ｮ讓呵ｷ晞屬
 				}
 			}
 			/* CW */
 			else{
 
 				/* Angle speed CTRL + Angle CTRL */
-				if( f_TrgtAngleS < (f_LastAngleS -(f_AccAngleS * 0.001))){												// 減速目標更新区??��?��?
-					f_TrgtAngleS = f_BaseAngleS + f_AccAngleS * f_Time;							// 目標角速度
-					f_TrgtAngle  = f_BaseAngle + ( f_BaseAngleS + f_TrgtAngleS ) * f_Time / 2;	// 目標角度
+				if( f_TrgtAngleS < (f_LastAngleS -(f_AccAngleS * 0.001))){												// 貂幃溽岼讓呎峩譁ｰ蛹ｺ??�ｿｽ�ｿｽ?�ｿｽ�ｿｽ?
+					f_TrgtAngleS = f_BaseAngleS + f_AccAngleS * f_Time;							// 逶ｮ讓呵ｧ帝溷ｺｦ
+					f_TrgtAngle  = f_BaseAngle + ( f_BaseAngleS + f_TrgtAngleS ) * f_Time / 2;	// 逶ｮ讓呵ｧ貞ｺｦ
 				}
 				/* Angle CTRL */
 				else{
 					f_TrgtAngleS = f_LastAngleS;
-					f_TrgtAngle  = f_LastAngle;													// 目標距離
+					f_TrgtAngle  = f_LastAngle;													// 逶ｮ讓呵ｷ晞屬
 				}
 			}
 			break;
@@ -322,76 +322,76 @@ void CTRL_refTarget( void )
 		case CTRL_ENTRY_SURA:
 			f_TrgtSpeed = f_BaseSpeed;
 			if( f_TrgtDist <= f_LastDist - (f_TrgtSpeed * 0.001) ){
-				f_TrgtDist  = f_BaseDist + f_TrgtSpeed * f_Time;								// 目標距離
+				f_TrgtDist  = f_BaseDist + f_TrgtSpeed * f_Time;								// 逶ｮ讓呵ｷ晞屬
 			}
 			break;
 
-		/* acc(スラロー??��?��?) */
+		/* acc(繧ｹ繝ｩ繝ｭ繝ｼ??�ｿｽ�ｿｽ?�ｿｽ�ｿｽ?) */
 		case CTRL_ACC_SURA:
 			f_TrgtSpeed = f_BaseSpeed;
 
 			/* CCW */
 			if( f_LastAngle > 0 ){
 				if( f_TrgtAngleS < (f_LastAngleS +(f_AccAngleS * 0.001))){
-					f_TrgtAngleS = f_BaseAngleS + f_AccAngleS * f_Time;							// 目標角速度
-					f_TrgtAngle  = f_BaseAngle + ( f_BaseAngleS + f_TrgtAngleS ) * f_Time / 2;	// 目標角度
+					f_TrgtAngleS = f_BaseAngleS + f_AccAngleS * f_Time;							// 逶ｮ讓呵ｧ帝溷ｺｦ
+					f_TrgtAngle  = f_BaseAngle + ( f_BaseAngleS + f_TrgtAngleS ) * f_Time / 2;	// 逶ｮ讓呵ｧ貞ｺｦ
 //					printf("%5.2f %5.2f %5.4f %5.2f %5.2f\n\r",f_TrgtAngleS,f_AccAngleS,f_Time,f_TrgtAngle,f_LastAngleS);
 				}
 				else{
-					f_TrgtAngle  = f_LastAngle;													// 目標距離
+					f_TrgtAngle  = f_LastAngle;													// 逶ｮ讓呵ｷ晞屬
 				}
 			}
 			/* CW */
 			else{
 				if( f_TrgtAngleS > (f_LastAngleS -(f_AccAngleS * 0.001)) ){
-					f_TrgtAngleS = f_BaseAngleS + f_AccAngleS * f_Time;							// 目標角速度
-					f_TrgtAngle  = f_BaseAngle + ( f_BaseAngleS + f_TrgtAngleS ) * f_Time / 2;	// 目標角度
+					f_TrgtAngleS = f_BaseAngleS + f_AccAngleS * f_Time;							// 逶ｮ讓呵ｧ帝溷ｺｦ
+					f_TrgtAngle  = f_BaseAngle + ( f_BaseAngleS + f_TrgtAngleS ) * f_Time / 2;	// 逶ｮ讓呵ｧ貞ｺｦ
 //					printf("%5.2f %5.2f %5.4f %5.2f %5.2f\n\r",f_TrgtAngleS,f_AccAngleS,f_Time,f_TrgtAngle,f_LastAngleS);
 				}
 				else{
-					f_TrgtAngle  = f_LastAngle;													// 目標距離
+					f_TrgtAngle  = f_LastAngle;													// 逶ｮ讓呵ｷ晞屬
 				}
 			}
 
 			/* Position CTRL */
-			if( f_LastDist > (f_TrgtDist - (f_TrgtSpeed * 0.001)) ){													// 目標更新区??��?��?
-				f_TrgtDist  = f_BaseDist + f_TrgtSpeed * f_Time;							// 目標位置
+			if( f_LastDist > (f_TrgtDist - (f_TrgtSpeed * 0.001)) ){													// 逶ｮ讓呎峩譁ｰ蛹ｺ??�ｿｽ�ｿｽ?�ｿｽ�ｿｽ?
+				f_TrgtDist  = f_BaseDist + f_TrgtSpeed * f_Time;							// 逶ｮ讓吩ｽ咲ｽｮ
 			}
 			else{
-				f_TrgtDist  = f_LastDist;													// 目標距離
+				f_TrgtDist  = f_LastDist;													// 逶ｮ讓呵ｷ晞屬
 			}
 			break;
 
 		/* const(sura) */
 		case CTRL_CONST_SURA:
 			f_TrgtSpeed = f_BaseSpeed;
-			f_TrgtAngleS = f_BaseAngleS;							// 目標角速度
+			f_TrgtAngleS = f_BaseAngleS;							// 逶ｮ讓呵ｧ帝溷ｺｦ
 
 			/* CCW */
 			if( f_LastAngle > 0 ){
 				if( f_TrgtAngle < (f_LastAngle +(f_AccAngleS * 0.001)) ){
-					f_TrgtAngle  = f_BaseAngle + f_TrgtAngleS * f_Time;			// 目標角度
+					f_TrgtAngle  = f_BaseAngle + f_TrgtAngleS * f_Time;			// 逶ｮ讓呵ｧ貞ｺｦ
 				}
 				else{
-					f_TrgtAngle  = f_LastAngle;									// 目標角度
+					f_TrgtAngle  = f_LastAngle;									// 逶ｮ讓呵ｧ貞ｺｦ
 				}
 			}
 			/* CW */
 			else{
 				if( f_TrgtAngle > (f_LastAngle -(f_AccAngleS * 0.001)) ){
-					f_TrgtAngle  = f_BaseAngle + f_TrgtAngleS * f_Time;			// 目標角度
+					f_TrgtAngle  = f_BaseAngle + f_TrgtAngleS * f_Time;			// 逶ｮ讓呵ｧ貞ｺｦ
 				}
 				else{
-					f_TrgtAngle  = f_LastAngle;									// 目標角度
+					f_TrgtAngle  = f_LastAngle;									// 逶ｮ讓呵ｧ貞ｺｦ
 				}
 			}
 
 			/* Position CTRL */
-			if( f_LastDist > (f_TrgtDist - (f_TrgtSpeed * 0.001)) ){													// 目標更新区??��?��?
-				f_TrgtDist  = f_BaseDist + f_TrgtSpeed * f_Time;							// 目標位置
+			if( f_LastDist > (f_TrgtDist - (f_TrgtSpeed * 0.001)) ){													// 逶ｮ讓呎峩譁ｰ蛹ｺ??�ｿｽ�ｿｽ?�ｿｽ�ｿｽ?
+				f_TrgtDist  = f_BaseDist + f_TrgtSpeed * f_Time;							// 逶ｮ讓吩ｽ咲ｽｮ
 			}
 			else{
-				f_TrgtDist  = f_LastDist;													// 目標距離
+				f_TrgtDist  = f_LastDist;													// 逶ｮ讓呵ｷ晞屬
 			}
 			break;
 
@@ -402,32 +402,32 @@ void CTRL_refTarget( void )
 			/* CCW */
 			if( f_LastAngle > 0 ){
 				if( f_TrgtAngleS > (f_LastAngle -(f_AccAngleS * 0.001)) ){
-					f_TrgtAngleS = f_BaseAngleS + f_AccAngleS * f_Time;							// 目標角速度
-					f_TrgtAngle  = f_BaseAngle + ( f_BaseAngleS + f_TrgtAngleS ) * f_Time / 2;	// 目標角度
+					f_TrgtAngleS = f_BaseAngleS + f_AccAngleS * f_Time;							// 逶ｮ讓呵ｧ帝溷ｺｦ
+					f_TrgtAngle  = f_BaseAngle + ( f_BaseAngleS + f_TrgtAngleS ) * f_Time / 2;	// 逶ｮ讓呵ｧ貞ｺｦ
 				}
 				else{
 					f_TrgtAngleS = 0.0;
-					f_TrgtAngle  = f_LastAngle;													// 目標距離
+					f_TrgtAngle  = f_LastAngle;													// 逶ｮ讓呵ｷ晞屬
 				}
 			}
 			/*CW*/
 			else{
 				if( f_TrgtAngleS < (f_LastAngle +(f_AccAngleS * 0.001)) ){
-					f_TrgtAngleS = f_BaseAngleS + f_AccAngleS * f_Time;							// 目標角速度
-					f_TrgtAngle  = f_BaseAngle + ( f_BaseAngleS + f_TrgtAngleS ) * f_Time / 2;	// 目標角度
+					f_TrgtAngleS = f_BaseAngleS + f_AccAngleS * f_Time;							// 逶ｮ讓呵ｧ帝溷ｺｦ
+					f_TrgtAngle  = f_BaseAngle + ( f_BaseAngleS + f_TrgtAngleS ) * f_Time / 2;	// 逶ｮ讓呵ｧ貞ｺｦ
 				}
 				else{
 					f_TrgtAngleS = 0.0;
-					f_TrgtAngle  = f_LastAngle;													// 目標距離
+					f_TrgtAngle  = f_LastAngle;													// 逶ｮ讓呵ｷ晞屬
 				}
 			}
 
 			/* Position CTRL */
-			if( f_LastDist > (f_TrgtDist - (f_TrgtSpeed * 0.001)) ){													// 目標更新区??��?��?
-				f_TrgtDist  = f_BaseDist + f_TrgtSpeed * f_Time;							// 目標位置
+			if( f_LastDist > (f_TrgtDist - (f_TrgtSpeed * 0.001)) ){													// 逶ｮ讓呎峩譁ｰ蛹ｺ??�ｿｽ�ｿｽ?�ｿｽ�ｿｽ?
+				f_TrgtDist  = f_BaseDist + f_TrgtSpeed * f_Time;							// 逶ｮ讓吩ｽ咲ｽｮ
 			}
 			else{
-				f_TrgtDist  = f_LastDist;													// 目標距離
+				f_TrgtDist  = f_LastDist;													// 逶ｮ讓呵ｷ晞屬
 			}
 			break;
 
@@ -436,10 +436,10 @@ void CTRL_refTarget( void )
 			f_TrgtSpeed = f_BaseSpeed;
 			f_TrgtAngleS = 0;
 			if( f_TrgtDist <= (f_LastDist -f_TrgtSpeed * 0.001)){
-				f_TrgtDist  = f_BaseDist + f_TrgtSpeed * f_Time;								// 目標距離
+				f_TrgtDist  = f_BaseDist + f_TrgtSpeed * f_Time;								// 逶ｮ讓呵ｷ晞屬
 			}
 			else{
-				f_TrgtDist  = f_LastDist;														// 目標距離
+				f_TrgtDist  = f_LastDist;														// 逶ｮ讓呵ｷ晞屬
 			}
 			break;
 
@@ -452,34 +452,34 @@ void CTRL_refTarget( void )
 enPARAM_MODE Chg_ParamID( enCTRL_TYPE en_type )
 {
 	switch( en_type ){
-		case CTRL_ACC:			return PARAM_ACC;				// ??��?��?速中(直進)
-		case CTRL_CONST:		return PARAM_CONST;				// 等速中(直進)
-		case CTRL_DEC:			return PARAM_DEC;				// 減速中(直進)
-		case CTRL_HIT_WALL:		return PARAM_HIT_WALL;			// 壁あて制御
-//		case DCMC_BACK_ACC:		return PARAM_BACK_ACC;			// ??��?��?速中(後進)
-//		case DCMC_BACK_CONST:		return PARAM_BACK_CONST;		// 等速中(後進)
-//		case DCMC_BACK_DEC:		return PARAM_BACK_DEC;			// 減速中(後進)
-		case CTRL_SKEW_ACC:		return PARAM_SKEW_ACC;			// ??��?��?速中(直進)
-		case CTRL_SKEW_CONST:		return PARAM_SKEW_CONST;		// 等速中(直進)
-		case CTRL_SKEW_DEC:		return PARAM_SKEW_DEC;			// 減速中(直進)
-		case CTRL_ACC_TRUN:		return PARAM_ACC_TRUN;			// ??��?��?速中(??��?��?地信旋回)
-		case CTRL_CONST_TRUN:		return PARAM_CONST_TRUN;		// 等速中(??��?��?地信旋回)
-		case CTRL_DEC_TRUN:		return PARAM_DEC_TRUN;			// 減速中(??��?��?地信旋回)
-		case CTRL_ENTRY_SURA:		return PARAM_ENTRY_SURA;		// スラロー??��?��?前�???��?��前進動�?(スラロー??��?��?)
-		case CTRL_ACC_SURA:		return PARAM_ACC_SURA;			// ??��?��?速中(スラロー??��?��?)
-		case CTRL_CONST_SURA:		return PARAM_CONST_SURA;		// 等速中(スラロー??��?��?)
-		case CTRL_DEC_SURA:		return PARAM_DEC_SURA;			// 減速中(スラロー??��?��?)
-		case CTRL_EXIT_SURA:		return PARAM_EXIT_SURA;			// スラロー??��?��?後�???��?��前進動�?(スラロー??��?��?)
+		case CTRL_ACC:			return PARAM_ACC;				// ??�ｿｽ�ｿｽ?�ｿｽ�ｿｽ?騾滉ｸｭ(逶ｴ騾ｲ)
+		case CTRL_CONST:		return PARAM_CONST;				// 遲蛾滉ｸｭ(逶ｴ騾ｲ)
+		case CTRL_DEC:			return PARAM_DEC;				// 貂幃滉ｸｭ(逶ｴ騾ｲ)
+		case CTRL_HIT_WALL:		return PARAM_HIT_WALL;			// 螢√≠縺ｦ蛻ｶ蠕｡
+//		case DCMC_BACK_ACC:		return PARAM_BACK_ACC;			// ??�ｿｽ�ｿｽ?�ｿｽ�ｿｽ?騾滉ｸｭ(蠕碁ｲ)
+//		case DCMC_BACK_CONST:		return PARAM_BACK_CONST;		// 遲蛾滉ｸｭ(蠕碁ｲ)
+//		case DCMC_BACK_DEC:		return PARAM_BACK_DEC;			// 貂幃滉ｸｭ(蠕碁ｲ)
+		case CTRL_SKEW_ACC:		return PARAM_SKEW_ACC;			// ??�ｿｽ�ｿｽ?�ｿｽ�ｿｽ?騾滉ｸｭ(逶ｴ騾ｲ)
+		case CTRL_SKEW_CONST:		return PARAM_SKEW_CONST;		// 遲蛾滉ｸｭ(逶ｴ騾ｲ)
+		case CTRL_SKEW_DEC:		return PARAM_SKEW_DEC;			// 貂幃滉ｸｭ(逶ｴ騾ｲ)
+		case CTRL_ACC_TRUN:		return PARAM_ACC_TRUN;			// ??�ｿｽ�ｿｽ?�ｿｽ�ｿｽ?騾滉ｸｭ(??�ｿｽ�ｿｽ?�ｿｽ�ｿｽ?蝨ｰ菫｡譌句屓)
+		case CTRL_CONST_TRUN:		return PARAM_CONST_TRUN;		// 遲蛾滉ｸｭ(??�ｿｽ�ｿｽ?�ｿｽ�ｿｽ?蝨ｰ菫｡譌句屓)
+		case CTRL_DEC_TRUN:		return PARAM_DEC_TRUN;			// 貂幃滉ｸｭ(??�ｿｽ�ｿｽ?�ｿｽ�ｿｽ?蝨ｰ菫｡譌句屓)
+		case CTRL_ENTRY_SURA:		return PARAM_ENTRY_SURA;		// 繧ｹ繝ｩ繝ｭ繝ｼ??�ｿｽ�ｿｽ?�ｿｽ�ｿｽ?蜑搾ｿｽ???�ｿｽ�ｿｽ?�ｿｽ�ｿｽ蜑埼ｲ蜍包ｿｽ?(繧ｹ繝ｩ繝ｭ繝ｼ??�ｿｽ�ｿｽ?�ｿｽ�ｿｽ?)
+		case CTRL_ACC_SURA:		return PARAM_ACC_SURA;			// ??�ｿｽ�ｿｽ?�ｿｽ�ｿｽ?騾滉ｸｭ(繧ｹ繝ｩ繝ｭ繝ｼ??�ｿｽ�ｿｽ?�ｿｽ�ｿｽ?)
+		case CTRL_CONST_SURA:		return PARAM_CONST_SURA;		// 遲蛾滉ｸｭ(繧ｹ繝ｩ繝ｭ繝ｼ??�ｿｽ�ｿｽ?�ｿｽ�ｿｽ?)
+		case CTRL_DEC_SURA:		return PARAM_DEC_SURA;			// 貂幃滉ｸｭ(繧ｹ繝ｩ繝ｭ繝ｼ??�ｿｽ�ｿｽ?�ｿｽ�ｿｽ?)
+		case CTRL_EXIT_SURA:		return PARAM_EXIT_SURA;			// 繧ｹ繝ｩ繝ｭ繝ｼ??�ｿｽ�ｿｽ?�ｿｽ�ｿｽ?蠕鯉ｿｽ???�ｿｽ�ｿｽ?�ｿｽ�ｿｽ蜑埼ｲ蜍包ｿｽ?(繧ｹ繝ｩ繝ｭ繝ｼ??�ｿｽ�ｿｽ?�ｿｽ�ｿｽ?)
 		default:			return PARAM_NC;
 	}
 }
 
 void CTRL_getFF_speed( float* p_err )
 {
-	/* 動作モードに応じ??��?��? */
+	/* 蜍穂ｽ懊Δ繝ｼ繝峨↓蠢懊§??�ｿｽ�ｿｽ?�ｿｽ�ｿｽ? */
 	switch( en_Type ){
 
-		// ??��?��???��?��?
+		// ??�ｿｽ�ｿｽ?�ｿｽ�ｿｽ???�ｿｽ�ｿｽ?�ｿｽ�ｿｽ?
 		case CTRL_ACC:
 		case CTRL_SKEW_ACC:
 		case CTRL_ACC_TRUN:
@@ -503,20 +503,20 @@ void CTRL_getFF_speed( float* p_err )
 			*p_err = f_Acc * (-1);
 			break;
 
-		// ??��?��?速以??��?��?
+		// ??�ｿｽ�ｿｽ?�ｿｽ�ｿｽ?騾滉ｻ･??�ｿｽ�ｿｽ?�ｿｽ�ｿｽ?
 		default:
 			*p_err = 0;
-			break;										// 何もしな??��?��?
+			break;										// 菴輔ｂ縺励↑??�ｿｽ�ｿｽ?�ｿｽ�ｿｽ?
 	}
 
 }
 
 void CTRL_getFF_angle( float* p_err )
 {
-	/* 動作モードに応じ??��?��? */
+	/* 蜍穂ｽ懊Δ繝ｼ繝峨↓蠢懊§??�ｿｽ�ｿｽ?�ｿｽ�ｿｽ? */
 	switch( en_Type ){
 
-		// ??��?��???��?��?
+		// ??�ｿｽ�ｿｽ?�ｿｽ�ｿｽ???�ｿｽ�ｿｽ?�ｿｽ�ｿｽ?
 		case CTRL_ACC:
 		case CTRL_SKEW_ACC:
 		case CTRL_ACC_TRUN:
@@ -539,35 +539,35 @@ void CTRL_getFF_angle( float* p_err )
 			*p_err = FABS(f_AccAngleS) *(-1);
 			break;
 
-		// ??��?��?速以??��?��?
+		// ??�ｿｽ�ｿｽ?�ｿｽ�ｿｽ?騾滉ｻ･??�ｿｽ�ｿｽ?�ｿｽ�ｿｽ?
 		default:
 			*p_err = 0;
-			break;										// 何もしな??��?��?
+			break;										// 菴輔ｂ縺励↑??�ｿｽ�ｿｽ?�ｿｽ�ｿｽ?
 	}
 
 }
 
 void CTRL_getSpeedFB( float* p_err )
 {
-	float		f_speedErr;					// [速度制御] 速度偏差
+	float		f_speedErr;					// [騾溷ｺｦ蛻ｶ蠕｡] 騾溷ｺｦ蛛丞ｷｮ
 	float		f_kp = 0.0f;
 	float		f_ki = 0.0f;
 	float		f_kd = 0.0f;
-	/* 速度制御 */
-	f_speedErr  = f_TrgtSpeed - f_NowSpeed;					// 速度偏差[m/s]
+	/* 騾溷ｺｦ蛻ｶ蠕｡ */
+	f_speedErr  = f_TrgtSpeed - f_NowSpeed;					// 騾溷ｺｦ蛛丞ｷｮ[m/s]
 	f_kp = f_FB_speed_kp;
 	f_ki = f_FB_speed_ki;
 	f_kd = f_FB_speed_kd;
 
-	/* I成�??演�? */
-	f_SpeedErrSum += f_speedErr;// * f_ki;			// I成�??更新
+	/* I謌撰ｿｽ??貍費ｿｽ? */
+	f_SpeedErrSum += f_speedErr;// * f_ki;			// I謌撰ｿｽ??譖ｴ譁ｰ
 	if( f_SpeedErrSum > 10000.0 ){
-		f_SpeedErrSum = 10000.0;			// 上限リミッター
+		f_SpeedErrSum = 10000.0;			// 荳企剞繝ｪ繝溘ャ繧ｿ繝ｼ
 	}
 
-	*p_err = f_speedErr * f_kp + f_SpeedErrSum* f_ki + ( f_speedErr - f_ErrSpeedBuf ) * f_kd;				// PI制御量算�???��?��
+	*p_err = f_speedErr * f_kp + f_SpeedErrSum* f_ki + ( f_speedErr - f_ErrSpeedBuf ) * f_kd;				// PI蛻ｶ蠕｡驥冗ｮ暦ｿｽ???�ｿｽ�ｿｽ?�ｿｽ�ｿｽ
 
-	f_ErrSpeedBuf = f_speedErr;		// 偏差をバ??��?��?ファリング
+	f_ErrSpeedBuf = f_speedErr;		// 蛛丞ｷｮ繧偵ヰ??�ｿｽ�ｿｽ?�ｿｽ�ｿｽ?繝輔ぃ繝ｪ繝ｳ繧ｰ
 /*	if((f_speedErr>1.5)||(f_speedErr<-1.5)){
 		Failsafe_flag();
 	}
@@ -576,13 +576,13 @@ void CTRL_getSpeedFB( float* p_err )
 
 void CTRL_getAngleSpeedFB( float* p_err )
 {
-	float f_err;					// [入力] ジャイロセンサーエラー値
-	float f_kp = 0.0f;				// 比例ゲイン
+	float f_err;					// [蜈･蜉嫋 繧ｸ繝｣繧､繝ｭ繧ｻ繝ｳ繧ｵ繝ｼ繧ｨ繝ｩ繝ｼ蛟､
+	float f_kp = 0.0f;				// 豈比ｾ九ご繧､繝ｳ
 	float f_ki = 0.0f;
 	float f_kd = 0.0f;
 
 
-	f_err = f_TrgtAngleS - GYRO_getSpeedErr();			// 目標角度 - ジャイロセンサ[rad/s]
+	f_err = f_TrgtAngleS - GYRO_getSpeedErr();			// 逶ｮ讓呵ｧ貞ｺｦ - 繧ｸ繝｣繧､繝ｭ繧ｻ繝ｳ繧ｵ[rad/s]
 	f_kp = f_FB_angleS_kp;
 	f_ki = f_FB_angleS_ki;
 	f_kd = f_FB_angleS_kd;
@@ -590,15 +590,15 @@ void CTRL_getAngleSpeedFB( float* p_err )
 	f_AngleSErrSum += f_err;//*f_ki;
 
 	if(f_AngleSErrSum > 10000.0){
-		f_AngleSErrSum = 10000.0;			//上限リミッター
+		f_AngleSErrSum = 10000.0;			//荳企剞繝ｪ繝溘ャ繧ｿ繝ｼ
 	}
 	else if(f_AngleSErrSum <-10000.0){
 		f_AngleSErrSum = -10000.0;
 	}
 
-	*p_err = f_err * f_kp + f_AngleSErrSum*f_ki + ( f_err - f_ErrAngleSBuf ) * f_kd;		// PID制御
+	*p_err = f_err * f_kp + f_AngleSErrSum*f_ki + ( f_err - f_ErrAngleSBuf ) * f_kd;		// PID蛻ｶ蠕｡
 
-	f_ErrAngleSBuf = f_err;		// 偏差をバ??��?��?ファリング
+	f_ErrAngleSBuf = f_err;		// 蛛丞ｷｮ繧偵ヰ??�ｿｽ�ｿｽ?�ｿｽ�ｿｽ?繝輔ぃ繝ｪ繝ｳ繧ｰ
 	if((f_err>14.0)||(f_err<-14.0)){
 		if(!(en_Type == CTRL_HIT_WALL)){
 			Failsafe_flag();
@@ -609,33 +609,33 @@ void CTRL_getAngleSpeedFB( float* p_err )
 void CTRL_getSenFB( float* p_err )
 {
 	float f_err 	= 0;
-	float f_kp 		= 0.0f;				// 比例ゲイン
-	float f_kd 		= 0.0f;				// 微??��?��?ゲイン
+	float f_kp 		= 0.0f;				// 豈比ｾ九ご繧､繝ｳ
+	float f_kd 		= 0.0f;				// 蠕ｮ??�ｿｽ�ｿｽ?�ｿｽ�ｿｽ?繧ｲ繧､繝ｳ
 	float gyro		= 0.0f;
 
-	/* 直進??��?��? */
+	/* 逶ｴ騾ｲ??�ｿｽ�ｿｽ?�ｿｽ�ｿｽ? */
 	if( ( en_Type == CTRL_ACC ) || ( en_Type == CTRL_CONST ) || ( en_Type == CTRL_DEC )||
 			 ( en_Type == CTRL_ENTRY_SURA ) || ( en_Type == CTRL_EXIT_SURA ) ){
 
 		f_kp = f_FB_wall_kp;
 		f_kd = f_FB_wall_kd;
 
-		/* 偏差取�? */
+		/* 蛛丞ｷｮ蜿厄ｿｽ? */
 		DIST_getErr( &l_WallErr );
 		f_err = (float)l_WallErr;
 //		templog2 = f_err;
-		/* PD制御 */
+		/* PD蛻ｶ蠕｡ */
 
-		f_ErrDistBuf = f_err;		// 偏差をバ??��?��?ファリング
+		f_ErrDistBuf = f_err;		// 蛛丞ｷｮ繧偵ヰ??�ｿｽ�ｿｽ?�ｿｽ�ｿｽ?繝輔ぃ繝ｪ繝ｳ繧ｰ
 
-		*p_err = f_err * f_kp + ( f_err - f_ErrDistBuf ) * f_kd;		// PD制御
+		*p_err = f_err * f_kp + ( f_err - f_ErrDistBuf ) * f_kd;		// PD蛻ｶ蠕｡
 	}
 	else if( ( en_Type == CTRL_SKEW_ACC ) || ( en_Type == CTRL_SKEW_CONST ) || ( en_Type == CTRL_SKEW_DEC ) ){
 
 		DIST_getErrSkew( &l_WallErr );
 		f_err = (float)l_WallErr;
 
-//		*p_err = f_err * f_kp + ( f_err - f_ErrDistBuf ) * f_kd;		// PD制御
+//		*p_err = f_err * f_kp + ( f_err - f_ErrDistBuf ) * f_kd;		// PD蛻ｶ蠕｡
 		*p_err = f_err;
 	}
 
@@ -695,96 +695,96 @@ void CTRL_getFloorFriction(float* p_err){
 
 void CTRL_outMot( float f_duty10_R, float f_duty10_L )
 {
-	float	f_temp;			// 計算用
+	float	f_temp;			// 險育ｮ礼畑
 
-	/* 電圧に応じてPWM出力を変更する */
+	/* 髮ｻ蝨ｧ縺ｫ蠢懊§縺ｦPWM蜃ｺ蜉帙ｒ螟画峩縺吶ｋ */
 	f_duty10_R = f_duty10_R*1000;
 	f_duty10_L = f_duty10_L*1000;
 
-	/* 右モータ */
-	if( 20 < f_duty10_R ){									// 前進
+	/* 蜿ｳ繝｢繝ｼ繧ｿ */
+	if( 20 < f_duty10_R ){									// 蜑埼ｲ
 		DCM_setDirCw( DCM_R );
 		DCM_setPwmDuty( DCM_R, (uint16_t)f_duty10_R );
 	}
-	else if( f_duty10_R < -20 ){							// 後退
+	else if( f_duty10_R < -20 ){							// 蠕碁
 		f_temp = f_duty10_R * -1;
 		DCM_setDirCcw( DCM_R );
 		DCM_setPwmDuty( DCM_R, (uint16_t)f_temp );
 	}
 	else{
-		DCM_brakeMot( DCM_R );								// ブレーキ
+		DCM_brakeMot( DCM_R );								// 繝悶Ξ繝ｼ繧ｭ
 	}
 
-	/* 左モータ */
-	if( 20 < f_duty10_L ){									// 前進
+	/* 蟾ｦ繝｢繝ｼ繧ｿ */
+	if( 20 < f_duty10_L ){									// 蜑埼ｲ
 		DCM_setDirCw( DCM_L );
 		DCM_setPwmDuty( DCM_L, (uint16_t)f_duty10_L );
 	}
-	else if( f_duty10_L < -20 ){							// 後退
+	else if( f_duty10_L < -20 ){							// 蠕碁
 		f_temp = f_duty10_L * -1;
 		DCM_setDirCcw( DCM_L );
 		DCM_setPwmDuty( DCM_L, (uint16_t)f_temp );
 	}
 	else{
-		DCM_brakeMot( DCM_L );								// ブレーキ
+		DCM_brakeMot( DCM_L );								// 繝悶Ξ繝ｼ繧ｭ
 	}
 }
 
 void CTRL_pol( void )
 {
-	float f_feedFoard_speed		= 0;		// [制御] フィードフォワード制御
+	float f_feedFoard_speed		= 0;		// [蛻ｶ蠕｡] 繝輔ぅ繝ｼ繝峨ヵ繧ｩ繝ｯ繝ｼ繝牙宛蠕｡
 	float f_feedFoard_angle		= 0;
-	float f_speedCtrl			= 0;		// [制御] 速度制御??��?��?
-	float f_angleSpeedCtrl			= 0;		// [制御] 角速度制御??��?��?
-	float f_distSenCtrl			= 0;		// [制御] 距離センサー制御??��?��?
+	float f_speedCtrl			= 0;		// [蛻ｶ蠕｡] 騾溷ｺｦ蛻ｶ蠕｡??�ｿｽ�ｿｽ?�ｿｽ�ｿｽ?
+	float f_angleSpeedCtrl			= 0;		// [蛻ｶ蠕｡] 隗帝溷ｺｦ蛻ｶ蠕｡??�ｿｽ�ｿｽ?�ｿｽ�ｿｽ?
+	float f_distSenCtrl			= 0;		// [蛻ｶ蠕｡] 霍晞屬繧ｻ繝ｳ繧ｵ繝ｼ蛻ｶ蠕｡??�ｿｽ�ｿｽ?�ｿｽ�ｿｽ?
 	float f_floorfriction		= 0;
-	float f_duty10_R;						// [出力] 右モータPWM-DUTY比[0.1%]
-	float f_duty10_L;						// [出力] 左モータPWM-DUTY比[0.1%]
+	float f_duty10_R;						// [蜃ｺ蜉嫋 蜿ｳ繝｢繝ｼ繧ｿPWM-DUTY豈納0.1%]
+	float f_duty10_L;						// [蜃ｺ蜉嫋 蟾ｦ繝｢繝ｼ繧ｿPWM-DUTY豈納0.1%]
 
 	float TR = 0.0;
 	float TL = 0.0;
 	float Ir = 0.0;
 	float Il = 0.0;
 
-	/* 制御を行うか�???��?��チェ??��?��?ク */
+	/* 蛻ｶ蠕｡繧定｡後≧縺具ｿｽ???�ｿｽ�ｿｽ?�ｿｽ�ｿｽ繝√ぉ??�ｿｽ�ｿｽ?�ｿｽ�ｿｽ?繧ｯ */
 	if( uc_CtrlFlag != TRUE ){
-		 return;		// 制御無効状??��?��?
+		 return;		// 蛻ｶ蠕｡辟｡蜉ｹ迥ｶ??�ｿｽ�ｿｽ?�ｿｽ�ｿｽ?
 	}
 	if(SW_ON == SW_IsOn_0()){
 		Failsafe_flag();
 	}
 
-	/* 制御不�???��?�� */
+	/* 蛻ｶ蠕｡荳搾ｿｽ???�ｿｽ�ｿｽ?�ｿｽ�ｿｽ */
 	if (SYS_isOutOfCtrl() == TRUE ){
 
-		f_DistErrSum = 0;				// 累積偏差クリア
-		f_NowDist = f_LastDist;			// 強制??��?��?に最終目標位置に変更
-		f_NowAngle = f_LastAngle;		// 強制??��?��?に最終目標時間に変更
-		f_Time = f_TrgtTime;			// 強制??��?��?に最終目標時間に変更
+		f_DistErrSum = 0;				// 邏ｯ遨榊￥蟾ｮ繧ｯ繝ｪ繧｢
+		f_NowDist = f_LastDist;			// 蠑ｷ蛻ｶ??�ｿｽ�ｿｽ?�ｿｽ�ｿｽ?縺ｫ譛邨ら岼讓吩ｽ咲ｽｮ縺ｫ螟画峩
+		f_NowAngle = f_LastAngle;		// 蠑ｷ蛻ｶ??�ｿｽ�ｿｽ?�ｿｽ�ｿｽ?縺ｫ譛邨ら岼讓呎凾髢薙↓螟画峩
+		f_Time = f_TrgtTime;			// 蠑ｷ蛻ｶ??�ｿｽ�ｿｽ?�ｿｽ�ｿｽ?縺ｫ譛邨ら岼讓呎凾髢薙↓螟画峩
 
-	 	CTRL_stop();				// 制御停止
-		CTRL_clrData();					// ??��?��?ータクリア
-		DCM_brakeMot( DCM_R );			// ブレーキ
-		DCM_brakeMot( DCM_L );			// ブレーキ
+	 	CTRL_stop();				// 蛻ｶ蠕｡蛛懈ｭ｢
+		CTRL_clrData();					// ??�ｿｽ�ｿｽ?�ｿｽ�ｿｽ?繝ｼ繧ｿ繧ｯ繝ｪ繧｢
+		DCM_brakeMot( DCM_R );			// 繝悶Ξ繝ｼ繧ｭ
+		DCM_brakeMot( DCM_L );			// 繝悶Ξ繝ｼ繧ｭ
 	}
 
-	/* ??��?��?種センサ入??��?��? */
-	ENC_GetDiv( &l_CntR, &l_CntL );					// 移動量[カウント値]を取??��?��?
+	/* ??�ｿｽ�ｿｽ?�ｿｽ�ｿｽ?遞ｮ繧ｻ繝ｳ繧ｵ蜈･??�ｿｽ�ｿｽ?�ｿｽ�ｿｽ? */
+	ENC_GetDiv( &l_CntR, &l_CntL );					// 遘ｻ蜍暮㍼[繧ｫ繧ｦ繝ｳ繝亥､]繧貞叙??�ｿｽ�ｿｽ?�ｿｽ�ｿｽ?
 	//add get_motor_omega(l_CntR,l_CntL);
-	CTRL_refNow();									// 制御に使用する値を現在の状態に更新
-	CTRL_refTarget();								// 制御に使用する値を目標値に更新
+	CTRL_refNow();									// 蛻ｶ蠕｡縺ｫ菴ｿ逕ｨ縺吶ｋ蛟､繧堤樟蝨ｨ縺ｮ迥ｶ諷九↓譖ｴ譁ｰ
+	CTRL_refTarget();								// 蛻ｶ蠕｡縺ｫ菴ｿ逕ｨ縺吶ｋ蛟､繧堤岼讓吝､縺ｫ譖ｴ譁ｰ
 
-	f_NowAngle = GYRO_getNowAngle();					// 現在角度[deg]
+	f_NowAngle = GYRO_getNowAngle();					// 迴ｾ蝨ｨ隗貞ｺｦ[deg]
 
-	/* 制御値取�? */
-	CTRL_getFF_speed( &f_feedFoard_speed );					// [制御] フィードフォワー??��?��?
-	CTRL_getFF_angle( &f_feedFoard_angle );					// [制御] フィードフォワー??��?��?
-	CTRL_getSpeedFB( &f_speedCtrl );				// [制御] 速度
-	CTRL_getAngleSpeedFB( &f_angleSpeedCtrl );			// [制御] 角速度
-	CTRL_getSenFB( &f_distSenCtrl );				// [制御] ??��?��?
+	/* 蛻ｶ蠕｡蛟､蜿厄ｿｽ? */
+	CTRL_getFF_speed( &f_feedFoard_speed );					// [蛻ｶ蠕｡] 繝輔ぅ繝ｼ繝峨ヵ繧ｩ繝ｯ繝ｼ??�ｿｽ�ｿｽ?�ｿｽ�ｿｽ?
+	CTRL_getFF_angle( &f_feedFoard_angle );					// [蛻ｶ蠕｡] 繝輔ぅ繝ｼ繝峨ヵ繧ｩ繝ｯ繝ｼ??�ｿｽ�ｿｽ?�ｿｽ�ｿｽ?
+	CTRL_getSpeedFB( &f_speedCtrl );				// [蛻ｶ蠕｡] 騾溷ｺｦ
+	CTRL_getAngleSpeedFB( &f_angleSpeedCtrl );			// [蛻ｶ蠕｡] 隗帝溷ｺｦ
+	CTRL_getSenFB( &f_distSenCtrl );				// [蛻ｶ蠕｡] ??�ｿｽ�ｿｽ?�ｿｽ�ｿｽ?
 	CTRL_getFloorFriction( &f_floorfriction );
 
-	/* 直進制御 */
+	/* 逶ｴ騾ｲ蛻ｶ蠕｡ */
 	if( ( en_Type == CTRL_ACC ) || ( en_Type == CTRL_CONST ) || ( en_Type == CTRL_DEC ) ||( en_Type == CTRL_ENTRY_SURA ) || ( en_Type == CTRL_EXIT_SURA ) ||
 		( en_Type == CTRL_SKEW_ACC ) || ( en_Type == CTRL_SKEW_CONST ) || ( en_Type == CTRL_SKEW_DEC )
 	){
@@ -794,24 +794,24 @@ void CTRL_pol( void )
 		Il = (TL+0.0255/1000.0)/Torque_constant;
 	}
 
-	/* 壁あて制御 */
+	/* 螢√≠縺ｦ蛻ｶ蠕｡ */
 	else if( en_Type == CTRL_HIT_WALL ){
-		TR = (TIRE_D/2/2)*(Weight*(f_feedFoard_speed * FF_HIT_BALANCE_R/1800.0 ));		// 右モータPWM-DUTY比[0.1%]
-		TL = (TIRE_D/2/2)*(Weight*(f_feedFoard_speed * FF_HIT_BALANCE_R/1800.0 ));
+		TR = (TIRE_D/2/2)*(Weight*(f_feedFoard_speed * FF_HIT_BALANCE_R/2500.0 ));		// 蜿ｳ繝｢繝ｼ繧ｿPWM-DUTY豈納0.1%]
+		TL = (TIRE_D/2/2)*(Weight*(f_feedFoard_speed * FF_HIT_BALANCE_R/2500.0 ));
 		Ir = (TR-0.0255/1000.0)/Torque_constant;
 		Il = (TL-0.0255/1000.0)/Torque_constant;
 	}
 
-	/* スラロー??��?��?制御 */
+	/* 繧ｹ繝ｩ繝ｭ繝ｼ??�ｿｽ�ｿｽ?�ｿｽ�ｿｽ?蛻ｶ蠕｡ */
 	else if( ( en_Type == CTRL_ACC_SURA ) || (en_Type == CTRL_CONST_SURA)||( en_Type == CTRL_DEC_SURA ) ){
-		/* 左旋回 */
+		/* 蟾ｦ譌句屓 */
 		if( f_LastAngle > 0 ){
 			TR = ((TIRE_D/2/2)*(Weight*(f_feedFoard_speed + f_speedCtrl))+(TIRE_D/2/TREAD)*(4.6/1000000.0*(f_feedFoard_angle + f_angleSpeedCtrl)+f_floorfriction))/GEAR_RATIO;
 			TL = ((TIRE_D/2/2)*(Weight*(f_feedFoard_speed + f_speedCtrl))-(TIRE_D/2/TREAD)*(4.6/1000000.0*(f_feedFoard_angle + f_angleSpeedCtrl)+f_floorfriction))/GEAR_RATIO;
 			Ir = (TR+0.0255/1000.0)/Torque_constant;
 			Il = (TL+0.0255/1000.0)/Torque_constant;
 		}
-		/*右旋回 */
+		/*蜿ｳ譌句屓 */
 		else{			
 			TR = ((TIRE_D/2/2)*(Weight*(f_feedFoard_speed + f_speedCtrl))+(TIRE_D/2/TREAD)*(4.6/1000000.0*(f_feedFoard_angle*(-1) + f_angleSpeedCtrl)+f_floorfriction))/GEAR_RATIO;
 			TL = ((TIRE_D/2/2)*(Weight*(f_feedFoard_speed + f_speedCtrl))-(TIRE_D/2/TREAD)*(4.6/1000000.0*(f_feedFoard_angle*(-1) + f_angleSpeedCtrl)+f_floorfriction))/GEAR_RATIO;
@@ -820,16 +820,16 @@ void CTRL_pol( void )
 		}
 	}
 
-	/* ??��?��?信地旋回 */
+	/* ??�ｿｽ�ｿｽ?�ｿｽ�ｿｽ?菫｡蝨ｰ譌句屓 */
 	else{
-		/* ??��?��??��?��??��?��??��?��??��?��??��?�� */
+		/* ??�ｿｽ�ｿｽ?�ｿｽ�ｿｽ??�ｿｽ�ｿｽ?�ｿｽ�ｿｽ??�ｿｽ�ｿｽ?�ｿｽ�ｿｽ??�ｿｽ�ｿｽ?�ｿｽ�ｿｽ??�ｿｽ�ｿｽ?�ｿｽ�ｿｽ??�ｿｽ�ｿｽ?�ｿｽ�ｿｽ */
 		if( f_LastAngle > 0 ){			
 			TR = ((TIRE_D/2/2)*(Weight*(f_feedFoard_speed + f_speedCtrl))+(TIRE_D/2/TREAD_imagin)*(Inertia*(f_feedFoard_angle + f_angleSpeedCtrl)+f_floorfriction))/GEAR_RATIO;
 			TL = ((TIRE_D/2/2)*(Weight*(f_feedFoard_speed + f_speedCtrl))-(TIRE_D/2/TREAD_imagin)*(Inertia*(f_feedFoard_angle + f_angleSpeedCtrl)+f_floorfriction))/GEAR_RATIO;
 			Ir = (TR+0.0255/1000.0)/Torque_constant;
 			Il = (TL-0.0255/1000.0)/Torque_constant;
 		}
-		/* ??��?��E??��?��??��?��??��?��??��?�� */
+		/* ??�ｿｽ�ｿｽ?�ｿｽ�ｿｽE??�ｿｽ�ｿｽ?�ｿｽ�ｿｽ??�ｿｽ�ｿｽ?�ｿｽ�ｿｽ??�ｿｽ�ｿｽ?�ｿｽ�ｿｽ??�ｿｽ�ｿｽ?�ｿｽ�ｿｽ */
 		else{			
 			TR = ((TIRE_D/2/2)*(Weight*(f_feedFoard_speed + f_speedCtrl))+(TIRE_D/2/TREAD_imagin)*(Inertia*(f_feedFoard_angle*(-1) + f_angleSpeedCtrl)+f_floorfriction))/GEAR_RATIO;
 			TL = ((TIRE_D/2/2)*(Weight*(f_feedFoard_speed + f_speedCtrl))-(TIRE_D/2/TREAD_imagin)*(Inertia*(f_feedFoard_angle*(-1) + f_angleSpeedCtrl)+f_floorfriction))/GEAR_RATIO;
@@ -844,23 +844,23 @@ void CTRL_pol( void )
 	templog2 = f_duty10_R;
 
 	escape_wait = escape_wait+0.001;
-	CTRL_outMot( f_duty10_R, f_duty10_L );				// モータへ出??��?��?
+	CTRL_outMot( f_duty10_R, f_duty10_L );				// 繝｢繝ｼ繧ｿ縺ｸ蜃ｺ??�ｿｽ�ｿｽ?�ｿｽ�ｿｽ?
 
 	f_Time += 0.001;
 
-	/* ?��???��?��??れチェ??��?��?ク */
+	/* ?�ｿｽ�ｿｽ???�ｿｽ�ｿｽ?�ｿｽ�ｿｽ??繧後メ繧ｧ??�ｿｽ�ｿｽ?�ｿｽ�ｿｽ?繧ｯ */
 	if( MOT_getWallEdgeType() == MOT_WALL_EDGE_RIGHT ){
 
-		/* 壁抜??��?��? */
+		/* 螢∵栢??�ｿｽ�ｿｽ?�ｿｽ�ｿｽ? */
 		if( DIST_isWall_R_SIDE() == FALSE ){
-			MOT_setWallEdge( TRUE );		// ?��???��?��???��?��??��?��?れ目を検知
+			MOT_setWallEdge( TRUE );		// ?�ｿｽ�ｿｽ???�ｿｽ�ｿｽ?�ｿｽ�ｿｽ???�ｿｽ�ｿｽ?�ｿｽ�ｿｽ??�ｿｽ�ｿｽ?�ｿｽ�ｿｽ?繧檎岼繧呈､懃衍
 		}
 	}
 	else if( MOT_getWallEdgeType() == MOT_WALL_EDGE_LEFT ){
 
-		/* 壁抜??��?��? */
+		/* 螢∵栢??�ｿｽ�ｿｽ?�ｿｽ�ｿｽ? */
 		if( DIST_isWall_L_SIDE() == FALSE ){
-			MOT_setWallEdge( TRUE );		// ?��???��?��???��?��??��?��?れ目を検知
+			MOT_setWallEdge( TRUE );		// ?�ｿｽ�ｿｽ???�ｿｽ�ｿｽ?�ｿｽ�ｿｽ???�ｿｽ�ｿｽ?�ｿｽ�ｿｽ??�ｿｽ�ｿｽ?�ｿｽ�ｿｽ?繧檎岼繧呈､懃衍
 		}
 	}
 }
