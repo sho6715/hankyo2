@@ -296,18 +296,18 @@ void PARAM_makeSra( float f_speed, float f_angAcc, float f_g , enSLA_TYPE en_mod
 			break;
 
 		case SLA_45:
-			p_adr->f_escapeLen = 1.4142f * ( f_final_x - f_x )+0.002;
-			p_adr->f_entryLen  = f_final_y - f_y - ( f_final_x - f_x )+0.001;
+			p_adr->f_escapeLen = 1.4142f * ( f_final_x - f_x )+0.00;
+			p_adr->f_entryLen  = f_final_y - f_y - ( f_final_x - f_x )+0.00;
 			break;
 
 		case SLA_N90:
-			p_adr->f_escapeLen = f_final_x - f_x+0.003;
-			p_adr->f_entryLen  = f_final_y - f_y+0.002;
+			p_adr->f_escapeLen = f_final_x - f_x+0.00;
+			p_adr->f_entryLen  = f_final_y - f_y+0.00;
 			break;
 
 		case SLA_135:
-			p_adr->f_escapeLen = 1.4142f * ( f_final_x - f_x )+0.002;
-			p_adr->f_entryLen  = f_final_y - f_y + ( f_final_x - f_x )+0.002;
+			p_adr->f_escapeLen = 1.4142f * ( f_final_x - f_x )+0.00;
+			p_adr->f_entryLen  = f_final_y - f_y + ( f_final_x - f_x )+0.00;
 			break;
 
 		default:

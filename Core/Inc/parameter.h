@@ -43,6 +43,10 @@
 #define		f_FB_angleS_kp		(100.0)//130
 #define		f_FB_angleS_ki		(6.5)//9.5
 #define		f_FB_angleS_kd		(0.1)//0.2
+
+#define		f_FB_angle_kp		(0.5)
+#define		f_FB_angle_ki		(0.1)
+
 #define		f_FB_wall_kp		(0.6)
 #define		f_FB_wall_kd		(0.3)
 

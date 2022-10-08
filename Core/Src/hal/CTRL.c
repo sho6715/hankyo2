@@ -606,6 +606,27 @@ void CTRL_getAngleSpeedFB( float* p_err )
 	}
 }
 
+void CTRL_getAngleFB( float* p_err )
+{
+    float f_err;                    // [蜈･蜉嫋 繧ｸ繝｣繧､繝ｭ繧ｻ繝ｳ繧ｵ繝ｼ繧ｨ繝ｩ繝ｼ蛟､
+    float f_kp = 0.0f;              // 豈比ｾ九ご繧､繝ｳ
+    float f_ki = 0.0f;
+
+    f_err = f_TrgtAngle - GYRO_getNowAngle();          // 逶ｮ讓呵ｧ貞ｺｦ - 繧ｸ繝｣繧､繝ｭ繧ｻ繝ｳ繧ｵ[rad]
+    f_kp = f_FB_angle_kp;
+    f_ki = f_FB_angle_ki;
+    f_AngleErrSum += f_err;//*f_ki;
+    if(f_AngleErrSum > 100.0){
+        f_AngleErrSum = 100.0;           //荳企剞繝ｪ繝溘ャ繧ｿ繝ｼ
+    }
+    else if(f_AngleErrSum <-100.0){
+        f_AngleErrSum = -100.0;
+    }
+    *p_err = f_err * f_kp + f_AngleErrSum*f_ki;        // PID蛻ｶ蠕｡
+
+}
+
+
 void CTRL_getSenFB( float* p_err )
 {
 	float f_err 	= 0;
@@ -736,6 +757,7 @@ void CTRL_pol( void )
 	float f_feedFoard_angle		= 0;
 	float f_speedCtrl			= 0;		// [蛻ｶ蠕｡] 騾溷ｺｦ蛻ｶ蠕｡??�ｿｽ�ｿｽ?�ｿｽ�ｿｽ?
 	float f_angleSpeedCtrl			= 0;		// [蛻ｶ蠕｡] 隗帝溷ｺｦ蛻ｶ蠕｡??�ｿｽ�ｿｽ?�ｿｽ�ｿｽ?
+	float f_angleCtrl			= 0;
 	float f_distSenCtrl			= 0;		// [蛻ｶ蠕｡] 霍晞屬繧ｻ繝ｳ繧ｵ繝ｼ蛻ｶ蠕｡??�ｿｽ�ｿｽ?�ｿｽ�ｿｽ?
 	float f_floorfriction		= 0;
 	float f_duty10_R;						// [蜃ｺ蜉嫋 蜿ｳ繝｢繝ｼ繧ｿPWM-DUTY豈納0.1%]
@@ -781,6 +803,7 @@ void CTRL_pol( void )
 	CTRL_getFF_angle( &f_feedFoard_angle );					// [蛻ｶ蠕｡] 繝輔ぅ繝ｼ繝峨ヵ繧ｩ繝ｯ繝ｼ??�ｿｽ�ｿｽ?�ｿｽ�ｿｽ?
 	CTRL_getSpeedFB( &f_speedCtrl );				// [蛻ｶ蠕｡] 騾溷ｺｦ
 	CTRL_getAngleSpeedFB( &f_angleSpeedCtrl );			// [蛻ｶ蠕｡] 隗帝溷ｺｦ
+	CTRL_getAngleFB( &f_angleCtrl );		//angle ctrl
 	CTRL_getSenFB( &f_distSenCtrl );				// [蛻ｶ蠕｡] ??�ｿｽ�ｿｽ?�ｿｽ�ｿｽ?
 	CTRL_getFloorFriction( &f_floorfriction );
 
@@ -806,15 +829,15 @@ void CTRL_pol( void )
 	else if( ( en_Type == CTRL_ACC_SURA ) || (en_Type == CTRL_CONST_SURA)||( en_Type == CTRL_DEC_SURA ) ){
 		/* 蟾ｦ譌句屓 */
 		if( f_LastAngle > 0 ){
-			TR = ((TIRE_D/2/2)*(Weight*(f_feedFoard_speed + f_speedCtrl))+(TIRE_D/2/TREAD)*(4.6/1000000.0*(f_feedFoard_angle + f_angleSpeedCtrl)+f_floorfriction))/GEAR_RATIO;
-			TL = ((TIRE_D/2/2)*(Weight*(f_feedFoard_speed + f_speedCtrl))-(TIRE_D/2/TREAD)*(4.6/1000000.0*(f_feedFoard_angle + f_angleSpeedCtrl)+f_floorfriction))/GEAR_RATIO;
+			TR = ((TIRE_D/2/2)*(Weight*(f_feedFoard_speed + f_speedCtrl))+(TIRE_D/2/TREAD)*(4.6/1000000.0*(f_feedFoard_angle + f_angleSpeedCtrl+f_angleCtrl)+f_floorfriction))/GEAR_RATIO;
+			TL = ((TIRE_D/2/2)*(Weight*(f_feedFoard_speed + f_speedCtrl))-(TIRE_D/2/TREAD)*(4.6/1000000.0*(f_feedFoard_angle + f_angleSpeedCtrl+f_angleCtrl)+f_floorfriction))/GEAR_RATIO;
 			Ir = (TR+0.0255/1000.0)/Torque_constant;
 			Il = (TL+0.0255/1000.0)/Torque_constant;
 		}
 		/*蜿ｳ譌句屓 */
 		else{			
-			TR = ((TIRE_D/2/2)*(Weight*(f_feedFoard_speed + f_speedCtrl))+(TIRE_D/2/TREAD)*(4.6/1000000.0*(f_feedFoard_angle*(-1) + f_angleSpeedCtrl)+f_floorfriction))/GEAR_RATIO;
-			TL = ((TIRE_D/2/2)*(Weight*(f_feedFoard_speed + f_speedCtrl))-(TIRE_D/2/TREAD)*(4.6/1000000.0*(f_feedFoard_angle*(-1) + f_angleSpeedCtrl)+f_floorfriction))/GEAR_RATIO;
+			TR = ((TIRE_D/2/2)*(Weight*(f_feedFoard_speed + f_speedCtrl))+(TIRE_D/2/TREAD)*(4.6/1000000.0*(f_feedFoard_angle*(-1) + f_angleSpeedCtrl+f_angleCtrl)+f_floorfriction))/GEAR_RATIO;
+			TL = ((TIRE_D/2/2)*(Weight*(f_feedFoard_speed + f_speedCtrl))-(TIRE_D/2/TREAD)*(4.6/1000000.0*(f_feedFoard_angle*(-1) + f_angleSpeedCtrl+f_angleCtrl)+f_floorfriction))/GEAR_RATIO;
 			Ir = (TR+0.0255/1000.0)/Torque_constant;
 			Il = (TL+0.0255/1000.0)/Torque_constant;
 		}
@@ -824,15 +847,15 @@ void CTRL_pol( void )
 	else{
 		/* ??�ｿｽ�ｿｽ?�ｿｽ�ｿｽ??�ｿｽ�ｿｽ?�ｿｽ�ｿｽ??�ｿｽ�ｿｽ?�ｿｽ�ｿｽ??�ｿｽ�ｿｽ?�ｿｽ�ｿｽ??�ｿｽ�ｿｽ?�ｿｽ�ｿｽ??�ｿｽ�ｿｽ?�ｿｽ�ｿｽ */
 		if( f_LastAngle > 0 ){			
-			TR = ((TIRE_D/2/2)*(Weight*(f_feedFoard_speed + f_speedCtrl))+(TIRE_D/2/TREAD_imagin)*(Inertia*(f_feedFoard_angle + f_angleSpeedCtrl)+f_floorfriction))/GEAR_RATIO;
-			TL = ((TIRE_D/2/2)*(Weight*(f_feedFoard_speed + f_speedCtrl))-(TIRE_D/2/TREAD_imagin)*(Inertia*(f_feedFoard_angle + f_angleSpeedCtrl)+f_floorfriction))/GEAR_RATIO;
+			TR = ((TIRE_D/2/2)*(Weight*(f_feedFoard_speed + f_speedCtrl))+(TIRE_D/2/TREAD_imagin)*(Inertia*(f_feedFoard_angle + f_angleSpeedCtrl+f_angleCtrl)+f_floorfriction))/GEAR_RATIO;
+			TL = ((TIRE_D/2/2)*(Weight*(f_feedFoard_speed + f_speedCtrl))-(TIRE_D/2/TREAD_imagin)*(Inertia*(f_feedFoard_angle + f_angleSpeedCtrl+f_angleCtrl)+f_floorfriction))/GEAR_RATIO;
 			Ir = (TR+0.0255/1000.0)/Torque_constant;
 			Il = (TL-0.0255/1000.0)/Torque_constant;
 		}
 		/* ??�ｿｽ�ｿｽ?�ｿｽ�ｿｽE??�ｿｽ�ｿｽ?�ｿｽ�ｿｽ??�ｿｽ�ｿｽ?�ｿｽ�ｿｽ??�ｿｽ�ｿｽ?�ｿｽ�ｿｽ??�ｿｽ�ｿｽ?�ｿｽ�ｿｽ */
 		else{			
-			TR = ((TIRE_D/2/2)*(Weight*(f_feedFoard_speed + f_speedCtrl))+(TIRE_D/2/TREAD_imagin)*(Inertia*(f_feedFoard_angle*(-1) + f_angleSpeedCtrl)+f_floorfriction))/GEAR_RATIO;
-			TL = ((TIRE_D/2/2)*(Weight*(f_feedFoard_speed + f_speedCtrl))-(TIRE_D/2/TREAD_imagin)*(Inertia*(f_feedFoard_angle*(-1) + f_angleSpeedCtrl)+f_floorfriction))/GEAR_RATIO;
+			TR = ((TIRE_D/2/2)*(Weight*(f_feedFoard_speed + f_speedCtrl))+(TIRE_D/2/TREAD_imagin)*(Inertia*(f_feedFoard_angle*(-1) + f_angleSpeedCtrl+f_angleCtrl)+f_floorfriction))/GEAR_RATIO;
+			TL = ((TIRE_D/2/2)*(Weight*(f_feedFoard_speed + f_speedCtrl))-(TIRE_D/2/TREAD_imagin)*(Inertia*(f_feedFoard_angle*(-1) + f_angleSpeedCtrl+f_angleCtrl)+f_floorfriction))/GEAR_RATIO;
 			Ir = (TR-0.0255/1000.0)/Torque_constant;
 			Il = (TL+0.0255/1000.0)/Torque_constant;
 		}
