@@ -13,9 +13,9 @@ void map_write(void)
 	uint64_t *map_add;
 	map_add = (uint64_t *)g_sysMap;
 	
-	//DataFlash?¿½C?¿½?¿½?¿½[?¿½X
+	//DataFlashã‚¤ãƒ¬ãƒ¼ã‚¹
 //    FLASH_Erase(0x7F);  //reg127
-	//?¿½}?¿½b?¿½v?¿½f?¿½[?¿½^?¿½?¿½DataFlash?¿½Éï¿½?¿½?¿½?¿½?¿½?¿½?¿½
+	//ãƒãƒƒãƒ—ãƒ‡ãƒ¼ã‚¿ã‚’DataFlashã«æ›¸ãè¾¼ã‚€
     FLASH_WriteData(0x7F,(uint32_t)sta_add_127, map_add, 32*32);
 }
 

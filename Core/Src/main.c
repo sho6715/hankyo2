@@ -141,13 +141,13 @@ int main(void)
   {
     if (( SW_IsOn_1() == SW_ON)/*||(Get_NowSpeed()>100) */){
 		MODE_inc();								// モードを1つ進める
-		LL_mDelay(200);			// SWが離されるまで???��?��??��?��?つ
+		LL_mDelay(200);			// SWが離されるまで待つ
 		printf("mode selecting\r\n");
 	}
 	else if (( SW_IsOn_0() == SW_ON )||(TRUE == MODE_CheckExe())){
 //		else if ( SW_ON == SW_EXE_PIN ){
-		MODE_exe();								// モード実�?
-		LL_mDelay(200);			// SWが離されるまで???��?��??��?��?つ
+		MODE_exe();								// モード実行
+		LL_mDelay(200);			// SWが離されるまで待つ
 	}
     LL_mDelay(100);
   Get_Sen_Nowdata();
@@ -195,7 +195,7 @@ void SystemClock_Config(void)
   {
   }
 
-  /* Insure 1��s transition state at intermediate medium speed clock based on DWT */
+  /* Insure 1��s transition state at intermediate medium speed clock based on DWT */
   CoreDebug->DEMCR |= CoreDebug_DEMCR_TRCENA_Msk;
   DWT->CTRL |= DWT_CTRL_CYCCNTENA_Msk;
   DWT->CYCCNT = 0;

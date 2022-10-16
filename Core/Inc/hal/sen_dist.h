@@ -43,14 +43,14 @@
 #define L_FRONT_NOCTRL					(1200)//( 450 )
 
 
-/*距離センサポ�??��リングタイ?��?*/
+/*距離センサポーリングタイプ*/
 typedef enum{
 	DIST_POL_FRONT = 0,
 	DIST_POL_SIDE,
 	DISR_POL_MAX
 }enDIST_POL;
 
-/*距離センサ動作状?��?*/
+/*距離センサ動作状態*/
 typedef enum{
 	DIST_STANDBAY = 0,
 	DIST_NO_CTRL,

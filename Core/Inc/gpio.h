@@ -48,7 +48,7 @@ void Set_SenFR(uint8_t data);
 void Set_SenSR(uint8_t data);
 void Set_MOT0(uint8_t data);
 void Set_MOT1(uint8_t data);
-/* spi‚Ì‚Æ‚±‚ë‚Í’¼Ú‘‚¢‚½‚Ù‚¤‚ªg‚¢Ÿè—Ç‚³‚»‚¤‚È‹C‚ª‚µ‚½
+/* spi_chip select
 void Set_CS_L(uint8_t data);
 void Set_CS_R(uint8_t data);
 void Set_CS_gyro(uint8_t data);

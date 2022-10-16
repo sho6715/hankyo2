@@ -10,17 +10,6 @@
 #define		GYRO_REF_NUM		(200)		//ジャイロのリファレンス値をサンプリングする数
 #define		ACCEL_REF_NUM		(200)		//ジャイロのリファレンス値をサンプリングする数
 
-/*角速度取�?*/
-/*
-int16_t s_AccelVal; 					  				// �?速度の取得値
-float f_NowAccel;										// �?速度の現在地
-int32_t  l_AccelRef; 									// �?速度の基準値
-
-//フェイルセー�?
-float  			f_ErrChkAngle; 			  // ジャイロセンサのエラー検�?�用の角度
-bool   			bl_ErrChk; 				  // ジャイロセンサのエラー検�?�?�?FALSE?��検知しな�?、TRUE?��検知する?�?
-bool			bl_failsafe		= FALSE;	// マウスが�?�制御不�?�?�?TRUE?��制御不�?�、FALSE?��制御可能?�?
-*/
 uint16_t Get_s_gyro(void)
 {
 	return s_GyroVal;
@@ -93,26 +82,26 @@ void GYRO_SetRef( void )
 	uint16_t i;
 	uint32_t ul_ref = 0;
 
-	/* �?ータサンプリング */
-	for( i=0; i<GYRO_REF_NUM; i++){			// 100回サンプリングした平�?値を基準�?�値とする�?
+	/* データサンプリング */
+	for( i=0; i<GYRO_REF_NUM; i++){			// 100回サンプリングした平均値を基準の値とする。
 		ul_ref += (uint32_t)s_GyroVal;
 		LL_mDelay(1);
 	}
 
-	/* 基準値算�?�?��平�?値?�? */
-	l_GyroRef = (ul_ref * 100) / GYRO_REF_NUM ;		// 精度�?100倍にする
+	/* 基準値算出（平均値） */
+	l_GyroRef = (ul_ref * 100) / GYRO_REF_NUM ;		// 精度を100倍にする
 }
 
 float GYRO_getSpeedErr( void )
 {
-	int32_t  l_val = (int32_t)s_GyroVal * 100 ;				// 100倍�?�精度にする
+	int32_t  l_val = (int32_t)s_GyroVal * 100 ;				// 精度を100倍にする
 	int32_t  l_err = l_val - l_GyroRef ;
 	float f_res;
 
-	/* 角速度の偏差算�?� */
+	/* 角速度の偏差算出 */
 //	if( ( l_err < -0.01 * 100 ) || ( 0.01 * 100 < l_err ) ){
 		f_res = (float)l_err /16.4 / 100 * DEG_TO_RAD;		
-													// 100倍�?�精度
+													// 精度を100倍にする
 //	}
 /*	else{
 		f_res = 0;									// [deg/s]
@@ -136,13 +125,13 @@ void GYRO_Pol( void )
 	float f_speed;
 
 	/* 現在の角度を更新する */
-	f_speed = GYRO_getSpeedErr();			// 角速度取�? (0.001sec毎�?�角速度)
-	f_GyroNowAngle += f_speed / 1000;		// 角度設�?   (0.001sec毎に�?算するた�?)
+	f_speed = GYRO_getSpeedErr();			// 角速度取得 (0.001sec毎の角速度)
+	f_GyroNowAngle += f_speed / 1000;		// 角度設定   (0.001sec毎に加算するため)
 
-	/* エラーチェ�?ク */
+	/* エラーチェック */
 	if( bl_ErrChk == TRUE ){
 
-		f_ErrChkAngle += f_speed/1000;		// 角度設�?   (0.001sec毎に�?算するた�?)
+		f_ErrChkAngle += f_speed/1000;		// 角度設定   (0.001sec毎に加算するため)
 /*
 		if( ( f_ErrChkAngle < -0.5 ) || ( 0.5 < f_ErrChkAngle )){//||(f_speed <-1.500)||(1.500<f_speed) ){
 
@@ -157,20 +146,20 @@ void ACCEL_SetRef( void )
 	uint16_t i;
 	int32_t ul_ref = 0;
 
-	/* �?ータサンプリング */
-	for( i=0; i<ACCEL_REF_NUM; i++){			// 100回サンプリングした平�?値を基準�?�値とする�?
+	/* データサンプリング */
+	for( i=0; i<ACCEL_REF_NUM; i++){			// 100回サンプリングした平均値を基準値とする
 		ul_ref += (int32_t)s_AccelVal;
 		LL_mDelay(1);
 	}
 
-	/* 基準値算�?�?��平�?値?�? */
+	/* 基準値算出（平均値） */
 	l_AccelRef = ul_ref / ACCEL_REF_NUM ;
 //	l_GyroRef = 0x1304*100;
 }
 
 float Accel_getSpeedErr( void )
 {
-	int32_t  l_val = (int32_t)s_AccelVal ;				// 100倍�?�精度にする
+	int32_t  l_val = (int32_t)s_AccelVal ;				// 精度を100倍にする
 	int32_t  l_err = l_val - l_AccelRef ;
 	float f_res;
 
@@ -180,11 +169,11 @@ float Accel_getSpeedErr( void )
 
 void ACCEL_Pol( void )
 {
-	/* �?速度の値を取得す�? */
+	/* 加速度の値を取得する */
 //	s_AccelVal = (int16_t)recv_spi_accel();
 
-	/* 現在の�?速度を更新する */
-//	f_NowAccel = Accel_getSpeedErr();			// 角速度取�? (0.001sec毎�?��?速度)
+	/* 現在の加速度を更新する */
+//	f_NowAccel = Accel_getSpeedErr();			// 加速度取得 (0.001sec毎の加速度)
 
 }
 

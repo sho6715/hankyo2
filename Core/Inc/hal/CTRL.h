@@ -26,50 +26,50 @@
 #include "hal/encoder.h"
 #endif
 
-/* ?øΩ?øΩ?øΩ‰ìÆ?øΩ?øΩ^?øΩC?øΩv */
+/* motion type */
 typedef enum{
-	CTRL_ACC,				// [00] ?øΩ?øΩ?øΩ?øΩ?øΩ?øΩ(?øΩ?øΩ?øΩi)
-	CTRL_CONST,				// [01] ?øΩ?øΩ?øΩ?øΩ?øΩ?øΩ(?øΩ?øΩ?øΩi)
-	CTRL_DEC,				// [02] ?øΩ?øΩ?øΩ?øΩ?øΩ?øΩ(?øΩ?øΩ?øΩi)
+	CTRL_ACC,				// [00] 
+	CTRL_CONST,				// [01] 
+	CTRL_DEC,				// [02] 
 
-	CTRL_SKEW_ACC,			// [03] ?øΩŒÇﬂâÔøΩ?øΩ?øΩ?øΩ?øΩ(?øΩ?øΩ?øΩi)
-	CTRL_SKEW_CONST,		// [04] ?øΩŒÇﬂìÔøΩ?øΩ?øΩ?øΩ?øΩ(?øΩ?øΩ?øΩi)
-	CTRL_SKEW_DEC,			// [05] ?øΩŒÇﬂåÔøΩ?øΩ?øΩ?øΩ?øΩ(?øΩ?øΩ?øΩi)
+	CTRL_SKEW_ACC,			// [03] 
+	CTRL_SKEW_CONST,		// [04] 
+	CTRL_SKEW_DEC,			// [05] 
 	
-	CTRL_HIT_WALL,			// [06]?øΩ«ìÔøΩ?øΩƒìÔøΩ?øΩ?øΩ
+	CTRL_HIT_WALL,			// [06]
 	
-	CTRL_ACC_TRUN,			// [07] ?øΩ?øΩ?øΩ?øΩ?øΩ?øΩ(?øΩ?øΩ?øΩM?øΩn?øΩ?øΩ?øΩ?øΩ)
-	CTRL_CONST_TRUN,		// [08] ?øΩ?øΩ?øΩ?øΩ?øΩ?øΩ(?øΩ?øΩ?øΩM?øΩn?øΩ?øΩ?øΩ?øΩ)
-	CTRL_DEC_TRUN,			// [09] ?øΩ?øΩ?øΩ?øΩ?øΩ?øΩ(?øΩ?øΩ?øΩM?øΩn?øΩ?øΩ?øΩ?øΩ)
+	CTRL_ACC_TRUN,			// [07] 
+	CTRL_CONST_TRUN,		// [08] 
+	CTRL_DEC_TRUN,			// [09] 
 	
-	CTRL_ENTRY_SURA,		// [10]?øΩX?øΩ?øΩ?øΩ?øΩ?øΩ[?øΩ?øΩ?øΩO?øΩO?øΩi
-	CTRL_ACC_SURA,			// [11] ?øΩ?øΩ?øΩ?øΩ?øΩ?øΩ(?øΩX?øΩ?øΩ)
-	CTRL_CONST_SURA,		// [12] ?øΩ?øΩ?øΩ?øΩ?øΩ?øΩ(?øΩX?øΩ?øΩ)
-	CTRL_DEC_SURA,			// [13] ?øΩ?øΩ?øΩ?øΩ?øΩ?øΩ(?øΩX?øΩ?øΩ)
-	CTRL_EXIT_SURA,			// [14] ?øΩX?øΩ?øΩ?øΩ?øΩ?øΩ[?øΩ?øΩ?øΩ?øΩO?øΩi
+	CTRL_ENTRY_SURA,		// [10]
+	CTRL_ACC_SURA,			// [11] 
+	CTRL_CONST_SURA,		// [12] 
+	CTRL_DEC_SURA,			// [13] 
+	CTRL_EXIT_SURA,			// [14] 
 
 	CTRL_MAX,
 
 }enCTRL_TYPE;
 
-/* ?øΩ?øΩ?øΩ?øΩf?øΩ[?øΩ^ */
+/* ?ÔøΩÔøΩ?ÔøΩÔøΩ?ÔøΩÔøΩ?ÔøΩÔøΩf?ÔøΩÔøΩ[?ÔøΩÔøΩ^ */
 typedef struct{
-	enCTRL_TYPE		en_type;		// ?øΩ?øΩ?øΩ?øΩ^?øΩC?øΩv
-	float			f_time;			// ?øΩ⁄ïW?øΩ?øΩ?øΩ?øΩ [sec]
-	float			f_acc;			// [?øΩ?øΩ?øΩx?øΩ?øΩ?øΩ?øΩ]   ?øΩ?øΩ?øΩ?øΩ?øΩx[mm/s2]
-	float			f_now;			// [?øΩ?øΩ?øΩx?øΩ?øΩ?øΩ?øΩ]   ?øΩ?øΩ?øΩ›ëÔøΩ?øΩx[mm/s]
-	float			f_trgt;			// [?øΩ?øΩ?øΩx?øΩ?øΩ?øΩ?øΩ]   ?øΩ≈èI?øΩ?øΩ?øΩx[mm/s]
-	float			f_nowDist;		// [?øΩ?øΩ?øΩ?øΩ?øΩ?øΩ?øΩ?øΩ]   ?øΩ?øΩ?øΩ›ãÔøΩ?øΩ?øΩ[mm]
-	float			f_dist;			// [?øΩ?øΩ?øΩ?øΩ?øΩ?øΩ?øΩ?øΩ]   ?øΩ≈èI?øΩ?øΩ?øΩ?øΩ[mm]
-	float			f_accAngleS;	// [?øΩp?øΩ?øΩ?øΩx?øΩ?øΩ?øΩ?øΩ] ?øΩp?øΩ?øΩ?øΩ?øΩ?øΩx[rad/s2]
-	float			f_nowAngleS;	// [?øΩp?øΩ?øΩ?øΩx?øΩ?øΩ?øΩ?øΩ] ?øΩ?øΩ?øΩ›äp?øΩ?øΩ?øΩx[rad/s]
-	float			f_trgtAngleS;	// [?øΩp?øΩ?øΩ?øΩx?øΩ?øΩ?øΩ?øΩ] ?øΩ≈èI?øΩp?øΩ?øΩ?øΩx[rad/s]
-	float			f_nowAngle;		// [?øΩp?øΩx?øΩ?øΩ?øΩ?øΩ]   ?øΩ?øΩ?øΩ›äp?øΩx[rad]
-	float			f_angle;		// [?øΩp?øΩ?øΩ?øΩ?øΩ?øΩ?øΩ]   ?øΩ≈èI?øΩp?øΩx[rad]
+	enCTRL_TYPE		en_type;		// motion type
+	float			f_time;			// target time[sec]
+	float			f_acc;			// [speed ctrl] accel speed[mm/s2]
+	float			f_now;			// [speed ctrl] now speed[mm/s]
+	float			f_trgt;			// [speed ctrl] finish speed[mm/s]
+	float			f_nowDist;		// [dist ctrl] now distance[mm]
+	float			f_dist;			// [dist ctrl] finish distance[mm]
+	float			f_accAngleS;	// [angle speed ctrl] angle accel speed[rad/s2]
+	float			f_nowAngleS;	// [angle speed ctrl] now angle speed[rad/s]
+	float			f_trgtAngleS;	// [angle speed ctrl] finish angle speed[rad/s]
+	float			f_nowAngle;		// [angle ctrl] now angle[rad]
+	float			f_angle;		// [angle ctrl] finish angle[rad]
 }stCTRL_DATA;
 
-enCTRL_TYPE		en_Type;						// ????
-//????????
+enCTRL_TYPE		en_Type;						// motion type
+//escape time 
 float	escape_wait;
 
 uint8_t	uc_dist_control;

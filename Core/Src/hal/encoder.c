@@ -70,8 +70,8 @@ void ENC_GetDiv( int32_t* p_r, int32_t* p_l )
 	cntR_dif = ENC_R_CNT - ENC_R_CNT_old;
 	cntL_dif = ENC_L_CNT_old - ENC_L_CNT;
 
-	//モードを使って正�?をチェ�?クして�?算方法を決める
-	if(Runmode_check(DCM_R) == 1){	//正方向カウン�?
+	//モードを使って正逆をチェックして加算方法を決める
+	if(Runmode_check(DCM_R) == 1){	//正方向カウント
 		//右
 		if(cntR_dif<(-32768>>4)){
 			cntR = cntR_dif + (65536>>4);

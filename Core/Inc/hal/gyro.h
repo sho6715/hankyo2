@@ -16,20 +16,23 @@
 #include "glob.h"
 #endif
 
-/*?????*/
-int16_t s_AccelVal; 					  				// ???????
-float f_NowAccel;										// ???????
-int32_t  l_AccelRef; 									// ???????
+/*get angle speed */
+int16_t s_AccelVal; 					  				// get value of accel speed
+float f_NowAccel;										// now accel speed
+int32_t  l_AccelRef; 									// reference of accel speed
 
-//???????
-float  			f_ErrChkAngle; 			  // ?????????????????
-bool   			bl_ErrChk; 				  // ??????????????FALSE???????TRUE??????
 
-/*ƒWƒƒƒCƒƒZƒ“ƒT*/
-int16_t s_GyroVal; 					  				// ƒWƒƒƒCƒƒZƒ“ƒT‚ÌŒ»İ’l
-int16_t s_GyroValBuf[8];								// ƒWƒƒƒCƒƒZƒ“ƒT‚Ìƒoƒbƒtƒ@’l
-float  f_GyroNowAngle;		 						// ƒWƒƒƒCƒƒZƒ“ƒT‚ÌŒ»İŠp“x
-int32_t  l_GyroRef; 									// ƒWƒƒƒCƒƒZƒ“ƒT‚ÌŠî€’l
+
+
+//failsafe
+float  			f_ErrChkAngle; 			  // ã‚¸ãƒ£ã‚¤ãƒ­ã‚»ãƒ³ã‚µã®ã‚¨ãƒ©ãƒ¼æ¤œå‡ºç”¨ã®è§’åº¦
+bool   			bl_ErrChk; 				  // ã‚¸ãƒ£ã‚¤ãƒ­ã‚»ãƒ³ã‚µã®ã‚¨ãƒ©ãƒ¼æ¤œå‡º(FALSEï¼šæ¤œçŸ¥ã—ãªã„ã€TRUEï¼šæ¤œçŸ¥ã™ã‚‹ï¼‰
+
+/*ã‚¸ãƒ£ã‚¤ãƒ­ã‚»ãƒ³ã‚µ*/
+int16_t s_GyroVal; 					  				// ã‚¸ãƒ£ã‚¤ãƒ­ã‚»ãƒ³ã‚µã®ç¾åœ¨å€¤
+int16_t s_GyroValBuf[8];								// ã‚¸ãƒ£ã‚¤ãƒ­ã‚»ãƒ³ã‚µã®ãƒãƒƒãƒ•ã‚¡å€¤
+float  f_GyroNowAngle;		 						// ã‚¸ãƒ£ã‚¤ãƒ­ã‚»ãƒ³ã‚µã®ç¾åœ¨è§’åº¦
+int32_t  l_GyroRef; 									// ã‚¸ãƒ£ã‚¤ãƒ­ã‚»ãƒ³ã‚µã®åŸºæº–å€¤
 
 uint16_t Get_s_gyro(void);
 void ICM_42688_whoami(void);

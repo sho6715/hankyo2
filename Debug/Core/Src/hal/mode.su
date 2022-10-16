@@ -4,8 +4,8 @@
 ../Core/Src/hal/mode.c:231:6:MODE_exe_m1	32	static
 ../Core/Src/hal/mode.c:290:6:MODE_exe_m2	32	static
 ../Core/Src/hal/mode.c:441:6:MODE_exe_m3	32	static
-../Core/Src/hal/mode.c:621:6:MODE_exe	8	static
-../Core/Src/hal/mode.c:766:6:MODE_DistRightCheck	16	static
-../Core/Src/hal/mode.c:783:6:MODE_DistLeftCheck	16	static
-../Core/Src/hal/mode.c:801:6:MODE_setWaitCheck	16	static
-../Core/Src/hal/mode.c:822:6:MODE_CheckExe	16	static
+../Core/Src/hal/mode.c:620:6:MODE_exe	8	static
+../Core/Src/hal/mode.c:765:6:MODE_DistRightCheck	16	static
+../Core/Src/hal/mode.c:782:6:MODE_DistLeftCheck	16	static
+../Core/Src/hal/mode.c:800:6:MODE_setWaitCheck	16	static
+../Core/Src/hal/mode.c:821:6:MODE_CheckExe	16	static

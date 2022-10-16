@@ -28,24 +28,24 @@
 #include "queue.h"
 #endif
 
-/* �T�����@ */
+/* 探索方法 */
 typedef enum{
-	CONTOUR_SYSTEM =0,			// ������MAP�@
+	CONTOUR_SYSTEM =0,			// 等高線MAP法
 	MAP_SEARCH_TYPE_MAX,
 }enMAP_SEARCH_TYPE;
 
-/* �T�����@ */
+/* 探索方法 */
 typedef enum{
-	SEARCH =0,			// �T��
-	BEST_WAY,			// �ŒZ
+	SEARCH =0,			// 探索
+	BEST_WAY,			// 最短
 	MAP_ACT_MODE_MAX,
 }enMAP_ACT_MODE;
 
-/* �T������ */
+/* 探索動作 */
 typedef enum{
-	SEARCH_TURN =0,		// ���M�n����T��
-	SEARCH_SURA,		// �X�����[���T��
-	SEARCH_SKEW,		// �΂ߒT��
+	SEARCH_TURN =0,		// 超信地旋回探索
+	SEARCH_SURA,		// スラローム探索
+	SEARCH_SKEW,		// 斜め探索
 	SEARCH_RETURN,
 	SEARCH_MAX,
 }enSEARCH_MODE;
@@ -53,8 +53,8 @@ typedef enum{
 uint8_t	Return_X;
 uint8_t	Return_Y;
 
-uint16_t	us_cmap[MAP_Y_SIZE][MAP_X_SIZE];				///< ������ �f�[�^
-uint8_t		g_sysMap[ MAP_Y_SIZE ][ MAP_X_SIZE ];			///< ���H���
+uint16_t	us_cmap[MAP_Y_SIZE][MAP_X_SIZE];				//< 等高線 データ
+uint8_t		g_sysMap[ MAP_Y_SIZE ][ MAP_X_SIZE ];			///< 迷路情報
 
 bool			search_flag;
 

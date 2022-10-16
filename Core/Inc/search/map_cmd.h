@@ -16,11 +16,11 @@
 #include "search/search.h"
 #endif
 
-/* ƒRƒ}ƒ“ƒh‘–s‚ÌŽí—Þ */
+/* ã‚³ãƒžãƒ³ãƒ‰èµ°è¡Œã®ç¨®é¡ž */
 typedef enum{
-	MAP_DRIVE_TURN =0,			// ’´M’nù‰ñ
-	MAP_DRIVE_SURA,				// ƒXƒ‰ƒ[ƒ€
-	MAP_DRIVE_SKEW,				// ŽÎ‚ß
+	MAP_DRIVE_TURN =0,			// è¶…ä¿¡åœ°æ—‹å›ž
+	MAP_DRIVE_SURA,				// ã‚¹ãƒ©ãƒ­ãƒ¼ãƒ 
+	MAP_DRIVE_SKEW,				// æ–œã‚
 	MAP_DRIVE_TYPE_MAX,
 }enMAP_DRIVE_TYPE;
 
