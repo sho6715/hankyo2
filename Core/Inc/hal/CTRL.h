@@ -52,7 +52,7 @@ typedef enum{
 
 }enCTRL_TYPE;
 
-/* ?��?��?��?��f?��[?��^ */
+/* 制御データ */
 typedef struct{
 	enCTRL_TYPE		en_type;		// motion type
 	float			f_time;			// target time[sec]

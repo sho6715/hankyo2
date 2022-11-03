@@ -326,7 +326,7 @@ void CTRL_refTarget( void )
 			}
 			break;
 
-		/* acc(繧ｹ繝ｩ繝ｭ繝ｼ??�ｿｽ�ｿｽ?�ｿｽ�ｿｽ?) */
+		/* acc(スラローム) */
 		case CTRL_ACC_SURA:
 			f_TrgtSpeed = f_BaseSpeed;
 
@@ -798,7 +798,7 @@ void CTRL_pol( void )
 
 	f_NowAngle = GYRO_getNowAngle();					// 現在角度[deg]
 
-	/* 蛻ｶ蠕｡蛟､蜿厄ｿｽ? */
+	/* 制御値取得 */
 	CTRL_getFF_speed( &f_feedFoard_speed );					// [制御] フィードフォワード
 	CTRL_getFF_angle( &f_feedFoard_angle );					// [制御] フィードフォワード
 	CTRL_getSpeedFB( &f_speedCtrl );				// [制御] 速度

@@ -11,7 +11,7 @@
 #define MOT_MOVE_ST_THRESHOLD			( 0.013 )							// 直進移動距離の閾値[mm]
 #define MOT_MOVE_ST_MIN					( 0.010 )							// 直進移動距離の最低移動量[mm]
 
-//20170815 �?信地旋回実�?時に追�?
+//20170815 超信地旋回実装時に追加
 #define A1_MIN					( 25.0f/180.0f*PI )						// 第1最低移動角度
 #define A2_MIN					( 30.0f/180.0f*PI )						// 第2最低移動角度
 #define A3_MIN					( 20.0f/180.0f*PI )						// 第3最低移動角度
@@ -54,7 +54,7 @@ typedef struct{
 }stMOT_DATA;
 
 stMOT_DATA 		st_Info;				// シーケンスデータ
-/* 動�? */
+/* 動作 */
 float 			f_MotNowSpeed 		= 0.0f;		// 現在速度
 float 			f_MotTrgtSpeed 		= 0.0f;		// 目標速度
 stMOT_DATA 		st_Info;				// シーケンスデータ

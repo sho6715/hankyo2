@@ -134,7 +134,7 @@ void MAP_showLog( void )
 	uint8_t	c_data;
 	
 	/* ---------- */
-	/*  ?��ʏ�?��?��H  */
+	/*  通常迷路  */
 	/* ---------- */
 	printf("\n\r  /* ---------- */   ");
 	printf("\n\r  /*  通常迷路  */   ");
@@ -1304,7 +1304,7 @@ void MAP_searchGoal(
 			MAP_makeMapData();												// 壁データから迷路データを作成			← ここでデータ作成をミスっている
 			MAP_calcMouseDir(CONTOUR_SYSTEM, &en_head);						// 等高線MAP法で進行方向を算出			← 誤ったMAPを作成
 			
-			/* ?��?��?��̋�?��ֈړ� */
+			/* 次の区画へ移動 */
 			if(( mx == uc_trgX ) && ( my == uc_trgY )){
 				MAP_actGoal();										// ゴール時の動作
 				break;
@@ -1325,7 +1325,7 @@ void MAP_searchGoal(
 			
 			MAP_calcMouseDir(CONTOUR_SYSTEM, &en_head);				// 等高線MAP法で進行方向を算出			← 誤ったMAPを作成
 			
-			/* ?��?��?��̋�?��ֈړ� */
+			/* 次の区画へ移動 */
 			if(( mx == uc_trgX ) && ( my == uc_trgY )){
 				MAP_actGoal();										// ゴール時の動作
 				break;
@@ -1446,7 +1446,7 @@ void MAP_searchGoalKnown(
 			MAP_makeMapData();												// 壁データから迷路データを作成			← ここでデータ作成をミスっている
 			MAP_calcMouseDir(CONTOUR_SYSTEM, &en_head);						// 等高線MAP法で進行方向を算出			← 誤ったMAPを作成
 			
-			/* ?��?��?��̋�?��ֈړ� */
+			/* 次の区画へ移動 */
 			if(( mx == uc_trgX ) && ( my == uc_trgY )){
 				MAP_actGoal();										// ゴール時の動作
 				break;
@@ -1468,7 +1468,7 @@ void MAP_searchGoalKnown(
 			}
 			MAP_calcMouseDir(CONTOUR_SYSTEM, &en_head);			// 等高線MAP法で進行方向を算出			← 誤ったMAPを作成
 			
-			/* ?��?��?��̋�?��ֈړ� */
+			/* 次の区画へ移動 */
 			if(( mx == uc_trgX ) && ( my == uc_trgY )){
 				MAP_actGoal();									// ゴール時の動作
 				break;

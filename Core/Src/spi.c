@@ -213,7 +213,6 @@ void MX_SPI2_Init(void)
 uint8_t SPI1ReciveData[SPI1_DATA_BUFFR_SIZE];
 uint8_t SPI1TransmitData[SPI1_DATA_BUFFR_SIZE];
 
-//while?¿½ÌŽï¿½?¿½Ì‚ÝŽg?¿½p
 //uint8_t rx_flag = 0;
 //uint8_t tx_flag = 0;
 

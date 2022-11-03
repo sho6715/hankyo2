@@ -8077,7 +8077,7 @@ void MX_SPI2_Init(void)
  8003b54:	40003800 	.word	0x40003800
 
 08003b58 <DMA1_Channel1_Init>:
-//while?��̎�?��̂ݎg?��p
+
 //uint8_t rx_flag = 0;
 //uint8_t tx_flag = 0;
 
@@ -13507,7 +13507,7 @@ void CTRL_refTarget( void )
 			break;
  8005f58:	e33a      	b.n	80065d0 <CTRL_refTarget+0xb48>
 
-		/* acc(繧ｹ繝ｩ繝ｭ繝ｼ??�ｿｽ�ｿｽ?�ｿｽ�ｿｽ?) */
+		/* acc(スラローム) */
 		case CTRL_ACC_SURA:
 			f_TrgtSpeed = f_BaseSpeed;
  8005f5a:	4b3b      	ldr	r3, [pc, #236]	; (8006048 <CTRL_refTarget+0x5c0>)
@@ -15517,7 +15517,7 @@ void CTRL_pol( void )
  80070a0:	4bb2      	ldr	r3, [pc, #712]	; (800736c <CTRL_pol+0x384>)
  80070a2:	edc3 7a00 	vstr	s15, [r3]
 
-	/* 蛻ｶ蠕｡蛟､蜿厄ｿｽ? */
+	/* 制御値取得 */
 	CTRL_getFF_speed( &f_feedFoard_speed );					// [制御] フィードフォワード
  80070a6:	f107 031c 	add.w	r3, r7, #28
  80070aa:	4618      	mov	r0, r3
@@ -25497,7 +25497,7 @@ void DIST_Pol_FL( void )
  800bd12:	2001      	movs	r0, #1
  800bd14:	f7f6 f9e2 	bl	80020dc <Set_SenFL>
 
-	for(uint16_t i=0;i<400;i++);
+	for(uint16_t i=0;i<1000;i++);
  800bd18:	2300      	movs	r3, #0
  800bd1a:	80fb      	strh	r3, [r7, #6]
  800bd1c:	e002      	b.n	800bd24 <DIST_Pol_FL+0x24>
@@ -25505,7 +25505,7 @@ void DIST_Pol_FL( void )
  800bd20:	3301      	adds	r3, #1
  800bd22:	80fb      	strh	r3, [r7, #6]
  800bd24:	88fb      	ldrh	r3, [r7, #6]
- 800bd26:	f5b3 7fc8 	cmp.w	r3, #400	; 0x190
+ 800bd26:	f5b3 7f7a 	cmp.w	r3, #1000	; 0x3e8
  800bd2a:	d3f8      	bcc.n	800bd1e <DIST_Pol_FL+0x1e>
 
 	st_sen[DIST_SEN_L_FRONT].s_old = st_sen[DIST_SEN_L_FRONT].s_now;
@@ -25565,7 +25565,7 @@ void DIST_Pol_FR( void )
  800bd82:	2001      	movs	r0, #1
  800bd84:	f7f6 f9f2 	bl	800216c <Set_SenFR>
 
-	for(uint16_t i=0;i<400;i++);
+	for(uint16_t i=0;i<1000;i++);
  800bd88:	2300      	movs	r3, #0
  800bd8a:	80fb      	strh	r3, [r7, #6]
  800bd8c:	e002      	b.n	800bd94 <DIST_Pol_FR+0x24>
@@ -25573,7 +25573,7 @@ void DIST_Pol_FR( void )
  800bd90:	3301      	adds	r3, #1
  800bd92:	80fb      	strh	r3, [r7, #6]
  800bd94:	88fb      	ldrh	r3, [r7, #6]
- 800bd96:	f5b3 7fc8 	cmp.w	r3, #400	; 0x190
+ 800bd96:	f5b3 7f7a 	cmp.w	r3, #1000	; 0x3e8
  800bd9a:	d3f8      	bcc.n	800bd8e <DIST_Pol_FR+0x1e>
 
 	st_sen[DIST_SEN_R_FRONT].s_old = st_sen[DIST_SEN_R_FRONT].s_now;
@@ -25635,7 +25635,7 @@ void DIST_Pol_SL( void )
  800bdf2:	2001      	movs	r0, #1
  800bdf4:	f7f6 f989 	bl	800210a <Set_SenSL>
 
-	for(uint16_t i=0;i<400;i++);
+	for(uint16_t i=0;i<1000;i++);
  800bdf8:	2300      	movs	r3, #0
  800bdfa:	80fb      	strh	r3, [r7, #6]
  800bdfc:	e002      	b.n	800be04 <DIST_Pol_SL+0x24>
@@ -25643,7 +25643,7 @@ void DIST_Pol_SL( void )
  800be00:	3301      	adds	r3, #1
  800be02:	80fb      	strh	r3, [r7, #6]
  800be04:	88fb      	ldrh	r3, [r7, #6]
- 800be06:	f5b3 7fc8 	cmp.w	r3, #400	; 0x190
+ 800be06:	f5b3 7f7a 	cmp.w	r3, #1000	; 0x3e8
  800be0a:	d3f8      	bcc.n	800bdfe <DIST_Pol_SL+0x1e>
 
 	st_sen[DIST_SEN_L_SIDE].s_old = st_sen[DIST_SEN_L_SIDE].s_now;
@@ -25704,7 +25704,7 @@ void DIST_Pol_SR( void )
  800be62:	2001      	movs	r0, #1
  800be64:	f7f6 f968 	bl	8002138 <Set_SenSR>
 
-	for(uint16_t i=0;i<400;i++);
+	for(uint16_t i=0;i<1000;i++);
  800be68:	2300      	movs	r3, #0
  800be6a:	80fb      	strh	r3, [r7, #6]
  800be6c:	e002      	b.n	800be74 <DIST_Pol_SR+0x24>
@@ -25712,7 +25712,7 @@ void DIST_Pol_SR( void )
  800be70:	3301      	adds	r3, #1
  800be72:	80fb      	strh	r3, [r7, #6]
  800be74:	88fb      	ldrh	r3, [r7, #6]
- 800be76:	f5b3 7fc8 	cmp.w	r3, #400	; 0x190
+ 800be76:	f5b3 7f7a 	cmp.w	r3, #1000	; 0x3e8
  800be7a:	d3f8      	bcc.n	800be6e <DIST_Pol_SR+0x1e>
 
 	st_sen[DIST_SEN_R_SIDE].s_old = st_sen[DIST_SEN_R_SIDE].s_now;
@@ -31857,7 +31857,7 @@ void MAP_showLog( void )
 	uint8_t	c_data;
 	
 	/* ---------- */
-	/*  ?��ʏ�?��?��H  */
+	/*  通常迷路  */
 	/* ---------- */
 	printf("\n\r  /* ---------- */   ");
  800f29e:	4857      	ldr	r0, [pc, #348]	; (800f3fc <MAP_showLog+0x164>)
@@ -36589,7 +36589,7 @@ void MAP_searchGoal(
  80114ee:	2000      	movs	r0, #0
  80114f0:	f7fe fd34 	bl	800ff5c <MAP_calcMouseDir>
 			
-			/* ?��?��?��̋�?��ֈړ� */
+			/* 次の区画へ移動 */
 			if(( mx == uc_trgX ) && ( my == uc_trgY )){
  80114f4:	4b5f      	ldr	r3, [pc, #380]	; (8011674 <MAP_searchGoal+0x280>)
  80114f6:	781b      	ldrb	r3, [r3, #0]
@@ -36651,7 +36651,7 @@ void MAP_searchGoal(
  801155a:	2000      	movs	r0, #0
  801155c:	f7fe fcfe 	bl	800ff5c <MAP_calcMouseDir>
 			
-			/* ?��?��?��̋�?��ֈړ� */
+			/* 次の区画へ移動 */
 			if(( mx == uc_trgX ) && ( my == uc_trgY )){
  8011560:	4b44      	ldr	r3, [pc, #272]	; (8011674 <MAP_searchGoal+0x280>)
  8011562:	781b      	ldrb	r3, [r3, #0]
@@ -36998,7 +36998,7 @@ void MAP_searchGoalKnown(
  801179e:	2000      	movs	r0, #0
  80117a0:	f7fe fbdc 	bl	800ff5c <MAP_calcMouseDir>
 			
-			/* ?��?��?��̋�?��ֈړ� */
+			/* 次の区画へ移動 */
 			if(( mx == uc_trgX ) && ( my == uc_trgY )){
  80117a4:	4b66      	ldr	r3, [pc, #408]	; (8011940 <MAP_searchGoalKnown+0x29c>)
  80117a6:	781b      	ldrb	r3, [r3, #0]
@@ -37067,7 +37067,7 @@ void MAP_searchGoalKnown(
  8011818:	2000      	movs	r0, #0
  801181a:	f7fe fb9f 	bl	800ff5c <MAP_calcMouseDir>
 			
-			/* ?��?��?��̋�?��ֈړ� */
+			/* 次の区画へ移動 */
 			if(( mx == uc_trgX ) && ( my == uc_trgY )){
  801181e:	4b48      	ldr	r3, [pc, #288]	; (8011940 <MAP_searchGoalKnown+0x29c>)
  8011820:	781b      	ldrb	r3, [r3, #0]

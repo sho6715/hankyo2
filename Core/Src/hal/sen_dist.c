@@ -195,7 +195,7 @@ void DIST_Pol_FL( void )
 
 	Set_SenFL(1);
 
-	for(uint16_t i=0;i<400;i++);
+	for(uint16_t i=0;i<1000;i++);
 
 	st_sen[DIST_SEN_L_FRONT].s_old = st_sen[DIST_SEN_L_FRONT].s_now;
 	st_sen[DIST_SEN_L_FRONT].s_now = GetSensor_FL()- st_sen[DIST_SEN_L_FRONT].s_offset;
@@ -212,7 +212,7 @@ void DIST_Pol_FR( void )
 
 	Set_SenFR(1);
 
-	for(uint16_t i=0;i<400;i++);
+	for(uint16_t i=0;i<1000;i++);
 
 	st_sen[DIST_SEN_R_FRONT].s_old = st_sen[DIST_SEN_R_FRONT].s_now;
 	st_sen[DIST_SEN_R_FRONT].s_now = GetSensor_FR()- st_sen[DIST_SEN_R_FRONT].s_offset;
@@ -231,7 +231,7 @@ void DIST_Pol_SL( void )
 
 	Set_SenSL(1);
 
-	for(uint16_t i=0;i<400;i++);
+	for(uint16_t i=0;i<1000;i++);
 
 	st_sen[DIST_SEN_L_SIDE].s_old = st_sen[DIST_SEN_L_SIDE].s_now;
 	st_sen[DIST_SEN_L_SIDE].s_now = GetSensor_SL()- st_sen[DIST_SEN_L_SIDE].s_offset;
@@ -249,7 +249,7 @@ void DIST_Pol_SR( void )
 
 	Set_SenSR(1);
 
-	for(uint16_t i=0;i<400;i++);
+	for(uint16_t i=0;i<1000;i++);
 
 	st_sen[DIST_SEN_R_SIDE].s_old = st_sen[DIST_SEN_R_SIDE].s_now;
 	st_sen[DIST_SEN_R_SIDE].s_now = GetSensor_SR()- st_sen[DIST_SEN_R_SIDE].s_offset;

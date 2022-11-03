@@ -58,7 +58,7 @@ typedef enum{
 	DCM_MAX
 }enDCM_ID;
 
-/* 方?��? */
+/* 方向 */
 typedef enum{
 	NORTH =0,
 	EAST,
