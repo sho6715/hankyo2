@@ -20,16 +20,16 @@
 #include "glob.h"
 #endif
 
-#define DIST_NO_WALL_DIV_FILTER				( 20 )
-#define DIST_REF_UP					( 30 )
+#define DIST_NO_WALL_DIV_FILTER				( 25 )
+#define DIST_REF_UP					( 35 )
 
-#define R_FRONT_REF					(430)
-#define L_FRONT_REF					(560)//( 210 )
-#define R_SIDE_REF					(400)//( 240 )
-#define L_SIDE_REF					(200)//( 200 )
-#define R_FRONT_WALL					(45)//( 45 )
-#define L_FRONT_WALL					(40)//( 45 )
-#define R_SIDE_WALL					(105)//( 110 )
+#define R_FRONT_REF					(480)
+#define L_FRONT_REF					(620)//( 210 )
+#define R_SIDE_REF					(470)//( 240 )
+#define L_SIDE_REF					(270)//( 200 )
+#define R_FRONT_WALL					(75)//( 45 )
+#define L_FRONT_WALL					(75)//( 45 )
+#define R_SIDE_WALL					(95)//( 110 )
 #define L_SIDE_WALL					(85)//( 70 )
 #define R_FRONT_SKEW_ERR1				( 80 )//仮
 #define L_FRONT_SKEW_ERR1				( 70 )
@@ -37,8 +37,8 @@
 #define L_FRONT_SKEW_ERR2				( 160 )
 #define R_FRONT_SKEW_ERR3				( 250 )
 #define L_FRONT_SKEW_ERR3				( 250 )
-#define R_FRONT_CTRL					(520)//( 370 )	//maekabehoseiniryuuyou
-#define L_FRONT_CTRL					(640)//( 300 )
+#define R_FRONT_CTRL					(160)//( 370 )	//maekabehoseiniryuuyou
+#define L_FRONT_CTRL					(160)//( 300 )
 #define R_FRONT_NOCTRL					(1000)//( 530 )
 #define L_FRONT_NOCTRL					(1200)//( 450 )
 
