@@ -78,6 +78,7 @@ typedef enum{
 	MOT_WALL_EDGE_NONE =0,		// 壁のエッジ検出での補正なし
 	MOT_WALL_EDGE_RIGHT,		// 右壁のエッジ検出での補正
 	MOT_WALL_EDGE_LEFT,			// 左壁のエッジ検出での補正
+	MOT_WALL_EDGE_BOTH_WALL,	// 両壁のエッジ検出
 	MOT_WALL_EDGE_MAX,
 }enMOT_WALL_EDGE_TYPE;
 

@@ -61,7 +61,7 @@ stMOT_DATA 		st_Info;				// シーケンスデータ
 float			f_MotSuraStaSpeed	= 0.0f;
 enMOT_WALL_EDGE_TYPE	en_WallEdge = MOT_WALL_EDGE_NONE;	// 壁切れ補正
 bool			bl_IsWallEdge = FALSE;				// 壁切れ検知（TRUE:検知、FALSE：非検知）
-float			f_WallEdgeAddDist = 0.0305;				// 壁切れ補正の移動距離
+float			f_WallEdgeAddDist = 0.0;				// 壁切れ補正の移動距離
 
 
 
@@ -591,6 +591,8 @@ void MOT_goBlock_Const(float f_num)
 
 	GYRO_staErrChkAngle();
 
+	MOT_setWallEdgeType( MOT_WALL_EDGE_BOTH_WALL );		// 壁切れ補正を実施する
+
 	/* ---------------- */
 	/*  動作データ計算   */
 	/* ---------------- */
@@ -619,13 +621,67 @@ void MOT_goBlock_Const(float f_num)
 //	printf("目標速度 %f 目標位置 %f \r\n",st_data.f_trgt,st_data.f_dist);
 	while( Get_NowDist() < st_info.f_dist ){				// 指定距離到達待ち
 		if( SYS_isOutOfCtrl() == TRUE ){
-				CTRL_stop();
-				DCM_brakeMot( DCM_R );		// ブレーキ
-				DCM_brakeMot( DCM_L );		// ブレーキ
-				break;
-			}				// 途中で制御不能になった
+			CTRL_stop();
+			DCM_brakeMot( DCM_R );		// ブレーキ
+			DCM_brakeMot( DCM_L );		// ブレーキ
+			break;
+		}				// 途中で制御不能になった
+		if(MOT_setWallEdgeDist()==TRUE) break;
 	}
 
+	if( ( en_WallEdge != MOT_WALL_EDGE_NONE ) && ( bl_IsWallEdge == FALSE )  ){
+		st_data.en_type			= CTRL_CONST;
+		st_data.f_acc			= 0;						// 加速度指定
+		st_data.f_now			= st_Info.f_last;			// 現在速度
+		st_data.f_trgt			= st_Info.f_last;			// 目標速度
+		st_data.f_nowDist		= Get_NowDist();				// 現在位置
+		st_data.f_dist			= Get_NowDist() + 0.045f;	// 等速完了位置（90.0f：壁切れをどこまで救うかの距離）、ここではf_NowDistをクリアしてはいけない。
+		st_data.f_accAngleS		= 0;						// 角加速度
+		st_data.f_nowAngleS		= 0;						// 現在角速度
+		st_data.f_trgtAngleS	= 0;						// 目標角度
+		st_data.f_nowAngle		= 0;						// 現在角度
+		st_data.f_angle			= 0;						// 目標角度
+		st_data.f_time 			= 0;						// 目標時間 [sec] ← 指定しない
+		CTRL_clrData();										// マウスの現在位置/角度をクリア
+		CTRL_setData( &st_data );							// データセット
+		while( Get_NowDist() < st_data.f_dist ){				// 指定距離到達待ち
+			if( SYS_isOutOfCtrl() == TRUE ){
+				CTRL_stop();
+				DCM_brakeMot( DCM_R );		
+				DCM_brakeMot( DCM_L );		
+				break;
+			}				
+			if( MOT_setWallEdgeDist_LoopWait() == TRUE ) break;	// 壁切れ補正を実行する距離を設定
+		}
+	}
+	/* straight for edge */
+	if( f_WallEdgeAddDist != 0.0f)
+	{
+		st_data.en_type			= CTRL_CONST;
+		st_data.f_acc			= 0;						// 加速度指定
+		st_data.f_now			= st_Info.f_last;			// 現在速度
+		st_data.f_trgt			= st_Info.f_last;			// 目標速度
+		st_data.f_nowDist		= 0;						// 現在位置
+		st_data.f_dist			= f_WallEdgeAddDist;		// 等速完了位置
+		st_data.f_accAngleS		= 0;						// 角加速度
+		st_data.f_nowAngleS		= 0;						// 現在角速度
+		st_data.f_trgtAngleS	= 0;						// 目標角度
+		st_data.f_nowAngle		= 0;						// 現在角度
+		st_data.f_angle			= 0;						// 目標角度
+		st_data.f_time 			= 0;						// 目標時間 [sec] ← 指定しない
+		CTRL_clrData();										// マウスの現在位置/角度をクリア
+		CTRL_setData( &st_data );							// データセット
+		while( Get_NowDist() < st_data.f_dist ){			// 指定距離到達待ち
+			if( SYS_isOutOfCtrl() == TRUE ){
+				CTRL_stop();
+				DCM_brakeMot( DCM_R );		
+				DCM_brakeMot( DCM_L );		
+				break;
+			}				
+		}
+	}
+
+	MOT_setWallEdgeType( MOT_WALL_EDGE_NONE );		// 壁切れ補正終了
 	GYRO_endErrChkAngle();
 	CTRL_clrNowData();
 }
@@ -1257,17 +1313,20 @@ bool MOT_setWallEdgeDist( void )
 {
 	float f_addDist;
 
-//	f_addDist = Get_NowDist() + MOT_WALL_EDGE_DIST;		// 旋回開始位置
-
 	/* 壁の切れ目を検知していない */
 	if( ( bl_IsWallEdge == FALSE ) || ( en_WallEdge == MOT_WALL_EDGE_NONE ) ){		// 壁切れ設定されていないか、検出していない場合は処理を抜ける
 		return FALSE;
 	}
 
+	f_addDist = Get_NowDist() + MOT_WALL_EDGE_DIST;		// 旋回開始位置
+
 	/* 多く走る必要がある */
 	if( f_addDist > st_Info.f_dist ){
 
-		f_WallEdgeAddDist = f_addDist - st_Info.f_dist;
+		f_WallEdgeAddDist = f_addDist - st_Info.f_dist;	//壁切れの距離＋現在距離が本来の距離を超えた分をwall_adddistとして設定してるんだなぁだから設定だけすればいいのか
+	}
+	if( f_addDist < st_Info.f_dist){
+		st_Info.f_dist = f_addDist;
 	}
 
 	/* 壁の切れ目補正の変数を初期化 */
@@ -1277,7 +1336,7 @@ bool MOT_setWallEdgeDist( void )
 }
 bool MOT_setWallEdgeDist_LoopWait( void )
 {
-	SetLED(0x11);
+//	SetLED(0x11);
 	/* 壁の切れ目を検知していない */
 	if( bl_IsWallEdge == FALSE ){		// 壁切れ設定されていないか、検出していない場合は処理を抜ける
 

@@ -885,6 +885,17 @@ void CTRL_pol( void )
 		if( DIST_isWall_L_SIDE() == FALSE ){
 			MOT_setWallEdge( TRUE );		// 壁の切れ目を検知
 		}
+	}else if( MOT_getWallEdgeType() == MOT_WALL_EDGE_BOTH_WALL ){
+		/* 壁抜け */
+		SetLED(0x00);
+		if( DIST_isWall_L_SIDE() == FALSE ){
+			SetLED(0x01);
+			MOT_setWallEdge( TRUE );		// 壁の切れ目を検知
+		}
+		if( DIST_isWall_R_SIDE() == FALSE ){
+			SetLED(0x10);
+			MOT_setWallEdge( TRUE );		// 壁の切れ目を検知
+		}
 	}
 }
 
