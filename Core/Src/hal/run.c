@@ -61,7 +61,7 @@ stMOT_DATA 		st_Info;				// シーケンスデータ
 float			f_MotSuraStaSpeed	= 0.0f;
 enMOT_WALL_EDGE_TYPE	en_WallEdge = MOT_WALL_EDGE_NONE;	// 壁切れ補正
 bool			bl_IsWallEdge = FALSE;				// 壁切れ検知（TRUE:検知、FALSE：非検知）
-float			f_WallEdgeAddDist = 0;				// 壁切れ補正の移動距離
+float			f_WallEdgeAddDist = 0.0305;				// 壁切れ補正の移動距離
 
 
 
