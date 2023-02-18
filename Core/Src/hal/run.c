@@ -1377,6 +1377,8 @@ void DIST_Front_Wall_correction(void)
 	DCM_brakeMot( DCM_R );		// ブレーキ
 	DCM_brakeMot( DCM_L );		// ブレーキ
 	GYRO_endErrChkAngle();					// エラー検出終了
+	f_MotNowSpeed = 0.0f;		//現在速度更新
+
 	CTRL_clrNowData();
 }
 
