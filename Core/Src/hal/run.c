@@ -1325,6 +1325,7 @@ bool MOT_setWallEdgeDist( void )
 
 		f_WallEdgeAddDist = f_addDist - st_Info.f_dist;	//壁切れの距離＋現在距離が本来の距離を超えた分をwall_adddistとして設定してるんだなぁだから設定だけすればいいのか
 	}
+	/*少なく走る場合*/
 	if( f_addDist < st_Info.f_dist){
 		st_Info.f_dist = f_addDist;
 	}
