@@ -1174,6 +1174,7 @@ void MAP_moveNextBlock_acc(enMAP_HEAD_DIR en_head, bool* p_type)
 						( ( en_Head == WEST  ) && ( ( g_sysMap[my][mx] & 0x08 ) != 0 ) ) 			// 西を向いていて西に壁がある
 					){
 						MOT_goBlock_FinSpeed( 0.5, 0 );			// 半区画前進
+						LL_mDelay(100);
 						DIST_Front_Wall_correction();
 						MOT_turn(MOT_R90);						// 右90度旋回
 						uc_SlaCnt = 0;
@@ -1288,6 +1289,7 @@ void MAP_moveNextBlock_acc(enMAP_HEAD_DIR en_head, bool* p_type)
 				((en_Head == SOUTH) && ((g_sysMap[my][mx] & 0x04) != 0)) ||		// 南を向いていて南に壁がある
 				((en_Head == WEST) && ((g_sysMap[my][mx] & 0x08) != 0)) 			// 西を向いていて西に壁がある
 				) {
+					LL_mDelay(100);
 					DIST_Front_Wall_correction();
 
 					if(((en_Head == NORTH) && ((g_sysMap[my][mx] & 0x02) != 0)) ||		// 北を向いていて東に壁がある

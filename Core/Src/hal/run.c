@@ -1372,6 +1372,11 @@ void DIST_Front_Wall_correction(void)
 	while((DIST_getNowVal( DIST_SEN_R_FRONT )>(R_FRONT_REF+FRONT_WALL_minus+15))||(DIST_getNowVal( DIST_SEN_R_FRONT )<(R_FRONT_REF+FRONT_WALL_minus-15))
 		||(DIST_getNowVal( DIST_SEN_L_FRONT )>(L_FRONT_REF+FRONT_WALL_minus+15))||(DIST_getNowVal( DIST_SEN_L_FRONT )<(L_FRONT_REF+FRONT_WALL_minus-15))){
 			if(escape_wait > 0.8)break;
-		}
+	}
+	CTRL_stop();			// 制御停止
+	DCM_brakeMot( DCM_R );		// ブレーキ
+	DCM_brakeMot( DCM_L );		// ブレーキ
+	GYRO_endErrChkAngle();					// エラー検出終了
+	CTRL_clrNowData();
 }
 
