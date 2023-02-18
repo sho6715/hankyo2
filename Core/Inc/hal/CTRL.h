@@ -48,11 +48,13 @@ typedef enum{
 	CTRL_DEC_SURA,			// [13] 
 	CTRL_EXIT_SURA,			// [14] 
 
+	CTRL_FRONT_WALL,		// [15]
+
 	CTRL_MAX,
 
 }enCTRL_TYPE;
 
-/* 制御データ */
+/* 制御�?ータ */
 typedef struct{
 	enCTRL_TYPE		en_type;		// motion type
 	float			f_time;			// target time[sec]

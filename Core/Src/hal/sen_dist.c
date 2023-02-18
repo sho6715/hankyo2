@@ -298,3 +298,4 @@ bool DIST_isWall_L_SIDE( void )
 
 	return bl_res;
 }
+

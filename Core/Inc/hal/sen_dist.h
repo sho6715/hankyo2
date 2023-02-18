@@ -23,34 +23,37 @@
 #define DIST_NO_WALL_DIV_FILTER				( 25 )
 #define DIST_REF_UP					( 35 )
 
-#define R_FRONT_REF					(480)
-#define L_FRONT_REF					(620)//( 210 )
-#define R_SIDE_REF					(470)//( 240 )
-#define L_SIDE_REF					(270)//( 200 )
-#define R_FRONT_WALL					(75)//( 45 )
-#define L_FRONT_WALL					(75)//( 45 )
-#define R_SIDE_WALL					(95)//( 110 )
-#define L_SIDE_WALL					(85)//( 70 )
+#define R_FRONT_REF					(430)
+#define L_FRONT_REF					(480)//( 210 )
+#define R_SIDE_REF					(490)//( 240 )
+#define L_SIDE_REF					(340)//( 200 )
+#define R_FRONT_WALL					(110)//( 45 )
+#define L_FRONT_WALL					(120)//( 45 )
+#define R_SIDE_WALL					(160)//( 110 )
+#define L_SIDE_WALL					(120)//( 70 )
 #define R_FRONT_SKEW_ERR1				( 80 )//仮
 #define L_FRONT_SKEW_ERR1				( 70 )
 #define R_FRONT_SKEW_ERR2				( 192 )
 #define L_FRONT_SKEW_ERR2				( 160 )
 #define R_FRONT_SKEW_ERR3				( 250 )
 #define L_FRONT_SKEW_ERR3				( 250 )
-#define R_FRONT_CTRL					(160)//( 370 )	//maekabehoseiniryuuyou
-#define L_FRONT_CTRL					(160)//( 300 )
+#define R_FRONT_CTRL					(180)//( 370 )	//maekabehoseiniryuuyou
+#define L_FRONT_CTRL					(180)//( 300 )
 #define R_FRONT_NOCTRL					(1000)//( 530 )
 #define L_FRONT_NOCTRL					(1200)//( 450 )
 
+#define FRONT_WALL_minus				(30)
 
-/*距離センサポーリングタイプ*/
+
+
+/*距離センサポ�??��リングタイ?��?*/
 typedef enum{
 	DIST_POL_FRONT = 0,
 	DIST_POL_SIDE,
 	DISR_POL_MAX
 }enDIST_POL;
 
-/*距離センサ動作状態*/
+/*距離センサ動作状?��?*/
 typedef enum{
 	DIST_STANDBAY = 0,
 	DIST_NO_CTRL,

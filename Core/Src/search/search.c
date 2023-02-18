@@ -13,6 +13,8 @@
 
 #define MOVE_BACK_DIST		(0.23f)
 
+extern uint8_t wall_hit_flag;
+
 enMAP_HEAD_DIR	en_Head;										///< マウスの進行方向 0:N 1:E 2:S 3:W
 uint8_t		my;												///< マウスのＸ座標
 uint8_t		mx;												///< マウスのＹ座標
@@ -810,7 +812,7 @@ void MAP_moveNextBlock_Sura(
 					( ( en_Head == SOUTH ) && ( ( g_sysMap[my][mx] & 0x08 ) != 0 ) )  ||		// 南を向いていて西に壁がある
 					( ( en_Head == WEST  ) && ( ( g_sysMap[my][mx] & 0x01 ) != 0 ) ) 			// 西を向いていて北に壁がある
 				){
-				uc_dist_control = 10;
+				uc_dist_control = 0.01;
 				}
 			else{
 				uc_dist_control = 0;
@@ -847,7 +849,7 @@ void MAP_moveNextBlock_Sura(
 					( ( en_Head == SOUTH ) && ( ( g_sysMap[my][mx] & 0x02 ) != 0 ) )  ||		// 南を向いていて東に壁がある
 					( ( en_Head == WEST  ) && ( ( g_sysMap[my][mx] & 0x04 ) != 0 ) ) 			// 西を向いていて南に壁がある
 				){
-				uc_dist_control = 10;
+				uc_dist_control = 0.01;
 				}
 			else{
 				uc_dist_control = 0;
@@ -1128,6 +1130,7 @@ void MAP_moveNextBlock_acc(enMAP_HEAD_DIR en_head, bool* p_type)
 			st_known.uc_StrCnt = 0;		/////////////////////////////////////////
 			st_known.bl_Known = FALSE;
 		}
+		if(wall_hit_flag == 0){}
 		if( ( ( en_Head == NORTH ) && ( ( g_sysMap[my][mx] & 0x02 ) != 0 ) )  ||		// 北を向いていて東に壁がある
 					( ( en_Head == EAST  ) && ( ( g_sysMap[my][mx] & 0x04 ) != 0 ) )  ||		// 東を向いていて南に壁がある
 					( ( en_Head == SOUTH ) && ( ( g_sysMap[my][mx] & 0x08 ) != 0 ) )  ||		// 南を向いていて西に壁がある
@@ -1143,23 +1146,43 @@ void MAP_moveNextBlock_acc(enMAP_HEAD_DIR en_head, bool* p_type)
 				uc_SlaCnt++;
 			}
 			else{
-				f_MoveBackDist = 0;
-				/* 壁当て姿勢制御（左に壁があったらバック＋移動距離を加算する） */
-				if( ( ( en_Head == NORTH ) && ( ( g_sysMap[my][mx] & 0x08 ) != 0 ) )  ||		// 北を向いていて西に壁がある
-					( ( en_Head == EAST  ) && ( ( g_sysMap[my][mx] & 0x01 ) != 0 ) )  ||		// 東を向いていて北に壁がある
-					( ( en_Head == SOUTH ) && ( ( g_sysMap[my][mx] & 0x02 ) != 0 ) )  ||		// 南を向いていて東に壁がある
-					( ( en_Head == WEST  ) && ( ( g_sysMap[my][mx] & 0x04 ) != 0 ) ) 			// 西を向いていて南に壁がある
-				){
-					MOT_goBlock_FinSpeed( 0.5, 0 );			// 半区画前進
-					MOT_turn(MOT_R90);						// 右90度旋回
-					uc_SlaCnt = 0;
-					MOT_goHitBackWall();					// バックする
-					f_MoveBackDist = MOVE_BACK_DIST;		// バックした分の移動距離[区画]を加算
-					*p_type = TRUE;							// 次は半区間（＋バック）分進める
+				if(wall_hit_flag == 0){
+					f_MoveBackDist = 0;
+					/* 壁当て姿勢制御（左に壁があったらバック＋移動距離を加算する） */
+					if( ( ( en_Head == NORTH ) && ( ( g_sysMap[my][mx] & 0x08 ) != 0 ) )  ||		// 北を向いていて西に壁がある
+						( ( en_Head == EAST  ) && ( ( g_sysMap[my][mx] & 0x01 ) != 0 ) )  ||		// 東を向いていて北に壁がある
+						( ( en_Head == SOUTH ) && ( ( g_sysMap[my][mx] & 0x02 ) != 0 ) )  ||		// 南を向いていて東に壁がある
+						( ( en_Head == WEST  ) && ( ( g_sysMap[my][mx] & 0x04 ) != 0 ) ) 			// 西を向いていて南に壁がある
+					){
+						MOT_goBlock_FinSpeed( 0.5, 0 );			// 半区画前進
+						MOT_turn(MOT_R90);						// 右90度旋回
+						uc_SlaCnt = 0;
+						MOT_goHitBackWall();					// バックする
+						f_MoveBackDist = MOVE_BACK_DIST;		// バックした分の移動距離[区画]を加算
+						*p_type = TRUE;							// 次は半区間（＋バック）分進める
+					}
+					else{
+						MOT_goSla( MOT_R90S, PARAM_getSra( SLA_90 ) );	// 右スラローム
+						uc_SlaCnt++;
+					}
 				}
 				else{
-					MOT_goSla( MOT_R90S, PARAM_getSra( SLA_90 ) );	// 右スラローム
-					uc_SlaCnt++;
+					/* 前壁制御（正面に壁があったら前壁補正を実行） */
+					if( ( ( en_Head == NORTH ) && ( ( g_sysMap[my][mx] & 0x01 ) != 0 ) )  ||		// 北を向いていて北に壁がある
+						( ( en_Head == EAST  ) && ( ( g_sysMap[my][mx] & 0x02 ) != 0 ) )  ||		// 東を向いていて東に壁がある
+						( ( en_Head == SOUTH ) && ( ( g_sysMap[my][mx] & 0x04 ) != 0 ) )  ||		// 南を向いていて南に壁がある
+						( ( en_Head == WEST  ) && ( ( g_sysMap[my][mx] & 0x08 ) != 0 ) ) 			// 西を向いていて西に壁がある
+					){
+						MOT_goBlock_FinSpeed( 0.5, 0 );			// 半区画前進
+						DIST_Front_Wall_correction();
+						MOT_turn(MOT_R90);						// 右90度旋回
+						uc_SlaCnt = 0;
+						*p_type = TRUE;								// 次は半区間＋バック分進める
+					}
+					else{
+						MOT_goSla( MOT_R90S, PARAM_getSra( SLA_90 ) );	// 右スラローム
+						uc_SlaCnt++;
+					}
 				}
 			}
 		break;
@@ -1196,23 +1219,44 @@ void MAP_moveNextBlock_acc(enMAP_HEAD_DIR en_head, bool* p_type)
 				uc_SlaCnt++;
 			}
 			else{
-				f_MoveBackDist = 0;
-				/* 壁当て姿勢制御（後ろに壁があったらバック＋移動距離を加算する） */
-				if( ( ( en_Head == NORTH ) && ( ( g_sysMap[my][mx] & 0x02 ) != 0 ) )  ||		// 北を向いていて東に壁がある
-					( ( en_Head == EAST  ) && ( ( g_sysMap[my][mx] & 0x04 ) != 0 ) )  ||		// 東を向いていて南に壁がある
-					( ( en_Head == SOUTH ) && ( ( g_sysMap[my][mx] & 0x08 ) != 0 ) )  ||		// 南を向いていて西に壁がある
-					( ( en_Head == WEST  ) && ( ( g_sysMap[my][mx] & 0x01 ) != 0 ) ) 			// 西を向いていて北に壁がある
-				){
-					MOT_goBlock_FinSpeed( 0.5, 0 );		// 半区画前進
-					MOT_turn(MOT_L90);					// 右90度旋回
-					uc_SlaCnt = 0;
-					MOT_goHitBackWall();					// バックする
-					f_MoveBackDist = MOVE_BACK_DIST;		// バックした分の移動距離[区画]を加算
-					*p_type = TRUE;							// 次は半区間（＋バック）分進める
+				if(wall_hit_flag == 0){
+					f_MoveBackDist = 0;
+					/* 壁当て姿勢制御（後ろに壁があったらバック＋移動距離を加算する） */
+					if( ( ( en_Head == NORTH ) && ( ( g_sysMap[my][mx] & 0x02 ) != 0 ) )  ||		// 北を向いていて東に壁がある
+						( ( en_Head == EAST  ) && ( ( g_sysMap[my][mx] & 0x04 ) != 0 ) )  ||		// 東を向いていて南に壁がある
+						( ( en_Head == SOUTH ) && ( ( g_sysMap[my][mx] & 0x08 ) != 0 ) )  ||		// 南を向いていて西に壁がある
+						( ( en_Head == WEST  ) && ( ( g_sysMap[my][mx] & 0x01 ) != 0 ) ) 			// 西を向いていて北に壁がある
+					){
+						MOT_goBlock_FinSpeed( 0.5, 0 );		// 半区画前進
+						MOT_turn(MOT_L90);					// 右90度旋回
+						uc_SlaCnt = 0;
+						MOT_goHitBackWall();					// バックする
+						f_MoveBackDist = MOVE_BACK_DIST;		// バックした分の移動距離[区画]を加算
+						*p_type = TRUE;							// 次は半区間（＋バック）分進める
+					}
+					else{
+						MOT_goSla( MOT_L90S, PARAM_getSra( SLA_90 ) );	// 左スラローム
+						uc_SlaCnt++;
+					}
 				}
 				else{
-					MOT_goSla( MOT_L90S, PARAM_getSra( SLA_90 ) );	// 左スラローム
-					uc_SlaCnt++;
+					/* 前壁制御（正面に壁があったら前壁補正を実行） */
+					if( ( ( en_Head == NORTH ) && ( ( g_sysMap[my][mx] & 0x01 ) != 0 ) )  ||		// 北を向いていて北に壁がある
+						( ( en_Head == EAST  ) && ( ( g_sysMap[my][mx] & 0x02 ) != 0 ) )  ||		// 東を向いていて東に壁がある
+						( ( en_Head == SOUTH ) && ( ( g_sysMap[my][mx] & 0x04 ) != 0 ) )  ||		// 南を向いていて南に壁がある
+						( ( en_Head == WEST  ) && ( ( g_sysMap[my][mx] & 0x08 ) != 0 ) ) 			// 西を向いていて西に壁がある
+					){
+						MOT_goBlock_FinSpeed( 0.5, 0 );			// 半区画前進
+						LL_mDelay(100);
+						DIST_Front_Wall_correction();
+						MOT_turn(MOT_L90);						// 右90度旋回
+						uc_SlaCnt = 0;
+						*p_type = TRUE;								// 次は半区間＋バック分進める
+					}
+					else{
+						MOT_goSla( MOT_R90S, PARAM_getSra( SLA_90 ) );	// 右スラローム
+						uc_SlaCnt++;
+					}
 				}
 			}
 		break;
@@ -1221,19 +1265,80 @@ void MAP_moveNextBlock_acc(enMAP_HEAD_DIR en_head, bool* p_type)
 	case SOUTH:
 //		LED = LED_ALL_ON;
 		MOT_goBlock_FinSpeed(0.5, 0);			// 半区画前進
-		MOT_turn(MOT_R180);									// 右180度旋回
-		uc_SlaCnt = 0;
+		if(wall_hit_flag == 0){
+			MOT_turn(MOT_R180);									// 右180度旋回
+			uc_SlaCnt = 0;
 
-		/* 壁当て姿勢制御（後ろに壁があったらバック＋移動距離を加算する） */
-		if (((en_Head == NORTH) && ((g_sysMap[my][mx] & 0x01) != 0)) ||		// 北を向いていて北に壁がある
-			((en_Head == EAST) && ((g_sysMap[my][mx] & 0x02) != 0)) ||		// 東を向いていて東に壁がある
-			((en_Head == SOUTH) && ((g_sysMap[my][mx] & 0x04) != 0)) ||		// 南を向いていて南に壁がある
-			((en_Head == WEST) && ((g_sysMap[my][mx] & 0x08) != 0)) 			// 西を向いていて西に壁がある
-			) {
-			MOT_goHitBackWall();					// バックする
-			f_MoveBackDist = MOVE_BACK_DIST;	// バックした分の移動距離[区画]を加算
+			/* 壁当て姿勢制御（後ろに壁があったらバック＋移動距離を加算する） */
+			if (((en_Head == NORTH) && ((g_sysMap[my][mx] & 0x01) != 0)) ||		// 北を向いていて北に壁がある
+				((en_Head == EAST) && ((g_sysMap[my][mx] & 0x02) != 0)) ||		// 東を向いていて東に壁がある
+				((en_Head == SOUTH) && ((g_sysMap[my][mx] & 0x04) != 0)) ||		// 南を向いていて南に壁がある
+				((en_Head == WEST) && ((g_sysMap[my][mx] & 0x08) != 0)) 			// 西を向いていて西に壁がある
+				) {
+				MOT_goHitBackWall();					// バックする
+				f_MoveBackDist = MOVE_BACK_DIST;	// バックした分の移動距離[区画]を加算
+			}
+			*p_type = TRUE;								// 次は半区間＋バック分進める
 		}
-		*p_type = TRUE;								// 次は半区間＋バック分進める
+		else{
+			uc_SlaCnt = 0;
+			/* 前壁姿勢制御 */
+			if (((en_Head == NORTH) && ((g_sysMap[my][mx] & 0x01) != 0)) ||		// 北を向いていて北に壁がある
+				((en_Head == EAST) && ((g_sysMap[my][mx] & 0x02) != 0)) ||		// 東を向いていて東に壁がある
+				((en_Head == SOUTH) && ((g_sysMap[my][mx] & 0x04) != 0)) ||		// 南を向いていて南に壁がある
+				((en_Head == WEST) && ((g_sysMap[my][mx] & 0x08) != 0)) 			// 西を向いていて西に壁がある
+				) {
+					DIST_Front_Wall_correction();
+
+					if(((en_Head == NORTH) && ((g_sysMap[my][mx] & 0x02) != 0)) ||		// 北を向いていて東に壁がある
+						((en_Head == EAST) && ((g_sysMap[my][mx] & 0x04) != 0)) ||		// 東を向いていて南に壁がある
+						((en_Head == SOUTH) && ((g_sysMap[my][mx] & 0x08) != 0)) ||		// 南を向いていて西に壁がある
+						((en_Head == WEST) && ((g_sysMap[my][mx] & 0x01) != 0)) 			// 西を向いていて北に壁がある
+					){
+						MOT_turn(MOT_R90);									// 右90度旋回
+						LL_mDelay(100);
+						DIST_Front_Wall_correction();
+						MOT_turn(MOT_R90);									// 右90度旋回
+					}else if(((en_Head == NORTH) && ((g_sysMap[my][mx] & 0x08) != 0)) ||		// 北を向いていて西に壁がある
+						((en_Head == EAST) && ((g_sysMap[my][mx] & 0x01) != 0)) ||		// 東を向いていて北に壁がある
+						((en_Head == SOUTH) && ((g_sysMap[my][mx] & 0x02) != 0)) ||		// 南を向いていて東に壁がある
+						((en_Head == WEST) && ((g_sysMap[my][mx] & 0x04) != 0)) 			// 西を向いていて南に壁がある
+					){
+						MOT_turn(MOT_L90);									// 右90度旋回
+						LL_mDelay(100);
+						DIST_Front_Wall_correction();
+						MOT_turn(MOT_L90);									// 右90度旋回
+					}else{
+						MOT_turn(MOT_R180);
+					}
+					*p_type = TRUE;								// 次は半区間＋バック分進める
+			}
+			else{
+				if(((en_Head == NORTH) && ((g_sysMap[my][mx] & 0x02) != 0)) ||		// 北を向いていて東に壁がある
+					((en_Head == EAST) && ((g_sysMap[my][mx] & 0x04) != 0)) ||		// 東を向いていて南に壁がある
+					((en_Head == SOUTH) && ((g_sysMap[my][mx] & 0x08) != 0)) ||		// 南を向いていて西に壁がある
+					((en_Head == WEST) && ((g_sysMap[my][mx] & 0x01) != 0)) 			// 西を向いていて北に壁がある
+				){
+					MOT_turn(MOT_R90);									// 右90度旋回
+					LL_mDelay(100);
+					DIST_Front_Wall_correction();
+					MOT_turn(MOT_R90);									// 右90度旋回
+				}else if(((en_Head == NORTH) && ((g_sysMap[my][mx] & 0x08) != 0)) ||		// 北を向いていて西に壁がある
+					((en_Head == EAST) && ((g_sysMap[my][mx] & 0x01) != 0)) ||		// 東を向いていて北に壁がある
+					((en_Head == SOUTH) && ((g_sysMap[my][mx] & 0x02) != 0)) ||		// 南を向いていて東に壁がある
+					((en_Head == WEST) && ((g_sysMap[my][mx] & 0x04) != 0)) 			// 西を向いていて南に壁がある
+				){
+					MOT_turn(MOT_L90);									// 右90度旋回
+					LL_mDelay(100);
+					DIST_Front_Wall_correction();
+					MOT_turn(MOT_L90);									// 右90度旋回
+				}else{
+					MOT_turn(MOT_R180);
+				}
+				
+				*p_type = TRUE;								// 次は半区間＋バック分進める
+			}
+		}
 		break;
 
 	default:
@@ -1507,6 +1612,23 @@ void MAP_searchGoalKnown(
 				MAP_moveNextBlock_acc(en_head, &bl_type);
 			}
 //			LED_count(uc_trgY);
+		}
+		if(Min_in>6){
+			MOT_goBlock_FinSpeed(0.5,0.0);
+			MOT_turn(MOT_R180);	
+			LL_mDelay(200);
+			MOT_turn(MOT_R180);	
+			LL_mDelay(200);
+			CTRL_stop();
+			DCM_brakeMot( DCM_R );		// ブレーキ
+			DCM_brakeMot( DCM_L );		// ブレーキ
+			
+			/* 迷路関連を初期化 */
+			en_Head		= NORTH;
+			mx			= 0;
+			my			= 0;
+			f_MoveBackDist = 0;
+			break;
 		}
 
 		

@@ -26,58 +26,58 @@
 #include "hal/sen_dist.h"
 #endif
 
-/* å‹•ä½œã‚¿ã‚¤ãƒ— */
+/* “®ìƒ^ƒCƒv */
 typedef enum{
 	MOT_ST_NC    =  0,
-	MOT_ACC_CONST_DEC,			// [01] å°å½¢åŠ é€Ÿ
-	MOT_ACC_CONST_DEC_CUSTOM,	// [02] å°å½¢åŠ é€Ÿï¼ˆç­‰é€Ÿå€¤å¤‰æ›´ï¼‰
-	MOT_ACC_CONST,				// [03] åŠ é€Ÿï¼‹ç­‰é€Ÿ
-	MOT_ACC_CONST_CUSTOM,		// [04] åŠ é€Ÿï¼‹ç­‰é€Ÿï¼ˆåŠ é€Ÿå€¤å¤‰æ›´ï¼‰
-	MOT_CONST_DEC,				// [05] ç­‰é€Ÿï¼‹æ¸›é€Ÿ
-	MOT_CONST_DEC_CUSTOM,		// [06] ç­‰é€Ÿï¼‹æ¸›é€Ÿï¼ˆæ¸›é€Ÿå€¤å¤‰æ›´ï¼‰
+	MOT_ACC_CONST_DEC,			// [01] ‘äŒ`‰Á‘¬
+	MOT_ACC_CONST_DEC_CUSTOM,	// [02] ‘äŒ`‰Á‘¬i“™‘¬’l•ÏXj
+	MOT_ACC_CONST,				// [03] ‰Á‘¬{“™‘¬
+	MOT_ACC_CONST_CUSTOM,		// [04] ‰Á‘¬{“™‘¬i‰Á‘¬’l•ÏXj
+	MOT_CONST_DEC,				// [05] “™‘¬{Œ¸‘¬
+	MOT_CONST_DEC_CUSTOM,		// [06] “™‘¬{Œ¸‘¬iŒ¸‘¬’l•ÏXj
 	MOT_ST_MAX,
 }enMOT_ST_TYPE;
 
-/* ç›´é€²ã‚¿ã‚¤ãƒ— */
+/* ’¼iƒ^ƒCƒv */
 typedef enum{
-	MOT_GO_ST_NORMAL    =  0,	// é€šå¸¸ã®ç›´é€²
-	MOT_GO_ST_SKEW,				// æ–œã‚ã®ç›´é€²
+	MOT_GO_ST_NORMAL    =  0,	// ’Êí‚Ì’¼i
+	MOT_GO_ST_SKEW,				// ŽÎ‚ß‚Ì’¼i
 	MOT_GO_ST_MAX,
 }enMOT_GO_ST_TYPE;
 
-/* æ—‹å›žã‚³ãƒžãƒ³ãƒ‰ãƒªã‚¹ãƒˆ */
+/* ù‰ñƒRƒ}ƒ“ƒhƒŠƒXƒg */
 typedef enum{
-	MOT_R90 =0,					// å³ 90åº¦è¶…ä¿¡åœ°æ—‹å›ž
-	MOT_L90,					// å·¦ 90åº¦è¶…ä¿¡åœ°æ—‹å›ž
-	MOT_R180,					// å³180åº¦è¶…ä¿¡åœ°æ—‹å›ž
-	MOT_L180,					// å·¦180åº¦è¶…ä¿¡åœ°æ—‹å›ž
-	MOT_R360,					// å³360åº¦è¶…ä¿¡åœ°æ—‹å›ž
-	MOT_L360,					// å·¦360åº¦è¶…ä¿¡åœ°æ—‹å›ž
+	MOT_R90 =0,					// ‰E 90“x’´M’nù‰ñ
+	MOT_L90,					// ¶ 90“x’´M’nù‰ñ
+	MOT_R180,					// ‰E180“x’´M’nù‰ñ
+	MOT_L180,					// ¶180“x’´M’nù‰ñ
+	MOT_R360,					// ‰E360“x’´M’nù‰ñ
+	MOT_L360,					// ¶360“x’´M’nù‰ñ
 	MOT_TURN_CMD_MAX
 }enMOT_TURN_CMD;
 
-/* ã‚¹ãƒ©ãƒ­ãƒ¼ãƒ ã‚³ãƒžãƒ³ãƒ‰ãƒªã‚¹ãƒˆ */
+/* ƒXƒ‰ƒ[ƒ€ƒRƒ}ƒ“ƒhƒŠƒXƒg */
 typedef enum{
-	MOT_R90S =0,				// å³ 90åº¦è¶…ã‚¹ãƒ©ãƒ­ãƒ¼ãƒ 
-	MOT_L90S,					// å·¦ 90åº¦è¶…ã‚¹ãƒ©ãƒ­ãƒ¼ãƒ 
-	MOT_R45S_S2N,				// [æ–œã‚ç”¨] å³ 45åº¦è¶…ã‚¹ãƒ©ãƒ­ãƒ¼ãƒ ã€ã‚¹ãƒˆãƒ¬ãƒ¼ãƒˆ â‡’ æ–œã‚
-	MOT_L45S_S2N,				// [æ–œã‚ç”¨] å·¦ 45åº¦è¶…ã‚¹ãƒ©ãƒ­ãƒ¼ãƒ ã€ã‚¹ãƒˆãƒ¬ãƒ¼ãƒˆ â‡’ æ–œã‚
-	MOT_R45S_N2S,				// [æ–œã‚ç”¨] å³ 45åº¦è¶…ã‚¹ãƒ©ãƒ­ãƒ¼ãƒ ã€æ–œã‚ â‡’ ã‚¹ãƒˆãƒ¬ãƒ¼ãƒˆ
-	MOT_L45S_N2S,				// [æ–œã‚ç”¨] å·¦ 45åº¦è¶…ã‚¹ãƒ©ãƒ­ãƒ¼ãƒ ã€æ–œã‚ â‡’ ã‚¹ãƒˆãƒ¬ãƒ¼ãƒˆ
-	MOT_R90S_N,					// [æ–œã‚ç”¨] å³ 90åº¦è¶…ã‚¹ãƒ©ãƒ­ãƒ¼ãƒ ã€æ–œã‚ â‡’ æ–œã‚
-	MOT_L90S_N,					// [æ–œã‚ç”¨] å·¦ 90åº¦è¶…ã‚¹ãƒ©ãƒ­ãƒ¼ãƒ ã€æ–œã‚ â‡’ æ–œã‚
-	MOT_R135S_S2N,				// [æ–œã‚ç”¨] å³135åº¦è¶…ã‚¹ãƒ©ãƒ­ãƒ¼ãƒ ã€ã‚¹ãƒˆãƒ¬ãƒ¼ãƒˆ â‡’ æ–œã‚
-	MOT_L135S_S2N,				// [æ–œã‚ç”¨] å·¦135åº¦è¶…ã‚¹ãƒ©ãƒ­ãƒ¼ãƒ ã€ã‚¹ãƒˆãƒ¬ãƒ¼ãƒˆ â‡’ æ–œã‚
-	MOT_R135S_N2S,				// [æ–œã‚ç”¨] å³135åº¦è¶…ã‚¹ãƒ©ãƒ­ãƒ¼ãƒ ã€æ–œã‚ â‡’ ã‚¹ãƒˆãƒ¬ãƒ¼ãƒˆ
-	MOT_L135S_N2S,				// [æ–œã‚ç”¨] å·¦135åº¦è¶…ã‚¹ãƒ©ãƒ­ãƒ¼ãƒ ã€æ–œã‚ â‡’ ã‚¹ãƒˆãƒ¬ãƒ¼ãƒˆ
+	MOT_R90S =0,				// ‰E 90“x’´ƒXƒ‰ƒ[ƒ€
+	MOT_L90S,					// ¶ 90“x’´ƒXƒ‰ƒ[ƒ€
+	MOT_R45S_S2N,				// [ŽÎ‚ß—p] ‰E 45“x’´ƒXƒ‰ƒ[ƒ€AƒXƒgƒŒ[ƒg Ë ŽÎ‚ß
+	MOT_L45S_S2N,				// [ŽÎ‚ß—p] ¶ 45“x’´ƒXƒ‰ƒ[ƒ€AƒXƒgƒŒ[ƒg Ë ŽÎ‚ß
+	MOT_R45S_N2S,				// [ŽÎ‚ß—p] ‰E 45“x’´ƒXƒ‰ƒ[ƒ€AŽÎ‚ß Ë ƒXƒgƒŒ[ƒg
+	MOT_L45S_N2S,				// [ŽÎ‚ß—p] ¶ 45“x’´ƒXƒ‰ƒ[ƒ€AŽÎ‚ß Ë ƒXƒgƒŒ[ƒg
+	MOT_R90S_N,					// [ŽÎ‚ß—p] ‰E 90“x’´ƒXƒ‰ƒ[ƒ€AŽÎ‚ß Ë ŽÎ‚ß
+	MOT_L90S_N,					// [ŽÎ‚ß—p] ¶ 90“x’´ƒXƒ‰ƒ[ƒ€AŽÎ‚ß Ë ŽÎ‚ß
+	MOT_R135S_S2N,				// [ŽÎ‚ß—p] ‰E135“x’´ƒXƒ‰ƒ[ƒ€AƒXƒgƒŒ[ƒg Ë ŽÎ‚ß
+	MOT_L135S_S2N,				// [ŽÎ‚ß—p] ¶135“x’´ƒXƒ‰ƒ[ƒ€AƒXƒgƒŒ[ƒg Ë ŽÎ‚ß
+	MOT_R135S_N2S,				// [ŽÎ‚ß—p] ‰E135“x’´ƒXƒ‰ƒ[ƒ€AŽÎ‚ß Ë ƒXƒgƒŒ[ƒg
+	MOT_L135S_N2S,				// [ŽÎ‚ß—p] ¶135“x’´ƒXƒ‰ƒ[ƒ€AŽÎ‚ß Ë ƒXƒgƒŒ[ƒg
 	MOT_SURA_CMD_MAX,
 }enMOT_SURA_CMD;
 
-/* å£åˆ‡ã‚Œè£œæ­£ */
+/* •ÇØ‚ê•â³ */
 typedef enum{
-	MOT_WALL_EDGE_NONE =0,		// å£ã®ã‚¨ãƒƒã‚¸æ¤œå‡ºã§ã®è£œæ­£ãªã—
-	MOT_WALL_EDGE_RIGHT,		// å³å£ã®ã‚¨ãƒƒã‚¸æ¤œå‡ºã§ã®è£œæ­£
-	MOT_WALL_EDGE_LEFT,			// å·¦å£ã®ã‚¨ãƒƒã‚¸æ¤œå‡ºã§ã®è£œæ­£
+	MOT_WALL_EDGE_NONE =0,		// •Ç‚ÌƒGƒbƒWŒŸo‚Å‚Ì•â³‚È‚µ
+	MOT_WALL_EDGE_RIGHT,		// ‰E•Ç‚ÌƒGƒbƒWŒŸo‚Å‚Ì•â³
+	MOT_WALL_EDGE_LEFT,			// ¶•Ç‚ÌƒGƒbƒWŒŸo‚Å‚Ì•â³
 	MOT_WALL_EDGE_MAX,
 }enMOT_WALL_EDGE_TYPE;
 
@@ -119,6 +119,7 @@ enMOT_WALL_EDGE_TYPE MOT_getWallEdgeType( void );
 void MOT_setWallEdge( bool bl_val );
 bool MOT_setWallEdgeDist( void );
 bool MOT_setWallEdgeDist_LoopWait( void );
+void DIST_Front_Wall_correction(void);
 
 
 #endif /* INC_RUN_H_ */

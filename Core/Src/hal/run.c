@@ -1289,4 +1289,29 @@ bool MOT_setWallEdgeDist_LoopWait( void )
 	return TRUE;
 }
 
+void DIST_Front_Wall_correction(void)
+{
+	stMOT_DATA	st_info;	//シーケンスデータ
+	stCTRL_DATA	st_data;	//制御データ
+	
+	st_data.en_type			= CTRL_FRONT_WALL;
+	st_data.f_acc			= 0;						// 加速度指定
+	st_data.f_now			= 0;						// 現在速度
+	st_data.f_trgt			= 0;						// 目標速度
+	st_data.f_nowDist		= 0;						// 進んでいない
+	st_data.f_dist			= 0;						// 加速距離
+	st_data.f_accAngleS		= 0;		// 角加速度
+	st_data.f_nowAngleS		= 0;						// 現在角速度
+	st_data.f_trgtAngleS		= 0;		// 目標角度
+	st_data.f_nowAngle		= 0;						// 現在角度
+	st_data.f_angle			= 0;			// 目標角度
+	st_data.f_time 			= 0;						// 目標時間 [sec] ← 指定しない
+	CTRL_clrData();										// マウスの現在位置/角度をクリア
+	CTRL_setData( &st_data );							// データセット
+	DCM_staMotAll();									// モータON
+	while((DIST_getNowVal( DIST_SEN_R_FRONT )>(R_FRONT_REF+FRONT_WALL_minus+15))||(DIST_getNowVal( DIST_SEN_R_FRONT )<(R_FRONT_REF+FRONT_WALL_minus-15))
+		||(DIST_getNowVal( DIST_SEN_L_FRONT )>(L_FRONT_REF+FRONT_WALL_minus+15))||(DIST_getNowVal( DIST_SEN_L_FRONT )<(L_FRONT_REF+FRONT_WALL_minus-15))){
+			if(escape_wait > 0.8)break;
+		}
+}
 

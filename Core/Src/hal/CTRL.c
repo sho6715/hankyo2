@@ -52,6 +52,11 @@ float			f_AngleErrSum 		= 0;		// [角度制御]   角度積分制御のサム値
 int32_t 			l_WallErr 		= 0;		// [wall control]     wall error		(updated 1[msec])
 float			f_ErrDistBuf		= 0;		// [wall control]     wall error buffer	(updated 1[msec])	
 
+int32_t			l_frontSen_vErr		=0;
+int32_t			l_frontSen_omegaErr		=0;
+float			f_ErrFrontSen_vBuf	= 0;
+float			f_ErrFrontSen_omegaBuf	= 0;
+
 //fail safe
 float  			f_ErrChkAngle; 			  // ジャイロセンサのエラー検出用の角度
 bool   			bl_ErrChk; 				  // ジャイロセンサのエラー検出（FALSE：検知しない、TRUE：検知する）
@@ -149,6 +154,10 @@ void CTRL_clrData( void )
 	f_ErrSpeedBuf	= 0;
 	f_ErrDistBuf	= 0;						// [壁制御]     距離センサーエラー値のバッファ		（1[msec]毎に更新される）
 	f_ErrAngleSBuf  = 0;
+	l_frontSen_vErr		=0;
+	l_frontSen_omegaErr		=0;
+	f_ErrFrontSen_vBuf	= 0;
+	f_ErrFrontSen_omegaBuf	= 0;
 }
 
 void CTRL_clrNowData(void)
@@ -662,6 +671,63 @@ void CTRL_getSenFB( float* p_err )
 
 }
 
+void CTRL_get_frontwall_v_FB( float* p_err)
+{
+	float f_v_err 	= 0;
+	float f_omega_err 	= 0;
+	float f_v_kp 		= 0.0f;				// 比例ゲイン
+	float f_v_ki 		= 0.0f;				// 比例ゲイン
+	float f_v_kd 		= 0.0f;				// 微分ゲイン
+	float gyro		= 0.0f;
+
+	/* 前壁制御 */
+	if( en_Type == CTRL_FRONT_WALL ){
+
+		f_v_kp = f_FB_front_wall_v_kp;
+		f_v_ki = f_FB_front_wall_v_ki;
+		f_v_kd = f_FB_front_wall_v_kd;
+
+		if( en_Type == CTRL_FRONT_WALL){
+			l_frontSen_vErr = ((L_FRONT_REF+FRONT_WALL_minus) - DIST_getNowVal( DIST_SEN_L_FRONT )) + ((R_FRONT_REF+FRONT_WALL_minus) - DIST_getNowVal( DIST_SEN_R_FRONT ));
+			f_v_err = (float)l_frontSen_vErr;
+	
+			/* PD制御 */
+			f_ErrFrontSen_vBuf = f_v_err;		// 偏差をバッファリング
+
+			*p_err = f_v_err * f_v_kp + ( f_v_err - f_ErrFrontSen_vBuf ) * f_v_kd;		// PD制御
+		}
+	}
+
+}
+
+void CTRL_get_frontwall_omega_FB( float* p_err)
+{
+	float f_omega_err 	= 0;
+	
+	float f_omega_kp 		= 0.0f;				// 比例ゲイン
+	float f_omega_ki 		= 0.0f;				// 比例ゲイン
+	float f_omega_kd 		= 0.0f;				// 微分ゲイン
+	float gyro		= 0.0f;
+
+	/* 前壁制御 */
+	if( en_Type == CTRL_FRONT_WALL ){
+		f_omega_kp = f_FB_front_wall_omega_kp;
+		f_omega_ki = f_FB_front_wall_omega_ki;
+		f_omega_kd = f_FB_front_wall_omega_kd;
+
+		if( en_Type == CTRL_FRONT_WALL){	
+			l_frontSen_omegaErr = (DIST_getNowVal( DIST_SEN_L_FRONT )- (L_FRONT_REF+FRONT_WALL_minus)) + ((R_FRONT_REF+FRONT_WALL_minus) - DIST_getNowVal( DIST_SEN_R_FRONT ));
+			f_omega_err = (float)l_frontSen_omegaErr;
+	
+			/* PD制御 */
+			f_ErrFrontSen_omegaBuf = f_omega_err;		// 偏差をバッファリング
+
+			*p_err =f_omega_err * f_omega_kp + ( f_omega_err - f_ErrFrontSen_omegaBuf ) * f_omega_kd;		// PD制御
+		}
+	}
+
+}
+
 void CTRL_getFloorFriction(float* p_err){
 	float tread;
 	if(( en_Type == CTRL_ACC_TRUN) || (en_Type == CTRL_CONST_TRUN)||( en_Type == CTRL_DEC_TRUN )){
@@ -759,6 +825,8 @@ void CTRL_pol( void )
 	float f_angleSpeedCtrl			= 0;	// [制御] 角速度制御量
 	float f_angleCtrl			= 0;		// [制御] 角度制御量
 	float f_distSenCtrl			= 0;		// [制御] 距離センサー制御量
+	float f_frontwall_v_Ctrl		= 0;
+	float f_frontwall_omega_Ctrl	= 0;
 	float f_floorfriction		= 0;
 	float f_duty10_R;						// [出力] 右モータPWM-DUTY比[0.1%]
 	float f_duty10_L;						// [出力] 左モータPWM-DUTY比[0.1%]
@@ -806,6 +874,8 @@ void CTRL_pol( void )
 	CTRL_getAngleFB( &f_angleCtrl );		//angle ctrl
 	CTRL_getSenFB( &f_distSenCtrl );				// [制御] 壁
 	CTRL_getFloorFriction( &f_floorfriction );
+	CTRL_get_frontwall_v_FB( &f_frontwall_v_Ctrl);
+	CTRL_get_frontwall_omega_FB( &f_frontwall_omega_Ctrl);
 
 	/* 直進制御 */
 	if( ( en_Type == CTRL_ACC ) || ( en_Type == CTRL_CONST ) || ( en_Type == CTRL_DEC ) ||( en_Type == CTRL_ENTRY_SURA ) || ( en_Type == CTRL_EXIT_SURA ) ||
@@ -819,8 +889,8 @@ void CTRL_pol( void )
 
 	/* 壁あて制御 */
 	else if( en_Type == CTRL_HIT_WALL ){
-		TR = (TIRE_D/2/2)*(Weight*(f_feedFoard_speed * FF_HIT_BALANCE_R/2500.0 ));		
-		TL = (TIRE_D/2/2)*(Weight*(f_feedFoard_speed * FF_HIT_BALANCE_R/2500.0 ));
+		TR = (TIRE_D/2/2)*(Weight*(f_feedFoard_speed * FF_HIT_BALANCE_R/3500.0 ));		
+		TL = (TIRE_D/2/2)*(Weight*(f_feedFoard_speed * FF_HIT_BALANCE_R/3500.0 ));
 		Ir = (TR-0.0255/1000.0)/Torque_constant;
 		Il = (TL-0.0255/1000.0)/Torque_constant;
 	}
@@ -843,6 +913,13 @@ void CTRL_pol( void )
 		}
 	}
 
+	else if( en_Type == CTRL_FRONT_WALL){
+		TR = ((TIRE_D/2/2)*(Weight*f_frontwall_v_Ctrl)+(TIRE_D/2/TREAD)*(Inertia*f_frontwall_omega_Ctrl))/GEAR_RATIO;
+		TL = ((TIRE_D/2/2)*(Weight*f_frontwall_v_Ctrl)-(TIRE_D/2/TREAD)*(Inertia*f_frontwall_omega_Ctrl))/GEAR_RATIO;
+		Ir = (TR+0.0255/1000.0)/Torque_constant;
+		Il = (TL+0.0255/1000.0)/Torque_constant;
+	}
+
 	/* 超信地旋回 */
 	else{
 		/* 左旋回 */
@@ -863,7 +940,7 @@ void CTRL_pol( void )
 	f_duty10_R = FF_BALANCE_R*(Motor_Register*Ir+f_MotorR_AngleS*0.001033/1000.0/2.0/PI)/get_battLv();	
 	f_duty10_L = FF_BALANCE_L*(Motor_Register*Il+f_MotorL_AngleS*0.001033/1000.0/2.0/PI)/get_battLv();	
 
-	templog1 = f_floorfriction;
+	templog1 = f_frontwall_omega_Ctrl;
 	templog2 = f_duty10_R;
 
 	escape_wait = escape_wait+0.001;
