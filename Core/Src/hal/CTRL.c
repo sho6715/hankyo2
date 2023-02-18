@@ -962,8 +962,9 @@ void CTRL_pol( void )
 		if( DIST_isWall_L_SIDE() == FALSE ){
 			MOT_setWallEdge( TRUE );		// 壁の切れ目を検知
 		}
-	}else if( MOT_getWallEdgeType() == MOT_WALL_EDGE_BOTH_WALL ){
-		/* 壁抜け */
+	}
+/*	else if( MOT_getWallEdgeType() == MOT_WALL_EDGE_BOTH_WALL ){
+		// 壁抜け
 		SetLED(0x00);
 		if( DIST_isWall_L_SIDE() == FALSE ){
 			SetLED(0x01);
@@ -974,6 +975,7 @@ void CTRL_pol( void )
 			MOT_setWallEdge( TRUE );		// 壁の切れ目を検知
 		}
 	}
+*/
 }
 
 void Failsafe_flag(void)
