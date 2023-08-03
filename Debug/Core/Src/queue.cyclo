@@ -1,0 +1,4 @@
+../Core/Src/queue.c:10:6:printQueue	2
+../Core/Src/queue.c:19:6:initQueue	2
+../Core/Src/queue.c:36:6:enqueue	4
+../Core/Src/queue.c:64:12:dequeue	4

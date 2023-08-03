@@ -1,0 +1,5 @@
+../Core/Src/hal/log.c:30:6:log_in2	3
+../Core/Src/hal/log.c:56:6:log_interrupt	1
+../Core/Src/hal/log.c:73:6:log_flag_on	1
+../Core/Src/hal/log.c:78:6:log_flag_off	1
+../Core/Src/hal/log.c:83:6:log_read2	2

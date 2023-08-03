@@ -50,7 +50,7 @@
 #define		f_FB_wall_kp		(0.6)
 #define		f_FB_wall_kd		(0.3)
 
-#define		f_FB_front_wall_v_kp	(0.003)
+#define		f_FB_front_wall_v_kp	(0.002)
 #define		f_FB_front_wall_v_ki	(0.0)
 #define		f_FB_front_wall_v_kd	(0.0001)
 #define		f_FB_front_wall_omega_kp	(1.2)

@@ -11,6 +11,7 @@
 #include <stdbool.h>
 #include <stdio.h>
 #include <math.h>
+#include <stdint.h>
 
 #define SW_ON	(1)
 #define SW_OFF	(0)

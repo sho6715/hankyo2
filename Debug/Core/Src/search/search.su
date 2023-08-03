@@ -23,5 +23,5 @@
 ../Core/Src/search/search.c:967:7:MAP_makeReturnContourMap	312	static
 ../Core/Src/search/search.c:1045:6:MAP_KnownAcc	16	static
 ../Core/Src/search/search.c:1080:6:MAP_moveNextBlock_acc	16	static
-../Core/Src/search/search.c:1353:6:MAP_searchGoal	40	static
-../Core/Src/search/search.c:1495:6:MAP_searchGoalKnown	40	static
+../Core/Src/search/search.c:1355:6:MAP_searchGoal	40	static
+../Core/Src/search/search.c:1497:6:MAP_searchGoalKnown	40	static
