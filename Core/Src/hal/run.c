@@ -1353,6 +1353,8 @@ void DIST_Front_Wall_correction(void)
 {
 	stMOT_DATA	st_info;	//シーケンスデータ
 	stCTRL_DATA	st_data;	//制御データ
+
+	GYRO_staErrChkAngle();			// エラー検出開始
 	
 	st_data.en_type			= CTRL_FRONT_WALL;
 	st_data.f_acc			= 0;						// 加速度指定
@@ -1372,13 +1374,15 @@ void DIST_Front_Wall_correction(void)
 	while((DIST_getNowVal( DIST_SEN_R_FRONT )>(R_FRONT_REF+FRONT_WALL_minus+15))||(DIST_getNowVal( DIST_SEN_R_FRONT )<(R_FRONT_REF+FRONT_WALL_minus-15))
 		||(DIST_getNowVal( DIST_SEN_L_FRONT )>(L_FRONT_REF+FRONT_WALL_minus+15))||(DIST_getNowVal( DIST_SEN_L_FRONT )<(L_FRONT_REF+FRONT_WALL_minus-15))){
 			if(escape_wait > 0.8)break;
+			LL_mDelay(10);//volatile入れてないから回避用に入れてみる
 	}
+	LL_mDelay(50);
 	CTRL_stop();			// 制御停止
 	DCM_brakeMot( DCM_R );		// ブレーキ
 	DCM_brakeMot( DCM_L );		// ブレーキ
 	GYRO_endErrChkAngle();					// エラー検出終了
+	LL_mDelay(100);
 	f_MotNowSpeed = 0.0f;		//現在速度更新
 
 	CTRL_clrNowData();
 }
-

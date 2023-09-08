@@ -716,7 +716,8 @@ void CTRL_get_frontwall_omega_FB( float* p_err)
 		f_omega_kd = f_FB_front_wall_omega_kd;
 
 		if( en_Type == CTRL_FRONT_WALL){	
-			l_frontSen_omegaErr = (DIST_getNowVal( DIST_SEN_L_FRONT )- (L_FRONT_REF+FRONT_WALL_minus)) + ((R_FRONT_REF+FRONT_WALL_minus) - DIST_getNowVal( DIST_SEN_R_FRONT ));
+			l_frontSen_omegaErr = (DIST_getNowVal( DIST_SEN_L_FRONT )- (L_FRONT_REF+FRONT_WALL_minus)) + 
+									((R_FRONT_REF+FRONT_WALL_minus) - DIST_getNowVal( DIST_SEN_R_FRONT ));
 			f_omega_err = (float)l_frontSen_omegaErr;
 	
 			/* PD制御 */
