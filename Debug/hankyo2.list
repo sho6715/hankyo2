@@ -14770,14 +14770,14 @@ void CTRL_getAngleSpeedFB( float* p_err )
  80069b8:	4a19      	ldr	r2, [pc, #100]	; (8006a20 <CTRL_getAngleSpeedFB+0x130>)
  80069ba:	68bb      	ldr	r3, [r7, #8]
  80069bc:	6013      	str	r3, [r2, #0]
-	if((f_err>14.0)||(f_err<-14.0)){
+	if((f_err>20.0)||(f_err<-20.0)){
  80069be:	edd7 7a02 	vldr	s15, [r7, #8]
- 80069c2:	eeb2 7a0c 	vmov.f32	s14, #44	; 0x41600000  14.0
+ 80069c2:	eeb3 7a04 	vmov.f32	s14, #52	; 0x41a00000  20.0
  80069c6:	eef4 7ac7 	vcmpe.f32	s15, s14
  80069ca:	eef1 fa10 	vmrs	APSR_nzcv, fpscr
  80069ce:	dc09      	bgt.n	80069e4 <CTRL_getAngleSpeedFB+0xf4>
  80069d0:	edd7 7a02 	vldr	s15, [r7, #8]
- 80069d4:	eeba 7a0c 	vmov.f32	s14, #172	; 0xc1600000 -14.0
+ 80069d4:	eebb 7a04 	vmov.f32	s14, #180	; 0xc1a00000 -20.0
  80069d8:	eef4 7ac7 	vcmpe.f32	s15, s14
  80069dc:	eef1 fa10 	vmrs	APSR_nzcv, fpscr
  80069e0:	d400      	bmi.n	80069e4 <CTRL_getAngleSpeedFB+0xf4>
@@ -26606,9 +26606,9 @@ void DIST_Front_Wall_correction(void)
  800c640:	f7f9 f97a 	bl	8005938 <CTRL_setData>
 	DCM_staMotAll();									// モータON
  800c644:	f7fb fd00 	bl	8008048 <DCM_staMotAll>
-	while((DIST_getNowVal( DIST_SEN_R_FRONT )>(R_FRONT_REF+FRONT_WALL_minus+10))||(DIST_getNowVal( DIST_SEN_R_FRONT )<(R_FRONT_REF+FRONT_WALL_minus-10))
+	while((DIST_getNowVal( DIST_SEN_R_FRONT )>(R_FRONT_REF+FRONT_WALL_minus+30))||(DIST_getNowVal( DIST_SEN_R_FRONT )<(R_FRONT_REF+FRONT_WALL_minus-30))
  800c648:	e00f      	b.n	800c66a <DIST_Front_Wall_correction+0x82>
-		||(DIST_getNowVal( DIST_SEN_L_FRONT )>(L_FRONT_REF+FRONT_WALL_minus+10))||(DIST_getNowVal( DIST_SEN_L_FRONT )<(L_FRONT_REF+FRONT_WALL_minus-10))){
+		||(DIST_getNowVal( DIST_SEN_L_FRONT )>(L_FRONT_REF+FRONT_WALL_minus+30))||(DIST_getNowVal( DIST_SEN_L_FRONT )<(L_FRONT_REF+FRONT_WALL_minus-30))){
 			if(escape_wait > 0.8)break;
  800c64a:	4b27      	ldr	r3, [pc, #156]	; (800c6e8 <DIST_Front_Wall_correction+0x100>)
  800c64c:	681b      	ldr	r3, [r3, #0]
@@ -26623,31 +26623,31 @@ void DIST_Front_Wall_correction(void)
 			LL_mDelay(10);//volatile入れてないから回避用に入れてみる
  800c664:	200a      	movs	r0, #10
  800c666:	f008 f8e1 	bl	801482c <LL_mDelay>
-	while((DIST_getNowVal( DIST_SEN_R_FRONT )>(R_FRONT_REF+FRONT_WALL_minus+10))||(DIST_getNowVal( DIST_SEN_R_FRONT )<(R_FRONT_REF+FRONT_WALL_minus-10))
+	while((DIST_getNowVal( DIST_SEN_R_FRONT )>(R_FRONT_REF+FRONT_WALL_minus+30))||(DIST_getNowVal( DIST_SEN_R_FRONT )<(R_FRONT_REF+FRONT_WALL_minus-30))
  800c66a:	2000      	movs	r0, #0
  800c66c:	f000 f93c 	bl	800c8e8 <DIST_getNowVal>
  800c670:	4603      	mov	r3, r0
-		||(DIST_getNowVal( DIST_SEN_L_FRONT )>(L_FRONT_REF+FRONT_WALL_minus+10))||(DIST_getNowVal( DIST_SEN_L_FRONT )<(L_FRONT_REF+FRONT_WALL_minus-10))){
- 800c672:	f5b3 7ff3 	cmp.w	r3, #486	; 0x1e6
+		||(DIST_getNowVal( DIST_SEN_L_FRONT )>(L_FRONT_REF+FRONT_WALL_minus+30))||(DIST_getNowVal( DIST_SEN_L_FRONT )<(L_FRONT_REF+FRONT_WALL_minus-30))){
+ 800c672:	f5b3 7ffd 	cmp.w	r3, #506	; 0x1fa
  800c676:	dae8      	bge.n	800c64a <DIST_Front_Wall_correction+0x62>
-	while((DIST_getNowVal( DIST_SEN_R_FRONT )>(R_FRONT_REF+FRONT_WALL_minus+10))||(DIST_getNowVal( DIST_SEN_R_FRONT )<(R_FRONT_REF+FRONT_WALL_minus-10))
+	while((DIST_getNowVal( DIST_SEN_R_FRONT )>(R_FRONT_REF+FRONT_WALL_minus+30))||(DIST_getNowVal( DIST_SEN_R_FRONT )<(R_FRONT_REF+FRONT_WALL_minus-30))
  800c678:	2000      	movs	r0, #0
  800c67a:	f000 f935 	bl	800c8e8 <DIST_getNowVal>
  800c67e:	4603      	mov	r3, r0
- 800c680:	f5b3 7fe8 	cmp.w	r3, #464	; 0x1d0
+ 800c680:	f5b3 7fde 	cmp.w	r3, #444	; 0x1bc
  800c684:	dde1      	ble.n	800c64a <DIST_Front_Wall_correction+0x62>
-		||(DIST_getNowVal( DIST_SEN_L_FRONT )>(L_FRONT_REF+FRONT_WALL_minus+10))||(DIST_getNowVal( DIST_SEN_L_FRONT )<(L_FRONT_REF+FRONT_WALL_minus-10))){
+		||(DIST_getNowVal( DIST_SEN_L_FRONT )>(L_FRONT_REF+FRONT_WALL_minus+30))||(DIST_getNowVal( DIST_SEN_L_FRONT )<(L_FRONT_REF+FRONT_WALL_minus-30))){
  800c686:	2001      	movs	r0, #1
  800c688:	f000 f92e 	bl	800c8e8 <DIST_getNowVal>
  800c68c:	4603      	mov	r3, r0
  800c68e:	461a      	mov	r2, r3
- 800c690:	f240 2321 	movw	r3, #545	; 0x221
+ 800c690:	f240 2335 	movw	r3, #565	; 0x235
  800c694:	429a      	cmp	r2, r3
  800c696:	dcd8      	bgt.n	800c64a <DIST_Front_Wall_correction+0x62>
  800c698:	2001      	movs	r0, #1
  800c69a:	f000 f925 	bl	800c8e8 <DIST_getNowVal>
  800c69e:	4603      	mov	r3, r0
- 800c6a0:	f5b3 7f03 	cmp.w	r3, #524	; 0x20c
+ 800c6a0:	f5b3 7ffc 	cmp.w	r3, #504	; 0x1f8
  800c6a4:	ddd1      	ble.n	800c64a <DIST_Front_Wall_correction+0x62>
  800c6a6:	e000      	b.n	800c6aa <DIST_Front_Wall_correction+0xc2>
 			if(escape_wait > 0.8)break;

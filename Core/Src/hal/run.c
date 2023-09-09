@@ -1375,8 +1375,8 @@ void DIST_Front_Wall_correction(void)
 	CTRL_clrData();										// マウスの現在位置/角度をクリア
 	CTRL_setData( &st_data );							// データセット
 	DCM_staMotAll();									// モータON
-	while((DIST_getNowVal( DIST_SEN_R_FRONT )>(R_FRONT_REF+FRONT_WALL_minus+10))||(DIST_getNowVal( DIST_SEN_R_FRONT )<(R_FRONT_REF+FRONT_WALL_minus-10))
-		||(DIST_getNowVal( DIST_SEN_L_FRONT )>(L_FRONT_REF+FRONT_WALL_minus+10))||(DIST_getNowVal( DIST_SEN_L_FRONT )<(L_FRONT_REF+FRONT_WALL_minus-10))){
+	while((DIST_getNowVal( DIST_SEN_R_FRONT )>(R_FRONT_REF+FRONT_WALL_minus+30))||(DIST_getNowVal( DIST_SEN_R_FRONT )<(R_FRONT_REF+FRONT_WALL_minus-30))
+		||(DIST_getNowVal( DIST_SEN_L_FRONT )>(L_FRONT_REF+FRONT_WALL_minus+30))||(DIST_getNowVal( DIST_SEN_L_FRONT )<(L_FRONT_REF+FRONT_WALL_minus-30))){
 			if(escape_wait > 0.8)break;
 			LL_mDelay(10);//volatile入れてないから回避用に入れてみる
 	}
