@@ -917,8 +917,8 @@ void CTRL_pol( void )
 	else if( en_Type == CTRL_FRONT_WALL){
 		TR = ((TIRE_D/2/2)*(Weight*f_frontwall_v_Ctrl)+(TIRE_D/2/TREAD)*(Inertia*f_frontwall_omega_Ctrl))/GEAR_RATIO;
 		TL = ((TIRE_D/2/2)*(Weight*f_frontwall_v_Ctrl)-(TIRE_D/2/TREAD)*(Inertia*f_frontwall_omega_Ctrl))/GEAR_RATIO;
-		Ir = (TR+0.0255/1000.0)/Torque_constant;
-		Il = (TL+0.0255/1000.0)/Torque_constant;
+		Ir = (TR)/Torque_constant;
+		Il = (TL)/Torque_constant;
 	}
 
 	/* 超信地旋回 */

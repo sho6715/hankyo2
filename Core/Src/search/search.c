@@ -1655,3 +1655,165 @@ void MAP_searchGoalKnown(
 //	SYS_setEnable( SYS_MODE );			// モード変更有効
 
 }
+
+void MAP_searchGoalKnown_AllSection(
+	uint8_t 			uc_trgX, 		///< [in] 目標x座標
+	uint8_t 			uc_trgY, 		///< [in] 目標y座標 
+	enMAP_ACT_MODE 	en_type, 		///< [in] 探索方法
+	enSEARCH_MODE	en_search 		///< [in] 探索方法
+){
+	enMAP_HEAD_DIR	en_head = NORTH;
+	bool		bl_type = TRUE;			// 現在位置、FALSE: １区間前進状態、TURE:半区間前進状態
+	enMAP_HEAD_DIR		en_endDir;
+	
+	uint8_t uc_goalX;
+	uint8_t uc_goalY;
+	uint8_t uc_staX;
+	uint8_t uc_staY;
+	
+	search_flag = TRUE;
+
+	if (en_search == SEARCH_RETURN){
+		uc_goalX = uc_trgX;
+		uc_goalY = uc_trgY;
+		uc_staX = mx;
+		uc_staY = my;
+//		printf("mx%d,my%d\n", mx, my);
+//		MAP_makeContourMap(uc_trgX, uc_trgY, en_type);
+		MAP_makeContourMap_kai2(uc_trgX, uc_trgY, en_type);
+		MAP_searchCmdList(uc_staX, uc_staY, en_Head, uc_goalX, uc_goalX, &en_endDir);
+		uc_trgX = Return_X;
+		uc_trgY = Return_Y;
+//		printf("goalx%d,goaly%d\n", Return_X, Return_Y);
+//		MAP_showcountLog();
+	}
+
+//	SYS_setDisable( SYS_MODE );				// モード変更禁止
+
+	MOT_setTrgtSpeed(SEARCH_SPEED);		// 目標速度
+	MOT_setNowSpeed( 0.0f );
+	f_MoveBackDist = 0;
+	uc_SlaCnt = 0;
+	if(uc_trgX == GOAL_MAP_X && uc_trgY == GOAL_MAP_Y){
+		f_MoveBackDist = MOVE_BACK_DIST;
+	}
+	
+	log_flag_on();	//ログ関数スタート（大会時削除）
+	
+	/* 迷路探索 */
+	while(1){
+		MAP_refMousePos( en_Head );								// 座標更新
+//		MAP_makeContourMap( uc_trgX, uc_trgY, en_type );		// 等高線マップを作る
+		
+		/* 超信地旋回探索 */
+		if( SEARCH_TURN == en_search ){
+//			MAP_makeContourMap( uc_trgX, uc_trgY, en_type );		// 等高線マップを作る
+			MAP_makeContourMap_kai2(uc_trgX, uc_trgY, en_type);
+			if( TRUE == bl_type ){
+				MOT_goBlock_FinSpeed( 0.5 + f_MoveBackDist, SEARCH_SPEED );		// 半区画前進(バックの移動量を含む)
+			}
+			MAP_makeMapData();												// 壁データから迷路データを作成			← ここでデータ作成をミスっている
+			MAP_calcMouseDir(CONTOUR_SYSTEM, &en_head);						// 等高線MAP法で進行方向を算出			← 誤ったMAPを作成
+			
+			/* 次の区画へ移動 */
+			if(( mx == uc_trgX ) && ( my == uc_trgY )){
+				MAP_actGoal();										// ゴール時の動作
+				break;
+			}
+			else{
+				MAP_moveNextBlock(en_head, &bl_type);				// 次の区画へ移動			← ここで改めてリリースチェック＋壁再度作成＋等高線＋超信地旋回動作
+			}
+		}
+		/* スラローム探索 */
+		else if( SEARCH_SURA == en_search ){
+//			MAP_makeContourMap( uc_trgX, uc_trgY, en_type );		// 等高線マップを作る
+			MAP_makeContourMap_kai2(uc_trgX, uc_trgY, en_type);
+			if( TRUE == bl_type ){
+				
+				MOT_goBlock_FinSpeed( 0.5 + f_MoveBackDist, SEARCH_SPEED );		// 半区画前進(バックの移動量を含む)
+			}
+			if (st_known.bl_Known != TRUE) {
+				MAP_makeMapData();		// 壁データから迷路データを作成
+			}
+			MAP_calcMouseDir(CONTOUR_SYSTEM, &en_head);			// 等高線MAP法で進行方向を算出			← 誤ったMAPを作成
+			
+			/* 次の区画へ移動 */
+			if(( mx == uc_trgX ) && ( my == uc_trgY )){
+				MAP_actGoal();									// ゴール時の動作
+				break;
+			}
+			else{
+//				MAP_moveNextBlock_Sura(en_head, &bl_type, FALSE );	// 次の区画へ移動			← ここで改めてリリースチェック＋壁再度作成＋等高線＋超信地旋回動作
+				MAP_moveNextBlock_acc(en_head, &bl_type);
+			}
+		}
+		/* 帰還探索 */
+		else if (SEARCH_RETURN == en_search) {
+			
+			if( TRUE == bl_type ){
+				
+				MOT_goBlock_FinSpeed( 0.5 + f_MoveBackDist, SEARCH_SPEED );		// 半区画前進(バックの移動量を含む)
+			}
+			if (st_known.bl_Known != TRUE) {
+				MAP_makeMapData();		// 壁データから迷路データを作成
+			}			
+			MAP_makeReturnContourMap(uc_staX,uc_staY);
+			MAP_searchCmdList(uc_staX, uc_staY, en_Head, uc_goalX, uc_goalX, &en_endDir);
+			uc_trgX = Return_X;
+			uc_trgY = Return_Y;
+//			MAP_makeContourMap( uc_trgX, uc_trgY, en_type );		// 等高線マップを作る
+			MAP_makeContourMap_kai2(uc_trgX, uc_trgY, en_type);
+			MAP_calcMouseDir(CONTOUR_SYSTEM, &en_head);	
+
+			/* 次の区画へ移動 */
+//			if ((us_cmap[my][mx] == 0)||((g_sysMap[uc_trgY][uc_trgX]&0xf0) == 0xf0)) {
+			if ((mx == 0)&&(my == 0)){
+				MAP_actGoal();
+				break;
+			}
+//			}
+			else {
+				MAP_moveNextBlock_acc(en_head, &bl_type);
+			}
+//			LED_count(uc_trgY);
+		}
+		if(Min_in>6){
+			MOT_goBlock_FinSpeed(0.5,0.0);
+			MOT_turn(MOT_R180);	
+			LL_mDelay(200);
+			MOT_turn(MOT_R180);	
+			LL_mDelay(200);
+			CTRL_stop();
+			DCM_brakeMot( DCM_R );		// ブレーキ
+			DCM_brakeMot( DCM_L );		// ブレーキ
+			
+			/* 迷路関連を初期化 */
+			en_Head		= NORTH;
+			mx			= 0;
+			my			= 0;
+			f_MoveBackDist = 0;
+			break;
+		}
+
+		
+		/* 途中で制御不能になった */
+		if( SYS_isOutOfCtrl() == TRUE ){
+			CTRL_stop();
+			DCM_brakeMot( DCM_R );		// ブレーキ
+			DCM_brakeMot( DCM_L );		// ブレーキ
+			
+			/* 迷路関連を初期化 */
+			en_Head		= NORTH;
+			mx			= 0;
+			my			= 0;
+			f_MoveBackDist = 0;
+			
+			// DCMCは下位モジュールで既にクリアと緊急停止を行っている。
+			break;
+		}
+	}
+	search_flag = FALSE;
+	LL_mDelay(1000);
+//	SYS_setEnable( SYS_MODE );			// モード変更有効
+
+}

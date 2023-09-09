@@ -28,23 +28,23 @@
 #include "queue.h"
 #endif
 
-/* 探索方法 */
+/* 探索方�? */
 typedef enum{
-	CONTOUR_SYSTEM =0,			// 等高線MAP法
+	CONTOUR_SYSTEM =0,			// 等高線MAP�?
 	MAP_SEARCH_TYPE_MAX,
 }enMAP_SEARCH_TYPE;
 
-/* 探索方法 */
+/* 探索方�? */
 typedef enum{
 	SEARCH =0,			// 探索
 	BEST_WAY,			// 最短
 	MAP_ACT_MODE_MAX,
 }enMAP_ACT_MODE;
 
-/* 探索動作 */
+/* 探索動�? */
 typedef enum{
-	SEARCH_TURN =0,		// 超信地旋回探索
-	SEARCH_SURA,		// スラローム探索
+	SEARCH_TURN =0,		// �?信地旋回探索
+	SEARCH_SURA,		// スラロー�?探索
 	SEARCH_SKEW,		// 斜め探索
 	SEARCH_RETURN,
 	SEARCH_MAX,
@@ -53,8 +53,8 @@ typedef enum{
 uint8_t	Return_X;
 uint8_t	Return_Y;
 
-uint16_t	us_cmap[MAP_Y_SIZE][MAP_X_SIZE];				//< 等高線 データ
-uint8_t		g_sysMap[ MAP_Y_SIZE ][ MAP_X_SIZE ];			///< 迷路情報
+uint16_t	us_cmap[MAP_Y_SIZE][MAP_X_SIZE];				//< 等高�? �?ータ
+uint8_t		g_sysMap[ MAP_Y_SIZE ][ MAP_X_SIZE ];			///< 迷路�?報
 
 bool			search_flag;
 
@@ -62,7 +62,7 @@ void MAP_init( void );
 void MAP_Goal_init( void );
 void MAP_Goal_change_x( void );
 void MAP_Goal_change_y( void );
-void MAP_showLog( void );
+void MAP_2Log( void );
 void MAP_clearMap( void );
 void MAP_setPos( uint8_t uc_x, uint8_t uc_y, enMAP_HEAD_DIR en_dir );
 void MAP_searchGoal( uint8_t uc_trgX, uint8_t uc_trgY, enMAP_ACT_MODE en_type, enSEARCH_MODE en_search );
