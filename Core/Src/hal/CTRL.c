@@ -176,6 +176,21 @@ void CTRL_clrNowData(void)
 	f_GyroNowAngle	= 0;							// ジャイロ値クリア
 }
 
+void CTRL_setNowData_Err(/*float trgt_Dist, */float trgt_Angle){
+	ENC_setref();
+	l_CntR			= 0;						// カウンタクリア
+	l_CntL			= 0;						// カウンタクリア
+
+	/* 現在値 */
+	f_NowDist 		= 0;//f_NowDist - trgt_Dist;本来こっちにしたいが妥協						// 移動距離リセット
+	f_NowDistR 		= 0;
+	f_NowDistL 		= 0;
+	f_NowSpeed		= 0;						// [速度制御]   現在の速度 [mm/s]			（1[msec]毎に更新される）
+	f_NowAngle		= f_NowAngle - trgt_Angle;						// [角度制御]   現在角度					（1[msec]毎に更新される）
+	s_GyroVal		= 0;						// ジャイロ値クリア
+	f_GyroNowAngle	= 0;							// ジャイロ値クリア
+}
+
 void CTRL_setData( stCTRL_DATA* p_data )
 {
 	/* 制御方法 */
@@ -227,7 +242,7 @@ void CTRL_refNow( void )
 	/* 距離更新 */
 	f_NowDistR += f_r;									// カウント更新
 	f_NowDistL += f_l;									// カウント更新
-	f_NowDist  = ( f_NowDistR + f_NowDistL ) / 2;		// 平均値更新
+	f_NowDist  = ( f_NowDistR + f_NowDistL ) / 2.0;		// 平均値更新
 }
 
 void CTRL_refTarget( void )
@@ -718,6 +733,8 @@ void CTRL_get_frontwall_omega_FB( float* p_err)
 		if( en_Type == CTRL_FRONT_WALL){	
 			l_frontSen_omegaErr = (DIST_getNowVal( DIST_SEN_L_FRONT )- (L_FRONT_REF+FRONT_WALL_minus)) + 
 									((R_FRONT_REF+FRONT_WALL_minus) - DIST_getNowVal( DIST_SEN_R_FRONT ));
+			if(l_frontSen_omegaErr > 500)l_frontSen_omegaErr = 500;
+			if(l_frontSen_omegaErr < -500)l_frontSen_omegaErr = -500;
 			f_omega_err = (float)l_frontSen_omegaErr;
 	
 			/* PD制御 */

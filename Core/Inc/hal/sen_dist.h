@@ -42,7 +42,7 @@
 #define R_FRONT_NOCTRL					(1000)//( 530 )
 #define L_FRONT_NOCTRL					(1200)//( 450 )
 
-#define FRONT_WALL_minus				(30)
+#define FRONT_WALL_minus				(45)
 
 
 

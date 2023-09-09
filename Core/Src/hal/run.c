@@ -61,7 +61,7 @@ stMOT_DATA 		st_Info;				// シーケンスデータ
 float			f_MotSuraStaSpeed	= 0.0f;
 enMOT_WALL_EDGE_TYPE	en_WallEdge = MOT_WALL_EDGE_NONE;	// 壁切れ補正
 bool			bl_IsWallEdge = FALSE;				// 壁切れ検知（TRUE:検知、FALSE：非検知）
-float			f_WallEdgeAddDist = 0.0;				// 壁切れ補正の移動距離
+float			f_WallEdgeAddDist =0.0;				// 壁切れ補正の移動距離
 
 
 
@@ -259,7 +259,8 @@ void MOT_goBlock_AccConstDec( float f_fin, enMOT_ST_TYPE en_type, enMOT_GO_ST_TY
 
 	f_MotNowSpeed = f_fin;		
 	GYRO_endErrChkAngle();
-	CTRL_clrNowData();
+//	CTRL_clrNowData();
+	CTRL_setNowData_Err(st_data.f_angle);
 }
 
 void MOT_setData_ACC_CONST_DEC( float f_num, float f_fin, enMOT_GO_ST_TYPE en_type )
@@ -683,7 +684,8 @@ void MOT_goBlock_Const(float f_num)
 
 	MOT_setWallEdgeType( MOT_WALL_EDGE_NONE );		// 壁切れ補正終了
 	GYRO_endErrChkAngle();
-	CTRL_clrNowData();
+//	CTRL_clrNowData();
+	CTRL_setNowData_Err(st_data.f_angle);
 }
 
 void testrun(void)
@@ -931,7 +933,8 @@ void MOT_turn( enMOT_TURN_CMD en_type )
 	DCM_brakeMot( DCM_R );		// ブレーキ
 	DCM_brakeMot( DCM_L );		// ブレーキ
 	GYRO_endErrChkAngle();					// エラー検出終了
-	CTRL_clrNowData();
+//	CTRL_clrNowData();
+	CTRL_setNowData_Err(st_data.f_angle);
 }
 
 void MOT_setSuraStaSpeed( float f_speed )
@@ -1259,7 +1262,8 @@ void MOT_goSla( enMOT_SURA_CMD en_type, stSLA* p_sla )
 	f_MotNowSpeed = st_info.f_now;			// 現在速度更新
 //	LED =LED_ALL_OFF;
 	GYRO_endErrChkAngle();					// エラー検出終了
-	CTRL_clrNowData();
+//	CTRL_clrNowData();
+	CTRL_setNowData_Err(st_data.f_angle);
 
 }
 
@@ -1326,10 +1330,10 @@ bool MOT_setWallEdgeDist( void )
 		f_WallEdgeAddDist = f_addDist - st_Info.f_dist;	//壁切れの距離＋現在距離が本来の距離を超えた分をwall_adddistとして設定してるんだなぁだから設定だけすればいいのか
 	}
 	/*少なく走る場合*/
-	if( f_addDist < st_Info.f_dist){
+/*	if( f_addDist < st_Info.f_dist){
 		st_Info.f_dist = f_addDist;
 	}
-
+*/
 	/* 壁の切れ目補正の変数を初期化 */
 	en_WallEdge   = MOT_WALL_EDGE_NONE;		// 壁の切れ目タイプ
 	bl_IsWallEdge = FALSE;					// 壁の切れ目検知
@@ -1371,8 +1375,8 @@ void DIST_Front_Wall_correction(void)
 	CTRL_clrData();										// マウスの現在位置/角度をクリア
 	CTRL_setData( &st_data );							// データセット
 	DCM_staMotAll();									// モータON
-	while((DIST_getNowVal( DIST_SEN_R_FRONT )>(R_FRONT_REF+FRONT_WALL_minus+15))||(DIST_getNowVal( DIST_SEN_R_FRONT )<(R_FRONT_REF+FRONT_WALL_minus-15))
-		||(DIST_getNowVal( DIST_SEN_L_FRONT )>(L_FRONT_REF+FRONT_WALL_minus+15))||(DIST_getNowVal( DIST_SEN_L_FRONT )<(L_FRONT_REF+FRONT_WALL_minus-15))){
+	while((DIST_getNowVal( DIST_SEN_R_FRONT )>(R_FRONT_REF+FRONT_WALL_minus+10))||(DIST_getNowVal( DIST_SEN_R_FRONT )<(R_FRONT_REF+FRONT_WALL_minus-10))
+		||(DIST_getNowVal( DIST_SEN_L_FRONT )>(L_FRONT_REF+FRONT_WALL_minus+10))||(DIST_getNowVal( DIST_SEN_L_FRONT )<(L_FRONT_REF+FRONT_WALL_minus-10))){
 			if(escape_wait > 0.8)break;
 			LL_mDelay(10);//volatile入れてないから回避用に入れてみる
 	}

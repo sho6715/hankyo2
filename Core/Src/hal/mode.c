@@ -840,7 +840,8 @@ void MODE_exe_m5( void )
 			MAP_makeSkewCmdList();													
 			LL_mDelay(500);
 			Set_DutyTIM8(600);
-			LL_mDelay(2000);													
+			LL_mDelay(2000);	
+			MAP_drive( MAP_DRIVE_SURA );												
 			Set_DutyTIM8(0);
 			LL_mDelay(500);
 			MOT_turn(MOT_R180);

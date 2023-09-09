@@ -17,26 +17,26 @@
 #define SW_OFF	(0)
 #define TRUE	(1)
 #define FALSE	(0)
-/* マクロ */
+/* ăăŻă­ */
 #define FABS(x)						( (x)>=0 ? (x) : -(x) )
 
-#define GOAL_MAP_X_def					( 11 )				// ゴールのX区画数?��横方向�? [区画]17
-#define GOAL_MAP_Y_def					( 10 )				// ゴールのY区画数?��縦方向�? [区画]13
-#define MAP_X_SIZE					( 32 )				// 迷路のX区画数?��横方向�? [区画]
-#define MAP_Y_SIZE					( 32 )				// 迷路のY区画数?��縦方向�? [区画]
+#define GOAL_MAP_X_def					( 11 )				// ă´ăźăŤăŽXĺşçťć°?źć¨Şćšĺďź? [ĺşçť]17
+#define GOAL_MAP_Y_def					( 10 )				// ă´ăźăŤăŽYĺşçťć°?źç¸Śćšĺďź? [ĺşçť]13
+#define MAP_X_SIZE					( 32 )				// čżˇčˇŻăŽXĺşçťć°?źć¨Şćšĺďź? [ĺşçť]
+#define MAP_Y_SIZE					( 32 )				// čżˇčˇŻăŽYĺşçťć°?źç¸Śćšĺďź? [ĺşçť]
 
-#define MAP_X_SIZE_REAL				( 32 )					// 迷路の実X区画数?��横方向�? [区画]
-#define MAP_Y_SIZE_REAL				( 32 )					// 迷路の実Y区画数?��縦方向�? [区画]
+#define MAP_X_SIZE_REAL				( 32 )					// čżˇčˇŻăŽĺŽXĺşçťć°?źć¨Şćšĺďź? [ĺşçť]
+#define MAP_Y_SIZE_REAL				( 32 )					// čżˇčˇŻăŽĺŽYĺşçťć°?źç¸Śćšĺďź? [ĺşçť]
 
-#define PI							( 3.14159f )								// π
+#define PI							( 3.14159f )								// Ď
 
-#define VCC_MAX						( 4.2f )									// バッ�?リ最大電圧[V]�?4.2[V]�?1[セル]
-#define TIRE_D						( 0.0126f )	//推定値								// タイヤ直�? [mm]
+#define VCC_MAX						( 4.2f )									// ăăă?ăŞćĺ¤§éťĺ§[V]ă?4.2[V]Ă?1[ăťăŤ]
+#define TIRE_D						( 0.0126f )	//ć¨ĺŽĺ¤								// ăżă¤ă¤ç´ĺž? [mm]
 #define TREAD_imagin					(0.0386f)
 #define TREAD						( 0.0335f )
-#define ROTATE_PULSE				( 4096 )									// 1周の最大数値
-#define DIST_1STEP					( PI * TIRE_D / ROTATE_PULSE )				// 1パルスで進む距離 [m]
-#define F_CNT2MM(cnt)				( (float)cnt * DIST_1STEP )				// [カウント値]から[mm]へ換�?
+#define ROTATE_PULSE				( 4096 )									// 1ĺ¨ăŽćĺ¤§ć°ĺ¤
+#define DIST_1STEP					( PI * TIRE_D / ROTATE_PULSE )				// 1ăăŤăšă§é˛ăčˇé˘ [m]
+#define F_CNT2MM(cnt)				( (float)cnt * DIST_1STEP )				// [ăŤăŚăłăĺ¤]ăă[mm]ă¸ćçŽ?
 #define GEAR_RATIO					(36.0f/10.0f)
 
 #define Weight						(0.018f)
@@ -52,14 +52,14 @@ typedef enum{
 	DIST_SEN_NUM
 }enDIST_SEN_ID;
 
-/* モータID */
+/* ă˘ăźăżID */
 typedef enum{
-	DCM_R = 0,					// 右モータ
-	DCM_L,						// 左モータ
+	DCM_R = 0,					// ĺłă˘ăźăż
+	DCM_L,						// ĺˇŚă˘ăźăż
 	DCM_MAX
 }enDCM_ID;
 
-/* 方�? */
+/* ćšĺ? */
 typedef enum{
 	NORTH =0,
 	EAST,
@@ -68,9 +68,9 @@ typedef enum{
 	MAP_HEAD_DIR_MAX,
 }enMAP_HEAD_DIR;
 
-volatile uint16_t		Msec_in;		//�?部時�?[msec]
-volatile uint8_t		Sec_in;		//�?部時�?[sec]
-volatile uint8_t		Min_in;		//�?部時�?[min]
+volatile uint16_t		Msec_in;		//ĺ?é¨ćč¨?[msec]
+volatile uint8_t		Sec_in;		//ĺ?é¨ćč¨?[sec]
+volatile uint8_t		Min_in;		//ĺ?é¨ćč¨?[min]
 
 
 #endif /* INC_GLOB_H_ */
