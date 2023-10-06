@@ -41,7 +41,7 @@ Idx Name          Size      VMA       LMA       File off  Algn
                   CONTENTS, READONLY, DEBUGGING, OCTETS
  18 .debug_line   0001b579  00000000  00000000  000770f3  2**0
                   CONTENTS, READONLY, DEBUGGING, OCTETS
- 19 .debug_str    000d3b48  00000000  00000000  0009266c  2**0
+ 19 .debug_str    000d3b47  00000000  00000000  0009266c  2**0
                   CONTENTS, READONLY, DEBUGGING, OCTETS
  20 .debug_frame  000073f0  00000000  00000000  001661b4  2**2
                   CONTENTS, READONLY, DEBUGGING, OCTETS
@@ -14770,14 +14770,14 @@ void CTRL_getAngleSpeedFB( float* p_err )
  80069b8:	4a19      	ldr	r2, [pc, #100]	; (8006a20 <CTRL_getAngleSpeedFB+0x130>)
  80069ba:	68bb      	ldr	r3, [r7, #8]
  80069bc:	6013      	str	r3, [r2, #0]
-	if((f_err>20.0)||(f_err<-20.0)){
+	if((f_err>30.0)||(f_err<-30.0)){
  80069be:	edd7 7a02 	vldr	s15, [r7, #8]
- 80069c2:	eeb3 7a04 	vmov.f32	s14, #52	; 0x41a00000  20.0
+ 80069c2:	eeb3 7a0e 	vmov.f32	s14, #62	; 0x41f00000  30.0
  80069c6:	eef4 7ac7 	vcmpe.f32	s15, s14
  80069ca:	eef1 fa10 	vmrs	APSR_nzcv, fpscr
  80069ce:	dc09      	bgt.n	80069e4 <CTRL_getAngleSpeedFB+0xf4>
  80069d0:	edd7 7a02 	vldr	s15, [r7, #8]
- 80069d4:	eebb 7a04 	vmov.f32	s14, #180	; 0xc1a00000 -20.0
+ 80069d4:	eebb 7a0e 	vmov.f32	s14, #190	; 0xc1f00000 -30.0
  80069d8:	eef4 7ac7 	vcmpe.f32	s15, s14
  80069dc:	eef1 fa10 	vmrs	APSR_nzcv, fpscr
  80069e0:	d400      	bmi.n	80069e4 <CTRL_getAngleSpeedFB+0xf4>
@@ -15121,6 +15121,8 @@ void CTRL_get_frontwall_v_FB( float* p_err)
  8006c88:	ee77 7a27 	vadd.f32	s15, s14, s15
  8006c8c:	687b      	ldr	r3, [r7, #4]
  8006c8e:	edc3 7a00 	vstr	s15, [r3]
+//			if(*p_err < )*p_err = ;
+//			else if(*p_err > ))*p_err = ;
 		}
 	}
 
@@ -19389,15 +19391,15 @@ void MODE_exe_m1( void )
  8008f6a:	f008 fcbd 	bl	80118e8 <MAP_Goalsize>
 			MAP_makeContourMap_run( GOAL_MAP_X_def, GOAL_MAP_Y_def, BEST_WAY );					// 等高線�?�ップを作る
  8008f6e:	2201      	movs	r2, #1
- 8008f70:	210a      	movs	r1, #10
- 8008f72:	200b      	movs	r0, #11
+ 8008f70:	210b      	movs	r1, #11
+ 8008f72:	2002      	movs	r0, #2
  8008f74:	f007 fe02 	bl	8010b7c <MAP_makeContourMap_run>
 			MAP_makeCmdList( 0, 0, NORTH, GOAL_MAP_X_def, GOAL_MAP_Y_def, &en_endDir2 );		// ドライブコマンド作�??
  8008f78:	1dfb      	adds	r3, r7, #7
  8008f7a:	9301      	str	r3, [sp, #4]
- 8008f7c:	230a      	movs	r3, #10
+ 8008f7c:	230b      	movs	r3, #11
  8008f7e:	9300      	str	r3, [sp, #0]
- 8008f80:	230b      	movs	r3, #11
+ 8008f80:	2302      	movs	r3, #2
  8008f82:	2200      	movs	r2, #0
  8008f84:	2100      	movs	r1, #0
  8008f86:	2000      	movs	r0, #0
@@ -19522,8 +19524,8 @@ void MODE_exe_m2( void )
 			MAP_searchGoal(GOAL_MAP_X_def, GOAL_MAP_Y_def, SEARCH, SEARCH_SURA );			
  800905a:	2301      	movs	r3, #1
  800905c:	2200      	movs	r2, #0
- 800905e:	210a      	movs	r1, #10
- 8009060:	200b      	movs	r0, #11
+ 800905e:	210b      	movs	r1, #11
+ 8009060:	2002      	movs	r0, #2
  8009062:	f009 fc8f 	bl	8012984 <MAP_searchGoal>
 
 			if (( SW_IsOn_1() == SW_ON)||(SYS_isOutOfCtrl() == TRUE)){}
@@ -19576,15 +19578,15 @@ void MODE_exe_m2( void )
  80090be:	f007 f8bd 	bl	801023c <MAP_setPos>
 				MAP_makeContourMap_run( GOAL_MAP_X_def, GOAL_MAP_Y_def, BEST_WAY );					// 等高線�?�ップを作る
  80090c2:	2201      	movs	r2, #1
- 80090c4:	210a      	movs	r1, #10
- 80090c6:	200b      	movs	r0, #11
+ 80090c4:	210b      	movs	r1, #11
+ 80090c6:	2002      	movs	r0, #2
  80090c8:	f007 fd58 	bl	8010b7c <MAP_makeContourMap_run>
 				MAP_makeCmdList( 0, 0, NORTH, GOAL_MAP_X_def, GOAL_MAP_Y_def, &en_endDir2 );		// ドライブコマンド作�??
  80090cc:	1dfb      	adds	r3, r7, #7
  80090ce:	9301      	str	r3, [sp, #4]
- 80090d0:	230a      	movs	r3, #10
+ 80090d0:	230b      	movs	r3, #11
  80090d2:	9300      	str	r3, [sp, #0]
- 80090d4:	230b      	movs	r3, #11
+ 80090d4:	2302      	movs	r3, #2
  80090d6:	2200      	movs	r2, #0
  80090d8:	2100      	movs	r1, #0
  80090da:	2000      	movs	r0, #0
@@ -19640,8 +19642,8 @@ void MODE_exe_m2( void )
 			MAP_searchGoalKnown(GOAL_MAP_X_def, GOAL_MAP_Y_def, SEARCH, SEARCH_SURA );			
  800913a:	2301      	movs	r3, #1
  800913c:	2200      	movs	r2, #0
- 800913e:	210a      	movs	r1, #10
- 8009140:	200b      	movs	r0, #11
+ 800913e:	210b      	movs	r1, #11
+ 8009140:	2002      	movs	r0, #2
  8009142:	f009 fd77 	bl	8012c34 <MAP_searchGoalKnown>
 
 			if (( SW_IsOn_1() == SW_ON)||(SYS_isOutOfCtrl() == TRUE)){}
@@ -19695,15 +19697,15 @@ void MODE_exe_m2( void )
  800919e:	f007 f84d 	bl	801023c <MAP_setPos>
 				MAP_makeContourMap_run( GOAL_MAP_X_def, GOAL_MAP_Y_def, BEST_WAY );					// 等高線�?�ップを作る
  80091a2:	2201      	movs	r2, #1
- 80091a4:	210a      	movs	r1, #10
- 80091a6:	200b      	movs	r0, #11
+ 80091a4:	210b      	movs	r1, #11
+ 80091a6:	2002      	movs	r0, #2
  80091a8:	f007 fce8 	bl	8010b7c <MAP_makeContourMap_run>
 				MAP_makeCmdList( 0, 0, NORTH, GOAL_MAP_X_def, GOAL_MAP_Y_def, &en_endDir2 );		// ドライブコマンド作�??
  80091ac:	1dfb      	adds	r3, r7, #7
  80091ae:	9301      	str	r3, [sp, #4]
- 80091b0:	230a      	movs	r3, #10
+ 80091b0:	230b      	movs	r3, #11
  80091b2:	9300      	str	r3, [sp, #0]
- 80091b4:	230b      	movs	r3, #11
+ 80091b4:	2302      	movs	r3, #2
  80091b6:	2200      	movs	r2, #0
  80091b8:	2100      	movs	r1, #0
  80091ba:	2000      	movs	r0, #0
@@ -19760,8 +19762,8 @@ void MODE_exe_m2( void )
 			MAP_searchGoalKnown(GOAL_MAP_X_def, GOAL_MAP_Y_def, SEARCH, SEARCH_SURA );			
  800921a:	2301      	movs	r3, #1
  800921c:	2200      	movs	r2, #0
- 800921e:	210a      	movs	r1, #10
- 8009220:	200b      	movs	r0, #11
+ 800921e:	210b      	movs	r1, #11
+ 8009220:	2002      	movs	r0, #2
  8009222:	f009 fd07 	bl	8012c34 <MAP_searchGoalKnown>
 
 			if (( SW_IsOn_1() == SW_ON)||(SYS_isOutOfCtrl() == TRUE)){}
@@ -19815,15 +19817,15 @@ void MODE_exe_m2( void )
  800927a:	f006 ffdf 	bl	801023c <MAP_setPos>
 				MAP_makeContourMap_run( GOAL_MAP_X_def, GOAL_MAP_Y_def, BEST_WAY );					// 等高線�?�ップを作る
  800927e:	2201      	movs	r2, #1
- 8009280:	210a      	movs	r1, #10
- 8009282:	200b      	movs	r0, #11
+ 8009280:	210b      	movs	r1, #11
+ 8009282:	2002      	movs	r0, #2
  8009284:	f007 fc7a 	bl	8010b7c <MAP_makeContourMap_run>
 				MAP_makeCmdList( 0, 0, NORTH, GOAL_MAP_X_def, GOAL_MAP_Y_def, &en_endDir2 );		// ドライブコマンド作�??
  8009288:	1dfb      	adds	r3, r7, #7
  800928a:	9301      	str	r3, [sp, #4]
- 800928c:	230a      	movs	r3, #10
+ 800928c:	230b      	movs	r3, #11
  800928e:	9300      	str	r3, [sp, #0]
- 8009290:	230b      	movs	r3, #11
+ 8009290:	2302      	movs	r3, #2
  8009292:	2200      	movs	r2, #0
  8009294:	2100      	movs	r1, #0
  8009296:	2000      	movs	r0, #0
@@ -19970,15 +19972,15 @@ void MODE_exe_m3( void )
  8009388:	f008 faae 	bl	80118e8 <MAP_Goalsize>
 			MAP_makeContourMap_run( GOAL_MAP_X_def, GOAL_MAP_Y_def, BEST_WAY );					// 等高線�?�ップを作る
  800938c:	2201      	movs	r2, #1
- 800938e:	210a      	movs	r1, #10
- 8009390:	200b      	movs	r0, #11
+ 800938e:	210b      	movs	r1, #11
+ 8009390:	2002      	movs	r0, #2
  8009392:	f007 fbf3 	bl	8010b7c <MAP_makeContourMap_run>
 			MAP_makeCmdList( 0, 0, NORTH, GOAL_MAP_X_def, GOAL_MAP_Y_def, &en_endDir2 );		// ドライブコマンド作�??
  8009396:	1dfb      	adds	r3, r7, #7
  8009398:	9301      	str	r3, [sp, #4]
- 800939a:	230a      	movs	r3, #10
+ 800939a:	230b      	movs	r3, #11
  800939c:	9300      	str	r3, [sp, #0]
- 800939e:	230b      	movs	r3, #11
+ 800939e:	2302      	movs	r3, #2
  80093a0:	2200      	movs	r2, #0
  80093a2:	2100      	movs	r1, #0
  80093a4:	2000      	movs	r0, #0
@@ -20053,15 +20055,15 @@ void MODE_exe_m3( void )
  8009434:	f008 fa58 	bl	80118e8 <MAP_Goalsize>
 			MAP_makeContourMap_run( GOAL_MAP_X_def, GOAL_MAP_Y_def, BEST_WAY );					// 等高線�?�ップを作る
  8009438:	2201      	movs	r2, #1
- 800943a:	210a      	movs	r1, #10
- 800943c:	200b      	movs	r0, #11
+ 800943a:	210b      	movs	r1, #11
+ 800943c:	2002      	movs	r0, #2
  800943e:	f007 fb9d 	bl	8010b7c <MAP_makeContourMap_run>
 			MAP_makeCmdList( 0, 0, NORTH, GOAL_MAP_X_def, GOAL_MAP_Y_def, &en_endDir2 );		// ドライブコマンド作�??
  8009442:	1dfb      	adds	r3, r7, #7
  8009444:	9301      	str	r3, [sp, #4]
- 8009446:	230a      	movs	r3, #10
+ 8009446:	230b      	movs	r3, #11
  8009448:	9300      	str	r3, [sp, #0]
- 800944a:	230b      	movs	r3, #11
+ 800944a:	2302      	movs	r3, #2
  800944c:	2200      	movs	r2, #0
  800944e:	2100      	movs	r1, #0
  8009450:	2000      	movs	r0, #0
@@ -20136,15 +20138,15 @@ void MODE_exe_m3( void )
  80094e0:	f008 fa02 	bl	80118e8 <MAP_Goalsize>
 			MAP_makeContourMap_run( GOAL_MAP_X_def, GOAL_MAP_Y_def, BEST_WAY );					// 等高線�?�ップを作る
  80094e4:	2201      	movs	r2, #1
- 80094e6:	210a      	movs	r1, #10
- 80094e8:	200b      	movs	r0, #11
+ 80094e6:	210b      	movs	r1, #11
+ 80094e8:	2002      	movs	r0, #2
  80094ea:	f007 fb47 	bl	8010b7c <MAP_makeContourMap_run>
 			MAP_makeCmdList( 0, 0, NORTH, GOAL_MAP_X_def, GOAL_MAP_Y_def, &en_endDir2 );		// ドライブコマンド作�??
  80094ee:	1dfb      	adds	r3, r7, #7
  80094f0:	9301      	str	r3, [sp, #4]
- 80094f2:	230a      	movs	r3, #10
+ 80094f2:	230b      	movs	r3, #11
  80094f4:	9300      	str	r3, [sp, #0]
- 80094f6:	230b      	movs	r3, #11
+ 80094f6:	2302      	movs	r3, #2
  80094f8:	2200      	movs	r2, #0
  80094fa:	2100      	movs	r1, #0
  80094fc:	2000      	movs	r0, #0
@@ -20219,15 +20221,15 @@ void MODE_exe_m3( void )
  800958c:	f008 f9ac 	bl	80118e8 <MAP_Goalsize>
 			MAP_makeContourMap_run( GOAL_MAP_X_def, GOAL_MAP_Y_def, BEST_WAY );					// 等高線�?�ップを作る
  8009590:	2201      	movs	r2, #1
- 8009592:	210a      	movs	r1, #10
- 8009594:	200b      	movs	r0, #11
+ 8009592:	210b      	movs	r1, #11
+ 8009594:	2002      	movs	r0, #2
  8009596:	f007 faf1 	bl	8010b7c <MAP_makeContourMap_run>
 			MAP_makeCmdList( 0, 0, NORTH, GOAL_MAP_X_def, GOAL_MAP_Y_def, &en_endDir2 );		// ドライブコマンド作�??
  800959a:	1dfb      	adds	r3, r7, #7
  800959c:	9301      	str	r3, [sp, #4]
- 800959e:	230a      	movs	r3, #10
+ 800959e:	230b      	movs	r3, #11
  80095a0:	9300      	str	r3, [sp, #0]
- 80095a2:	230b      	movs	r3, #11
+ 80095a2:	2302      	movs	r3, #2
  80095a4:	2200      	movs	r2, #0
  80095a6:	2100      	movs	r1, #0
  80095a8:	2000      	movs	r0, #0
@@ -20302,15 +20304,15 @@ void MODE_exe_m3( void )
  8009638:	f008 f956 	bl	80118e8 <MAP_Goalsize>
 			MAP_makeContourMap_run( GOAL_MAP_X_def, GOAL_MAP_Y_def, BEST_WAY );					// 等高線�?�ップを作る
  800963c:	2201      	movs	r2, #1
- 800963e:	210a      	movs	r1, #10
- 8009640:	200b      	movs	r0, #11
+ 800963e:	210b      	movs	r1, #11
+ 8009640:	2002      	movs	r0, #2
  8009642:	f007 fa9b 	bl	8010b7c <MAP_makeContourMap_run>
 			MAP_makeCmdList( 0, 0, NORTH, GOAL_MAP_X_def, GOAL_MAP_Y_def, &en_endDir2 );		// ドライブコマンド作�??
  8009646:	1dfb      	adds	r3, r7, #7
  8009648:	9301      	str	r3, [sp, #4]
- 800964a:	230a      	movs	r3, #10
+ 800964a:	230b      	movs	r3, #11
  800964c:	9300      	str	r3, [sp, #0]
- 800964e:	230b      	movs	r3, #11
+ 800964e:	2302      	movs	r3, #2
  8009650:	2200      	movs	r2, #0
  8009652:	2100      	movs	r1, #0
  8009654:	2000      	movs	r0, #0
@@ -20389,15 +20391,15 @@ void MODE_exe_m3( void )
  80096f4:	f008 f8f8 	bl	80118e8 <MAP_Goalsize>
 			MAP_makeContourMap_run( GOAL_MAP_X_def, GOAL_MAP_Y_def, BEST_WAY );					// 等高線�?�ップを作る
  80096f8:	2201      	movs	r2, #1
- 80096fa:	210a      	movs	r1, #10
- 80096fc:	200b      	movs	r0, #11
+ 80096fa:	210b      	movs	r1, #11
+ 80096fc:	2002      	movs	r0, #2
  80096fe:	f007 fa3d 	bl	8010b7c <MAP_makeContourMap_run>
 			MAP_makeCmdList( 0, 0, NORTH, GOAL_MAP_X_def, GOAL_MAP_Y_def, &en_endDir2 );		// ドライブコマンド作�??
  8009702:	1dfb      	adds	r3, r7, #7
  8009704:	9301      	str	r3, [sp, #4]
- 8009706:	230a      	movs	r3, #10
+ 8009706:	230b      	movs	r3, #11
  8009708:	9300      	str	r3, [sp, #0]
- 800970a:	230b      	movs	r3, #11
+ 800970a:	2302      	movs	r3, #2
  800970c:	2200      	movs	r2, #0
  800970e:	2100      	movs	r1, #0
  8009710:	2000      	movs	r0, #0
@@ -20548,8 +20550,8 @@ void MODE_exe_m4( void )
 			MAP_searchGoal(GOAL_MAP_X_def, GOAL_MAP_Y_def, SEARCH, SEARCH_SURA );			
  800981e:	2301      	movs	r3, #1
  8009820:	2200      	movs	r2, #0
- 8009822:	210a      	movs	r1, #10
- 8009824:	200b      	movs	r0, #11
+ 8009822:	210b      	movs	r1, #11
+ 8009824:	2002      	movs	r0, #2
  8009826:	f009 f8ad 	bl	8012984 <MAP_searchGoal>
 
 			if (( SW_IsOn_1() == SW_ON)||(SYS_isOutOfCtrl() == TRUE)){}
@@ -20602,15 +20604,15 @@ void MODE_exe_m4( void )
  8009882:	f006 fcdb 	bl	801023c <MAP_setPos>
 				MAP_makeContourMap_run( GOAL_MAP_X_def, GOAL_MAP_Y_def, BEST_WAY );					// 等高線�?�ップを作る
  8009886:	2201      	movs	r2, #1
- 8009888:	210a      	movs	r1, #10
- 800988a:	200b      	movs	r0, #11
+ 8009888:	210b      	movs	r1, #11
+ 800988a:	2002      	movs	r0, #2
  800988c:	f007 f976 	bl	8010b7c <MAP_makeContourMap_run>
 				MAP_makeCmdList( 0, 0, NORTH, GOAL_MAP_X_def, GOAL_MAP_Y_def, &en_endDir2 );		// ドライブコマンド作�??
  8009890:	1dfb      	adds	r3, r7, #7
  8009892:	9301      	str	r3, [sp, #4]
- 8009894:	230a      	movs	r3, #10
+ 8009894:	230b      	movs	r3, #11
  8009896:	9300      	str	r3, [sp, #0]
- 8009898:	230b      	movs	r3, #11
+ 8009898:	2302      	movs	r3, #2
  800989a:	2200      	movs	r2, #0
  800989c:	2100      	movs	r1, #0
  800989e:	2000      	movs	r0, #0
@@ -20666,8 +20668,8 @@ void MODE_exe_m4( void )
 			MAP_searchGoalKnown(GOAL_MAP_X_def, GOAL_MAP_Y_def, SEARCH, SEARCH_SURA );			
  80098fe:	2301      	movs	r3, #1
  8009900:	2200      	movs	r2, #0
- 8009902:	210a      	movs	r1, #10
- 8009904:	200b      	movs	r0, #11
+ 8009902:	210b      	movs	r1, #11
+ 8009904:	2002      	movs	r0, #2
  8009906:	f009 f995 	bl	8012c34 <MAP_searchGoalKnown>
 
 			if (( SW_IsOn_1() == SW_ON)||(SYS_isOutOfCtrl() == TRUE)){}
@@ -20721,15 +20723,15 @@ void MODE_exe_m4( void )
  8009962:	f006 fc6b 	bl	801023c <MAP_setPos>
 				MAP_makeContourMap_run( GOAL_MAP_X_def, GOAL_MAP_Y_def, BEST_WAY );					// 等高線�?�ップを作る
  8009966:	2201      	movs	r2, #1
- 8009968:	210a      	movs	r1, #10
- 800996a:	200b      	movs	r0, #11
+ 8009968:	210b      	movs	r1, #11
+ 800996a:	2002      	movs	r0, #2
  800996c:	f007 f906 	bl	8010b7c <MAP_makeContourMap_run>
 				MAP_makeCmdList( 0, 0, NORTH, GOAL_MAP_X_def, GOAL_MAP_Y_def, &en_endDir2 );		// ドライブコマンド作�??
  8009970:	1dfb      	adds	r3, r7, #7
  8009972:	9301      	str	r3, [sp, #4]
- 8009974:	230a      	movs	r3, #10
+ 8009974:	230b      	movs	r3, #11
  8009976:	9300      	str	r3, [sp, #0]
- 8009978:	230b      	movs	r3, #11
+ 8009978:	2302      	movs	r3, #2
  800997a:	2200      	movs	r2, #0
  800997c:	2100      	movs	r1, #0
  800997e:	2000      	movs	r0, #0
@@ -20786,8 +20788,8 @@ void MODE_exe_m4( void )
 			MAP_searchGoalKnown(GOAL_MAP_X_def, GOAL_MAP_Y_def, SEARCH, SEARCH_SURA );			
  80099de:	2301      	movs	r3, #1
  80099e0:	2200      	movs	r2, #0
- 80099e2:	210a      	movs	r1, #10
- 80099e4:	200b      	movs	r0, #11
+ 80099e2:	210b      	movs	r1, #11
+ 80099e4:	2002      	movs	r0, #2
  80099e6:	f009 f925 	bl	8012c34 <MAP_searchGoalKnown>
 
 			if (( SW_IsOn_1() == SW_ON)||(SYS_isOutOfCtrl() == TRUE)){}
@@ -20841,15 +20843,15 @@ void MODE_exe_m4( void )
  8009a3e:	f006 fbfd 	bl	801023c <MAP_setPos>
 				MAP_makeContourMap_run( GOAL_MAP_X_def, GOAL_MAP_Y_def, BEST_WAY );					// 等高線�?�ップを作る
  8009a42:	2201      	movs	r2, #1
- 8009a44:	210a      	movs	r1, #10
- 8009a46:	200b      	movs	r0, #11
+ 8009a44:	210b      	movs	r1, #11
+ 8009a46:	2002      	movs	r0, #2
  8009a48:	f007 f898 	bl	8010b7c <MAP_makeContourMap_run>
 				MAP_makeCmdList( 0, 0, NORTH, GOAL_MAP_X_def, GOAL_MAP_Y_def, &en_endDir2 );		// ドライブコマンド作�??
  8009a4c:	1dfb      	adds	r3, r7, #7
  8009a4e:	9301      	str	r3, [sp, #4]
- 8009a50:	230a      	movs	r3, #10
+ 8009a50:	230b      	movs	r3, #11
  8009a52:	9300      	str	r3, [sp, #0]
- 8009a54:	230b      	movs	r3, #11
+ 8009a54:	2302      	movs	r3, #2
  8009a56:	2200      	movs	r2, #0
  8009a58:	2100      	movs	r1, #0
  8009a5a:	2000      	movs	r0, #0
@@ -21033,15 +21035,15 @@ void MODE_exe_m5( void )
  8009bac:	f007 fe9c 	bl	80118e8 <MAP_Goalsize>
 			MAP_makeContourMap_run( GOAL_MAP_X_def, GOAL_MAP_Y_def, BEST_WAY );					// 等高線�?�ップを作る
  8009bb0:	2201      	movs	r2, #1
- 8009bb2:	210a      	movs	r1, #10
- 8009bb4:	200b      	movs	r0, #11
+ 8009bb2:	210b      	movs	r1, #11
+ 8009bb4:	2002      	movs	r0, #2
  8009bb6:	f006 ffe1 	bl	8010b7c <MAP_makeContourMap_run>
 			MAP_makeCmdList( 0, 0, NORTH, GOAL_MAP_X_def, GOAL_MAP_Y_def, &en_endDir2 );		// ドライブコマンド作�??
  8009bba:	1dfb      	adds	r3, r7, #7
  8009bbc:	9301      	str	r3, [sp, #4]
- 8009bbe:	230a      	movs	r3, #10
+ 8009bbe:	230b      	movs	r3, #11
  8009bc0:	9300      	str	r3, [sp, #0]
- 8009bc2:	230b      	movs	r3, #11
+ 8009bc2:	2302      	movs	r3, #2
  8009bc4:	2200      	movs	r2, #0
  8009bc6:	2100      	movs	r1, #0
  8009bc8:	2000      	movs	r0, #0
@@ -21116,15 +21118,15 @@ void MODE_exe_m5( void )
  8009c58:	f007 fe46 	bl	80118e8 <MAP_Goalsize>
 			MAP_makeContourMap_run( GOAL_MAP_X_def, GOAL_MAP_Y_def, BEST_WAY );					// 等高線�?�ップを作る
  8009c5c:	2201      	movs	r2, #1
- 8009c5e:	210a      	movs	r1, #10
- 8009c60:	200b      	movs	r0, #11
+ 8009c5e:	210b      	movs	r1, #11
+ 8009c60:	2002      	movs	r0, #2
  8009c62:	f006 ff8b 	bl	8010b7c <MAP_makeContourMap_run>
 			MAP_makeCmdList( 0, 0, NORTH, GOAL_MAP_X_def, GOAL_MAP_Y_def, &en_endDir2 );		// ドライブコマンド作�??
  8009c66:	1dfb      	adds	r3, r7, #7
  8009c68:	9301      	str	r3, [sp, #4]
- 8009c6a:	230a      	movs	r3, #10
+ 8009c6a:	230b      	movs	r3, #11
  8009c6c:	9300      	str	r3, [sp, #0]
- 8009c6e:	230b      	movs	r3, #11
+ 8009c6e:	2302      	movs	r3, #2
  8009c70:	2200      	movs	r2, #0
  8009c72:	2100      	movs	r1, #0
  8009c74:	2000      	movs	r0, #0
@@ -21199,15 +21201,15 @@ void MODE_exe_m5( void )
  8009d04:	f007 fdf0 	bl	80118e8 <MAP_Goalsize>
 			MAP_makeContourMap_run( GOAL_MAP_X_def, GOAL_MAP_Y_def, BEST_WAY );					// 等高線�?�ップを作る
  8009d08:	2201      	movs	r2, #1
- 8009d0a:	210a      	movs	r1, #10
- 8009d0c:	200b      	movs	r0, #11
+ 8009d0a:	210b      	movs	r1, #11
+ 8009d0c:	2002      	movs	r0, #2
  8009d0e:	f006 ff35 	bl	8010b7c <MAP_makeContourMap_run>
 			MAP_makeCmdList( 0, 0, NORTH, GOAL_MAP_X_def, GOAL_MAP_Y_def, &en_endDir2 );		// ドライブコマンド作�??
  8009d12:	1dfb      	adds	r3, r7, #7
  8009d14:	9301      	str	r3, [sp, #4]
- 8009d16:	230a      	movs	r3, #10
+ 8009d16:	230b      	movs	r3, #11
  8009d18:	9300      	str	r3, [sp, #0]
- 8009d1a:	230b      	movs	r3, #11
+ 8009d1a:	2302      	movs	r3, #2
  8009d1c:	2200      	movs	r2, #0
  8009d1e:	2100      	movs	r1, #0
  8009d20:	2000      	movs	r0, #0
@@ -21282,15 +21284,15 @@ void MODE_exe_m5( void )
  8009db0:	f007 fd9a 	bl	80118e8 <MAP_Goalsize>
 			MAP_makeContourMap_run( GOAL_MAP_X_def, GOAL_MAP_Y_def, BEST_WAY );					// 等高線�?�ップを作る
  8009db4:	2201      	movs	r2, #1
- 8009db6:	210a      	movs	r1, #10
- 8009db8:	200b      	movs	r0, #11
+ 8009db6:	210b      	movs	r1, #11
+ 8009db8:	2002      	movs	r0, #2
  8009dba:	f006 fedf 	bl	8010b7c <MAP_makeContourMap_run>
 			MAP_makeCmdList( 0, 0, NORTH, GOAL_MAP_X_def, GOAL_MAP_Y_def, &en_endDir2 );		// ドライブコマンド作�??
  8009dbe:	1dfb      	adds	r3, r7, #7
  8009dc0:	9301      	str	r3, [sp, #4]
- 8009dc2:	230a      	movs	r3, #10
+ 8009dc2:	230b      	movs	r3, #11
  8009dc4:	9300      	str	r3, [sp, #0]
- 8009dc6:	230b      	movs	r3, #11
+ 8009dc6:	2302      	movs	r3, #2
  8009dc8:	2200      	movs	r2, #0
  8009dca:	2100      	movs	r1, #0
  8009dcc:	2000      	movs	r0, #0
@@ -21377,15 +21379,15 @@ void MODE_exe_m5( void )
  8009e8c:	f007 fd2c 	bl	80118e8 <MAP_Goalsize>
 			MAP_makeContourMap_run( GOAL_MAP_X_def, GOAL_MAP_Y_def, BEST_WAY );					// 等高線�?�ップを作る
  8009e90:	2201      	movs	r2, #1
- 8009e92:	210a      	movs	r1, #10
- 8009e94:	200b      	movs	r0, #11
+ 8009e92:	210b      	movs	r1, #11
+ 8009e94:	2002      	movs	r0, #2
  8009e96:	f006 fe71 	bl	8010b7c <MAP_makeContourMap_run>
 			MAP_makeCmdList( 0, 0, NORTH, GOAL_MAP_X_def, GOAL_MAP_Y_def, &en_endDir2 );		// ドライブコマンド作�??
  8009e9a:	1dfb      	adds	r3, r7, #7
  8009e9c:	9301      	str	r3, [sp, #4]
- 8009e9e:	230a      	movs	r3, #10
+ 8009e9e:	230b      	movs	r3, #11
  8009ea0:	9300      	str	r3, [sp, #0]
- 8009ea2:	230b      	movs	r3, #11
+ 8009ea2:	2302      	movs	r3, #2
  8009ea4:	2200      	movs	r2, #0
  8009ea6:	2100      	movs	r1, #0
  8009ea8:	2000      	movs	r0, #0
@@ -21460,15 +21462,15 @@ void MODE_exe_m5( void )
  8009f38:	f007 fcd6 	bl	80118e8 <MAP_Goalsize>
 			MAP_makeContourMap_run( GOAL_MAP_X_def, GOAL_MAP_Y_def, BEST_WAY );					// 等高線�?�ップを作る
  8009f3c:	2201      	movs	r2, #1
- 8009f3e:	210a      	movs	r1, #10
- 8009f40:	200b      	movs	r0, #11
+ 8009f3e:	210b      	movs	r1, #11
+ 8009f40:	2002      	movs	r0, #2
  8009f42:	f006 fe1b 	bl	8010b7c <MAP_makeContourMap_run>
 			MAP_makeCmdList( 0, 0, NORTH, GOAL_MAP_X_def, GOAL_MAP_Y_def, &en_endDir2 );		// ドライブコマンド作�??
  8009f46:	1dfb      	adds	r3, r7, #7
  8009f48:	9301      	str	r3, [sp, #4]
- 8009f4a:	230a      	movs	r3, #10
+ 8009f4a:	230b      	movs	r3, #11
  8009f4c:	9300      	str	r3, [sp, #0]
- 8009f4e:	230b      	movs	r3, #11
+ 8009f4e:	2302      	movs	r3, #2
  8009f50:	2200      	movs	r2, #0
  8009f52:	2100      	movs	r1, #0
  8009f54:	2000      	movs	r0, #0
@@ -33856,11 +33858,11 @@ void MAP_Goal_init( void )
  801021a:	af00      	add	r7, sp, #0
 	GOAL_MAP_X = GOAL_MAP_X_def;
  801021c:	4b05      	ldr	r3, [pc, #20]	; (8010234 <MAP_Goal_init+0x1c>)
- 801021e:	220b      	movs	r2, #11
+ 801021e:	2202      	movs	r2, #2
  8010220:	701a      	strb	r2, [r3, #0]
 	GOAL_MAP_Y = GOAL_MAP_Y_def;
  8010222:	4b05      	ldr	r3, [pc, #20]	; (8010238 <MAP_Goal_init+0x20>)
- 8010224:	220a      	movs	r2, #10
+ 8010224:	220b      	movs	r2, #11
  8010226:	701a      	strb	r2, [r3, #0]
 }
  8010228:	bf00      	nop

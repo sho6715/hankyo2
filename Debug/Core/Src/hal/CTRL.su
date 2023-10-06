@@ -23,10 +23,10 @@
 ../Core/Src/hal/CTRL.c:633:6:CTRL_getAngleFB	40	static
 ../Core/Src/hal/CTRL.c:654:6:CTRL_getSenFB	32	static
 ../Core/Src/hal/CTRL.c:689:6:CTRL_get_frontwall_v_FB	48	static
-../Core/Src/hal/CTRL.c:718:6:CTRL_get_frontwall_omega_FB	48	static
-../Core/Src/hal/CTRL.c:749:6:CTRL_getFloorFriction	24	static
-../Core/Src/hal/CTRL.c:801:6:CTRL_outMot	24	static
-../Core/Src/hal/CTRL.c:838:6:CTRL_pol	88	static
-../Core/Src/hal/CTRL.c:999:6:Failsafe_flag	8	static
-../Core/Src/hal/CTRL.c:1005:6:Failsafe_flag_off	4	static
-../Core/Src/hal/CTRL.c:1010:6:SYS_isOutOfCtrl	4	static
+../Core/Src/hal/CTRL.c:720:6:CTRL_get_frontwall_omega_FB	48	static
+../Core/Src/hal/CTRL.c:751:6:CTRL_getFloorFriction	24	static
+../Core/Src/hal/CTRL.c:803:6:CTRL_outMot	24	static
+../Core/Src/hal/CTRL.c:840:6:CTRL_pol	88	static
+../Core/Src/hal/CTRL.c:1001:6:Failsafe_flag	8	static
+../Core/Src/hal/CTRL.c:1007:6:Failsafe_flag_off	4	static
+../Core/Src/hal/CTRL.c:1012:6:SYS_isOutOfCtrl	4	static

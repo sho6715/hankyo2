@@ -623,7 +623,7 @@ void CTRL_getAngleSpeedFB( float* p_err )
 	*p_err = f_err * f_kp + f_AngleSErrSum*f_ki + ( f_err - f_ErrAngleSBuf ) * f_kd;		// PID制御
 
 	f_ErrAngleSBuf = f_err;		// 偏差をバッファリング	
-	if((f_err>20.0)||(f_err<-20.0)){
+	if((f_err>30.0)||(f_err<-30.0)){
 		if(!(en_Type == CTRL_HIT_WALL)){
 			Failsafe_flag();
 		}
@@ -710,6 +710,8 @@ void CTRL_get_frontwall_v_FB( float* p_err)
 			f_ErrFrontSen_vBuf = f_v_err;		// 偏差をバッファリング
 
 			*p_err = f_v_err * f_v_kp + ( f_v_err - f_ErrFrontSen_vBuf ) * f_v_kd;		// PD制御
+//			if(*p_err < )*p_err = ;
+//			else if(*p_err > ))*p_err = ;
 		}
 	}
 
