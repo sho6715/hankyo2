@@ -22,7 +22,7 @@
 ../Core/Src/hal/CTRL.c:601:6:CTRL_getAngleSpeedFB	6
 ../Core/Src/hal/CTRL.c:633:6:CTRL_getAngleFB	3
 ../Core/Src/hal/CTRL.c:654:6:CTRL_getSenFB	9
-../Core/Src/hal/CTRL.c:689:6:CTRL_get_frontwall_v_FB	3
+../Core/Src/hal/CTRL.c:689:6:CTRL_get_frontwall_v_FB	5
 ../Core/Src/hal/CTRL.c:720:6:CTRL_get_frontwall_omega_FB	5
 ../Core/Src/hal/CTRL.c:751:6:CTRL_getFloorFriction	19
 ../Core/Src/hal/CTRL.c:803:6:CTRL_outMot	5

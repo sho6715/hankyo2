@@ -28,23 +28,23 @@
 #include "queue.h"
 #endif
 
-/* 探索方�? */
+/* 探索方�? */
 typedef enum{
-	CONTOUR_SYSTEM =0,			// 等高線MAP�?
+	CONTOUR_SYSTEM =0,			// 等高線MAP�?
 	MAP_SEARCH_TYPE_MAX,
 }enMAP_SEARCH_TYPE;
 
-/* 探索方�? */
+/* 探索方�? */
 typedef enum{
 	SEARCH =0,			// 探索
 	BEST_WAY,			// 最短
 	MAP_ACT_MODE_MAX,
 }enMAP_ACT_MODE;
 
-/* 探索動�? */
+/* 探索動�? */
 typedef enum{
-	SEARCH_TURN =0,		// �?信地旋回探索
-	SEARCH_SURA,		// スラロー�?探索
+	SEARCH_TURN =0,		// �?信地旋回探索
+	SEARCH_SURA,		// スラロー�?探索
 	SEARCH_SKEW,		// 斜め探索
 	SEARCH_RETURN,
 	SEARCH_MAX,
@@ -53,8 +53,11 @@ typedef enum{
 uint8_t	Return_X;
 uint8_t	Return_Y;
 
-uint16_t	us_cmap[MAP_Y_SIZE][MAP_X_SIZE];				//< 等高�? �?ータ
-uint8_t		g_sysMap[ MAP_Y_SIZE ][ MAP_X_SIZE ];			///< 迷路�?報
+uint16_t	us_cmap[MAP_Y_SIZE][MAP_X_SIZE];				//< 等高�? �?ータ
+uint8_t		g_sysMap[ MAP_Y_SIZE ][ MAP_X_SIZE ];			///< 迷路�?報
+
+uint8_t		g_Map_direction[MAP_Y_SIZE][MAP_X_SIZE];			///< 迷路情報
+
 
 bool			search_flag;
 
@@ -76,7 +79,7 @@ void MAP_Goalsize(int size);
 //TKR
 void MAP_searchGoalKnown(uint8_t uc_trgX, uint8_t uc_trgY, enMAP_ACT_MODE en_type,enSEARCH_MODE	en_search);
 
-
+void  MAP_makeContourMap_dijkstra_modoki(uint8_t uc_goalX, uint8_t uc_goalY, enMAP_ACT_MODE	en_type	);
 
 
 #endif /* INC_SEARCH_SEARCH_H_ */

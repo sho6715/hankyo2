@@ -7,3 +7,4 @@
 ../Core/Src/search/map_cmd.c:650:6:MAP_makeSkewCmdList	89
 ../Core/Src/search/map_cmd.c:854:6:MAP_drive	46
 ../Core/Src/search/map_cmd.c:1039:6:MAP_searchCmdList	43
+../Core/Src/search/map_cmd.c:1120:6:MAP_makeCmdList_dijkstra_modoki	46

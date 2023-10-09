@@ -710,8 +710,8 @@ void CTRL_get_frontwall_v_FB( float* p_err)
 			f_ErrFrontSen_vBuf = f_v_err;		// 偏差をバッファリング
 
 			*p_err = f_v_err * f_v_kp + ( f_v_err - f_ErrFrontSen_vBuf ) * f_v_kd;		// PD制御
-//			if(*p_err < )*p_err = ;
-//			else if(*p_err > ))*p_err = ;
+			if(*p_err < - 0.5)*p_err = -0.5;
+			else if(*p_err > 0.5)*p_err = 0.5;
 		}
 	}
 

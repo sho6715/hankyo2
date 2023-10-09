@@ -1817,3 +1817,161 @@ void MAP_searchGoalKnown_AllSection(
 //	SYS_setEnable( SYS_MODE );			// モード変更有効
 
 }
+
+void MAP_clearMap_direction(void)
+{
+	uint16_t	x, y;
+	uint8_t	uc_data;
+
+	/* すべてのマップデータを未探索状態にする */
+	for (y = 0; y < MAP_Y_SIZE; y++) {
+		for (x = 0; x < MAP_X_SIZE; x++) {
+			uc_data = 0x00;
+			g_Map_direction[y][x] = uc_data;
+		}
+	}
+
+}
+
+void  MAP_makeContourMap_dijkstra_modoki(
+	uint8_t uc_goalX, 			///< [in] ゴールX座標
+	uint8_t uc_goalY, 			///< [in] ゴールY座標
+	enMAP_ACT_MODE	en_type		///< [in] 計算方法（まだ未使用）
+) {
+	uint16_t		x, y, i;		// ループ変数
+	uint16_t		uc_dase;		// 基準値
+	uint16_t		uc_new;			// 新値
+	uint16_t		uc_level;		// 等高線
+	uint8_t		uc_wallData;	// 壁情報
+
+	en_type = en_type;		// コンパイルワーニング回避（いずれ削除）
+
+	MAP_clearMap_direction();
+
+	/* 等高線マップを初期化する */
+	for (i = 0; i < MAP_SMAP_MAX_VAL; i++) {
+		us_cmap[i / MAP_Y_SIZE][i & (MAP_X_SIZE - 1)] = MAP_SMAP_MAX_VAL*4 - 1;
+	}
+	/* 目標地点の等高線を0に設定 */
+	us_cmap[uc_goalY][uc_goalX] = 0;
+	if (GOAL_SIZE == 4) {
+		us_cmap[uc_goalY + 1][uc_goalX] = 0;
+		us_cmap[uc_goalY][uc_goalX + 1] = 0;
+		us_cmap[uc_goalY + 1][uc_goalX + 1] = 0;
+	}
+	else if (GOAL_SIZE == 9){
+		us_cmap[uc_goalY+1][uc_goalX] = 0;
+		us_cmap[uc_goalY][uc_goalX+1] = 0;
+		us_cmap[uc_goalY+1][uc_goalX+1] = 0;
+		us_cmap[uc_goalY+2][uc_goalX] = 0;
+		us_cmap[uc_goalY+2][uc_goalX+1] = 0;
+		us_cmap[uc_goalY][uc_goalX+2] = 0;
+		us_cmap[uc_goalY+1][uc_goalX+2] = 0;
+		us_cmap[uc_goalY+2][uc_goalX+2] = 0;
+	}
+
+	if (mx > uc_max_x)uc_max_x = mx;
+	if (my > uc_max_y)uc_max_y = my;
+	uc_max_x = 32;
+	uc_max_y = 32;
+
+	g_Map_direction[uc_goalY][uc_goalX] = 0xff;
+
+	/* 等高線マップを作成 */
+	uc_dase = 0;
+	do {
+		uc_level = 0;
+		uc_new = uc_dase + 1;
+		for (y = 0; y < MAP_Y_SIZE; y++) {
+			if (uc_max_y+1 < y) break;
+			for (x = 0; x < MAP_X_SIZE; x++) {
+				if (us_cmap[y][x] == uc_dase) {
+					uc_wallData = g_sysMap[y][x];
+					if (uc_max_x+1 < x) break;
+					/* 探索走行 */
+					if (SEARCH == en_type) {
+						if (((uc_wallData & 0x01) == 0x00) && (y != (MAP_Y_SIZE - 1))) {
+							if (us_cmap[y + 1][x] == MAP_SMAP_MAX_VAL - 1) {
+								us_cmap[y + 1][x] = uc_new;
+								uc_level++;
+							}
+						}
+						if (((uc_wallData & 0x02) == 0x00) && (x != (MAP_X_SIZE - 1))) {
+							if (us_cmap[y][x + 1] == MAP_SMAP_MAX_VAL - 1) {
+								us_cmap[y][x + 1] = uc_new;
+								uc_level++;
+							}
+						}
+						if (((uc_wallData & 0x04) == 0x00) && (y != 0)) {
+							if (us_cmap[y - 1][x] == MAP_SMAP_MAX_VAL - 1) {
+								us_cmap[y - 1][x] = uc_new;
+								uc_level++;
+							}
+						}
+						if (((uc_wallData & 0x08) == 0x00) && (x != 0)) {
+							if (us_cmap[y][x - 1] == MAP_SMAP_MAX_VAL - 1) {
+								us_cmap[y][x - 1] = uc_new;
+								uc_level++;
+							}
+						}
+					}
+					/* 最短走行 */
+					else {
+						if (((uc_wallData & 0x11) == 0x10) && (y != (MAP_Y_SIZE - 1))) {
+							if((g_Map_direction[y][x]&0x10) == 0x10){
+								uc_new = uc_dase + 1;
+							}else{
+								uc_new = uc_dase + 2;
+							}
+							if (us_cmap[y + 1][x] > uc_new) {
+								us_cmap[y + 1][x] = uc_new;
+								g_Map_direction[y+1][x] |= 0x10;
+								uc_level++;
+							}
+						}
+						if (((uc_wallData & 0x22) == 0x20) && (x != (MAP_X_SIZE - 1))) {
+							if((g_Map_direction[y][x]&0x40) == 0x40){
+								uc_new = uc_dase + 1;
+							}else{
+								uc_new = uc_dase + 2;
+							}
+							if (us_cmap[y][x + 1] > uc_new) {
+								us_cmap[y][x + 1] = uc_new;
+								g_Map_direction[y][x+1] |= 0x40;
+								uc_level++;
+							}
+						}
+						if (((uc_wallData & 0x44) == 0x40) && (y != 0)) {
+							if((g_Map_direction[y][x]&0x01) == 0x01){
+								uc_new = uc_dase + 1;
+							}else{
+								uc_new = uc_dase + 2;
+							}
+							if (us_cmap[y - 1][x] > uc_new) {
+								us_cmap[y - 1][x] = uc_new;
+								g_Map_direction[y-1][x] |= 0x01;
+								uc_level++;
+							}
+						}
+						if (((uc_wallData & 0x88) == 0x80) && (x != 0)) {
+							if((g_Map_direction[y][x]&0x04) == 0x04){
+								uc_new = uc_dase + 1;
+							}else{
+								uc_new = uc_dase + 2;
+							}
+							if (us_cmap[y][x - 1] > uc_new) {
+								us_cmap[y][x - 1] = uc_new;
+								g_Map_direction[y][x-1] |= 0x04;
+								uc_level++;
+							}
+						}
+					}
+				}
+				if(uc_dase != 4095)uc_level++;
+			}
+		}
+		uc_dase = uc_dase + 1;
+	} while (uc_level != 0);
+
+}
+

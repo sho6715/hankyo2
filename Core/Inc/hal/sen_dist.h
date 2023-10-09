@@ -23,7 +23,7 @@
 #define DIST_NO_WALL_DIV_FILTER				( 25 )
 #define DIST_REF_UP					( 35 )
 
-#define R_FRONT_REF					(430)
+#define R_FRONT_REF			(430)
 #define L_FRONT_REF					(490)//( 210 )
 #define R_SIDE_REF					(490)//( 240 )
 #define L_SIDE_REF					(340)//( 200 )
