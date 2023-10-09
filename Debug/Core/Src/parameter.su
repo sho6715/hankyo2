@@ -1,4 +1,0 @@
-../Core/Src/parameter.c:62:6:PARAM_setSpeedType	16	static
-../Core/Src/parameter.c:84:16:PARAM_getSpeed	24	static
-../Core/Src/parameter.c:171:6:PARAM_makeSra	88	static
-../Core/Src/parameter.c:320:8:PARAM_getSra	16	static

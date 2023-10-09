@@ -1,8 +1,0 @@
-../Core/Src/hal/encoder.c:16:10:Get_encoder_value	2
-../Core/Src/hal/encoder.c:22:6:MA702_ReadByte	1
-../Core/Src/hal/encoder.c:31:6:recv_spi_encoder	1
-../Core/Src/hal/encoder.c:36:6:Set_encoder_data	2
-../Core/Src/hal/encoder.c:43:9:Runmode_check	12
-../Core/Src/hal/encoder.c:63:6:ENC_GetDiv	11
-../Core/Src/hal/encoder.c:129:6:ENC_setref	1
-../Core/Src/hal/encoder.c:135:6:ENC_print	1
