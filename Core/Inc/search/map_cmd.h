@@ -33,5 +33,6 @@ void MAP_setCmdPos( uint8_t uc_x, uint8_t uc_y, enMAP_HEAD_DIR en_dir );
 void MAP_showCmdLog( void );
 void MAP_searchCmdList(uint8_t uc_staX,uint8_t uc_staY,enMAP_HEAD_DIR en_staDir,uint8_t uc_endX,uint8_t uc_endY,enMAP_HEAD_DIR* en_endDir);
 
+void MAP_makeCmdList_dijkstra_modoki(uint8_t uc_staX,uint8_t uc_staY,enMAP_HEAD_DIR en_staDir,uint8_t uc_endX,uint8_t uc_endY,enMAP_HEAD_DIR* en_endDir);
 
 #endif /* INC_SEARCH_MAP_CMD_H_ */

@@ -187,9 +187,15 @@ void MODE_exe_m0( void )
 			CTRL_clrNowData();
 			CTRL_clrData();
 			log_flag_on();
-			MOT_goBlock_FinSpeed(0.5, SEARCH_SPEED);
+/*			MOT_goBlock_FinSpeed(0.5, SEARCH_SPEED);
 			MOT_goBlock_Const(1);
 			MOT_goSla(MOT_R90S, PARAM_getSra( SLA_90 ));
+			MOT_goBlock_FinSpeed(0.5, 0);
+*/
+			MOT_goBlock_FinSpeed(0.5,SEARCH_SPEED);
+			MOT_goSla(MOT_L45S_S2N,PARAM_getSra( SLA_45 ));
+			MOT_goSkewBlock_FinSpeed(0.5,SEARCH_SPEED);
+			MOT_goSla(MOT_R135S_N2S,PARAM_getSra( SLA_135 ));
 			MOT_goBlock_FinSpeed(0.5, 0);
 			log_flag_off();
 			break;
@@ -639,6 +645,33 @@ void MODE_exe_m3( void )
 
 		case MODE_6:
 			SetLED(0x0e);
+			MOT_setTrgtSpeed(SEARCH_SPEED*5.0);
+			MOT_setSuraStaSpeed( SEARCH_SPEED );							
+			PARAM_setSpeedType( PARAM_ST,   PARAM_NORMAL );							
+			PARAM_setSpeedType( PARAM_TRUN, PARAM_NORMAL );							
+			PARAM_setSpeedType( PARAM_SLA,  PARAM_NORMAL );							
+			SetLED(0x00);
+			MAP_setPos( 0, 0, NORTH );												// スタート位置
+
+			MAP_Goal_init();
+			MAP_makeContourMap_dijkstra_modoki(GOAL_MAP_X_def,GOAL_MAP_Y_def, BEST_WAY);
+			MAP_Goalsize(1);
+	
+			MAP_makeCmdList_dijkstra_modoki(0, 0, NORTH, GOAL_MAP_X_def,GOAL_MAP_Y_def, &en_endDir2);		// ドライブコマンド作成
+			MAP_makeSuraCmdList();													// スラロームコマンド作成
+			MAP_makeSkewCmdList();
+
+			LL_mDelay(500);
+			Set_DutyTIM8(600);
+			LL_mDelay(2000);													
+			MAP_drive( MAP_DRIVE_SKEW );
+			Set_DutyTIM8(0);
+			LL_mDelay(500);
+			MOT_turn(MOT_R180);
+			MAP_actGoalLED();
+			Set_DutyTIM8(0);
+			Failsafe_flag_off();
+
 			break;
 
 		case MODE_7:
