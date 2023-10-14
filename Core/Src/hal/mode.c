@@ -831,7 +831,7 @@ void MODE_exe_m5( void )
 			PARAM_setSpeedType( PARAM_ST,   PARAM_SLOW );							
 			PARAM_setSpeedType( PARAM_TRUN, PARAM_SLOW );							
 			PARAM_setSpeedType( PARAM_SLA,  PARAM_SLOW );							
-			SetLED(0x00);
+			SetLED(0x00);	
 			MAP_setPos( 0, 0, NORTH );												// スタート位置
 			MAP_Goalsize(1);
 			MAP_makeContourMap_run( GOAL_MAP_X_def, GOAL_MAP_Y_def, BEST_WAY );					// 等高線�?�ップを作る

@@ -100,7 +100,7 @@ float GYRO_getSpeedErr( void )
 
 	/* 角速度の偏差算出 */
 //	if( ( l_err < -0.01 * 100 ) || ( 0.01 * 100 < l_err ) ){
-		f_res = (float)l_err /16.4 / 100 * DEG_TO_RAD;		
+		f_res = (float)l_err /16.4 / 100.0 * DEG_TO_RAD;		
 													// 精度を100倍にする
 //	}
 /*	else{
@@ -126,12 +126,12 @@ void GYRO_Pol( void )
 
 	/* 現在の角度を更新する */
 	f_speed = GYRO_getSpeedErr();			// 角速度取得 (0.001sec毎の角速度)
-	f_GyroNowAngle += f_speed / 1000;		// 角度設定   (0.001sec毎に加算するため)
+	f_GyroNowAngle += f_speed / 1000.0;		// 角度設定   (0.001sec毎に加算するため)
 
 	/* エラーチェック */
 	if( bl_ErrChk == TRUE ){
 
-		f_ErrChkAngle += f_speed/1000;		// 角度設定   (0.001sec毎に加算するため)
+		f_ErrChkAngle += f_speed/1000.0;		// 角度設定   (0.001sec毎に加算するため)
 /*
 		if( ( f_ErrChkAngle < -0.5 ) || ( 0.5 < f_ErrChkAngle )){//||(f_speed <-1.500)||(1.500<f_speed) ){
 
@@ -163,7 +163,7 @@ float Accel_getSpeedErr( void )
 	int32_t  l_err = l_val - l_AccelRef ;
 	float f_res;
 
-	f_res= (float)l_err/2048*9800;
+	f_res= (float)l_err/2048.0*9800.0;
 	return f_res;
 }
 

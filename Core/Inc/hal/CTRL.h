@@ -54,7 +54,7 @@ typedef enum{
 
 }enCTRL_TYPE;
 
-/* 制御�?ータ */
+/* 制御�?ータ */
 typedef struct{
 	enCTRL_TYPE		en_type;		// motion type
 	float			f_time;			// target time[sec]
@@ -90,7 +90,7 @@ void CTRL_stop( void );
 void CTRL_pol( void );
 void CTRL_clrData( void );
 void CTRL_clrNowData( void );
-void CTRL_setNowData_Err(/*float trgt_Dist, */float trgt_Angle);
+void CTRL_setNowData_Err(float trgt_Dist, float trgt_Angle);
 void CTRL_setData( stCTRL_DATA* p_data );
 void CTRL_refNow( void );
 void CTRL_refTarget( void );
