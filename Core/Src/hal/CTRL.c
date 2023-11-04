@@ -149,8 +149,8 @@ void CTRL_clrData( void )
 	/* 制御データ */
 	f_SpeedErrSum	= 0;
 	f_DistErrSum 	= 0;						// [距離制御]   距離積分制御のサム値			（1[msec]毎に更新される）
-	f_AngleSErrSum	= 0;
-	f_AngleErrSum 	= 0;						// [角度制御]   角度積分制御のサム値			（1[msec]毎に更新される）
+//	f_AngleSErrSum	= 0;
+//	f_AngleErrSum 	= 0;						// [角度制御]   角度積分制御のサム値			（1[msec]毎に更新される）
 	f_ErrSpeedBuf	= 0;
 	f_ErrDistBuf	= 0;						// [壁制御]     距離センサーエラー値のバッファ		（1[msec]毎に更新される）
 	f_ErrAngleSBuf  = 0;
@@ -158,6 +158,11 @@ void CTRL_clrData( void )
 	l_frontSen_omegaErr		=0;
 	f_ErrFrontSen_vBuf	= 0;
 	f_ErrFrontSen_omegaBuf	= 0;
+}
+
+void CTRL_clrAngleErrSum(void){
+	f_AngleErrSum = 0.0;
+	f_AngleSErrSum = 0.0;
 }
 
 void CTRL_clrNowData(void)
@@ -176,13 +181,13 @@ void CTRL_clrNowData(void)
 	f_GyroNowAngle	= 0;							// ジャイロ値クリア
 }
 
-void CTRL_setNowData_Err(float trgt_Dist, float trgt_Angle){
+void CTRL_setNowData_Err(/*float trgt_Dist, */float trgt_Angle){
 	ENC_setref();
 	l_CntR			= 0;						// カウンタクリア
 	l_CntL			= 0;						// カウンタクリア
 
 	/* 現在値 */
-	f_NowDist 		= f_NowDist - trgt_Dist;//本来こっちにしたいが妥協						// 移動距離リセット
+	f_NowDist 		= 0;//f_NowDist - trgt_Dist;//本来こっちにしたいが妥協						// 移動距離リセット
 	f_NowDistR 		= 0;
 	f_NowDistL 		= 0;
 	f_NowSpeed		= 0;						// [速度制御]   現在の速度 [mm/s]			（1[msec]毎に更新される）
@@ -614,11 +619,11 @@ void CTRL_getAngleSpeedFB( float* p_err )
 
 	f_AngleSErrSum += f_err;//*f_ki;
 
-	if(f_AngleSErrSum > 10000.0){
-		f_AngleSErrSum = 10000.0;			//上限リミッター
+	if(f_AngleSErrSum > 1000.0){
+		f_AngleSErrSum = 1000.0;			//上限リミッター
 	}
-	else if(f_AngleSErrSum <-10000.0){
-		f_AngleSErrSum = -10000.0;
+	else if(f_AngleSErrSum <-1000.0){
+		f_AngleSErrSum = -1000.0;
 	}
 
 	*p_err = f_err * f_kp + f_AngleSErrSum*f_ki + ( f_err - f_ErrAngleSBuf ) * f_kd;		// PID制御
@@ -961,8 +966,8 @@ void CTRL_pol( void )
 	f_duty10_R = FF_BALANCE_R*(Motor_Register*Ir+f_MotorR_AngleS*0.001033/1000.0/2.0/PI)/get_battLv();	
 	f_duty10_L = FF_BALANCE_L*(Motor_Register*Il+f_MotorL_AngleS*0.001033/1000.0/2.0/PI)/get_battLv();	
 
-	templog1 = f_frontwall_omega_Ctrl;
-	templog2 = f_duty10_R;
+	templog1 = f_duty10_R;
+	templog2 = f_duty10_L;
 
 	escape_wait = escape_wait+0.001;
 	CTRL_outMot( f_duty10_R, f_duty10_L );				// モータへ出力

@@ -234,6 +234,7 @@ void MODE_exe_m0( void )
 			
 			MOT_goBlock_FinSpeed(0.5, SEARCH_SPEED);
 			MOT_goSla(MOT_R90S, PARAM_getSra( SLA_90 ));
+			MOT_goSla(MOT_L90S, PARAM_getSra( SLA_90 ));
 			MOT_goBlock_FinSpeed(0.5, 0);
 
 /*
@@ -482,6 +483,8 @@ void MODE_exe_m3( void )
 	enMAP_HEAD_DIR		en_endDir2;
 
 	uint64_t data =0;
+
+	map_copy();
 
 	GYRO_SetRef();
 
@@ -852,6 +855,8 @@ void MODE_exe_m5( void )
 	PARAM_makeSra( 0.6, 1350.0f, 13.00f, SLA_135 );	
 	printf("\r\n turn N90 \r\r");	
 	PARAM_makeSra( 0.6, 1500.0f, 14.00f, SLA_N90 );	
+
+	map_copy();
 
 	GYRO_SetRef();
 

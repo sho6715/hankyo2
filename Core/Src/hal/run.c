@@ -260,7 +260,7 @@ void MOT_goBlock_AccConstDec( float f_fin, enMOT_ST_TYPE en_type, enMOT_GO_ST_TY
 	f_MotNowSpeed = f_fin;		
 	GYRO_endErrChkAngle();
 //	CTRL_clrNowData();
-	CTRL_setNowData_Err(st_data.f_dist,st_data.f_angle);
+	CTRL_setNowData_Err(/*st_data.f_dist,*/st_data.f_angle);
 }
 
 void MOT_setData_ACC_CONST_DEC( float f_num, float f_fin, enMOT_GO_ST_TYPE en_type )
@@ -685,7 +685,7 @@ void MOT_goBlock_Const(float f_num)
 	MOT_setWallEdgeType( MOT_WALL_EDGE_NONE );		// 壁切れ補正終了
 	GYRO_endErrChkAngle();
 //	CTRL_clrNowData();
-	CTRL_setNowData_Err(st_data.f_dist,st_data.f_angle);
+	CTRL_setNowData_Err(/*st_data.f_dist,*/st_data.f_angle);
 }
 
 void testrun(void)
@@ -934,7 +934,7 @@ void MOT_turn( enMOT_TURN_CMD en_type )
 	DCM_brakeMot( DCM_L );		// ブレーキ
 	GYRO_endErrChkAngle();					// エラー検出終了
 //	CTRL_clrNowData();
-	CTRL_setNowData_Err(st_data.f_dist,st_data.f_angle);
+	CTRL_setNowData_Err(/*st_data.f_dist,*/st_data.f_angle);
 }
 
 void MOT_setSuraStaSpeed( float f_speed )
@@ -1004,6 +1004,8 @@ void MOT_goHitBackWall(void)
 	LL_mDelay(100);
 
 	f_MotNowSpeed = 0.0f;		//現在速度更新
+
+	CTRL_clrAngleErrSum();
 
 	GYRO_endErrChkAngle();					// エラー検出終了
 	CTRL_clrNowData();
@@ -1268,7 +1270,7 @@ void MOT_goSla( enMOT_SURA_CMD en_type, stSLA* p_sla )
 //	LED =LED_ALL_OFF;
 	GYRO_endErrChkAngle();					// エラー検出終了
 //	CTRL_clrNowData();
-	CTRL_setNowData_Err(st_data.f_dist,st_data.f_angle);
+	CTRL_setNowData_Err(/*st_data.f_dist ,*/st_data.f_angle);
 
 }
 

@@ -36,15 +36,15 @@
 
 #define 		f_FB_speed_kp		(35.0)
 #define 		f_FB_speed_ki		(4.0)
-#define 		f_FB_speed_kd		(0.5)
+#define 		f_FB_speed_kd		(0.4)
 //#define		f_FB_angleS_kp		(1.0)//130
 //#define		f_FB_angleS_ki		(0.4)//9.5
 //#define		f_FB_angleS_kd		(0.001)//0.2
-#define		f_FB_angleS_kp		(100.0)//130
-#define		f_FB_angleS_ki		(6.5)//9.5
-#define		f_FB_angleS_kd		(0.1)//0.2
+#define		f_FB_angleS_kp		(100.0)//100
+#define		f_FB_angleS_ki		(6.5)//6.5
+#define		f_FB_angleS_kd		(0.1)//0.1
 
-#define		f_FB_angle_kp		(0.2)
+#define		f_FB_angle_kp		(0.3)
 #define		f_FB_angle_ki		(0.1)
 
 #define		f_FB_wall_kp		(0.6)
@@ -163,5 +163,9 @@ const stSPEED* PARAM_getSpeed( enPARAM_MODE en_mode );
 
 void PARAM_makeSra( float f_speed, float f_angAcc, float f_g , enSLA_TYPE en_mode);
 stSLA* PARAM_getSra( enSLA_TYPE en_mode );
+void PARAM_makeSra_90( float f_speed, float f_angAcc, float f_g , enSLA_TYPE en_mode);
+void PARAM_makeSra_45( float f_speed, float f_angAcc, float f_g , enSLA_TYPE en_mode);
+void PARAM_makeSra_N90( float f_speed, float f_angAcc, float f_g , enSLA_TYPE en_mode);
+void PARAM_makeSra_135( float f_speed, float f_angAcc, float f_g , enSLA_TYPE en_mode);
 
 #endif /* INC_PARAMETER_H_ */
