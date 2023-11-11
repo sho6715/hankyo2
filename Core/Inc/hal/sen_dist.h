@@ -23,13 +23,13 @@
 #define DIST_NO_WALL_DIV_FILTER				( 25 )
 #define DIST_REF_UP					( 35 )
 
-#define R_FRONT_REF			(430)
-#define L_FRONT_REF					(490)//( 210 )
-#define R_SIDE_REF					(490)//( 240 )
-#define L_SIDE_REF					(340)//( 200 )
+#define R_FRONT_REF			(650)
+#define L_FRONT_REF					(500)//( 210 )
+#define R_SIDE_REF					(460)//( 240 )
+#define L_SIDE_REF					(380)//( 200 )
 #define R_FRONT_WALL					(110)//( 45 )
 #define L_FRONT_WALL					(120)//( 45 )
-#define R_SIDE_WALL					(160)//( 110 )
+#define R_SIDE_WALL					(120)//( 110 )
 #define L_SIDE_WALL					(120)//( 70 )
 #define R_FRONT_SKEW_ERR1				( 80 )//仮
 #define L_FRONT_SKEW_ERR1				( 70 )

@@ -34,21 +34,21 @@
 
 #define MOT_WALL_EDGE_DIST			( 0.0305f )//28
 
-#define 		f_FB_speed_kp		(35.0)
-#define 		f_FB_speed_ki		(4.0)
-#define 		f_FB_speed_kd		(0.4)
+#define 		f_FB_speed_kp		(35.0)//35
+#define 		f_FB_speed_ki		(4.0)//4
+#define 		f_FB_speed_kd		(0.5)//0.5
 //#define		f_FB_angleS_kp		(1.0)//130
 //#define		f_FB_angleS_ki		(0.4)//9.5
 //#define		f_FB_angleS_kd		(0.001)//0.2
-#define		f_FB_angleS_kp		(100.0)//100
-#define		f_FB_angleS_ki		(6.5)//6.5
-#define		f_FB_angleS_kd		(0.1)//0.1
+#define		f_FB_angleS_kp		(95.0)//95
+#define		f_FB_angleS_ki		(6.0)//6.0
+#define		f_FB_angleS_kd		(0.2)//0.2
 
-#define		f_FB_angle_kp		(0.3)
-#define		f_FB_angle_ki		(0.1)
+#define		f_FB_angle_kp		(0.45)//0.45
+#define		f_FB_angle_ki		(0.25)//0.25
 
-#define		f_FB_wall_kp		(0.6)
-#define		f_FB_wall_kd		(0.3)
+#define		f_FB_wall_kp		(0.65)//0.65
+#define		f_FB_wall_kd		(0.2)//0.2
 
 #define		f_FB_front_wall_v_kp	(0.001)
 #define		f_FB_front_wall_v_ki	(0.0)
