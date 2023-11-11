@@ -14,7 +14,7 @@
 ../Core/Src/hal/CTRL.c:168:6:CTRL_clrNowData	8	static
 ../Core/Src/hal/CTRL.c:184:6:CTRL_setNowData_Err	16	static
 ../Core/Src/hal/CTRL.c:199:6:CTRL_setData	16	static
-../Core/Src/hal/CTRL.c:231:6:CTRL_refNow	32	static
+../Core/Src/hal/CTRL.c:231:6:CTRL_refNow	24	static
 ../Core/Src/hal/CTRL.c:254:6:CTRL_refTarget	24	static
 ../Core/Src/hal/CTRL.c:482:14:Chg_ParamID	16	static
 ../Core/Src/hal/CTRL.c:507:6:CTRL_getFF_speed	16	static

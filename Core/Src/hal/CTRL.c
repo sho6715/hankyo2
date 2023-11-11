@@ -247,8 +247,8 @@ void CTRL_refNow( void )
 	/* 距離更新 */
 	f_NowDistR += f_r;									// カウント更新
 	f_NowDistL += f_l;									// カウント更新
-//	f_NowDist  = ( f_NowDistR + f_NowDistL ) / 2.0;		// 平均値更新
-	f_NowDist  += (f_r + f_l) / 2.0; 
+	f_NowDist  = ( f_NowDistR + f_NowDistL ) / 2.0;		// 平均値更新
+//	f_NowDist  += (f_r + f_l) / 2.0; 	//setNowdataの残り　うまく行かないため上に戻し
 }
 
 void CTRL_refTarget( void )
