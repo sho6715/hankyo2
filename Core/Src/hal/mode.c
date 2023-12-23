@@ -223,19 +223,24 @@ void MODE_exe_m0( void )
 			SetLED(0x0e);
 			MOT_setTrgtSpeed(SEARCH_SPEED);
 			MOT_setSuraStaSpeed( SEARCH_SPEED );							// スラロー�?開始速度設�?
-			PARAM_setSpeedType( PARAM_ST,   PARAM_VERY_SLOW );							// [直進] 速度普�?
-			PARAM_setSpeedType( PARAM_TRUN, PARAM_VERY_SLOW );							// [旋回] 速度普�?
-			PARAM_setSpeedType( PARAM_SLA,  PARAM_VERY_SLOW );							// [スラ] 速度普�?
+			PARAM_setSpeedType( PARAM_ST,   PARAM_VERY_FAST );							// [直進] 速度普�?
+			PARAM_setSpeedType( PARAM_TRUN, PARAM_VERY_FAST );							// [旋回] 速度普�?
+			PARAM_setSpeedType( PARAM_SLA,  PARAM_VERY_FAST );							// [スラ] 速度普�?
 			SetLED(0x00);
 			LL_mDelay(500);
 			CTRL_clrNowData();
 			CTRL_clrData();
 			log_flag_on();
-			
+
+			MOT_setTrgtSpeed( SEARCH_SPEED*6.0 );
+			MOT_goBlock_FinSpeed(15.0, 0);
+			MOT_setTrgtSpeed( SEARCH_SPEED );
+/*			
 			MOT_goBlock_FinSpeed(0.5, SEARCH_SPEED);
 			MOT_goSla(MOT_R90S, PARAM_getSra( SLA_90 ));
 			MOT_goSla(MOT_L90S, PARAM_getSra( SLA_90 ));
 			MOT_goBlock_FinSpeed(0.5, 0);
+*/
 
 /*
 			MOT_goBlock_FinSpeed(1.0, SEARCH_SPEED);
@@ -396,10 +401,10 @@ void MODE_exe_m2( void )
 			SetLED(0x0e);
 			MAP_Goalsize(1);
 			SetLED(0x00);
-
+			log_flag_on();
 			MAP_searchGoalKnown( 0, 0, SEARCH, SEARCH_SURA );
 //			MAP_searchGoal( 0, 0, SEARCH, SEARCH_RETURN );
-
+			log_flag_off();
 			if (( SW_IsOn_1() == SW_ON)||(SYS_isOutOfCtrl() == TRUE)){}
 			else{
 				map_write();
@@ -1020,6 +1025,32 @@ void MODE_exe_m5( void )
 
 		case MODE_6:
 			SetLED(0x0e);
+			MOT_setTrgtSpeed(SEARCH_SPEED*6.0);
+			MOT_setSuraStaSpeed( 0.6 );							
+			PARAM_setSpeedType( PARAM_ST,   PARAM_VERY_FAST );							
+			PARAM_setSpeedType( PARAM_TRUN, PARAM_VERY_FAST );							
+			PARAM_setSpeedType( PARAM_SLA,  PARAM_VERY_FAST );							
+			SetLED(0x00);
+			MAP_setPos( 0, 0, NORTH );												// スタート位置
+
+			MAP_Goal_init();
+			MAP_makeContourMap_dijkstra_modoki(GOAL_MAP_X_def,GOAL_MAP_Y_def, BEST_WAY);
+			MAP_Goalsize(1);
+	
+			MAP_makeCmdList_dijkstra_modoki(0, 0, NORTH, GOAL_MAP_X_def,GOAL_MAP_Y_def, &en_endDir2);		// ドライブコマンド作成
+			MAP_makeSuraCmdList();													// スラロームコマンド作成
+			MAP_makeSkewCmdList();
+
+			LL_mDelay(500);
+			Set_DutyTIM8(600);
+			LL_mDelay(2000);													
+			MAP_drive( MAP_DRIVE_SKEW );
+			Set_DutyTIM8(0);
+			LL_mDelay(500);
+			MOT_turn(MOT_R180);
+			MAP_actGoalLED();
+			Set_DutyTIM8(0);
+			Failsafe_flag_off();
 			break;
 
 		case MODE_7:

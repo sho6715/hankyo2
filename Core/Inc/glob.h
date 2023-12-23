@@ -31,7 +31,7 @@
 #define PI							( 3.14159f )								// Ď
 
 #define VCC_MAX						( 4.2f )									// ăăă?ăŞćĺ¤§éťĺ§[V]ă?4.2[V]Ă?1[ăťăŤ]
-#define TIRE_D						( 0.0126f )	//ć¨ĺŽĺ¤								// ăżă¤ă¤ç´ĺž? [mm]
+#define TIRE_D						( 0.0125f )	//ć¨ĺŽĺ¤								// ăżă¤ă¤ç´ĺž? [mm]
 #define TREAD_imagin					(0.0386f)
 #define TREAD						( 0.0335f )
 #define ROTATE_PULSE				( 4096 )									// 1ĺ¨ăŽćĺ¤§ć°ĺ¤

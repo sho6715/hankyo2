@@ -966,8 +966,10 @@ void CTRL_pol( void )
 	f_duty10_R = FF_BALANCE_R*(Motor_Register*Ir+f_MotorR_AngleS*0.001033/1000.0/2.0/PI)/get_battLv();	
 	f_duty10_L = FF_BALANCE_L*(Motor_Register*Il+f_MotorL_AngleS*0.001033/1000.0/2.0/PI)/get_battLv();	
 
-	templog1 = f_duty10_R;
-	templog2 = f_duty10_L;
+//	templog1 = f_duty10_R;
+//	templog2 = f_duty10_L;
+	templog1 = DIST_getNowVal(DIST_SEN_L_SIDE);
+	templog2 = DIST_getNowVal(DIST_SEN_R_SIDE);
 
 	escape_wait = escape_wait+0.001;
 	CTRL_outMot( f_duty10_R, f_duty10_L );				// モータへ出力
