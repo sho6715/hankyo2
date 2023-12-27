@@ -8,7 +8,7 @@
 #include "hal/log.h"
 
 
-#define log_num			(500)					//ログ取得数（変更時はこちらを変更）
+#define log_num			(1000)					//ログ取得数（変更時はこちらを変更）
 //ログプログラム群（取得数変更はdefineへ）
 float	Log_1[log_num];
 float	Log_2[log_num];

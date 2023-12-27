@@ -202,21 +202,59 @@ void MODE_exe_m0( void )
 
 		case MODE_5:
 			SetLED(0x0e);
-			MOT_setTrgtSpeed(SEARCH_SPEED);
-			MOT_setSuraStaSpeed( SEARCH_SPEED );							// スラロー�?開始速度設�?
-			PARAM_setSpeedType( PARAM_ST,   PARAM_VERY_SLOW );							// [直進] 速度普�?
-			PARAM_setSpeedType( PARAM_TRUN, PARAM_VERY_SLOW );							// [旋回] 速度普�?
-			PARAM_setSpeedType( PARAM_SLA,  PARAM_VERY_SLOW );							// [スラ] 速度普�?
+
+			printf("\r\n turn 45 \r\r");
+			PARAM_makeSra( 0.6, 550.0f, 7.50f, SLA_45 );
+			printf("\r\n turn 90 \r\r");		
+			PARAM_makeSra( 0.6, 900.0f, 10.00f, SLA_90 );	
+			printf("\r\n turn 135 \r\r");	
+			PARAM_makeSra( 0.6, 1350.0f, 13.00f, SLA_135 );	
+			printf("\r\n turn N90 \r\r");	
+			PARAM_makeSra( 0.6, 1500.0f, 14.00f, SLA_N90 );	
+
+			MOT_setTrgtSpeed(SEARCH_SPEED*2.0);
+			MOT_setSuraStaSpeed( SEARCH_SPEED*2.0 );							// スラロー�?開始速度設�?
+			PARAM_setSpeedType( PARAM_ST,   PARAM_VERY_FAST );							// [直進] 速度普�?
+			PARAM_setSpeedType( PARAM_TRUN, PARAM_VERY_FAST );							// [旋回] 速度普�?
+			PARAM_setSpeedType( PARAM_SLA,  PARAM_VERY_FAST );							// [スラ] 速度普�?
 			SetLED(0x00);
 			LL_mDelay(500);
-			log_flag_on();
 			CTRL_clrNowData();
 			CTRL_clrData();
-//			log_flag_on();
-			MOT_turn(MOT_L90);
-			LL_mDelay(500);
-			MOT_turn(MOT_R90);
+			log_flag_on();
+
+			MOT_goBlock_FinSpeed(0.5, SEARCH_SPEED*2.0);
+			MOT_goSla(MOT_R90S, PARAM_getSra( SLA_90 ));
+			MOT_goBlock_FinSpeed(0.5, 0);
+
+/*
+			MOT_goBlock_FinSpeed(1.0, SEARCH_SPEED);
+			MOT_goSla(MOT_R45S_S2N, PARAM_getSra( SLA_45 ));
+			MOT_goSkewBlock_FinSpeed(0.5, 0);
+*/
+/*
+			MOT_goSkewBlock_FinSpeed(0.5, SEARCH_SPEED);
+			MOT_goSla(MOT_R90S_N, PARAM_getSra( SLA_N90 ));
+			MOT_goSkewBlock_FinSpeed(0.5, 0);
+*/
+/*
+			MOT_goBlock_FinSpeed(0.5, SEARCH_SPEED);
+			MOT_goSla(MOT_R135S_S2N, PARAM_getSra( SLA_135 ));
+			MOT_goSkewBlock_FinSpeed(0.5, 0);
+*/
 			log_flag_off();
+
+			PARAM_makeSra( (float)SEARCH_SPEED, 100.0f, 2.50f, SLA_45 );
+			printf("\r\n turn 90 \r\r");		
+			PARAM_makeSra( (float)SEARCH_SPEED, 200.0f, 3.50f, SLA_90 );	
+		//	PARAM_makeSra( (float)SEARCH_SPEED, 150.0f, 3.00f, SLA_90 );
+			printf("\r\n turn 135 \r\r");	
+			PARAM_makeSra( (float)SEARCH_SPEED, 200.0f, 4.00f, SLA_135 );	
+			printf("\r\n turn N90 \r\r");	
+			PARAM_makeSra( (float)SEARCH_SPEED, 300.0f, 4.00f, SLA_N90 );		
+
+			MOT_setTrgtSpeed(SEARCH_SPEED);
+			MOT_setSuraStaSpeed( SEARCH_SPEED );							// スラロー�?開始速度設�?
 			break;
 
 		case MODE_6:
@@ -231,16 +269,18 @@ void MODE_exe_m0( void )
 			CTRL_clrNowData();
 			CTRL_clrData();
 			log_flag_on();
-
-			MOT_setTrgtSpeed( SEARCH_SPEED*6.0 );
-			MOT_goBlock_FinSpeed(15.0, 0);
+/*
 			MOT_setTrgtSpeed( SEARCH_SPEED );
-/*			
+			MOT_goBlock_FinSpeed(3.0, 0);
+			MOT_setTrgtSpeed( SEARCH_SPEED );
+*/
+//			MOT_turn(MOT_R90);
+			
 			MOT_goBlock_FinSpeed(0.5, SEARCH_SPEED);
 			MOT_goSla(MOT_R90S, PARAM_getSra( SLA_90 ));
 			MOT_goSla(MOT_L90S, PARAM_getSra( SLA_90 ));
 			MOT_goBlock_FinSpeed(0.5, 0);
-*/
+
 
 /*
 			MOT_goBlock_FinSpeed(1.0, SEARCH_SPEED);

@@ -22,7 +22,7 @@
 #define		SW_CHATTERING_WAIT		(200) 	
 
 #define	FF_BALANCE_R				( 1.00f )					
-#define	FF_BALANCE_L				( 1.5f )		
+#define	FF_BALANCE_L				( 1.00f )		
 #define FF_HIT_BALANCE_R			(1.00f)				
 #define FF_HIT_BALANCE_L			(1.00f)
 
@@ -34,12 +34,9 @@
 
 #define MOT_WALL_EDGE_DIST			( 0.0305f )//28
 
-#define 		f_FB_speed_kp		(35.0)//35
-#define 		f_FB_speed_ki		(4.0)//4
-#define 		f_FB_speed_kd		(0.3)//0.5
-//#define		f_FB_angleS_kp		(1.0)//130
-//#define		f_FB_angleS_ki		(0.4)//9.5
-//#define		f_FB_angleS_kd		(0.001)//0.2
+#define 	f_FB_speed_kp		(35.0)//35
+#define 	f_FB_speed_ki		(4.0)//4
+#define 	f_FB_speed_kd		(0.3)//0.3
 #define		f_FB_angleS_kp		(95.0)//95
 #define		f_FB_angleS_ki		(6.0)//6.0
 #define		f_FB_angleS_kd		(0.2)//0.2
