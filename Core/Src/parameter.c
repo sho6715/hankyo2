@@ -50,8 +50,8 @@ stSLA				st_Sla[SLA_TYPE_MAX];					// スラローム時の走行パラメータ
 		{ 1.8,			1.8,		10.0*PI,			10.0*PI,			},		// 超低速(PARAM_VERY_SLOW)
 		{ 1.8,			1.8,		10.0*PI,			10.0*PI,			},		// 低速(PARAM_SLOW)
 		{ 1.8,			1.8,		10.0*PI,			10.0*PI,			},		// 通常(PARAM_NORMAL)
-		{ 2.5,			2.5,		10.0*PI,			10.0*PI,			},		// 高速(PARAM_FAST)
-		{ 4.0,			4.0,		10.0*PI,			10.0*PI,			},		// 超高速(PARAM_VERY_FAST)
+		{ 1.8,			1.8,		10.0*PI,			10.0*PI,			},		// 高速(PARAM_FAST)
+		{ 1.8,			1.8,		10.0*PI,			10.0*PI,			},		// 超高速(PARAM_VERY_FAST)
 	};
 
 

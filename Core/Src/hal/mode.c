@@ -117,6 +117,10 @@ void MODE_exe_m0( void )
 {
 	enMAP_HEAD_DIR		en_endDir2;
 	GYRO_SetRef();
+
+	CTRL_clrData();
+	CTRL_clrAngleErrSum();
+	CTRL_clrNowData();
 	/* モード表示 */
 	switch( en_Mode ){
 
@@ -164,8 +168,9 @@ void MODE_exe_m0( void )
 			PARAM_setSpeedType( PARAM_SLA,  PARAM_VERY_SLOW );							// [スラ] 速度普�?
 			SetLED(0x00);
 			LL_mDelay(500);
-			CTRL_clrNowData();
 			CTRL_clrData();
+			CTRL_clrAngleErrSum();
+			CTRL_clrNowData();
 			log_flag_on();
 			DIST_Front_Wall_correction();
 			log_flag_off();
@@ -184,8 +189,9 @@ void MODE_exe_m0( void )
 			PARAM_setSpeedType( PARAM_SLA,  PARAM_VERY_SLOW );							// [スラ] 速度普�?
 			SetLED(0x00);
 			LL_mDelay(500);
-			CTRL_clrNowData();
 			CTRL_clrData();
+			CTRL_clrAngleErrSum();
+			CTRL_clrNowData();
 			log_flag_on();
 /*			MOT_goBlock_FinSpeed(0.5, SEARCH_SPEED);
 			MOT_goBlock_Const(1);
@@ -212,18 +218,21 @@ void MODE_exe_m0( void )
 			printf("\r\n turn N90 \r\r");	
 			PARAM_makeSra( 0.6, 1500.0f, 14.00f, SLA_N90 );	
 
-			MOT_setTrgtSpeed(SEARCH_SPEED*2.0);
+			MOT_setTrgtSpeed(SEARCH_SPEED*4.0);
 			MOT_setSuraStaSpeed( SEARCH_SPEED*2.0 );							// スラロー�?開始速度設�?
 			PARAM_setSpeedType( PARAM_ST,   PARAM_VERY_FAST );							// [直進] 速度普�?
-			PARAM_setSpeedType( PARAM_TRUN, PARAM_VERY_FAST );							// [旋回] 速度普�?
-			PARAM_setSpeedType( PARAM_SLA,  PARAM_VERY_FAST );							// [スラ] 速度普�?
+			PARAM_setSpeedType( PARAM_TRUN, PARAM_NORMAL );							// [旋回] 速度普�?
+			PARAM_setSpeedType( PARAM_SLA,  PARAM_NORMAL );							// [スラ] 速度普�?
 			SetLED(0x00);
 			LL_mDelay(500);
-			CTRL_clrNowData();
 			CTRL_clrData();
+			CTRL_clrAngleErrSum();
+			CTRL_clrNowData();
+			Set_DutyTIM8(600);
+			LL_mDelay(2000);
 			log_flag_on();
 
-			MOT_goBlock_FinSpeed(0.5, SEARCH_SPEED*2.0);
+			MOT_goBlock_FinSpeed(1.5, SEARCH_SPEED*2.0);
 			MOT_goSla(MOT_R90S, PARAM_getSra( SLA_90 ));
 			MOT_goBlock_FinSpeed(0.5, 0);
 
@@ -243,6 +252,9 @@ void MODE_exe_m0( void )
 			MOT_goSkewBlock_FinSpeed(0.5, 0);
 */
 			log_flag_off();
+
+			Set_DutyTIM8(0);
+			LL_mDelay(2000);
 
 			PARAM_makeSra( (float)SEARCH_SPEED, 100.0f, 2.50f, SLA_45 );
 			printf("\r\n turn 90 \r\r");		
@@ -266,8 +278,9 @@ void MODE_exe_m0( void )
 			PARAM_setSpeedType( PARAM_SLA,  PARAM_VERY_FAST );							// [スラ] 速度普�?
 			SetLED(0x00);
 			LL_mDelay(500);
-			CTRL_clrNowData();
 			CTRL_clrData();
+			CTRL_clrAngleErrSum();
+			CTRL_clrNowData();
 			log_flag_on();
 /*
 			MOT_setTrgtSpeed( SEARCH_SPEED );
@@ -275,13 +288,12 @@ void MODE_exe_m0( void )
 			MOT_setTrgtSpeed( SEARCH_SPEED );
 */
 //			MOT_turn(MOT_R90);
-			
+/*			
 			MOT_goBlock_FinSpeed(0.5, SEARCH_SPEED);
 			MOT_goSla(MOT_R90S, PARAM_getSra( SLA_90 ));
 			MOT_goSla(MOT_L90S, PARAM_getSra( SLA_90 ));
 			MOT_goBlock_FinSpeed(0.5, 0);
-
-
+*/
 /*
 			MOT_goBlock_FinSpeed(1.0, SEARCH_SPEED);
 			MOT_goSla(MOT_R90S, PARAM_getSra( SLA_45 ));
@@ -292,11 +304,11 @@ void MODE_exe_m0( void )
 			MOT_goSla(MOT_R90S, PARAM_getSra( SLA_N90 ));
 			MOT_goSkewBlock_FinSpeed(0.5, 0);
 */
-/*
-			MOT_goBlock_FinSpeed(0.5, SEARCH_SPEED);
+
+			MOT_goBlock_FinSpeed(1.5, SEARCH_SPEED);
 			MOT_goSla(MOT_R90S, PARAM_getSra( SLA_135 ));
-			MOT_goSkewBlock_FinSpeed(0.5, 0);
-*/
+			MOT_goSkewBlock_FinSpeed(1.0, 0);
+
 			log_flag_off();
 			break;
 
@@ -317,6 +329,9 @@ void MODE_exe_m1( void )
 	uint64_t data =0;
 
 	GYRO_SetRef();
+	CTRL_clrData();
+	CTRL_clrAngleErrSum();
+	CTRL_clrNowData();
 
 	switch( en_Mode ){
 
@@ -379,6 +394,9 @@ void MODE_exe_m2( void )
 	Msec_in = 0;
 
 	GYRO_SetRef();
+	CTRL_clrData();
+	CTRL_clrAngleErrSum();
+	CTRL_clrNowData();
 
 	switch( en_Mode ){
 
@@ -532,6 +550,9 @@ void MODE_exe_m3( void )
 	map_copy();
 
 	GYRO_SetRef();
+	CTRL_clrData();
+	CTRL_clrAngleErrSum();
+	CTRL_clrNowData();
 
 	switch( en_Mode ){
 
@@ -629,8 +650,12 @@ void MODE_exe_m3( void )
 			MAP_makeSkewCmdList();													
 			LL_mDelay(500);
 			Set_DutyTIM8(600);
-			LL_mDelay(2000);													
+			LL_mDelay(2000);		
+			
+			log_flag_on();
 			MAP_drive( MAP_DRIVE_SKEW );
+
+			log_flag_off();
 			Set_DutyTIM8(0);
 			LL_mDelay(500);
 			MOT_turn(MOT_R180);
@@ -742,6 +767,9 @@ void MODE_exe_m4( void )
 	Msec_in = 0;
 
 	GYRO_SetRef();
+	CTRL_clrData();
+	CTRL_clrAngleErrSum();
+	CTRL_clrNowData();
 
 	switch( en_Mode ){
 
@@ -904,6 +932,9 @@ void MODE_exe_m5( void )
 	map_copy();
 
 	GYRO_SetRef();
+	CTRL_clrData();
+	CTRL_clrAngleErrSum();
+	CTRL_clrNowData();
 
 	switch( en_Mode ){
 
@@ -1001,8 +1032,11 @@ void MODE_exe_m5( void )
 			MAP_makeSkewCmdList();													
 			LL_mDelay(500);
 			Set_DutyTIM8(600);
-			LL_mDelay(2000);													
+			LL_mDelay(2000);			
+
+			log_flag_on();										
 			MAP_drive( MAP_DRIVE_SKEW );
+			log_flag_off();
 			Set_DutyTIM8(0);
 			LL_mDelay(500);
 			MOT_turn(MOT_R180);

@@ -592,8 +592,6 @@ void MOT_goBlock_Const(float f_num)
 
 	GYRO_staErrChkAngle();
 
-//	MOT_setWallEdgeType( MOT_WALL_EDGE_BOTH_WALL );		// 壁切れ補正を実施する
-
 	/* ---------------- */
 	/*  動作データ計算   */
 	/* ---------------- */
