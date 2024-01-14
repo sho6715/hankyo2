@@ -16,6 +16,7 @@
 #include "Inc/search/search.h"
 #include "Inc/hal/DCM.h"
 #include "Inc/hal/sen_dist.h"
+#include "Inc/search/map_cmd.h"
 #else
 #include "glob.h"
 #include "parameter.h"
@@ -24,60 +25,61 @@
 #include "search/search.h"
 #include "hal/DCM.h"
 #include "hal/sen_dist.h"
+#include "search/map_cmd.h"
 #endif
 
-/* “®ìƒ^ƒCƒv */
+/* ï¿½ï¿½ï¿½ï¿½^ï¿½Cï¿½v */
 typedef enum{
 	MOT_ST_NC    =  0,
-	MOT_ACC_CONST_DEC,			// [01] ‘äŒ`‰Á‘¬
-	MOT_ACC_CONST_DEC_CUSTOM,	// [02] ‘äŒ`‰Á‘¬i“™‘¬’l•ÏXj
-	MOT_ACC_CONST,				// [03] ‰Á‘¬{“™‘¬
-	MOT_ACC_CONST_CUSTOM,		// [04] ‰Á‘¬{“™‘¬i‰Á‘¬’l•ÏXj
-	MOT_CONST_DEC,				// [05] “™‘¬{Œ¸‘¬
-	MOT_CONST_DEC_CUSTOM,		// [06] “™‘¬{Œ¸‘¬iŒ¸‘¬’l•ÏXj
+	MOT_ACC_CONST_DEC,			// [01] ï¿½ï¿½`ï¿½ï¿½ï¿½ï¿½
+	MOT_ACC_CONST_DEC_CUSTOM,	// [02] ï¿½ï¿½`ï¿½ï¿½ï¿½ï¿½ï¿½iï¿½ï¿½ï¿½ï¿½ï¿½lï¿½ÏXï¿½j
+	MOT_ACC_CONST,				// [03] ï¿½ï¿½ï¿½ï¿½ï¿½{ï¿½ï¿½ï¿½ï¿½
+	MOT_ACC_CONST_CUSTOM,		// [04] ï¿½ï¿½ï¿½ï¿½ï¿½{ï¿½ï¿½ï¿½ï¿½ï¿½iï¿½ï¿½ï¿½ï¿½ï¿½lï¿½ÏXï¿½j
+	MOT_CONST_DEC,				// [05] ï¿½ï¿½ï¿½ï¿½ï¿½{ï¿½ï¿½ï¿½ï¿½
+	MOT_CONST_DEC_CUSTOM,		// [06] ï¿½ï¿½ï¿½ï¿½ï¿½{ï¿½ï¿½ï¿½ï¿½ï¿½iï¿½ï¿½ï¿½ï¿½ï¿½lï¿½ÏXï¿½j
 	MOT_ST_MAX,
 }enMOT_ST_TYPE;
 
-/* ’¼iƒ^ƒCƒv */
+/* ï¿½ï¿½ï¿½iï¿½^ï¿½Cï¿½v */
 typedef enum{
-	MOT_GO_ST_NORMAL    =  0,	// ’Êí‚Ì’¼i
-	MOT_GO_ST_SKEW,				// ŽÎ‚ß‚Ì’¼i
+	MOT_GO_ST_NORMAL    =  0,	// ï¿½Êï¿½Ì’ï¿½ï¿½i
+	MOT_GO_ST_SKEW,				// ï¿½Î‚ß‚Ì’ï¿½ï¿½i
 	MOT_GO_ST_MAX,
 }enMOT_GO_ST_TYPE;
 
-/* ù‰ñƒRƒ}ƒ“ƒhƒŠƒXƒg */
+/* ï¿½ï¿½ï¿½ï¿½Rï¿½}ï¿½ï¿½ï¿½hï¿½ï¿½ï¿½Xï¿½g */
 typedef enum{
-	MOT_R90 =0,					// ‰E 90“x’´M’nù‰ñ
-	MOT_L90,					// ¶ 90“x’´M’nù‰ñ
-	MOT_R180,					// ‰E180“x’´M’nù‰ñ
-	MOT_L180,					// ¶180“x’´M’nù‰ñ
-	MOT_R360,					// ‰E360“x’´M’nù‰ñ
-	MOT_L360,					// ¶360“x’´M’nù‰ñ
+	MOT_R90 =0,					// ï¿½E 90ï¿½xï¿½ï¿½ï¿½Mï¿½nï¿½ï¿½ï¿½ï¿½
+	MOT_L90,					// ï¿½ï¿½ 90ï¿½xï¿½ï¿½ï¿½Mï¿½nï¿½ï¿½ï¿½ï¿½
+	MOT_R180,					// ï¿½E180ï¿½xï¿½ï¿½ï¿½Mï¿½nï¿½ï¿½ï¿½ï¿½
+	MOT_L180,					// ï¿½ï¿½180ï¿½xï¿½ï¿½ï¿½Mï¿½nï¿½ï¿½ï¿½ï¿½
+	MOT_R360,					// ï¿½E360ï¿½xï¿½ï¿½ï¿½Mï¿½nï¿½ï¿½ï¿½ï¿½
+	MOT_L360,					// ï¿½ï¿½360ï¿½xï¿½ï¿½ï¿½Mï¿½nï¿½ï¿½ï¿½ï¿½
 	MOT_TURN_CMD_MAX
 }enMOT_TURN_CMD;
 
-/* ƒXƒ‰ƒ[ƒ€ƒRƒ}ƒ“ƒhƒŠƒXƒg */
+/* ï¿½Xï¿½ï¿½ï¿½ï¿½ï¿½[ï¿½ï¿½ï¿½Rï¿½}ï¿½ï¿½ï¿½hï¿½ï¿½ï¿½Xï¿½g */
 typedef enum{
-	MOT_R90S =0,				// ‰E 90“x’´ƒXƒ‰ƒ[ƒ€
-	MOT_L90S,					// ¶ 90“x’´ƒXƒ‰ƒ[ƒ€
-	MOT_R45S_S2N,				// [ŽÎ‚ß—p] ‰E 45“x’´ƒXƒ‰ƒ[ƒ€AƒXƒgƒŒ[ƒg Ë ŽÎ‚ß
-	MOT_L45S_S2N,				// [ŽÎ‚ß—p] ¶ 45“x’´ƒXƒ‰ƒ[ƒ€AƒXƒgƒŒ[ƒg Ë ŽÎ‚ß
-	MOT_R45S_N2S,				// [ŽÎ‚ß—p] ‰E 45“x’´ƒXƒ‰ƒ[ƒ€AŽÎ‚ß Ë ƒXƒgƒŒ[ƒg
-	MOT_L45S_N2S,				// [ŽÎ‚ß—p] ¶ 45“x’´ƒXƒ‰ƒ[ƒ€AŽÎ‚ß Ë ƒXƒgƒŒ[ƒg
-	MOT_R90S_N,					// [ŽÎ‚ß—p] ‰E 90“x’´ƒXƒ‰ƒ[ƒ€AŽÎ‚ß Ë ŽÎ‚ß
-	MOT_L90S_N,					// [ŽÎ‚ß—p] ¶ 90“x’´ƒXƒ‰ƒ[ƒ€AŽÎ‚ß Ë ŽÎ‚ß
-	MOT_R135S_S2N,				// [ŽÎ‚ß—p] ‰E135“x’´ƒXƒ‰ƒ[ƒ€AƒXƒgƒŒ[ƒg Ë ŽÎ‚ß
-	MOT_L135S_S2N,				// [ŽÎ‚ß—p] ¶135“x’´ƒXƒ‰ƒ[ƒ€AƒXƒgƒŒ[ƒg Ë ŽÎ‚ß
-	MOT_R135S_N2S,				// [ŽÎ‚ß—p] ‰E135“x’´ƒXƒ‰ƒ[ƒ€AŽÎ‚ß Ë ƒXƒgƒŒ[ƒg
-	MOT_L135S_N2S,				// [ŽÎ‚ß—p] ¶135“x’´ƒXƒ‰ƒ[ƒ€AŽÎ‚ß Ë ƒXƒgƒŒ[ƒg
+	MOT_R90S =0,				// ï¿½E 90ï¿½xï¿½ï¿½ï¿½Xï¿½ï¿½ï¿½ï¿½ï¿½[ï¿½ï¿½
+	MOT_L90S,					// ï¿½ï¿½ 90ï¿½xï¿½ï¿½ï¿½Xï¿½ï¿½ï¿½ï¿½ï¿½[ï¿½ï¿½
+	MOT_R45S_S2N,				// [ï¿½Î‚ß—p] ï¿½E 45ï¿½xï¿½ï¿½ï¿½Xï¿½ï¿½ï¿½ï¿½ï¿½[ï¿½ï¿½ï¿½Aï¿½Xï¿½gï¿½ï¿½ï¿½[ï¿½g ï¿½ï¿½ ï¿½Î‚ï¿½
+	MOT_L45S_S2N,				// [ï¿½Î‚ß—p] ï¿½ï¿½ 45ï¿½xï¿½ï¿½ï¿½Xï¿½ï¿½ï¿½ï¿½ï¿½[ï¿½ï¿½ï¿½Aï¿½Xï¿½gï¿½ï¿½ï¿½[ï¿½g ï¿½ï¿½ ï¿½Î‚ï¿½
+	MOT_R45S_N2S,				// [ï¿½Î‚ß—p] ï¿½E 45ï¿½xï¿½ï¿½ï¿½Xï¿½ï¿½ï¿½ï¿½ï¿½[ï¿½ï¿½ï¿½Aï¿½Î‚ï¿½ ï¿½ï¿½ ï¿½Xï¿½gï¿½ï¿½ï¿½[ï¿½g
+	MOT_L45S_N2S,				// [ï¿½Î‚ß—p] ï¿½ï¿½ 45ï¿½xï¿½ï¿½ï¿½Xï¿½ï¿½ï¿½ï¿½ï¿½[ï¿½ï¿½ï¿½Aï¿½Î‚ï¿½ ï¿½ï¿½ ï¿½Xï¿½gï¿½ï¿½ï¿½[ï¿½g
+	MOT_R90S_N,					// [ï¿½Î‚ß—p] ï¿½E 90ï¿½xï¿½ï¿½ï¿½Xï¿½ï¿½ï¿½ï¿½ï¿½[ï¿½ï¿½ï¿½Aï¿½Î‚ï¿½ ï¿½ï¿½ ï¿½Î‚ï¿½
+	MOT_L90S_N,					// [ï¿½Î‚ß—p] ï¿½ï¿½ 90ï¿½xï¿½ï¿½ï¿½Xï¿½ï¿½ï¿½ï¿½ï¿½[ï¿½ï¿½ï¿½Aï¿½Î‚ï¿½ ï¿½ï¿½ ï¿½Î‚ï¿½
+	MOT_R135S_S2N,				// [ï¿½Î‚ß—p] ï¿½E135ï¿½xï¿½ï¿½ï¿½Xï¿½ï¿½ï¿½ï¿½ï¿½[ï¿½ï¿½ï¿½Aï¿½Xï¿½gï¿½ï¿½ï¿½[ï¿½g ï¿½ï¿½ ï¿½Î‚ï¿½
+	MOT_L135S_S2N,				// [ï¿½Î‚ß—p] ï¿½ï¿½135ï¿½xï¿½ï¿½ï¿½Xï¿½ï¿½ï¿½ï¿½ï¿½[ï¿½ï¿½ï¿½Aï¿½Xï¿½gï¿½ï¿½ï¿½[ï¿½g ï¿½ï¿½ ï¿½Î‚ï¿½
+	MOT_R135S_N2S,				// [ï¿½Î‚ß—p] ï¿½E135ï¿½xï¿½ï¿½ï¿½Xï¿½ï¿½ï¿½ï¿½ï¿½[ï¿½ï¿½ï¿½Aï¿½Î‚ï¿½ ï¿½ï¿½ ï¿½Xï¿½gï¿½ï¿½ï¿½[ï¿½g
+	MOT_L135S_N2S,				// [ï¿½Î‚ß—p] ï¿½ï¿½135ï¿½xï¿½ï¿½ï¿½Xï¿½ï¿½ï¿½ï¿½ï¿½[ï¿½ï¿½ï¿½Aï¿½Î‚ï¿½ ï¿½ï¿½ ï¿½Xï¿½gï¿½ï¿½ï¿½[ï¿½g
 	MOT_SURA_CMD_MAX,
 }enMOT_SURA_CMD;
 
-/* •ÇØ‚ê•â³ */
+/* ï¿½ÇØ‚ï¿½â³ */
 typedef enum{
-	MOT_WALL_EDGE_NONE =0,		// •Ç‚ÌƒGƒbƒWŒŸo‚Å‚Ì•â³‚È‚µ
-	MOT_WALL_EDGE_RIGHT,		// ‰E•Ç‚ÌƒGƒbƒWŒŸo‚Å‚Ì•â³
-	MOT_WALL_EDGE_LEFT,			// ¶•Ç‚ÌƒGƒbƒWŒŸo‚Å‚Ì•â³
+	MOT_WALL_EDGE_NONE =0,		// ï¿½Ç‚ÌƒGï¿½bï¿½Wï¿½ï¿½ï¿½oï¿½Å‚Ì•â³ï¿½È‚ï¿½
+	MOT_WALL_EDGE_RIGHT,		// ï¿½Eï¿½Ç‚ÌƒGï¿½bï¿½Wï¿½ï¿½ï¿½oï¿½Å‚Ì•â³
+	MOT_WALL_EDGE_LEFT,			// ï¿½ï¿½ï¿½Ç‚ÌƒGï¿½bï¿½Wï¿½ï¿½ï¿½oï¿½Å‚Ì•â³
 	MOT_WALL_EDGE_MAX,
 }enMOT_WALL_EDGE_TYPE;
 
@@ -107,8 +109,8 @@ void testrun(void);
 float MOT_getAccAngle1( void );
 float MOT_getAccAngle3( void );
 void MOT_turn( enMOT_TURN_CMD en_type );
-void MOT_setSuraStaSpeed( float f_speed );
-float MOT_getSuraStaSpeed( void );
+void MOT_setSuraStaSpeed( float f_speed , uint8_t sura_cmd);
+float MOT_getSuraStaSpeed( uint8_t sura_cmd );
 float MOT_setTrgtSpeed(float f_speed);
 void MOT_setNowSpeed(float f_speed);
 void MOT_goHitBackWall(void);

@@ -160,9 +160,4 @@ const stSPEED* PARAM_getSpeed( enPARAM_MODE en_mode );
 
 void PARAM_makeSra( float f_speed, float f_angAcc, float f_g , enSLA_TYPE en_mode);
 stSLA* PARAM_getSra( enSLA_TYPE en_mode );
-void PARAM_makeSra_90( float f_speed, float f_angAcc, float f_g , enSLA_TYPE en_mode);
-void PARAM_makeSra_45( float f_speed, float f_angAcc, float f_g , enSLA_TYPE en_mode);
-void PARAM_makeSra_N90( float f_speed, float f_angAcc, float f_g , enSLA_TYPE en_mode);
-void PARAM_makeSra_135( float f_speed, float f_angAcc, float f_g , enSLA_TYPE en_mode);
-
 #endif /* INC_PARAMETER_H_ */

@@ -166,7 +166,10 @@ void MODE_exe_m0( void )
 		case MODE_3:
 			SetLED(0x0e);
 			MOT_setTrgtSpeed(SEARCH_SPEED);
-			MOT_setSuraStaSpeed( SEARCH_SPEED );							// スラロー�?開始速度設�?
+			MOT_setSuraStaSpeed( SEARCH_SPEED , SLA_90);							// スラロー�?開始速度設�?
+			MOT_setSuraStaSpeed( SEARCH_SPEED , SLA_45);
+			MOT_setSuraStaSpeed( SEARCH_SPEED , SLA_135);
+			MOT_setSuraStaSpeed( SEARCH_SPEED , SLA_N90);
 			PARAM_setSpeedType( PARAM_ST,   PARAM_VERY_SLOW );							// [直進] 速度普�?
 			PARAM_setSpeedType( PARAM_TRUN, PARAM_VERY_SLOW );							// [旋回] 速度普�?
 			PARAM_setSpeedType( PARAM_SLA,  PARAM_VERY_SLOW );							// [スラ] 速度普�?
@@ -187,7 +190,10 @@ void MODE_exe_m0( void )
 		case MODE_4:
 			SetLED(0x0e);
 			MOT_setTrgtSpeed(SEARCH_SPEED*10);
-			MOT_setSuraStaSpeed( SEARCH_SPEED );							// スラロー�?開始速度設�?
+			MOT_setSuraStaSpeed( SEARCH_SPEED , SLA_90);							// スラロー�?開始速度設�?
+			MOT_setSuraStaSpeed( SEARCH_SPEED , SLA_45);
+			MOT_setSuraStaSpeed( SEARCH_SPEED , SLA_135);
+			MOT_setSuraStaSpeed( SEARCH_SPEED , SLA_N90);
 			PARAM_setSpeedType( PARAM_ST,   PARAM_VERY_FAST );							// [直進] 速度普�?
 			PARAM_setSpeedType( PARAM_TRUN, PARAM_VERY_SLOW );							// [旋回] 速度普�?
 			PARAM_setSpeedType( PARAM_SLA,  PARAM_VERY_SLOW );							// [スラ] 速度普�?
@@ -226,7 +232,10 @@ void MODE_exe_m0( void )
 			PARAM_makeSra( 0.6, 1500.0f, 14.00f, SLA_N90 );	
 
 			MOT_setTrgtSpeed(SEARCH_SPEED*4.0);
-			MOT_setSuraStaSpeed( SEARCH_SPEED*2.0 );							// スラロー�?開始速度設�?
+			MOT_setSuraStaSpeed( SEARCH_SPEED * 2.0, SLA_90);							// スラロー�?開始速度設�?
+			MOT_setSuraStaSpeed( SEARCH_SPEED * 2.0, SLA_45);
+			MOT_setSuraStaSpeed( SEARCH_SPEED * 2.0, SLA_135);
+			MOT_setSuraStaSpeed( SEARCH_SPEED * 2.0, SLA_N90);
 			PARAM_setSpeedType( PARAM_ST,   PARAM_VERY_FAST );							// [直進] 速度普�?
 			PARAM_setSpeedType( PARAM_TRUN, PARAM_NORMAL );							// [旋回] 速度普�?
 			PARAM_setSpeedType( PARAM_SLA,  PARAM_NORMAL );							// [スラ] 速度普�?
@@ -273,13 +282,19 @@ void MODE_exe_m0( void )
 			PARAM_makeSra( (float)SEARCH_SPEED, 300.0f, 4.00f, SLA_N90 );		
 
 			MOT_setTrgtSpeed(SEARCH_SPEED);
-			MOT_setSuraStaSpeed( SEARCH_SPEED );							// スラロー�?開始速度設�?
+			MOT_setSuraStaSpeed( SEARCH_SPEED , SLA_90);							// スラロー�?開始速度設�?
+			MOT_setSuraStaSpeed( SEARCH_SPEED , SLA_45);
+			MOT_setSuraStaSpeed( SEARCH_SPEED , SLA_135);
+			MOT_setSuraStaSpeed( SEARCH_SPEED , SLA_N90);
 			break;
 
 		case MODE_6:
 			SetLED(0x0e);
 			MOT_setTrgtSpeed(SEARCH_SPEED);
-			MOT_setSuraStaSpeed( SEARCH_SPEED );							// スラロー�?開始速度設�?
+			MOT_setSuraStaSpeed( SEARCH_SPEED , SLA_90);							// スラロー�?開始速度設�?
+			MOT_setSuraStaSpeed( SEARCH_SPEED , SLA_45);
+			MOT_setSuraStaSpeed( SEARCH_SPEED , SLA_135);
+			MOT_setSuraStaSpeed( SEARCH_SPEED , SLA_N90);
 			PARAM_setSpeedType( PARAM_ST,   PARAM_VERY_FAST );							// [直進] 速度普�?
 			PARAM_setSpeedType( PARAM_TRUN, PARAM_VERY_FAST );							// [旋回] 速度普�?
 			PARAM_setSpeedType( PARAM_SLA,  PARAM_VERY_FAST );							// [スラ] 速度普�?
@@ -410,7 +425,10 @@ void MODE_exe_m2( void )
 		case MODE_0:
 			SetLED(0x0e);
 			MOT_setTrgtSpeed(SEARCH_SPEED);
-			MOT_setSuraStaSpeed( SEARCH_SPEED );							
+			MOT_setSuraStaSpeed( SEARCH_SPEED , SLA_90);							// スラロー�?開始速度設�?
+			MOT_setSuraStaSpeed( SEARCH_SPEED , SLA_45);
+			MOT_setSuraStaSpeed( SEARCH_SPEED , SLA_135);
+			MOT_setSuraStaSpeed( SEARCH_SPEED , SLA_N90);						
 			PARAM_setSpeedType( PARAM_ST,   PARAM_SLOW );							
 			PARAM_setSpeedType( PARAM_TRUN, PARAM_SLOW );							
 			PARAM_setSpeedType( PARAM_SLA,  PARAM_SLOW );							
@@ -447,7 +465,10 @@ void MODE_exe_m2( void )
 		case MODE_1:
 			SetLED(0x0e);
 			MOT_setTrgtSpeed(SEARCH_SPEED);
-			MOT_setSuraStaSpeed( SEARCH_SPEED );							
+			MOT_setSuraStaSpeed( SEARCH_SPEED , SLA_90);							// スラロー�?開始速度設�?
+			MOT_setSuraStaSpeed( SEARCH_SPEED , SLA_45);
+			MOT_setSuraStaSpeed( SEARCH_SPEED , SLA_135);
+			MOT_setSuraStaSpeed( SEARCH_SPEED , SLA_N90);						
 			PARAM_setSpeedType( PARAM_ST,   PARAM_SLOW );							
 			PARAM_setSpeedType( PARAM_TRUN, PARAM_SLOW );							
 			PARAM_setSpeedType( PARAM_SLA,  PARAM_SLOW );							
@@ -485,7 +506,10 @@ void MODE_exe_m2( void )
 		case MODE_2:
 			SetLED(0x0e);
 			MOT_setTrgtSpeed(SEARCH_SPEED);
-			MOT_setSuraStaSpeed( SEARCH_SPEED );							
+			MOT_setSuraStaSpeed( SEARCH_SPEED , SLA_90);							// スラロー�?開始速度設�?
+			MOT_setSuraStaSpeed( SEARCH_SPEED , SLA_45);
+			MOT_setSuraStaSpeed( SEARCH_SPEED , SLA_135);
+			MOT_setSuraStaSpeed( SEARCH_SPEED , SLA_N90);							
 			PARAM_setSpeedType( PARAM_ST,   PARAM_SLOW );							
 			PARAM_setSpeedType( PARAM_TRUN, PARAM_SLOW );							
 			PARAM_setSpeedType( PARAM_SLA,  PARAM_SLOW );							
@@ -566,7 +590,10 @@ void MODE_exe_m3( void )
 		case MODE_0:
 			SetLED(0x0e);
 			MOT_setTrgtSpeed(SEARCH_SPEED*4.0);
-			MOT_setSuraStaSpeed( SEARCH_SPEED );							
+			MOT_setSuraStaSpeed( SEARCH_SPEED , SLA_90);							// スラロー�?開始速度設�?
+			MOT_setSuraStaSpeed( SEARCH_SPEED , SLA_45);
+			MOT_setSuraStaSpeed( SEARCH_SPEED , SLA_135);
+			MOT_setSuraStaSpeed( SEARCH_SPEED , SLA_N90);							
 			PARAM_setSpeedType( PARAM_ST,   PARAM_SLOW );							
 			PARAM_setSpeedType( PARAM_TRUN, PARAM_SLOW );							
 			PARAM_setSpeedType( PARAM_SLA,  PARAM_SLOW );							
@@ -592,7 +619,10 @@ void MODE_exe_m3( void )
 		case MODE_1:
 			SetLED(0x0e);
 			MOT_setTrgtSpeed(SEARCH_SPEED*5.0);
-			MOT_setSuraStaSpeed( SEARCH_SPEED );							
+			MOT_setSuraStaSpeed( SEARCH_SPEED , SLA_90);							// スラロー�?開始速度設�?
+			MOT_setSuraStaSpeed( SEARCH_SPEED , SLA_45);
+			MOT_setSuraStaSpeed( SEARCH_SPEED , SLA_135);
+			MOT_setSuraStaSpeed( SEARCH_SPEED , SLA_N90);							
 			PARAM_setSpeedType( PARAM_ST,   PARAM_NORMAL );							
 			PARAM_setSpeedType( PARAM_TRUN, PARAM_NORMAL );							
 			PARAM_setSpeedType( PARAM_SLA,  PARAM_NORMAL );							
@@ -618,7 +648,10 @@ void MODE_exe_m3( void )
 		case MODE_2:
 			SetLED(0x0e);
 			MOT_setTrgtSpeed(SEARCH_SPEED*6.0);
-			MOT_setSuraStaSpeed( SEARCH_SPEED );							
+			MOT_setSuraStaSpeed( SEARCH_SPEED , SLA_90);							// スラロー�?開始速度設�?
+			MOT_setSuraStaSpeed( SEARCH_SPEED , SLA_45);
+			MOT_setSuraStaSpeed( SEARCH_SPEED , SLA_135);
+			MOT_setSuraStaSpeed( SEARCH_SPEED , SLA_N90);							
 			PARAM_setSpeedType( PARAM_ST,   PARAM_VERY_FAST );							
 			PARAM_setSpeedType( PARAM_TRUN, PARAM_VERY_FAST );							
 			PARAM_setSpeedType( PARAM_SLA,  PARAM_VERY_FAST );							
@@ -644,7 +677,10 @@ void MODE_exe_m3( void )
 		case MODE_3:
 			SetLED(0x0e);
 			MOT_setTrgtSpeed(SEARCH_SPEED*4.0);
-			MOT_setSuraStaSpeed( SEARCH_SPEED );							
+			MOT_setSuraStaSpeed( SEARCH_SPEED , SLA_90);							// スラロー�?開始速度設�?
+			MOT_setSuraStaSpeed( SEARCH_SPEED , SLA_45);
+			MOT_setSuraStaSpeed( SEARCH_SPEED , SLA_135);
+			MOT_setSuraStaSpeed( SEARCH_SPEED , SLA_N90);						
 			PARAM_setSpeedType( PARAM_ST,   PARAM_SLOW );							
 			PARAM_setSpeedType( PARAM_TRUN, PARAM_SLOW );							
 			PARAM_setSpeedType( PARAM_SLA,  PARAM_SLOW );							
@@ -674,7 +710,10 @@ void MODE_exe_m3( void )
 		case MODE_4:
 			SetLED(0x0e);
 			MOT_setTrgtSpeed(SEARCH_SPEED*5.0);
-			MOT_setSuraStaSpeed( SEARCH_SPEED );							
+			MOT_setSuraStaSpeed( SEARCH_SPEED , SLA_90);							// スラロー�?開始速度設�?
+			MOT_setSuraStaSpeed( SEARCH_SPEED , SLA_45);
+			MOT_setSuraStaSpeed( SEARCH_SPEED , SLA_135);
+			MOT_setSuraStaSpeed( SEARCH_SPEED , SLA_N90);							
 			PARAM_setSpeedType( PARAM_ST,   PARAM_NORMAL );							
 			PARAM_setSpeedType( PARAM_TRUN, PARAM_NORMAL );							
 			PARAM_setSpeedType( PARAM_SLA,  PARAM_NORMAL );							
@@ -700,7 +739,10 @@ void MODE_exe_m3( void )
 		case MODE_5:
 			SetLED(0x0e);
 			MOT_setTrgtSpeed(SEARCH_SPEED*6.0);
-			MOT_setSuraStaSpeed( SEARCH_SPEED );							
+			MOT_setSuraStaSpeed( SEARCH_SPEED , SLA_90);							// スラロー�?開始速度設�?
+			MOT_setSuraStaSpeed( SEARCH_SPEED , SLA_45);
+			MOT_setSuraStaSpeed( SEARCH_SPEED , SLA_135);
+			MOT_setSuraStaSpeed( SEARCH_SPEED , SLA_N90);							
 			PARAM_setSpeedType( PARAM_ST,   PARAM_VERY_FAST );							
 			PARAM_setSpeedType( PARAM_TRUN, PARAM_VERY_FAST );							
 			PARAM_setSpeedType( PARAM_SLA,  PARAM_VERY_FAST );							
@@ -726,7 +768,10 @@ void MODE_exe_m3( void )
 		case MODE_6:
 			SetLED(0x0e);
 			MOT_setTrgtSpeed(SEARCH_SPEED*5.0);
-			MOT_setSuraStaSpeed( SEARCH_SPEED );							
+			MOT_setSuraStaSpeed( SEARCH_SPEED , SLA_90);							// スラロー�?開始速度設�?
+			MOT_setSuraStaSpeed( SEARCH_SPEED , SLA_45);
+			MOT_setSuraStaSpeed( SEARCH_SPEED , SLA_135);
+			MOT_setSuraStaSpeed( SEARCH_SPEED , SLA_N90);							
 			PARAM_setSpeedType( PARAM_ST,   PARAM_NORMAL );							
 			PARAM_setSpeedType( PARAM_TRUN, PARAM_NORMAL );							
 			PARAM_setSpeedType( PARAM_SLA,  PARAM_NORMAL );							
@@ -783,7 +828,10 @@ void MODE_exe_m4( void )
 		case MODE_0:
 			SetLED(0x0e);
 			MOT_setTrgtSpeed(SEARCH_SPEED);
-			MOT_setSuraStaSpeed( SEARCH_SPEED );							
+			MOT_setSuraStaSpeed( SEARCH_SPEED , SLA_90);							// スラロー�?開始速度設�?
+			MOT_setSuraStaSpeed( SEARCH_SPEED , SLA_45);
+			MOT_setSuraStaSpeed( SEARCH_SPEED , SLA_135);
+			MOT_setSuraStaSpeed( SEARCH_SPEED , SLA_N90);							
 			PARAM_setSpeedType( PARAM_ST,   PARAM_SLOW );							
 			PARAM_setSpeedType( PARAM_TRUN, PARAM_SLOW );							
 			PARAM_setSpeedType( PARAM_SLA,  PARAM_SLOW );							
@@ -820,7 +868,10 @@ void MODE_exe_m4( void )
 		case MODE_1:
 			SetLED(0x0e);
 			MOT_setTrgtSpeed(SEARCH_SPEED);
-			MOT_setSuraStaSpeed( SEARCH_SPEED );							
+			MOT_setSuraStaSpeed( SEARCH_SPEED , SLA_90);							// スラロー�?開始速度設�?
+			MOT_setSuraStaSpeed( SEARCH_SPEED , SLA_45);
+			MOT_setSuraStaSpeed( SEARCH_SPEED , SLA_135);
+			MOT_setSuraStaSpeed( SEARCH_SPEED , SLA_N90);							
 			PARAM_setSpeedType( PARAM_ST,   PARAM_SLOW );							
 			PARAM_setSpeedType( PARAM_TRUN, PARAM_SLOW );							
 			PARAM_setSpeedType( PARAM_SLA,  PARAM_SLOW );							
@@ -858,7 +909,10 @@ void MODE_exe_m4( void )
 		case MODE_2:
 			SetLED(0x0e);
 			MOT_setTrgtSpeed(SEARCH_SPEED);
-			MOT_setSuraStaSpeed( SEARCH_SPEED );							
+			MOT_setSuraStaSpeed( SEARCH_SPEED , SLA_90);							// スラロー�?開始速度設�?
+			MOT_setSuraStaSpeed( SEARCH_SPEED , SLA_45);
+			MOT_setSuraStaSpeed( SEARCH_SPEED , SLA_135);
+			MOT_setSuraStaSpeed( SEARCH_SPEED , SLA_N90);							
 			PARAM_setSpeedType( PARAM_ST,   PARAM_SLOW );							
 			PARAM_setSpeedType( PARAM_TRUN, PARAM_SLOW );							
 			PARAM_setSpeedType( PARAM_SLA,  PARAM_SLOW );							
@@ -948,7 +1002,10 @@ void MODE_exe_m5( void )
 		case MODE_0:
 			SetLED(0x0e);
 			MOT_setTrgtSpeed(SEARCH_SPEED*4.0);
-			MOT_setSuraStaSpeed( 0.6 );							
+			MOT_setSuraStaSpeed( 0.6 , SLA_90);							// スラロー�?開始速度設�?
+			MOT_setSuraStaSpeed( 0.6 , SLA_45);
+			MOT_setSuraStaSpeed( 0.6 , SLA_135);
+			MOT_setSuraStaSpeed( 0.6 , SLA_N90);							
 			PARAM_setSpeedType( PARAM_ST,   PARAM_SLOW );							
 			PARAM_setSpeedType( PARAM_TRUN, PARAM_SLOW );							
 			PARAM_setSpeedType( PARAM_SLA,  PARAM_SLOW );							
@@ -974,7 +1031,10 @@ void MODE_exe_m5( void )
 		case MODE_1:
 			SetLED(0x0e);
 			MOT_setTrgtSpeed(SEARCH_SPEED*5.0);
-			MOT_setSuraStaSpeed( 0.6 );							
+			MOT_setSuraStaSpeed( 0.6 , SLA_90);							// スラロー�?開始速度設�?
+			MOT_setSuraStaSpeed( 0.6 , SLA_45);
+			MOT_setSuraStaSpeed( 0.6 , SLA_135);
+			MOT_setSuraStaSpeed( 0.6 , SLA_N90);							
 			PARAM_setSpeedType( PARAM_ST,   PARAM_NORMAL );							
 			PARAM_setSpeedType( PARAM_TRUN, PARAM_NORMAL );							
 			PARAM_setSpeedType( PARAM_SLA,  PARAM_NORMAL );							
@@ -1000,7 +1060,10 @@ void MODE_exe_m5( void )
 		case MODE_2:
 			SetLED(0x0e);
 			MOT_setTrgtSpeed(SEARCH_SPEED*6.0);
-			MOT_setSuraStaSpeed( 0.6 );							
+			MOT_setSuraStaSpeed( 0.6 , SLA_90);							// スラロー�?開始速度設�?
+			MOT_setSuraStaSpeed( 0.6 , SLA_45);
+			MOT_setSuraStaSpeed( 0.6 , SLA_135);
+			MOT_setSuraStaSpeed( 0.6 , SLA_N90);							
 			PARAM_setSpeedType( PARAM_ST,   PARAM_VERY_FAST );							
 			PARAM_setSpeedType( PARAM_TRUN, PARAM_VERY_FAST );							
 			PARAM_setSpeedType( PARAM_SLA,  PARAM_VERY_FAST );							
@@ -1026,7 +1089,10 @@ void MODE_exe_m5( void )
 		case MODE_3:
 			SetLED(0x0e);
 			MOT_setTrgtSpeed(SEARCH_SPEED*4.0);
-			MOT_setSuraStaSpeed( 0.6 );							
+			MOT_setSuraStaSpeed( 0.6 , SLA_90);							// スラロー�?開始速度設�?
+			MOT_setSuraStaSpeed( 0.6 , SLA_45);
+			MOT_setSuraStaSpeed( 0.6 , SLA_135);
+			MOT_setSuraStaSpeed( 0.6 , SLA_N90);								
 			PARAM_setSpeedType( PARAM_ST,   PARAM_SLOW );							
 			PARAM_setSpeedType( PARAM_TRUN, PARAM_SLOW );							
 			PARAM_setSpeedType( PARAM_SLA,  PARAM_SLOW );							
@@ -1055,7 +1121,10 @@ void MODE_exe_m5( void )
 		case MODE_4:
 			SetLED(0x0e);
 			MOT_setTrgtSpeed(SEARCH_SPEED*5.0);
-			MOT_setSuraStaSpeed( 0.6 );							
+			MOT_setSuraStaSpeed( 0.6 , SLA_90);							// スラロー�?開始速度設�?
+			MOT_setSuraStaSpeed( 0.6 , SLA_45);
+			MOT_setSuraStaSpeed( 0.6 , SLA_135);
+			MOT_setSuraStaSpeed( 0.6 , SLA_N90);							
 			PARAM_setSpeedType( PARAM_ST,   PARAM_NORMAL );							
 			PARAM_setSpeedType( PARAM_TRUN, PARAM_NORMAL );							
 			PARAM_setSpeedType( PARAM_SLA,  PARAM_NORMAL );							
@@ -1081,7 +1150,10 @@ void MODE_exe_m5( void )
 		case MODE_5:
 			SetLED(0x0e);
 			MOT_setTrgtSpeed(SEARCH_SPEED*6.0);
-			MOT_setSuraStaSpeed( 0.6 );							
+			MOT_setSuraStaSpeed( 0.6 , SLA_90);							// スラロー�?開始速度設�?
+			MOT_setSuraStaSpeed( 0.6 , SLA_45);
+			MOT_setSuraStaSpeed( 0.6 , SLA_135);
+			MOT_setSuraStaSpeed( 0.6 , SLA_N90);							
 			PARAM_setSpeedType( PARAM_ST,   PARAM_VERY_FAST );							
 			PARAM_setSpeedType( PARAM_TRUN, PARAM_VERY_FAST );							
 			PARAM_setSpeedType( PARAM_SLA,  PARAM_VERY_FAST );							
@@ -1107,7 +1179,10 @@ void MODE_exe_m5( void )
 		case MODE_6:
 			SetLED(0x0e);
 			MOT_setTrgtSpeed(SEARCH_SPEED*6.0);
-			MOT_setSuraStaSpeed( 0.6 );							
+			MOT_setSuraStaSpeed( 0.6 , SLA_90);							// スラロー�?開始速度設�?
+			MOT_setSuraStaSpeed( 0.6 , SLA_45);
+			MOT_setSuraStaSpeed( 0.6 , SLA_135);
+			MOT_setSuraStaSpeed( 0.6 , SLA_N90);							
 			PARAM_setSpeedType( PARAM_ST,   PARAM_VERY_FAST );							
 			PARAM_setSpeedType( PARAM_TRUN, PARAM_VERY_FAST );							
 			PARAM_setSpeedType( PARAM_SLA,  PARAM_VERY_FAST );							

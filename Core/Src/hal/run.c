@@ -58,7 +58,10 @@ stMOT_DATA 		st_Info;				// シーケンスデータ
 float 			f_MotNowSpeed 		= 0.0f;		// 現在速度
 float 			f_MotTrgtSpeed 		= 0.0f;		// 目標速度
 stMOT_DATA 		st_Info;				// シーケンスデータ
-float			f_MotSuraStaSpeed	= 0.0f;
+float			f_MotSuraStaSpeed_90S	= 0.0f;
+float			f_MotSuraStaSpeed_45S	= 0.0f;
+float			f_MotSuraStaSpeed_135S	= 0.0f;
+float			f_MotSuraStaSpeed_V90	= 0.0f;
 enMOT_WALL_EDGE_TYPE	en_WallEdge = MOT_WALL_EDGE_NONE;	// 壁切れ補正
 bool			bl_IsWallEdge = FALSE;				// 壁切れ検知（TRUE:検知、FALSE：非検知）
 float			f_WallEdgeAddDist =0.0;				// 壁切れ補正の移動距離
@@ -935,15 +938,34 @@ void MOT_turn( enMOT_TURN_CMD en_type )
 	CTRL_setNowData_Err(/*st_data.f_dist,*/st_data.f_angle);
 }
 
-void MOT_setSuraStaSpeed( float f_speed )
+void MOT_setSuraStaSpeed( float f_speed , uint8_t sura_cmd)
 {
-	f_MotSuraStaSpeed = f_speed;
+	if(sura_cmd == SLA_90){
+		f_MotSuraStaSpeed_90S = f_speed;
+	}	else if(sura_cmd == SLA_45){
+		f_MotSuraStaSpeed_45S = f_speed;
+	}	else if(sura_cmd == SLA_135){
+		f_MotSuraStaSpeed_135S = f_speed;
+	}	else if(sura_cmd == SLA_N90){
+		f_MotSuraStaSpeed_V90 = f_speed;
+	}
 
 }
 
-float MOT_getSuraStaSpeed( void )
+float MOT_getSuraStaSpeed( uint8_t sura_cmd )
 {
-	return f_MotSuraStaSpeed;
+	float sura_speed;
+
+	if(sura_cmd == SLA_90){
+		sura_speed = f_MotSuraStaSpeed_90S;
+	}else if(sura_cmd == SLA_45){
+		sura_speed = f_MotSuraStaSpeed_45S;
+	}else if(sura_cmd == SLA_135){
+		sura_speed = f_MotSuraStaSpeed_135S;
+	}else if(sura_cmd == SLA_N90){
+		sura_speed = f_MotSuraStaSpeed_V90;
+	}
+	return sura_speed;
 }
 
 float MOT_setTrgtSpeed(float f_speed)
