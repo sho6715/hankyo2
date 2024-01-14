@@ -287,8 +287,8 @@ void MOT_setData_ACC_CONST_DEC( float f_num, float f_fin, enMOT_GO_ST_TYPE en_ty
 
 	/* 距離 */
 	st_Info.f_dist		= f_num * f_1blockDist;												// 移動距離[m]
-	st_Info.f_l1		= ( f_MotTrgtSpeed * f_MotTrgtSpeed - f_MotNowSpeed * f_MotNowSpeed ) / ( st_Info.f_acc1 * 2 );			// 第1移動距離[m]
-	f_l3			= ( f_fin * f_fin - f_MotTrgtSpeed * f_MotTrgtSpeed ) / ( ( st_Info.f_acc3 * -1 ) * 2 );			// 第3移動距離[m]
+	st_Info.f_l1		= ( f_MotTrgtSpeed * f_MotTrgtSpeed - f_MotNowSpeed * f_MotNowSpeed ) / ( st_Info.f_acc1 * 2.0 );			// 第1移動距離[m]
+	f_l3			= ( f_fin * f_fin - f_MotTrgtSpeed * f_MotTrgtSpeed ) / ( ( st_Info.f_acc3 * -1.0 ) * 2.0 );			// 第3移動距離[m]
 	st_Info.f_l1_2		= st_Info.f_dist - f_l3;											// 第1+2移動距離[m]
 
 //	printf("1 %f,%f\r",st_Info.f_trgt,st_Info.f_l1);
@@ -318,12 +318,12 @@ void MOT_setData_MOT_ACC_CONST_DEC_CUSTOM( float f_num, float f_fin, enMOT_GO_ST
 	/* 速度 */
 	st_Info.f_now		= f_MotNowSpeed;												// 現在速度
 	st_Info.f_last		= f_fin;													// 最終速度
-	st_Info.f_trgt		= sqrt( 1 / ( ( st_Info.f_acc3 * -1 ) - st_Info.f_acc1 ) *
-					( 2 * st_Info.f_acc1 * ( st_Info.f_acc3 * -1 ) * ( st_Info.f_dist - MOT_MOVE_ST_MIN ) +
-					( st_Info.f_acc3 * -1 ) * f_MotNowSpeed * f_MotNowSpeed - st_Info.f_acc1 * f_fin * f_fin ) );
+	st_Info.f_trgt		= sqrt( 1.0 / ( ( st_Info.f_acc3 * -1.0 ) - st_Info.f_acc1 ) *
+					( 2.0 * st_Info.f_acc1 * ( st_Info.f_acc3 * -1.0 ) * ( st_Info.f_dist - MOT_MOVE_ST_MIN ) +
+					( st_Info.f_acc3 * -1.0 ) * f_MotNowSpeed * f_MotNowSpeed - st_Info.f_acc1 * f_fin * f_fin ) );
 
-	st_Info.f_l1		= ( st_Info.f_trgt * st_Info.f_trgt - f_MotNowSpeed * f_MotNowSpeed ) / ( st_Info.f_acc1 * 2 );			// 第1移動距離[m]
-	f_l3			= ( f_fin * f_fin - st_Info.f_trgt * st_Info.f_trgt ) / ( ( st_Info.f_acc3  * -1 ) * 2 );			// 第3移動距離[m]
+	st_Info.f_l1		= ( st_Info.f_trgt * st_Info.f_trgt - f_MotNowSpeed * f_MotNowSpeed ) / ( st_Info.f_acc1 * 2.0 );			// 第1移動距離[m]
+	f_l3			= ( f_fin * f_fin - st_Info.f_trgt * st_Info.f_trgt ) / ( ( st_Info.f_acc3  * -1.0 ) * 2.0 );			// 第3移動距離[m]
 	st_Info.f_l1_2		= st_Info.f_dist - f_l3;											// 第1+2移動距離[m]
 
 //	printf("2 %f,%f,%f,%f\r",st_Info.f_trgt,st_Info.f_l1,f_fin,f_MotNowSpeed);
@@ -352,7 +352,7 @@ void MOT_setData_MOT_ACC_CONST( float f_num, float f_fin, enMOT_GO_ST_TYPE en_ty
 
 	/* 距離 */
 	st_Info.f_dist		= f_num * f_1blockDist;												// 移動距離[m]
-	st_Info.f_l1		= ( f_fin * f_fin - f_MotNowSpeed * f_MotNowSpeed ) / ( st_Info.f_acc1 * 2 );			// 第1移動距離[m]
+	st_Info.f_l1		= ( f_fin * f_fin - f_MotNowSpeed * f_MotNowSpeed ) / ( st_Info.f_acc1 * 2.0 );			// 第1移動距離[m]
 	st_Info.f_l1_2		= st_Info.f_dist;													// 第1+2移動距離[m]
 }
 
@@ -377,11 +377,11 @@ void MOT_setData_MOT_ACC_CONST_CUSTOM( float f_num, float f_fin, enMOT_GO_ST_TYP
 	st_Info.f_dist		= f_num * f_1blockDist;												// 移動距離[m]
 
 	/* 加速度 */
-	st_Info.f_acc1 		= ( f_fin * f_fin - f_MotNowSpeed * f_MotNowSpeed ) / ( ( st_Info.f_dist - MOT_MOVE_ST_MIN ) * 2.0f );	// 加速度1[mm/s^2]（強制的に書き換え）
+	st_Info.f_acc1 		= ( f_fin * f_fin - f_MotNowSpeed * f_MotNowSpeed ) / ( ( st_Info.f_dist - MOT_MOVE_ST_MIN ) * 2.0 );	// 加速度1[mm/s^2]（強制的に書き換え）
 	st_Info.f_acc3 		= 0;																// 加速度3[m/s^2](未使用)
 
 	/* 距離 */
-	st_Info.f_l1		= ( f_fin * f_fin - f_MotNowSpeed * f_MotNowSpeed ) / ( st_Info.f_acc1 * 2 );			// 第1移動距離[m]
+	st_Info.f_l1		= ( f_fin * f_fin - f_MotNowSpeed * f_MotNowSpeed ) / ( st_Info.f_acc1 * 2.0 );			// 第1移動距離[m]
 	st_Info.f_l1_2		= st_Info.f_dist;													// 第1+2移動距離[m]
 }
 
@@ -409,7 +409,7 @@ void MOT_setData_MOT_CONST_DEC( float f_num, float f_fin, enMOT_GO_ST_TYPE en_ty
 	/* 距離 */
 	st_Info.f_dist		= f_num * f_1blockDist;												// 移動距離[m]
 	st_Info.f_l1		= 0;																// 第1移動距離[m]
-	st_Info.f_l1_2		= st_Info.f_dist - ( f_fin * f_fin - f_MotNowSpeed * f_MotNowSpeed ) / ( ( st_Info.f_acc3 * -1 ) * 2 );			// 第1-2移動距離[m]
+	st_Info.f_l1_2		= st_Info.f_dist - ( f_fin * f_fin - f_MotNowSpeed * f_MotNowSpeed ) / ( ( st_Info.f_acc3 * -1.0 ) * 2.0 );			// 第1-2移動距離[m]
 }
 
 void MOT_setData_MOT_CONST_DEC_CUSTOM( float f_num, float f_fin, enMOT_GO_ST_TYPE en_type )
@@ -434,11 +434,11 @@ void MOT_setData_MOT_CONST_DEC_CUSTOM( float f_num, float f_fin, enMOT_GO_ST_TYP
 
 	/* 加速度 */
 	st_Info.f_acc1 		= 0;																// 加速度1[mm/s^2](未使用)
-	st_Info.f_acc3 		= ( f_fin * f_fin - f_MotNowSpeed * f_MotNowSpeed ) / ( ( st_Info.f_dist - MOT_MOVE_ST_MIN ) * 2.0f ) * -1;	// 加速度3[mm/s^2]（強制的に書き換え）
+	st_Info.f_acc3 		= ( f_fin * f_fin - f_MotNowSpeed * f_MotNowSpeed ) / ( ( st_Info.f_dist - MOT_MOVE_ST_MIN ) * 2.0 ) * -1.0;	// 加速度3[mm/s^2]（強制的に書き換え）
 
 	/* 距離 */
 	st_Info.f_l1		= 0;																// 第1移動距離[m]
-	st_Info.f_l1_2		= st_Info.f_dist - ( f_fin * f_fin - f_MotNowSpeed * f_MotNowSpeed ) / ( ( st_Info.f_acc3 * -1 ) * 2 );			// 第1-2移動距離[m]
+	st_Info.f_l1_2		= st_Info.f_dist - ( f_fin * f_fin - f_MotNowSpeed * f_MotNowSpeed ) / ( ( st_Info.f_acc3 * -1.0 ) * 2.0 );			// 第1-2移動距離[m]
 }
 
 enMOT_ST_TYPE MOT_getStType( float f_num, float f_fin, enMOT_GO_ST_TYPE en_type )
@@ -490,7 +490,7 @@ enMOT_ST_TYPE MOT_getStType( float f_num, float f_fin, enMOT_GO_ST_TYPE en_type 
 	/* ================ */
 	f_v3Div		= f_fin - f_MotNowSpeed;
 	f_acc3		= MOT_getAcc3();				// 加速度3[mm/s^2]
-	f_t3		= f_v3Div / ( f_acc3 * -1 );
+	f_t3		= f_v3Div / ( f_acc3 * -1.0 );
 
 	f_l3 = ( f_MotNowSpeed + f_fin ) * 0.5f * f_t3;
 
@@ -737,32 +737,32 @@ void MOT_turn( enMOT_TURN_CMD en_type )
 
 	/* 角度 */
 	switch( en_type ){
-		case MOT_R90:	st_info.f_angle =  -PI/2 - ANGLE_OFFSET1_R;	break;					// 回転角度[rad]
-		case MOT_L90:	st_info.f_angle =   PI/2 + ANGLE_OFFSET1;		break;					// 回転角度[rad]
+		case MOT_R90:	st_info.f_angle =  -PI/2.0 - ANGLE_OFFSET1_R;	break;					// 回転角度[rad]
+		case MOT_L90:	st_info.f_angle =   PI/2.0 + ANGLE_OFFSET1;		break;					// 回転角度[rad]
 		case MOT_R180:	st_info.f_angle = -PI - ANGLE_OFFSET2_R;	break;					// 回転角度[rad]
 		case MOT_L180:	st_info.f_angle =  PI + ANGLE_OFFSET2;		break;					// 回転角度[rad]
-		case MOT_R360:	st_info.f_angle = -2*PI - ANGLE_OFFSET3;		break;					// 回転角度[rad]
-		case MOT_L360:	st_info.f_angle =  2*PI + ANGLE_OFFSET3;		break;					// 回転角度[rad]
+		case MOT_R360:	st_info.f_angle = -2.0*PI - ANGLE_OFFSET3;		break;					// 回転角度[rad]
+		case MOT_L360:	st_info.f_angle =  2.0*PI + ANGLE_OFFSET3;		break;					// 回転角度[rad]
 		default:
 			printf("error\r\n");
 			break;
 	}
-	f_angle3 = ( st_info.f_trgtAngleS - st_info.f_lastAngleS ) / 2 * ( st_info.f_trgtAngleS - st_info.f_lastAngleS ) / st_info.f_accAngleS3;						// 第3移動角度[rad]
-	f_angle1 = ( 0 - st_info.f_trgtAngleS) / 2 * ( 0 - st_info.f_trgtAngleS ) / st_info.f_accAngleS1;
+	f_angle3 = ( st_info.f_trgtAngleS - st_info.f_lastAngleS ) / 2.0 * ( st_info.f_trgtAngleS - st_info.f_lastAngleS ) / st_info.f_accAngleS3;						// 第3移動角度[rad]
+	f_angle1 = ( 0.0 - st_info.f_trgtAngleS) / 2.0 * ( 0.0 - st_info.f_trgtAngleS ) / st_info.f_accAngleS1;
 
 
 	if( ( en_type == MOT_R90 ) || ( en_type == MOT_R180 ) || ( en_type == MOT_R360 ) ){		// -方向
-		st_info.f_trgtAngleS*= -1;															// 回転方向を逆にする
-		f_angle1			*= -1;
+		st_info.f_trgtAngleS*= -1.0;															// 回転方向を逆にする
+		f_angle1			*= -1.0;
 //		f_angle2 			*= -1;															// 回転方向を逆にする
-		f_angle3 			*= -1;															// 回転方向を逆にする
+		f_angle3 			*= -1.0;															// 回転方向を逆にする
 		st_info.f_angle1	= f_angle1;						// 第1移動角度[rad]
 		st_info.f_angle1_2	= st_info.f_angle - f_angle3;									// 第1+2移動角度[rad]
 		en_Turntype			= Right;
 
 		/* 最小移動距離を上書き */
-		if( st_info.f_angle1 > ( A1_MIN * -1 ) ){
-			st_info.f_angle1 = A1_MIN * -1;
+		if( st_info.f_angle1 > ( A1_MIN * -1.0 ) ){
+			st_info.f_angle1 = A1_MIN * -1.0;
 		}
 	}
 	else{
@@ -827,14 +827,14 @@ void MOT_turn( enMOT_TURN_CMD en_type )
 	/*  等速  */
 	/* ------ */
 	if( ( en_type == MOT_R90 ) || ( en_type == MOT_R180 ) || ( en_type == MOT_R360 ) ){		// -方向
-		f_angle3			= ( Get_TrgtAngleS() - st_info.f_lastAngleS ) / 2 * ( Get_TrgtAngleS() - st_info.f_lastAngleS ) / st_info.f_accAngleS3;		// 第3移動角度[rad]
-		f_angle3			= -1 * f_angle3;
-		if( f_angle3 > A3_MIN*-1 ) f_angle3 = A3_MIN * -1;																	// 減速最低角度に書き換え
+		f_angle3			= ( Get_TrgtAngleS() - st_info.f_lastAngleS ) / 2.0 * ( Get_TrgtAngleS() - st_info.f_lastAngleS ) / st_info.f_accAngleS3;		// 第3移動角度[rad]
+		f_angle3			= -1.0 * f_angle3;
+		if( f_angle3 > A3_MIN*-1.0 ) f_angle3 = A3_MIN * -1.0;																	// 減速最低角度に書き換え
 		st_info.f_angle1_2		= st_info.f_angle - f_angle3;// 第1+2移動角度[rad]
 
 	}
 	else{
-		f_angle3			= ( Get_TrgtAngleS() - st_info.f_lastAngleS ) / 2 * ( Get_TrgtAngleS() - st_info.f_lastAngleS ) / st_info.f_accAngleS3;		// 第3移動角度[rad]
+		f_angle3			= ( Get_TrgtAngleS() - st_info.f_lastAngleS ) / 2.0 * ( Get_TrgtAngleS() - st_info.f_lastAngleS ) / st_info.f_accAngleS3;		// 第3移動角度[rad]
 		if( f_angle3 < A3_MIN ) f_angle3 = A3_MIN;																			// 減速最低角度に書き換え
 		st_info.f_angle1_2		= st_info.f_angle - f_angle3;																// 第1+2移動角度[rad]
 //		printf("   [f_angle3]%d [f_angle1_2]%d\n\r", (int32_t)f_angle3, (int32_t)	st_info.f_angle1_2 );
@@ -966,7 +966,7 @@ void MOT_goHitBackWall(void)
 	/*  動作データ計算  */
 	/* ---------------- */
 	/* 加速度 */
-	st_info.f_acc1= 1200;												// 角加速度1[rad/s^2]												// 角加速度3[rad/s^2]
+	st_info.f_acc1= 1200.0;												// 角加速度1[rad/s^2]												// 角加速度3[rad/s^2]
 
 	GYRO_staErrChkAngle();			// エラー検出開始
 //	printf("");
@@ -1007,7 +1007,7 @@ void MOT_goHitBackWall(void)
 
 	GYRO_endErrChkAngle();					// エラー検出終了
 	CTRL_clrNowData();
-
+	CTRL_clrAngleErrSum();
 }
 
 void MOT_goSla( enMOT_SURA_CMD en_type, stSLA* p_sla )
@@ -1055,14 +1055,14 @@ void MOT_goSla( enMOT_SURA_CMD en_type, stSLA* p_sla )
 		( en_type == MOT_R90S_N ) ||
 		( en_type == MOT_R135S_S2N ) || ( en_type == MOT_R135S_N2S )
 	){
-		st_info.f_accAngleS1 *= -1;
-		st_info.f_trgtAngleS *= -1;
-		st_info.f_angle      *= -1;
-		st_info.f_angle1     *= -1;
-		st_info.f_angle1_2   *= -1;
+		st_info.f_accAngleS1 *= -1.0;
+		st_info.f_trgtAngleS *= -1.0;
+		st_info.f_angle      *= -1.0;
+		st_info.f_angle1     *= -1.0;
+		st_info.f_angle1_2   *= -1.0;
 	}
 	else{
-		st_info.f_accAngleS3 *= -1;
+		st_info.f_accAngleS3 *= -1.0;
 	}
 
 	/* 斜め走行のタイプに応じて、スラローム前の距離とスラローム後の退避距離を入れ替える */
@@ -1203,7 +1203,7 @@ void MOT_goSla( enMOT_SURA_CMD en_type, stSLA* p_sla )
 	st_data.f_now			= st_info.f_now;			// 現在速度
 	st_data.f_trgt			= st_info.f_now;			// 目標速度
 	st_data.f_nowDist		= f_entryLen + st_info.f_now * ( p_sla->us_constAngvelTime + p_sla->us_accAngvelTime ) * 0.001;
-	st_data.f_dist			= f_entryLen + st_info.f_now * ( p_sla->us_constAngvelTime + p_sla->us_accAngvelTime * 2 ) * 0.001;		// 減速距離
+	st_data.f_dist			= f_entryLen + st_info.f_now * ( p_sla->us_constAngvelTime + p_sla->us_accAngvelTime * 2.0 ) * 0.001;		// 減速距離
 	st_data.f_accAngleS		= st_info.f_accAngleS3;		// 角加速度
 	st_data.f_nowAngleS		= st_info.f_trgtAngleS;		// 現在角速度
 	st_data.f_trgtAngleS		= 0;				// 目標角速度
@@ -1244,8 +1244,8 @@ void MOT_goSla( enMOT_SURA_CMD en_type, stSLA* p_sla )
 	st_data.f_acc			= 0;						// 加速度指定
 	st_data.f_now			= st_info.f_now;			// 現在速度
 	st_data.f_trgt			= st_info.f_now;			// 目標速度
-	st_data.f_nowDist		= f_entryLen + st_info.f_now * ( p_sla->us_constAngvelTime + p_sla->us_accAngvelTime * 2  ) * 0.001;
-	st_data.f_dist			= f_escapeLen + f_entryLen + st_info.f_now * ( p_sla->us_constAngvelTime + p_sla->us_accAngvelTime * 2 ) * 0.001;	// スラローム後の前進距離
+	st_data.f_nowDist		= f_entryLen + st_info.f_now * ( p_sla->us_constAngvelTime + p_sla->us_accAngvelTime * 2.0  ) * 0.001;
+	st_data.f_dist			= f_escapeLen + f_entryLen + st_info.f_now * ( p_sla->us_constAngvelTime + p_sla->us_accAngvelTime * 2.0 ) * 0.001;	// スラローム後の前進距離
 	st_data.f_accAngleS		= 0;						// 角加速度
 	st_data.f_nowAngleS		= 0;						// 現在角速度
 	st_data.f_trgtAngleS		= 0;						// 目標角度
@@ -1394,4 +1394,6 @@ void DIST_Front_Wall_correction(void)
 	f_MotNowSpeed = 0.0f;		//現在速度更新
 
 	CTRL_clrNowData();
+	CTRL_clrAngleErrSum();
 }
+
