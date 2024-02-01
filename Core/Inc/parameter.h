@@ -37,12 +37,12 @@
 #define 	f_FB_speed_kp		(35.0)//35
 #define 	f_FB_speed_ki		(2.0)//4
 #define 	f_FB_speed_kd		(0.1)//0.3
-#define		f_FB_angleS_kp		(55.0)//95
-#define		f_FB_angleS_ki		(2.0)//6.0
-#define		f_FB_angleS_kd		(10.0)//0.2
+#define		f_FB_angleS_kp		(95.0)//95
+#define		f_FB_angleS_ki		(1.0)//6.0
+#define		f_FB_angleS_kd		(30.0)//0.2
 
-#define		f_FB_angle_kp		(0.1)//0.45
-#define		f_FB_angle_ki		(0.05)//0.25
+#define		f_FB_angle_kp		(0.0)//0.45
+#define		f_FB_angle_ki		(0.0)//0.25
 
 #define		f_FB_wall_kp		(0.65)//0.65
 #define		f_FB_wall_kd		(0.2)//0.2

@@ -133,13 +133,14 @@ int main(void)
 
   Communication_Initialize();
   HAL_init();
+  CTRL_clrNowData();
   /* USER CODE END 2 */
 
   /* Infinite loop */
   /* USER CODE BEGIN WHILE */
   while (1)
   {
-    if (( SW_IsOn_1() == SW_ON)/*||(Get_NowSpeed()>100) */){
+    if (( SW_IsOn_1() == SW_ON)||CountUP_mode()){
 		MODE_inc();								// モードを1つ進める
 		LL_mDelay(200);			// SWが離されるまで待つ
 		printf("mode selecting\r\n");

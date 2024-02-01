@@ -82,6 +82,9 @@ float Get_TrgtSpeed(void){
 void Set_TrgtSpeed(float speed){
 	f_TrgtSpeed = speed;
 }
+float Get_NowDistR(void){
+	return f_NowDistR;
+}
 
 float Get_NowAngle(void){
 	return f_NowAngle;
@@ -149,8 +152,8 @@ void CTRL_clrData( void )
 	/* 制御データ */
 	f_SpeedErrSum	= 0;
 	f_DistErrSum 	= 0;						// [距離制御]   距離積分制御のサム値			（1[msec]毎に更新される）
-//	f_AngleSErrSum	= 0;
-//	f_AngleErrSum 	= 0;						// [角度制御]   角度積分制御のサム値			（1[msec]毎に更新される）
+	f_AngleSErrSum	= 0;
+	f_AngleErrSum 	= 0;						// [角度制御]   角度積分制御のサム値			（1[msec]毎に更新される）
 	f_ErrSpeedBuf	= 0;
 	f_ErrDistBuf	= 0;						// [壁制御]     距離センサーエラー値のバッファ		（1[msec]毎に更新される）
 	f_ErrAngleSBuf  = 0;
@@ -161,8 +164,8 @@ void CTRL_clrData( void )
 }
 
 void CTRL_clrAngleErrSum(void){
-	f_AngleErrSum = 0.0;
-	f_AngleSErrSum = 0.0;
+//	f_AngleErrSum = 0.0;
+//	f_AngleSErrSum = 0.0;
 }
 
 void CTRL_clrNowData(void)
@@ -862,6 +865,11 @@ void CTRL_pol( void )
 	float Ir = 0.0;
 	float Il = 0.0;
 
+	ENC_GetDiv( &l_CntR, &l_CntL );					// 移動量[カウント値]を取得
+	//add get_motor_omega(l_CntR,l_CntL);
+	CTRL_refNow();									// 制御に使用する値を現在の状態に更新
+	CTRL_refTarget();								// 制御に使用する値を目標値に更新
+
 	/* 制御を行うかのチェック */
 	if( uc_CtrlFlag != TRUE ){
 		 return;		// 制御無効状態
@@ -885,11 +893,11 @@ void CTRL_pol( void )
 	}
 
 	/* 各種センサ入力 */
-	ENC_GetDiv( &l_CntR, &l_CntL );					// 移動量[カウント値]を取得
+/*	ENC_GetDiv( &l_CntR, &l_CntL );					// 移動量[カウント値]を取得
 	//add get_motor_omega(l_CntR,l_CntL);
 	CTRL_refNow();									// 制御に使用する値を現在の状態に更新
 	CTRL_refTarget();								// 制御に使用する値を目標値に更新
-
+*/
 	f_NowAngle = GYRO_getNowAngle();					// 現在角度[deg]
 
 	/* 制御値取得 */

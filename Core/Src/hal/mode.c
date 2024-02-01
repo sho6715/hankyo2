@@ -117,6 +117,15 @@ void MODE_inc( void )
 	}
 }
 
+bool CountUP_mode(void){
+	if(Get_NowDistR()>0.01){
+    CTRL_clrNowData();
+    return TRUE;
+  }else{
+    return FALSE;
+  }
+}
+
 void MODE_exe_m0( void )
 {
 	enMAP_HEAD_DIR		en_endDir2;
@@ -310,12 +319,12 @@ void MODE_exe_m0( void )
 			MOT_setTrgtSpeed( SEARCH_SPEED );
 */
 //			MOT_turn(MOT_R90);
-/*			
+			
 			MOT_goBlock_FinSpeed(0.5, SEARCH_SPEED);
 			MOT_goSla(MOT_R90S, PARAM_getSra( SLA_90 ));
 //			MOT_goSla(MOT_L90S, PARAM_getSra( SLA_90 ));
 			MOT_goBlock_FinSpeed(0.5, 0);
-*/
+
 /*
 			MOT_goBlock_FinSpeed(1.0, SEARCH_SPEED);
 			MOT_goSla(MOT_R45S_S2N, PARAM_getSra( SLA_45 ));
@@ -326,11 +335,11 @@ void MODE_exe_m0( void )
 			MOT_goSla(MOT_R90S_N, PARAM_getSra( SLA_N90 ));
 			MOT_goSkewBlock_FinSpeed(0.5, 0);
 */
-
+/*
 			MOT_goBlock_FinSpeed(0.5, SEARCH_SPEED);
 			MOT_goSla(MOT_R135S_S2N, PARAM_getSra( SLA_135 ));
 			MOT_goSkewBlock_FinSpeed(0.5, 0);
-
+*/
 			log_flag_off();
 			break;
 
@@ -1251,7 +1260,7 @@ void MODE_exe( void )
 			SetLED(0x00);
 			now_mode = mode_2;
 			while(1){
-				if ( SW_IsOn_1() == SW_ON ){
+				if (( SW_IsOn_1() == SW_ON)||CountUP_mode()){
 					MODE_inc();								
 					LL_mDelay(200);			
 					printf("mode selecting_0\r\n");
@@ -1276,7 +1285,7 @@ void MODE_exe( void )
 			SetLED(0x00);
 			now_mode = mode_2;
 			while(1){
-				if ( SW_IsOn_1() == SW_ON ){
+				if (( SW_IsOn_1() == SW_ON)||CountUP_mode()){
 					MODE_inc();								
 					LL_mDelay(200);			
 					printf("mode selecting_1\r\n");
@@ -1301,7 +1310,7 @@ void MODE_exe( void )
 			SetLED(0x00);
 			now_mode = mode_2;
 			while(1){
-				if ( SW_IsOn_1() == SW_ON ){
+				if (( SW_IsOn_1() == SW_ON)||CountUP_mode()){
 					MODE_inc();								
 					LL_mDelay(200);			
 					printf("mode selecting_1\r\n");
@@ -1326,7 +1335,7 @@ void MODE_exe( void )
 			SetLED(0x00);
 			now_mode = mode_2;
 			while(1){
-				if ( SW_IsOn_1() == SW_ON ){
+				if (( SW_IsOn_1() == SW_ON)||CountUP_mode()){
 					MODE_inc();								
 					LL_mDelay(200);			
 					printf("mode selecting_1\r\n");
@@ -1352,7 +1361,7 @@ void MODE_exe( void )
 			now_mode = mode_2;
 			wall_hit_flag = 1;
 			while(1){
-				if ( SW_IsOn_1() == SW_ON ){
+				if (( SW_IsOn_1() == SW_ON)||CountUP_mode()){
 					MODE_inc();								
 					LL_mDelay(200);			
 					printf("mode selecting_1\r\n");
@@ -1378,7 +1387,7 @@ void MODE_exe( void )
 			SetLED(0x00);
 			now_mode = mode_2;
 			while(1){
-				if ( SW_IsOn_1() == SW_ON ){
+				if (( SW_IsOn_1() == SW_ON)||CountUP_mode()){
 					MODE_inc();								
 					LL_mDelay(200);			
 					printf("mode selecting_1\r\n");

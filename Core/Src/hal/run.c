@@ -1025,8 +1025,6 @@ void MOT_goHitBackWall(void)
 
 	f_MotNowSpeed = 0.0f;		//現在速度更新
 
-	CTRL_clrAngleErrSum();
-
 	GYRO_endErrChkAngle();					// エラー検出終了
 	CTRL_clrNowData();
 	CTRL_clrAngleErrSum();
