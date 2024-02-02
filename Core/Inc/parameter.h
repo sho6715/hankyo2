@@ -33,7 +33,7 @@
 #define RAD_TO_DEG  (180.0f/3.1416f)
 
 #define MOT_WALL_EDGE_DIST			( 0.0305f )//28
-
+/*
 #define 	f_FB_speed_kp		(35.0)//35
 #define 	f_FB_speed_ki		(4.0)//4
 #define 	f_FB_speed_kd		(0.3)//0.3
@@ -46,7 +46,7 @@
 
 #define		f_FB_wall_kp		(0.65)//0.65
 #define		f_FB_wall_kd		(0.2)//0.2
-
+*/
 #define		f_FB_front_wall_v_kp	(0.001)
 #define		f_FB_front_wall_v_ki	(0.0)
 #define		f_FB_front_wall_v_kd	(0.0001)
@@ -131,6 +131,20 @@ typedef struct{
 	float			f_decAngle;				
 }stSPEED;
 
+/* ゲイン */
+typedef struct{
+	float 			f_FB_speed_kp;			// フィードバック、速度 比例制御
+	float 			f_FB_speed_ki;			// フィードバック、速度 積分制御
+	float 			f_FB_speed_kd;			// フィードバック、速度 微分制御
+	float			f_FB_angleS_kp;			// フィードバック、角速度 比例制御
+	float			f_FB_angleS_ki;			// フィードバック、角速度 積分制御
+	float			f_FB_angleS_kd;			// フィードバック、角速度 微分制御
+	float			f_FB_angle_kp;			// フィードバック、角度 比例制御
+	float			f_FB_angle_ki;			// フィードバック、角度 積分制御
+	float			f_FB_wall_kp;			// フィードバック、壁 比例制御
+	float			f_FB_wall_kd;			// フィードバック、壁 微分制御
+}stGAIN;
+
 typedef struct{
 	float	f_speed;
 	float	f_angAcc;
@@ -156,7 +170,7 @@ typedef enum{
 
 void PARAM_setSpeedType( enPARAM_MODE en_mode, enPARAM_MOVE_SPEED en_speed );
 const stSPEED* PARAM_getSpeed( enPARAM_MODE en_mode );
-//const stGAIN* PARAM_getGain( enPARAM_MODE en_mode );
+const stGAIN* PARAM_getGain( enPARAM_MODE en_mode );
 
 void PARAM_makeSra( float f_speed, float f_angAcc, float f_g , enSLA_TYPE en_mode);
 stSLA* PARAM_getSra( enSLA_TYPE en_mode );

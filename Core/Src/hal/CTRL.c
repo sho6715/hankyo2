@@ -5,7 +5,6 @@
  *      Author: shohe
  */
 
-
 #include "hal/CTRL.h"
 
 
@@ -585,10 +584,13 @@ void CTRL_getSpeedFB( float* p_err )
 	float		f_kd = 0.0f;
 	/* 速度制御 */
 	f_speedErr  = f_TrgtSpeed - f_NowSpeed;					// 速度偏差[mm/s]
-	f_kp = f_FB_speed_kp;
+/*	f_kp = f_FB_speed_kp;
 	f_ki = f_FB_speed_ki;
 	f_kd = f_FB_speed_kd;
-
+*/
+	f_kp = PARAM_getGain(Chg_ParamID(en_Type))->f_FB_speed_kp;
+	f_ki = PARAM_getGain(Chg_ParamID(en_Type))->f_FB_speed_ki;
+	f_kd = PARAM_getGain(Chg_ParamID(en_Type))->f_FB_speed_kd;
 	/* I成分演算 */
 	f_SpeedErrSum += f_speedErr;// * f_ki;			// I成分更新
 	if( f_SpeedErrSum > 10000.0 ){
@@ -613,9 +615,13 @@ void CTRL_getAngleSpeedFB( float* p_err )
 
 
 	f_err = f_TrgtAngleS - GYRO_getSpeedErr();			// 目標角度 - ジャイロセンサ[deg/s]
-	f_kp = f_FB_angleS_kp;
+/*	f_kp = f_FB_angleS_kp;
 	f_ki = f_FB_angleS_ki;
 	f_kd = f_FB_angleS_kd;
+*/
+	f_kp = PARAM_getGain(Chg_ParamID(en_Type))->f_FB_angleS_kp;
+	f_ki = PARAM_getGain(Chg_ParamID(en_Type))->f_FB_angleS_ki;
+	f_kd = PARAM_getGain(Chg_ParamID(en_Type))->f_FB_angleS_kd;
 
 	f_AngleSErrSum += f_err;//*f_ki;
 
@@ -643,8 +649,12 @@ void CTRL_getAngleFB( float* p_err )
     float f_ki = 0.0f;
 
     f_err = f_TrgtAngle - GYRO_getNowAngle();          // 現在角度[deg]
-    f_kp = f_FB_angle_kp;
+/*    f_kp = f_FB_angle_kp;
     f_ki = f_FB_angle_ki;
+*/
+	f_kp = PARAM_getGain(Chg_ParamID(en_Type))->f_FB_angle_kp;
+	f_ki = PARAM_getGain(Chg_ParamID(en_Type))->f_FB_angle_ki;
+
     f_AngleErrSum += f_err;//*f_ki;
     if(f_AngleErrSum > 100.0){
         f_AngleErrSum = 100.0;           //上限リミッター
@@ -667,9 +677,12 @@ void CTRL_getSenFB( float* p_err )
 	/* 直進時 */
 	if( ( en_Type == CTRL_ACC ) || ( en_Type == CTRL_CONST ) || ( en_Type == CTRL_DEC )||
 			 ( en_Type == CTRL_ENTRY_SURA ) || ( en_Type == CTRL_EXIT_SURA ) ){
-
+/*
 		f_kp = f_FB_wall_kp;
 		f_kd = f_FB_wall_kd;
+*/
+		f_kp = PARAM_getGain(Chg_ParamID(en_Type))->f_FB_wall_kp;
+		f_kd = PARAM_getGain(Chg_ParamID(en_Type))->f_FB_wall_kd;
 
 		/* 偏差取得 */
 		DIST_getErr( &l_WallErr );

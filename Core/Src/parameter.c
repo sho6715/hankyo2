@@ -59,6 +59,109 @@ stSLA				st_Sla[SLA_TYPE_MAX];					// スラローム時の走行パラメータ
 /*  GainData  */
 /* ============== */
 
+
+	/* 直進ゲインデータ */
+	const stGAIN f_StGainData[PARAM_MOVE_SPEED_MAX] = {
+		
+		/* 超低速(PARAM_VERY_SLOW) */
+			//速度kp	速度ki	速度kd	角速度kp	角速度ki	角速度kd	角度kp		角度ki		壁kp	壁kd
+			{ 35.0,		4.0,	0.3,	95.0,		6.0,		0.2,		0.45,		0.25,	0.65,	0.2,	},
+		/* 低速(PARAM_SLOW) */
+			//速度kp	速度ki	速度kd	角速度kp	角速度ki	角速度kd	角度kp		角度ki		壁kp	壁kd
+			{ 35.0,		4.0,	0.3,	95.0,		6.0,		0.2,		0.45,		0.25,	0.65,	0.2,	},
+		/* 通常(PARAM_NORMAL) */
+			//速度kp	速度ki	速度kd	角速度kp	角速度ki	角速度kd	角度kp		角度ki		壁kp	壁kd
+			{ 35.0,		4.0,	0.3,	95.0,		6.0,		0.2,		0.45,		0.25,	0.65,	0.2,	},
+		/* 高速(PARAM_FAST) */
+			//速度kp	速度ki	速度kd	角速度kp	角速度ki	角速度kd	角度kp		角度ki		壁kp	壁kd
+			{ 35.0,		4.0,	0.3,	95.0,		6.0,		0.2,		0.45,		0.25,	0.65,	0.2,	},
+		/* 超高速(PARAM_VERY_FAST) */
+			//速度kp	速度ki	速度kd	角速度kp	角速度ki	角速度kd	角度kp		角度ki		壁kp	壁kd
+			{ 35.0,		4.0,	0.3,	95.0,		6.0,		0.2,		0.45,		0.25,	0.65,	0.2,	}
+	};
+
+	/* 旋回ゲインデータ */
+	const stGAIN f_TurnGainData[PARAM_MOVE_SPEED_MAX] = {
+		
+		/* 超低速(PARAM_VERY_SLOW) */
+			//速度kp	速度ki	速度kd	角速度kp	角速度ki	角速度kd	角度kp		角度ki		壁kp	壁kd
+			{ 35.0,		4.0,	0.3,	95.0,		6.0,		0.2,		0.45,		0.25,	0.65,	0.2,	},
+		/* 低速(PARAM_SLOW) */
+			//速度kp	速度ki	速度kd	角速度kp	角速度ki	角速度kd	角度kp		角度ki		壁kp	壁kd
+			{ 35.0,		4.0,	0.3,	95.0,		6.0,		0.2,		0.45,		0.25,	0.65,	0.2,	},
+		/* 通常(PARAM_NORMAL) */
+			//速度kp	速度ki	速度kd	角速度kp	角速度ki	角速度kd	角度kp		角度ki		壁kp	壁kd
+			{ 35.0,		4.0,	0.3,	95.0,		6.0,		0.2,		0.45,		0.25,	0.65,	0.2,	},
+		/* 高速(PARAM_FAST) */
+			//速度kp	速度ki	速度kd	角速度kp	角速度ki	角速度kd	角度kp		角度ki		壁kp	壁kd
+			{ 35.0,		4.0,	0.3,	95.0,		6.0,		0.2,		0.45,		0.25,	0.65,	0.2,	},
+		/* 超高速(PARAM_VERY_FAST) */
+			//速度kp	速度ki	速度kd	角速度kp	角速度ki	角速度kd	角度kp		角度ki		壁kp	壁kd
+			{ 35.0,		4.0,	0.3,	95.0,		6.0,		0.2,		0.45,		0.25,	0.65,	0.2,	}
+	};
+
+	/* スラロームゲインデータ */
+	const stGAIN f_SlaGainData[PARAM_MOVE_SPEED_MAX] = {
+
+		/* 超低速(PARAM_VERY_SLOW) *///吸引なし　300
+			//速度kp	速度ki	速度kd	角速度kp	角速度ki	角速度kd	角度kp		角度ki		壁kp	壁kd
+			{ 35.0,		4.0,	0.3,	95.0,		6.0,		0.2,		0.45,		0.25,	0.65,	0.2,	},
+		/* 低速(PARAM_SLOW) *///吸引あり300
+			//速度kp	速度ki	速度kd	角速度kp	角速度ki	角速度kd	角度kp		角度ki		壁kp	壁kd
+			{ 35.0,		4.0,	0.3,	95.0,		6.0,		0.2,		0.45,		0.25,	0.65,	0.2,	},
+		/* 通常(PARAM_NORMAL)*///吸引あり600
+			//速度kp	速度ki	速度kd	角速度kp	角速度ki	角速度kd	角度kp		角度ki		壁kp	壁kd
+			{ 35.0,		4.0,	0.3,	95.0,		1.0,		0.2,		0.45,		0.25,	0.65,	0.2,	},
+		/* 高速(PARAM_FAST)*/
+			//速度kp	速度ki	速度kd	角速度kp	角速度ki	角速度kd	角度kp		角度ki		壁kp	壁kd
+			{ 35.0,		4.0,	0.3,	95.0,		1.0,		0.2,		0.45,		0.25,	0.65,	0.2,	},
+		/* 超高速(PARAM_VERY_FAST) */
+			//速度kp	速度ki	速度kd	角速度kp	角速度ki	角速度kd	角度kp		角度ki		壁kp	壁kd
+			{ 35.0,		4.0,	0.3,	95.0,		1.0,		0.2,		0.45,		0.25,	0.65,	0.2,	}
+	};
+
+const stGAIN* PARAM_getGain( enPARAM_MODE en_mode )
+{
+	const stGAIN* p_adr;
+	
+	switch( en_mode ){
+		
+		case PARAM_ACC:													// 加速中(直進)
+		case PARAM_CONST:												// 等速中(直進)
+		case PARAM_DEC:													// 減速中(直進)
+//		case PARAM_BACK_ACC:											// 加速中(後進)
+//		case PARAM_BACK_CONST:											// 等速中(後進)
+//		case PARAM_BACK_DEC:											// 減速中(後進)
+		case PARAM_SKEW_ACC:											// 加速中(斜め)
+		case PARAM_SKEW_CONST:											// 等速中(斜め)
+		case PARAM_SKEW_DEC:											// 減速中(斜め)
+		case PARAM_HIT_WALL:											// 壁あて制御
+			p_adr = &f_StGainData[en_Speed_st];
+			break;
+			
+		case PARAM_ACC_TRUN:											// 加速中(超地信旋回)
+		case PARAM_CONST_TRUN:											// 等速中(超地信旋回)
+		case PARAM_DEC_TRUN:											// 減速中(超地信旋回)
+			p_adr = &f_TurnGainData[en_Speed_trun];
+			break;
+			
+		case PARAM_ENTRY_SURA:											// スラローム前の前進動作(スラローム)
+		case PARAM_ACC_SURA:											// 加速中(スラローム)
+		case PARAM_CONST_SURA:											// 等速中(スラローム)
+		case PARAM_DEC_SURA:											// 減速中(スラローム)
+		case PARAM_EXIT_SURA:											// スラローム後の前進動作(スラローム)
+			p_adr = &f_SlaGainData[en_Speed_sla];
+			break;
+		
+		default:														// Err、とりあえず・・・（メモリ破壊を防ぐため）
+			printf("設定したゲインタイプがありません \n\r");
+			p_adr = &f_SlaGainData[en_Speed_sla];
+			break;
+	}
+	
+	return p_adr;
+}
+
 void PARAM_setSpeedType( enPARAM_MODE en_mode, enPARAM_MOVE_SPEED en_speed )
 {
 	switch( en_mode ){
