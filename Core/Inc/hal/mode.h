@@ -38,6 +38,7 @@
 
 void SYS_start( void );
 void MODE_inc( void );
+bool CountUP_mode(void);
 void MODE_exe( void );
 bool MODE_CheckExe(void);
 

@@ -6,5 +6,5 @@
 ../Core/Src/search/map_cmd.c:592:6:MAP_makeSuraCmdList	8208	static
 ../Core/Src/search/map_cmd.c:650:6:MAP_makeSkewCmdList	8224	static
 ../Core/Src/search/map_cmd.c:854:6:MAP_drive	32	static
-../Core/Src/search/map_cmd.c:1039:6:MAP_searchCmdList	24	static
-../Core/Src/search/map_cmd.c:1120:6:MAP_makeCmdList_dijkstra_modoki	32	static
+../Core/Src/search/map_cmd.c:1051:6:MAP_searchCmdList	24	static
+../Core/Src/search/map_cmd.c:1132:6:MAP_makeCmdList_dijkstra_modoki	32	static
