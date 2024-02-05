@@ -1215,6 +1215,9 @@ void MOT_goSla( enMOT_SURA_CMD en_type, stSLA* p_sla )
 	}
 //	log_in(0);
 //	log_in(f_NowAngle);
+
+		CTRL_clrAngleErrSum();
+		
 	/* ------ */
 	/*  dec  */
 	/* ------ */

@@ -20,9 +20,9 @@ float	Log_7[log_num];
 float	Log_8[log_num];
 float	Log_9[log_num];
 float	Log_10[log_num];
-/*float	Log_11[log_num];
+float	Log_11[log_num];
 float	Log_12[log_num];
-*/
+
 uint16_t	log_count = 0;
 bool	b_logflag = FALSE;
 
@@ -31,9 +31,9 @@ void log_in2( 	float log1,float log2,
 			float log3,float log4,
 			float log5,float log6,
 			float log7,float log8,
-			float log9,float log10)/*,
+			float log9,float log10,
 			float log11,float log12)
-*/
+
 {
 	if((b_logflag == TRUE)&&(log_count < log_num)){
 		Log_1[log_count] = log1;
@@ -46,9 +46,9 @@ void log_in2( 	float log1,float log2,
 		Log_8[log_count] = log8;
 		Log_9[log_count] = log9;
 		Log_10[log_count] = log10;
-/*		Log_11[log_count] = log11;
+		Log_11[log_count] = log11;
 		Log_12[log_count] = log12;
-*/
+
 		log_count++;
 	}
 }
@@ -67,7 +67,7 @@ void log_interrupt ( void )
 	log_in2(GYRO_getSpeedErr(), Get_TrgtAngleS(),
 			Get_NowAngle(),Get_TrgtAngle(),
 			Get_NowSpeed(), Get_TrgtSpeed(),
-			Get_NowDist(), Get_TrgtDist(),templog1,templog2);
+			Get_NowDist(), Get_TrgtDist(),templog1,templog2,templog3,templog4);
 }
 
 void log_flag_on(void)
@@ -83,22 +83,17 @@ void log_flag_off(void)
 void log_read2(void)
 {
 	int16_t i=0;
-/*	while(i<log_num){
-		printf("%5.2f,%5.2f,%5.2f,%5.2f,%5.2f,%5.2f,%5.2f,%5.2f,%5.2f,%5.2f,%5.2f,%5.2f\n\r",
+	while(i<log_num){
+		printf("%5.4f,%5.4f,%5.4f,%5.4f,%5.4f,%5.4f,%5.4f,%5.4f,%5.4f,%5.4f,%5.4f,%5.4f\n\r",
 		Log_1[i],Log_2[i],Log_3[i],Log_4[i],Log_5[i],Log_6[i],Log_7[i],Log_8[i],Log_9[i],Log_10[i],Log_11[i],Log_12[i]);
 		i++;
 	}
-*/
-/*	while(i<log_num){
-		printf("%5.2f,%5.2f,%5.2f,%5.2f,%5.2f\n\r",
-		Log_1[i],Log_2[i],Log_3[i],Log_4[i],Log_5[i]);
-		i++;
-	}
-*/
+
+/*
 	while(i<log_num){
 		printf("%5.4f,%5.4f,%5.4f,%5.4f,%5.4f,%5.4f,%5.4f,%5.4f,%5.4f,%5.4f\n\r",
 		Log_1[i],Log_2[i],Log_3[i],Log_4[i],Log_5[i],Log_6[i],Log_7[i],Log_8[i],Log_9[i],Log_10[i]);
 		i++;
 	}
-
+*/
 }

@@ -22,10 +22,10 @@
 ../Core/Src/hal/run.c:977:6:MOT_setNowSpeed	16	static
 ../Core/Src/hal/run.c:982:6:MOT_goHitBackWall	128	static
 ../Core/Src/hal/run.c:1033:6:MOT_goSla	168	static
-../Core/Src/hal/run.c:1295:6:turntable	56	static
-../Core/Src/hal/run.c:1323:6:MOT_setWallEdgeType	16	static
-../Core/Src/hal/run.c:1330:22:MOT_getWallEdgeType	4	static
-../Core/Src/hal/run.c:1335:6:MOT_setWallEdge	16	static
-../Core/Src/hal/run.c:1341:6:MOT_setWallEdgeDist	16	static
-../Core/Src/hal/run.c:1367:6:MOT_setWallEdgeDist_LoopWait	4	static
-../Core/Src/hal/run.c:1381:6:DIST_Front_Wall_correction	128	static
+../Core/Src/hal/run.c:1298:6:turntable	56	static
+../Core/Src/hal/run.c:1326:6:MOT_setWallEdgeType	16	static
+../Core/Src/hal/run.c:1333:22:MOT_getWallEdgeType	4	static
+../Core/Src/hal/run.c:1338:6:MOT_setWallEdge	16	static
+../Core/Src/hal/run.c:1344:6:MOT_setWallEdgeDist	16	static
+../Core/Src/hal/run.c:1370:6:MOT_setWallEdgeDist_LoopWait	4	static
+../Core/Src/hal/run.c:1384:6:DIST_Front_Wall_correction	128	static
