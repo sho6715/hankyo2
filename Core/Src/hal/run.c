@@ -884,6 +884,8 @@ void MOT_turn( enMOT_TURN_CMD en_type )
 	}
 //	printf("finish2\n");
 
+//	CTRL_clrAngleErrSum();
+
 	/* ------ */
 	/*  // 減速  */
 	/* ------ */

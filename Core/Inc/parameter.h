@@ -171,6 +171,7 @@ typedef enum{
 void PARAM_setSpeedType( enPARAM_MODE en_mode, enPARAM_MOVE_SPEED en_speed );
 const stSPEED* PARAM_getSpeed( enPARAM_MODE en_mode );
 const stGAIN* PARAM_getGain( enPARAM_MODE en_mode );
+enPARAM_MOVE_SPEED PARAM_getSpeedType( enPARAM_MODE en_mode );
 
 void PARAM_makeSra( float f_speed, float f_angAcc, float f_g , enSLA_TYPE en_mode);
 stSLA* PARAM_getSra( enSLA_TYPE en_mode );

@@ -34,6 +34,7 @@ void HAL_init( void )
 	SYS_start();
 	MAP_init();
 	GYRO_SetRef();
+	printf("Goal X %d Goal Y %d \r\n",GOAL_MAP_X_def,GOAL_MAP_Y_def);
 }
 
 void TIME_init( void )
