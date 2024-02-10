@@ -44,7 +44,7 @@
 #define		f_FB_angle_kp		(0.0)//0.45
 #define		f_FB_angle_ki		(0.0)//0.25
 
-#define		f_FB_wall_kp		(0.65)//0.65
+#define		f_FB_wall_kp		(0.4)//0.4
 #define		f_FB_wall_kd		(0.2)//0.2
 */
 #define		f_FB_front_wall_v_kp	(0.001)

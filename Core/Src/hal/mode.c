@@ -198,7 +198,7 @@ void MODE_exe_m0( void )
 
 		case MODE_4:
 			SetLED(0x0e);
-			MOT_setTrgtSpeed(SEARCH_SPEED*10);
+			MOT_setTrgtSpeed(SEARCH_SPEED);
 			MOT_setSuraStaSpeed( SEARCH_SPEED , SLA_90);							// スラロー�?開始速度設�?
 			MOT_setSuraStaSpeed( SEARCH_SPEED , SLA_45);
 			MOT_setSuraStaSpeed( SEARCH_SPEED , SLA_135);
@@ -224,7 +224,7 @@ void MODE_exe_m0( void )
 			MOT_goSla(MOT_R135S_N2S,PARAM_getSra( SLA_135 ));
 			MOT_goBlock_FinSpeed(0.5, 0);
 */
-			MOT_goBlock_FinSpeed(10.0,0);
+			MOT_goBlock_FinSpeed(15.0,0);
 			log_flag_off();
 			break;
 
@@ -319,12 +319,12 @@ void MODE_exe_m0( void )
 			MOT_setTrgtSpeed( SEARCH_SPEED );
 */
 //			MOT_turn(MOT_R90);
-/*			
+			
 			MOT_goBlock_FinSpeed(0.5, SEARCH_SPEED);
 			MOT_goSla(MOT_R90S, PARAM_getSra( SLA_90 ));
 //			MOT_goSla(MOT_L90S, PARAM_getSra( SLA_90 ));
 			MOT_goBlock_FinSpeed(0.5, 0);
-*/
+
 /*
 			MOT_goBlock_FinSpeed(1.0, SEARCH_SPEED);
 			MOT_goSla(MOT_R45S_S2N, PARAM_getSra( SLA_45 ));
@@ -335,11 +335,11 @@ void MODE_exe_m0( void )
 			MOT_goSla(MOT_R90S_N, PARAM_getSra( SLA_N90 ));
 			MOT_goSkewBlock_FinSpeed(0.5, 0);
 */
-
+/*
 			MOT_goBlock_FinSpeed(0.5, SEARCH_SPEED);
 			MOT_goSla(MOT_R135S_S2N, PARAM_getSra( SLA_135 ));
 			MOT_goSkewBlock_FinSpeed(0.5, 0);
-
+*/
 			log_flag_off();
 			break;
 
