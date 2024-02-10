@@ -26,9 +26,9 @@
 ../Core/Src/hal/CTRL.c:675:6:CTRL_getSenFB	32	static
 ../Core/Src/hal/CTRL.c:713:6:CTRL_get_frontwall_v_FB	48	static
 ../Core/Src/hal/CTRL.c:744:6:CTRL_get_frontwall_omega_FB	48	static
-../Core/Src/hal/CTRL.c:775:6:CTRL_getFloorFriction	24	static
-../Core/Src/hal/CTRL.c:860:6:CTRL_outMot	24	static
-../Core/Src/hal/CTRL.c:897:6:CTRL_pol	88	static
-../Core/Src/hal/CTRL.c:1063:6:Failsafe_flag	8	static
-../Core/Src/hal/CTRL.c:1069:6:Failsafe_flag_off	4	static
-../Core/Src/hal/CTRL.c:1074:6:SYS_isOutOfCtrl	4	static
+../Core/Src/hal/CTRL.c:775:6:CTRL_getFloorFriction	40	static
+../Core/Src/hal/CTRL.c:861:6:CTRL_outMot	24	static
+../Core/Src/hal/CTRL.c:898:6:CTRL_pol	88	static
+../Core/Src/hal/CTRL.c:1064:6:Failsafe_flag	8	static
+../Core/Src/hal/CTRL.c:1070:6:Failsafe_flag_off	4	static
+../Core/Src/hal/CTRL.c:1075:6:SYS_isOutOfCtrl	4	static
