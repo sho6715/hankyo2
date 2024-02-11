@@ -808,9 +808,9 @@ void CTRL_getFloorFriction(float* p_err){
 //			else
 				if((PARAM_getSpeedType( PARAM_SLA ) == PARAM_VERY_SLOW)||(PARAM_getSpeedType( PARAM_SLA ) == PARAM_SLOW))
 //					*p_err = (-1.0)*(0.38/1000.0+FABS(f_TrgtAngleS)*0.95/1000.0+(-1.0)*f_AccAngleS*1.5/1000000.0);
-					*p_err = (-1.0)*(0.35/1000.0+FABS(f_TrgtAngleS)*77.0/1000000.0+(-1.0)*f_AccAngleS*0.6/1000000.0);
+					*p_err = (-1.0)*(0.55/1000.0+FABS(f_TrgtAngleS)*78.5/1000000.0+(-1.0)*f_AccAngleS*1.0/1000000.0);
 				else if(PARAM_getSpeedType( PARAM_SLA ) == PARAM_NORMAL)
-					*p_err = (-1.0)*(0.3/1000.0+FABS(f_TrgtAngleS)/30.0*0.7/1000.0+(-1.0)*f_AccAngleS*1.5/1000000.0);
+					*p_err = (-1.0)*(0.40/1000.0+FABS(f_TrgtAngleS)*50.0/1000000.0+(-1.0)*f_AccAngleS*0.0/1000000.0);
 				else
 					*p_err = (-1.0)*(0.18/1000.0+FABS(f_TrgtAngleS)/10.0*1.1/1000.0);
 			}
@@ -820,9 +820,9 @@ void CTRL_getFloorFriction(float* p_err){
 //				*p_err = 0.35/1000.0+FABS(f_TrgtAngleS)/10.0*1.1/1000.0;
 //			else
 				if((PARAM_getSpeedType( PARAM_SLA ) == PARAM_VERY_SLOW)||(PARAM_getSpeedType( PARAM_SLA ) == PARAM_SLOW))
-					*p_err = 0.35/1000.0+FABS(f_TrgtAngleS)*77.0/1000000.0+(-1.0)*f_AccAngleS*0.6/1000000.0;
+					*p_err = 0.55/1000.0+FABS(f_TrgtAngleS)*78.5/1000000.0+(-1.0)*f_AccAngleS*1.0/1000000.0;
 				else if(PARAM_getSpeedType( PARAM_SLA ) == PARAM_NORMAL)
-					*p_err = 0.3/1000.0+FABS(f_TrgtAngleS)/30.0*0.7/1000.0+(-1.0)*f_AccAngleS*1.5/1000000.0;
+					*p_err = 0.40/1000.0+FABS(f_TrgtAngleS)*50.0/1000000.0+(-1.0)*f_AccAngleS*0.6/1000000.0;
 				else
 					*p_err = 0.18/1000.0+FABS(f_TrgtAngleS)/10.0*1.1/1000.0;
 		}else{
@@ -872,7 +872,7 @@ void CTRL_getFloorFriction(float* p_err){
 	templog1 = GYRO_getSpeedErr();
 	templog2 = *p_err;
 */
-	templog4 = f_AccAngleS;
+//	templog4 = f_AccAngleS;
 /*	if(*p_err>0.0014)
 		*p_err = 0.0014;
 	if(*p_err<-0.0014)
@@ -1052,10 +1052,13 @@ void CTRL_pol( void )
 		f_duty10_L = 1.0;
 	}
 
+	duty_L = f_duty10_L;
+	duty_R = f_duty10_R;
+
 	templog1 = f_AngleSErrSum;//TR;//f_floorfriction;//f_duty10_R;
-	templog2 = f_angleSpeedCtrl;//TL;//f_duty10_L;
-	templog3 = f_floorfriction;//f_feedFoard_angle*(-1.0);
-//	templog4 = Inertia*(f_feedFoard_angle*(-1.0) + f_angleSpeedCtrl+f_angleCtrl)+f_floorfriction * 1000.0;
+	templog2 = duty_L;//f_angleSpeedCtrl;//TL;//f_duty10_L;
+	templog3 = duty_R;//f_floorfriction;//f_feedFoard_angle*(-1.0);
+	templog4 = Inertia*(f_feedFoard_angle*(-1.0) + f_angleSpeedCtrl+f_angleCtrl)+f_floorfriction * 1000000.0;
 //	templog1 = DIST_getNowVal(DIST_SEN_L_SIDE);
 //	templog2 = DIST_getNowVal(DIST_SEN_R_SIDE);
 

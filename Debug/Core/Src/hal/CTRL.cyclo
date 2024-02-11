@@ -29,6 +29,6 @@
 ../Core/Src/hal/CTRL.c:774:6:CTRL_getFloorFriction	27
 ../Core/Src/hal/CTRL.c:883:6:CTRL_outMot	5
 ../Core/Src/hal/CTRL.c:920:6:CTRL_pol	25
-../Core/Src/hal/CTRL.c:1086:6:Failsafe_flag	1
-../Core/Src/hal/CTRL.c:1092:6:Failsafe_flag_off	1
-../Core/Src/hal/CTRL.c:1097:6:SYS_isOutOfCtrl	1
+../Core/Src/hal/CTRL.c:1089:6:Failsafe_flag	1
+../Core/Src/hal/CTRL.c:1095:6:Failsafe_flag_off	1
+../Core/Src/hal/CTRL.c:1100:6:SYS_isOutOfCtrl	1

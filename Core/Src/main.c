@@ -83,13 +83,11 @@ int main(void)
   /* MCU Configuration--------------------------------------------------------*/
 
   /* Reset of all peripherals, Initializes the Flash interface and the Systick. */
-
   LL_APB2_GRP1_EnableClock(LL_APB2_GRP1_PERIPH_SYSCFG);
   LL_APB1_GRP1_EnableClock(LL_APB1_GRP1_PERIPH_PWR);
 
-  NVIC_SetPriorityGrouping(NVIC_PRIORITYGROUP_4);
-
   /* System interrupt init*/
+  NVIC_SetPriorityGrouping(NVIC_PRIORITYGROUP_4);
 
   /** Disable the internal Pull-Up in Dead Battery pins of UCPD peripheral
   */
@@ -142,13 +140,13 @@ int main(void)
   {
     if (( SW_IsOn_1() == SW_ON)||CountUP_mode()){
 		MODE_inc();								// モードを1つ進める
-		LL_mDelay(200);			// SWが離されるまで待つ
+		LL_mDelay(200);			// SWが離されるまで�?つ
 		printf("mode selecting\r\n");
 	}
 	else if (( SW_IsOn_0() == SW_ON )||(TRUE == MODE_CheckExe())){
 //		else if ( SW_ON == SW_EXE_PIN ){
-		MODE_exe();								// モード実行
-		LL_mDelay(200);			// SWが離されるまで待つ
+		MODE_exe();								// モード実�?
+		LL_mDelay(200);			// SWが離されるまで�?つ
 	}
     LL_mDelay(100);
   Get_Sen_Nowdata();
@@ -196,11 +194,9 @@ void SystemClock_Config(void)
   {
   }
 
-  /* Insure 1��s transition state at intermediate medium speed clock based on DWT */
-  CoreDebug->DEMCR |= CoreDebug_DEMCR_TRCENA_Msk;
-  DWT->CTRL |= DWT_CTRL_CYCCNTENA_Msk;
-  DWT->CYCCNT = 0;
-  while(DWT->CYCCNT < 100);
+  /* Insure 1us transition state at intermediate medium speed clock*/
+  for (__IO uint32_t i = (170 >> 1); i !=0; i--);
+
   /* Set AHB prescaler*/
   LL_RCC_SetAHBPrescaler(LL_RCC_SYSCLK_DIV_1);
   LL_RCC_SetAPB1Prescaler(LL_RCC_APB1_DIV_1);
@@ -209,9 +205,6 @@ void SystemClock_Config(void)
   LL_Init1msTick(170000000);
 
   LL_SetSystemCoreClock(170000000);
-  LL_RCC_SetUSARTClockSource(LL_RCC_USART1_CLKSOURCE_PCLK2);
-  LL_RCC_SetADCClockSource(LL_RCC_ADC12_CLKSOURCE_SYSCLK);
-  LL_RCC_SetADCClockSource(LL_RCC_ADC345_CLKSOURCE_SYSCLK);
 }
 
 /* USER CODE BEGIN 4 */
@@ -246,5 +239,3 @@ void assert_failed(uint8_t *file, uint32_t line)
   /* USER CODE END 6 */
 }
 #endif /* USE_FULL_ASSERT */
-
-/************************ (C) COPYRIGHT STMicroelectronics *****END OF FILE****/

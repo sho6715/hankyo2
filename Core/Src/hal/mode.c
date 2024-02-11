@@ -174,25 +174,18 @@ void MODE_exe_m0( void )
 
 		case MODE_3:
 			SetLED(0x0e);
-			MOT_setTrgtSpeed(SEARCH_SPEED);
-			MOT_setSuraStaSpeed( SEARCH_SPEED , SLA_90);							// スラロー�?開始速度設�?
-			MOT_setSuraStaSpeed( SEARCH_SPEED , SLA_45);
-			MOT_setSuraStaSpeed( SEARCH_SPEED , SLA_135);
-			MOT_setSuraStaSpeed( SEARCH_SPEED , SLA_N90);
-			PARAM_setSpeedType( PARAM_ST,   PARAM_VERY_SLOW );							// [直進] 速度普�?
-			PARAM_setSpeedType( PARAM_TRUN, PARAM_VERY_SLOW );							// [旋回] 速度普�?
-			PARAM_setSpeedType( PARAM_SLA,  PARAM_VERY_SLOW );							// [スラ] 速度普�?
-			SetLED(0x00);
-			LL_mDelay(500);
-			CTRL_clrData();
-			CTRL_clrAngleErrSum();
-			CTRL_clrNowData();
 			log_flag_on();
-			DIST_Front_Wall_correction();
+
+			DCM_setDirCcw( DCM_R );
+			DCM_setPwmDuty( DCM_R, 280 );
+			DCM_setDirCw( DCM_L );
+			DCM_setPwmDuty( DCM_L, 280 );
+
+			LL_mDelay(2000);
+			DCM_setPwmDuty( DCM_R, 0 );
+			DCM_setPwmDuty( DCM_L, 0 );
+
 			log_flag_off();
-			CTRL_stop();
-			DCM_brakeMot( DCM_R );		// �u���[�L
-			DCM_brakeMot( DCM_L );		// �u���[�L
 			SetLED(0x0e);
 			break;
 
@@ -253,7 +246,7 @@ void MODE_exe_m0( void )
 			CTRL_clrData();
 			CTRL_clrAngleErrSum();
 			CTRL_clrNowData();
-			Set_DutyTIM8(600);
+			Set_DutyTIM8(800);
 			LL_mDelay(2000);
 			log_flag_on();
 /*
