@@ -111,7 +111,7 @@ stSLA				st_Sla[SLA_TYPE_MAX];					// スラローム時の走行パラメータ
 		/* 低速(PARAM_SLOW) *///吸引あり300
 			//速度kp,速度ki,速度kd,	角速度kp,角速度ki,角速度kd,	角度kp,角度ki,	壁kp,壁kd
 			{ 35.0,2.0,0.1,	35.5,2.0,3.0,	0.0,0.0,	0.4,0.1,},
-		/* 通常(PARAM_NORMAL)*///吸引あり600
+		/* 通常(PARAM_NORMAL)*///吸引あり500
 			//速度kp,速度ki,速度kd,	角速度kp,角速度ki,角速度kd,	角度kp,角度ki,	壁kp,壁kd
 			{ 35.0,2.0,0.1,	35.5,2.0,3.0,	0.0,0.0,	0.4,0.1,},
 		//	{ 35.0,2.0,0.1,	30.0,0.7,5.0,	0.0,0.0,	0.4,0.1,},
@@ -421,23 +421,23 @@ void PARAM_makeSra( float f_speed, float f_angAcc, float f_g , enSLA_TYPE en_mod
 	// calaculate enter and exit length 
 	switch(en_mode){
 		case SLA_90:
-			p_adr->f_escapeLen = f_final_x - f_x+0.003 ;
-			p_adr->f_entryLen  = f_final_y - f_y-0.001 ;
+			p_adr->f_escapeLen = f_final_x - f_x ;
+			p_adr->f_entryLen  = f_final_y - f_y ;
 			break;
 
 		case SLA_45:
-			p_adr->f_escapeLen = 1.4142f * ( f_final_x - f_x )+0.00;
-			p_adr->f_entryLen  = f_final_y - f_y - ( f_final_x - f_x )+0.003;
+			p_adr->f_escapeLen = 1.4142f * ( f_final_x - f_x );
+			p_adr->f_entryLen  = f_final_y - f_y - ( f_final_x - f_x );
 			break;
 
 		case SLA_N90:
-			p_adr->f_escapeLen = f_final_x - f_x+0.002;
-			p_adr->f_entryLen  = f_final_y - f_y-0.002;
+			p_adr->f_escapeLen = f_final_x - f_x;
+			p_adr->f_entryLen  = f_final_y - f_y;
 			break;
 
 		case SLA_135:
-			p_adr->f_escapeLen = 1.4142f * ( f_final_x - f_x )+0.005;
-			p_adr->f_entryLen  = f_final_y - f_y + ( f_final_x - f_x )-0.003;
+			p_adr->f_escapeLen = 1.4142f * ( f_final_x - f_x );
+			p_adr->f_entryLen  = f_final_y - f_y + ( f_final_x - f_x );
 			break;
 
 		default:
