@@ -811,7 +811,7 @@ void CTRL_getFloorFriction(float* p_err){
 				else if(PARAM_getSpeedType( PARAM_SLA ) == PARAM_SLOW)
 					*p_err = (-1.0)*(0.70/1000.0+FABS(f_TrgtAngleS)*80.0/1000000.0);
 				else if(PARAM_getSpeedType( PARAM_SLA ) == PARAM_NORMAL)
-					*p_err = (-1.0)*(0.70/1000.0+FABS(f_TrgtAngleS)*80.0/1000000.0);
+					*p_err = (-1.0)*(1.0/1000.0+FABS(f_TrgtAngleS)*0.0/1000000.0);
 				else
 					*p_err = (-1.0)*(0.70/1000.0+FABS(f_TrgtAngleS)*80.0/1000000.0);
 			}
@@ -836,7 +836,7 @@ void CTRL_getFloorFriction(float* p_err){
 				else if(PARAM_getSpeedType( PARAM_SLA ) == PARAM_SLOW)
 					*p_err = (-1.0)*(0.6/1000.0+FABS(f_TrgtAngleS)*80.0/1000000.0);
 				else if(PARAM_getSpeedType( PARAM_SLA ) == PARAM_NORMAL)
-					*p_err = (-1.0)*(0.6/1000.0+FABS(f_TrgtAngleS)*80.0/1000000.0);
+					*p_err = (-1.0)*(0.55/1000.0+FABS(f_TrgtAngleS)*0.0/1000000.0);
 				else
 					*p_err = (-1.0)*(0.6/1000.0+FABS(f_TrgtAngleS)*80.0/1000000.0);
 			}
@@ -846,7 +846,7 @@ void CTRL_getFloorFriction(float* p_err){
 				else if(PARAM_getSpeedType( PARAM_SLA ) == PARAM_SLOW)
 					*p_err = (0.6/1000.0+FABS(f_TrgtAngleS)*80.0/1000000.0);
 				else if(PARAM_getSpeedType( PARAM_SLA ) == PARAM_NORMAL)
-					*p_err = (0.6/1000.0+FABS(f_TrgtAngleS)*82.0/1000000.0);
+					*p_err = (0.6/1000.0+FABS(f_TrgtAngleS)*80.0/1000000.0);
 				else
 					*p_err = (0.6/1000.0+FABS(f_TrgtAngleS)*80.0/1000000.0);
 		}else{
@@ -861,7 +861,7 @@ void CTRL_getFloorFriction(float* p_err){
 				else if(PARAM_getSpeedType( PARAM_SLA ) == PARAM_SLOW)
 					*p_err = (-1.0)*(0.20/1000.0+FABS(f_TrgtAngleS)*70.0/1000000.0);
 				else if(PARAM_getSpeedType( PARAM_SLA ) == PARAM_NORMAL)
-					*p_err = (-1.0)*(0.20/1000.0+FABS(f_TrgtAngleS)*70.0/1000000.0);
+					*p_err = (-1.0)*(0.00/1000.0+FABS(f_TrgtAngleS)*0.0/1000000.0);
 				else
 					*p_err = (-1.0)*(0.20/1000.0+FABS(f_TrgtAngleS)*70.0/1000000.0);
 			}
