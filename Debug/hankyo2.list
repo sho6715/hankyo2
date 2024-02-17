@@ -39,13 +39,13 @@ Idx Name          Size      VMA       LMA       File off  Algn
                   CONTENTS, READONLY, DEBUGGING, OCTETS
  17 .debug_macro  00028d5b  00000000  00000000  0004f83f  2**0
                   CONTENTS, READONLY, DEBUGGING, OCTETS
- 18 .debug_line   0001c63c  00000000  00000000  0007859a  2**0
+ 18 .debug_line   0001c5d1  00000000  00000000  0007859a  2**0
                   CONTENTS, READONLY, DEBUGGING, OCTETS
- 19 .debug_str    000d66d1  00000000  00000000  00094bd6  2**0
+ 19 .debug_str    000d66d1  00000000  00000000  00094b6b  2**0
                   CONTENTS, READONLY, DEBUGGING, OCTETS
- 20 .debug_frame  00007528  00000000  00000000  0016b2a8  2**2
+ 20 .debug_frame  00007528  00000000  00000000  0016b23c  2**2
                   CONTENTS, READONLY, DEBUGGING, OCTETS
- 21 .debug_line_str 0000005a  00000000  00000000  001727d0  2**0
+ 21 .debug_line_str 0000005a  00000000  00000000  00172764  2**0
                   CONTENTS, READONLY, DEBUGGING, OCTETS
 
 Disassembly of section .text:
@@ -9253,214 +9253,214 @@ void TIM1_UP_TIM16_IRQHandler(void)
  80040ce:	af00      	add	r7, sp, #0
   /* USER CODE BEGIN TIM1_UP_TIM16_IRQn 0 */
 	if ( LL_TIM_IsActiveFlag_UPDATE(TIM1)==1){
- 80040d0:	4807      	ldr	r0, [pc, #28]	; (80040f0 <TIM1_UP_TIM16_IRQHandler+0x24>)
+ 80040d0:	4806      	ldr	r0, [pc, #24]	; (80040ec <TIM1_UP_TIM16_IRQHandler+0x20>)
  80040d2:	f7ff ff63 	bl	8003f9c <LL_TIM_IsActiveFlag_UPDATE>
  80040d6:	4603      	mov	r3, r0
  80040d8:	2b01      	cmp	r3, #1
  80040da:	d102      	bne.n	80040e2 <TIM1_UP_TIM16_IRQHandler+0x16>
 		LL_TIM_ClearFlag_UPDATE(TIM1);
- 80040dc:	4804      	ldr	r0, [pc, #16]	; (80040f0 <TIM1_UP_TIM16_IRQHandler+0x24>)
+ 80040dc:	4803      	ldr	r0, [pc, #12]	; (80040ec <TIM1_UP_TIM16_IRQHandler+0x20>)
  80040de:	f7ff ff4f 	bl	8003f80 <LL_TIM_ClearFlag_UPDATE>
 	}
   INTC_sys();
  80040e2:	f001 fb1b 	bl	800571c <INTC_sys>
-  log_interrupt ();
- 80040e6:	f005 fc89 	bl	80099fc <log_interrupt>
   /* USER CODE END TIM1_UP_TIM16_IRQn 0 */
 
   /* USER CODE BEGIN TIM1_UP_TIM16_IRQn 1 */
 
   /* USER CODE END TIM1_UP_TIM16_IRQn 1 */
 }
+ 80040e6:	bf00      	nop
+ 80040e8:	bd80      	pop	{r7, pc}
  80040ea:	bf00      	nop
- 80040ec:	bd80      	pop	{r7, pc}
- 80040ee:	bf00      	nop
- 80040f0:	40012c00 	.word	0x40012c00
+ 80040ec:	40012c00 	.word	0x40012c00
 
-080040f4 <TIM4_IRQHandler>:
+080040f0 <TIM4_IRQHandler>:
 
 /**
   * @brief This function handles TIM4 global interrupt.
   */
 void TIM4_IRQHandler(void)
 {
- 80040f4:	b580      	push	{r7, lr}
- 80040f6:	af00      	add	r7, sp, #0
+ 80040f0:	b580      	push	{r7, lr}
+ 80040f2:	af00      	add	r7, sp, #0
   /* USER CODE BEGIN TIM4_IRQn 0 */
   static uint8_t i = 0;
 	if ( LL_TIM_IsActiveFlag_UPDATE(TIM4)==1){
- 80040f8:	481e      	ldr	r0, [pc, #120]	; (8004174 <TIM4_IRQHandler+0x80>)
- 80040fa:	f7ff ff4f 	bl	8003f9c <LL_TIM_IsActiveFlag_UPDATE>
- 80040fe:	4603      	mov	r3, r0
- 8004100:	2b01      	cmp	r3, #1
- 8004102:	d102      	bne.n	800410a <TIM4_IRQHandler+0x16>
+ 80040f4:	481e      	ldr	r0, [pc, #120]	; (8004170 <TIM4_IRQHandler+0x80>)
+ 80040f6:	f7ff ff51 	bl	8003f9c <LL_TIM_IsActiveFlag_UPDATE>
+ 80040fa:	4603      	mov	r3, r0
+ 80040fc:	2b01      	cmp	r3, #1
+ 80040fe:	d102      	bne.n	8004106 <TIM4_IRQHandler+0x16>
 		LL_TIM_ClearFlag_UPDATE(TIM4);
- 8004104:	481b      	ldr	r0, [pc, #108]	; (8004174 <TIM4_IRQHandler+0x80>)
- 8004106:	f7ff ff3b 	bl	8003f80 <LL_TIM_ClearFlag_UPDATE>
+ 8004100:	481b      	ldr	r0, [pc, #108]	; (8004170 <TIM4_IRQHandler+0x80>)
+ 8004102:	f7ff ff3d 	bl	8003f80 <LL_TIM_ClearFlag_UPDATE>
 	}
   switch(i){
- 800410a:	4b1b      	ldr	r3, [pc, #108]	; (8004178 <TIM4_IRQHandler+0x84>)
- 800410c:	781b      	ldrb	r3, [r3, #0]
- 800410e:	2b03      	cmp	r3, #3
- 8004110:	d821      	bhi.n	8004156 <TIM4_IRQHandler+0x62>
- 8004112:	a201      	add	r2, pc, #4	; (adr r2, 8004118 <TIM4_IRQHandler+0x24>)
- 8004114:	f852 f023 	ldr.w	pc, [r2, r3, lsl #2]
- 8004118:	08004129 	.word	0x08004129
- 800411c:	08004131 	.word	0x08004131
- 8004120:	0800413f 	.word	0x0800413f
- 8004124:	0800414d 	.word	0x0800414d
+ 8004106:	4b1b      	ldr	r3, [pc, #108]	; (8004174 <TIM4_IRQHandler+0x84>)
+ 8004108:	781b      	ldrb	r3, [r3, #0]
+ 800410a:	2b03      	cmp	r3, #3
+ 800410c:	d821      	bhi.n	8004152 <TIM4_IRQHandler+0x62>
+ 800410e:	a201      	add	r2, pc, #4	; (adr r2, 8004114 <TIM4_IRQHandler+0x24>)
+ 8004110:	f852 f023 	ldr.w	pc, [r2, r3, lsl #2]
+ 8004114:	08004125 	.word	0x08004125
+ 8004118:	0800412d 	.word	0x0800412d
+ 800411c:	0800413b 	.word	0x0800413b
+ 8004120:	08004149 	.word	0x08004149
 		case 0:
 			recv_spi_encoder(enL);
- 8004128:	2000      	movs	r0, #0
- 800412a:	f005 f8ad 	bl	8009288 <recv_spi_encoder>
+ 8004124:	2000      	movs	r0, #0
+ 8004126:	f005 f8af 	bl	8009288 <recv_spi_encoder>
 			break;
- 800412e:	e012      	b.n	8004156 <TIM4_IRQHandler+0x62>
+ 800412a:	e012      	b.n	8004152 <TIM4_IRQHandler+0x62>
 		case 1:
 			Set_encoder_data(enL);
- 8004130:	2000      	movs	r0, #0
- 8004132:	f005 f8b7 	bl	80092a4 <Set_encoder_data>
+ 800412c:	2000      	movs	r0, #0
+ 800412e:	f005 f8b9 	bl	80092a4 <Set_encoder_data>
       recv_spi_encoder(enR);
- 8004136:	2001      	movs	r0, #1
- 8004138:	f005 f8a6 	bl	8009288 <recv_spi_encoder>
+ 8004132:	2001      	movs	r0, #1
+ 8004134:	f005 f8a8 	bl	8009288 <recv_spi_encoder>
 			break;
- 800413c:	e00b      	b.n	8004156 <TIM4_IRQHandler+0x62>
+ 8004138:	e00b      	b.n	8004152 <TIM4_IRQHandler+0x62>
 		case 2:
       Set_encoder_data(enR);
- 800413e:	2001      	movs	r0, #1
- 8004140:	f005 f8b0 	bl	80092a4 <Set_encoder_data>
+ 800413a:	2001      	movs	r0, #1
+ 800413c:	f005 f8b2 	bl	80092a4 <Set_encoder_data>
       ICM_42688_GyroRead_DMA(0x29);
- 8004144:	2029      	movs	r0, #41	; 0x29
- 8004146:	f005 fa2c 	bl	80095a2 <ICM_42688_GyroRead_DMA>
+ 8004140:	2029      	movs	r0, #41	; 0x29
+ 8004142:	f005 fa2e 	bl	80095a2 <ICM_42688_GyroRead_DMA>
 			break;
- 800414a:	e004      	b.n	8004156 <TIM4_IRQHandler+0x62>
+ 8004146:	e004      	b.n	8004152 <TIM4_IRQHandler+0x62>
 		case 3:
 			ICM_42688_GyroData();
- 800414c:	f005 fa38 	bl	80095c0 <ICM_42688_GyroData>
+ 8004148:	f005 fa3a 	bl	80095c0 <ICM_42688_GyroData>
 			GYRO_Pol();
- 8004150:	f005 fae6 	bl	8009720 <GYRO_Pol>
+ 800414c:	f005 fae8 	bl	8009720 <GYRO_Pol>
 			break;
- 8004154:	bf00      	nop
+ 8004150:	bf00      	nop
 	}
 	i = (i+1)%4;
- 8004156:	4b08      	ldr	r3, [pc, #32]	; (8004178 <TIM4_IRQHandler+0x84>)
- 8004158:	781b      	ldrb	r3, [r3, #0]
- 800415a:	3301      	adds	r3, #1
- 800415c:	425a      	negs	r2, r3
- 800415e:	f003 0303 	and.w	r3, r3, #3
- 8004162:	f002 0203 	and.w	r2, r2, #3
- 8004166:	bf58      	it	pl
- 8004168:	4253      	negpl	r3, r2
- 800416a:	b2da      	uxtb	r2, r3
- 800416c:	4b02      	ldr	r3, [pc, #8]	; (8004178 <TIM4_IRQHandler+0x84>)
- 800416e:	701a      	strb	r2, [r3, #0]
+ 8004152:	4b08      	ldr	r3, [pc, #32]	; (8004174 <TIM4_IRQHandler+0x84>)
+ 8004154:	781b      	ldrb	r3, [r3, #0]
+ 8004156:	3301      	adds	r3, #1
+ 8004158:	425a      	negs	r2, r3
+ 800415a:	f003 0303 	and.w	r3, r3, #3
+ 800415e:	f002 0203 	and.w	r2, r2, #3
+ 8004162:	bf58      	it	pl
+ 8004164:	4253      	negpl	r3, r2
+ 8004166:	b2da      	uxtb	r2, r3
+ 8004168:	4b02      	ldr	r3, [pc, #8]	; (8004174 <TIM4_IRQHandler+0x84>)
+ 800416a:	701a      	strb	r2, [r3, #0]
   /* USER CODE END TIM4_IRQn 0 */
   /* USER CODE BEGIN TIM4_IRQn 1 */
 
   /* USER CODE END TIM4_IRQn 1 */
 }
- 8004170:	bf00      	nop
- 8004172:	bd80      	pop	{r7, pc}
- 8004174:	40000800 	.word	0x40000800
- 8004178:	20000214 	.word	0x20000214
+ 800416c:	bf00      	nop
+ 800416e:	bd80      	pop	{r7, pc}
+ 8004170:	40000800 	.word	0x40000800
+ 8004174:	20000214 	.word	0x20000214
 
-0800417c <TIM5_IRQHandler>:
+08004178 <TIM5_IRQHandler>:
 
 /**
   * @brief This function handles TIM5 global interrupt.
   */
 void TIM5_IRQHandler(void)
 {
- 800417c:	b580      	push	{r7, lr}
- 800417e:	af00      	add	r7, sp, #0
+ 8004178:	b580      	push	{r7, lr}
+ 800417a:	af00      	add	r7, sp, #0
   /* USER CODE BEGIN TIM5_IRQn 0 */
 	static uint8_t i = 0;
 	if ( LL_TIM_IsActiveFlag_UPDATE(TIM5)==1){
- 8004180:	4819      	ldr	r0, [pc, #100]	; (80041e8 <TIM5_IRQHandler+0x6c>)
- 8004182:	f7ff ff0b 	bl	8003f9c <LL_TIM_IsActiveFlag_UPDATE>
- 8004186:	4603      	mov	r3, r0
- 8004188:	2b01      	cmp	r3, #1
- 800418a:	d102      	bne.n	8004192 <TIM5_IRQHandler+0x16>
+ 800417c:	4819      	ldr	r0, [pc, #100]	; (80041e4 <TIM5_IRQHandler+0x6c>)
+ 800417e:	f7ff ff0d 	bl	8003f9c <LL_TIM_IsActiveFlag_UPDATE>
+ 8004182:	4603      	mov	r3, r0
+ 8004184:	2b01      	cmp	r3, #1
+ 8004186:	d102      	bne.n	800418e <TIM5_IRQHandler+0x16>
 		LL_TIM_ClearFlag_UPDATE(TIM5);
- 800418c:	4816      	ldr	r0, [pc, #88]	; (80041e8 <TIM5_IRQHandler+0x6c>)
- 800418e:	f7ff fef7 	bl	8003f80 <LL_TIM_ClearFlag_UPDATE>
+ 8004188:	4816      	ldr	r0, [pc, #88]	; (80041e4 <TIM5_IRQHandler+0x6c>)
+ 800418a:	f7ff fef9 	bl	8003f80 <LL_TIM_ClearFlag_UPDATE>
 	}
 	switch(i){
- 8004192:	4b16      	ldr	r3, [pc, #88]	; (80041ec <TIM5_IRQHandler+0x70>)
- 8004194:	781b      	ldrb	r3, [r3, #0]
- 8004196:	2b03      	cmp	r3, #3
- 8004198:	d816      	bhi.n	80041c8 <TIM5_IRQHandler+0x4c>
- 800419a:	a201      	add	r2, pc, #4	; (adr r2, 80041a0 <TIM5_IRQHandler+0x24>)
- 800419c:	f852 f023 	ldr.w	pc, [r2, r3, lsl #2]
- 80041a0:	080041b1 	.word	0x080041b1
- 80041a4:	080041b7 	.word	0x080041b7
- 80041a8:	080041bd 	.word	0x080041bd
- 80041ac:	080041c3 	.word	0x080041c3
+ 800418e:	4b16      	ldr	r3, [pc, #88]	; (80041e8 <TIM5_IRQHandler+0x70>)
+ 8004190:	781b      	ldrb	r3, [r3, #0]
+ 8004192:	2b03      	cmp	r3, #3
+ 8004194:	d816      	bhi.n	80041c4 <TIM5_IRQHandler+0x4c>
+ 8004196:	a201      	add	r2, pc, #4	; (adr r2, 800419c <TIM5_IRQHandler+0x24>)
+ 8004198:	f852 f023 	ldr.w	pc, [r2, r3, lsl #2]
+ 800419c:	080041ad 	.word	0x080041ad
+ 80041a0:	080041b3 	.word	0x080041b3
+ 80041a4:	080041b9 	.word	0x080041b9
+ 80041a8:	080041bf 	.word	0x080041bf
 		case 0:
 			DIST_Pol_FL();
- 80041b0:	f00a fdec 	bl	800ed8c <DIST_Pol_FL>
+ 80041ac:	f00a fdee 	bl	800ed8c <DIST_Pol_FL>
 			break;
- 80041b4:	e008      	b.n	80041c8 <TIM5_IRQHandler+0x4c>
+ 80041b0:	e008      	b.n	80041c4 <TIM5_IRQHandler+0x4c>
 		case 1:
 			DIST_Pol_SR();
- 80041b6:	f00a fe91 	bl	800eedc <DIST_Pol_SR>
+ 80041b2:	f00a fe93 	bl	800eedc <DIST_Pol_SR>
 			break;
- 80041ba:	e005      	b.n	80041c8 <TIM5_IRQHandler+0x4c>
+ 80041b6:	e005      	b.n	80041c4 <TIM5_IRQHandler+0x4c>
 		case 2:
 			DIST_Pol_SL();
- 80041bc:	f00a fe56 	bl	800ee6c <DIST_Pol_SL>
+ 80041b8:	f00a fe58 	bl	800ee6c <DIST_Pol_SL>
 			break;
- 80041c0:	e002      	b.n	80041c8 <TIM5_IRQHandler+0x4c>
+ 80041bc:	e002      	b.n	80041c4 <TIM5_IRQHandler+0x4c>
 		case 3:
 			DIST_Pol_FR();
- 80041c2:	f00a fe1b 	bl	800edfc <DIST_Pol_FR>
+ 80041be:	f00a fe1d 	bl	800edfc <DIST_Pol_FR>
 			break;
- 80041c6:	bf00      	nop
+ 80041c2:	bf00      	nop
 	}
 	i = (i+1)%4;
- 80041c8:	4b08      	ldr	r3, [pc, #32]	; (80041ec <TIM5_IRQHandler+0x70>)
- 80041ca:	781b      	ldrb	r3, [r3, #0]
- 80041cc:	3301      	adds	r3, #1
- 80041ce:	425a      	negs	r2, r3
- 80041d0:	f003 0303 	and.w	r3, r3, #3
- 80041d4:	f002 0203 	and.w	r2, r2, #3
- 80041d8:	bf58      	it	pl
- 80041da:	4253      	negpl	r3, r2
- 80041dc:	b2da      	uxtb	r2, r3
- 80041de:	4b03      	ldr	r3, [pc, #12]	; (80041ec <TIM5_IRQHandler+0x70>)
- 80041e0:	701a      	strb	r2, [r3, #0]
+ 80041c4:	4b08      	ldr	r3, [pc, #32]	; (80041e8 <TIM5_IRQHandler+0x70>)
+ 80041c6:	781b      	ldrb	r3, [r3, #0]
+ 80041c8:	3301      	adds	r3, #1
+ 80041ca:	425a      	negs	r2, r3
+ 80041cc:	f003 0303 	and.w	r3, r3, #3
+ 80041d0:	f002 0203 	and.w	r2, r2, #3
+ 80041d4:	bf58      	it	pl
+ 80041d6:	4253      	negpl	r3, r2
+ 80041d8:	b2da      	uxtb	r2, r3
+ 80041da:	4b03      	ldr	r3, [pc, #12]	; (80041e8 <TIM5_IRQHandler+0x70>)
+ 80041dc:	701a      	strb	r2, [r3, #0]
   /* USER CODE END TIM5_IRQn 0 */
   /* USER CODE BEGIN TIM5_IRQn 1 */
 
   /* USER CODE END TIM5_IRQn 1 */
 }
+ 80041de:	bf00      	nop
+ 80041e0:	bd80      	pop	{r7, pc}
  80041e2:	bf00      	nop
- 80041e4:	bd80      	pop	{r7, pc}
- 80041e6:	bf00      	nop
- 80041e8:	40000c00 	.word	0x40000c00
- 80041ec:	20000215 	.word	0x20000215
+ 80041e4:	40000c00 	.word	0x40000c00
+ 80041e8:	20000215 	.word	0x20000215
 
-080041f0 <TIM6_DAC_IRQHandler>:
+080041ec <TIM6_DAC_IRQHandler>:
 
 /**
   * @brief This function handles TIM6 global interrupt, DAC1 and DAC3 channel underrun error interrupts.
   */
 void TIM6_DAC_IRQHandler(void)
 {
- 80041f0:	b580      	push	{r7, lr}
- 80041f2:	af00      	add	r7, sp, #0
+ 80041ec:	b580      	push	{r7, lr}
+ 80041ee:	af00      	add	r7, sp, #0
   /* USER CODE BEGIN TIM6_DAC_IRQn 0 */
 	if ( LL_TIM_IsActiveFlag_UPDATE(TIM6)==1){
- 80041f4:	4806      	ldr	r0, [pc, #24]	; (8004210 <TIM6_DAC_IRQHandler+0x20>)
- 80041f6:	f7ff fed1 	bl	8003f9c <LL_TIM_IsActiveFlag_UPDATE>
- 80041fa:	4603      	mov	r3, r0
- 80041fc:	2b01      	cmp	r3, #1
- 80041fe:	d102      	bne.n	8004206 <TIM6_DAC_IRQHandler+0x16>
+ 80041f0:	4807      	ldr	r0, [pc, #28]	; (8004210 <TIM6_DAC_IRQHandler+0x24>)
+ 80041f2:	f7ff fed3 	bl	8003f9c <LL_TIM_IsActiveFlag_UPDATE>
+ 80041f6:	4603      	mov	r3, r0
+ 80041f8:	2b01      	cmp	r3, #1
+ 80041fa:	d102      	bne.n	8004202 <TIM6_DAC_IRQHandler+0x16>
 		LL_TIM_ClearFlag_UPDATE(TIM6);
- 8004200:	4803      	ldr	r0, [pc, #12]	; (8004210 <TIM6_DAC_IRQHandler+0x20>)
- 8004202:	f7ff febd 	bl	8003f80 <LL_TIM_ClearFlag_UPDATE>
+ 80041fc:	4804      	ldr	r0, [pc, #16]	; (8004210 <TIM6_DAC_IRQHandler+0x24>)
+ 80041fe:	f7ff febf 	bl	8003f80 <LL_TIM_ClearFlag_UPDATE>
 	}
 	BAT_Pol();
- 8004206:	f00a facb 	bl	800e7a0 <BAT_Pol>
+ 8004202:	f00a facd 	bl	800e7a0 <BAT_Pol>
+	log_interrupt ();
+ 8004206:	f005 fbf9 	bl	80099fc <log_interrupt>
   /* USER CODE END TIM6_DAC_IRQn 0 */
 
   /* USER CODE BEGIN TIM6_DAC_IRQn 1 */
@@ -12579,7 +12579,7 @@ void Communication_Initialize(void)
  80055e2:	bf00      	nop
  80055e4:	bd80      	pop	{r7, pc}
  80055e6:	bf00      	nop
- 80055e8:	20000074 	.word	0x20000074
+ 80055e8:	20000078 	.word	0x20000078
 
 080055ec <USART_TransmitByte>:
 
@@ -15577,12 +15577,12 @@ void CTRL_get_frontwall_v_FB( float* p_err)
  8006e2a:	2001      	movs	r0, #1
  8006e2c:	f007 fdb4 	bl	800e998 <DIST_getNowVal>
  8006e30:	4603      	mov	r3, r0
- 8006e32:	f5c3 7400 	rsb	r4, r3, #512	; 0x200
- 8006e36:	3403      	adds	r4, #3
+ 8006e32:	f5c3 7421 	rsb	r4, r3, #644	; 0x284
+ 8006e36:	3401      	adds	r4, #1
  8006e38:	2000      	movs	r0, #0
  8006e3a:	f007 fdad 	bl	800e998 <DIST_getNowVal>
  8006e3e:	4603      	mov	r3, r0
- 8006e40:	f5c3 7326 	rsb	r3, r3, #664	; 0x298
+ 8006e40:	f5c3 73ed 	rsb	r3, r3, #474	; 0x1da
  8006e44:	3301      	adds	r3, #1
  8006e46:	4423      	add	r3, r4
  8006e48:	4a25      	ldr	r2, [pc, #148]	; (8006ee0 <CTRL_get_frontwall_v_FB+0x100>)
@@ -15704,12 +15704,12 @@ void CTRL_get_frontwall_omega_FB( float* p_err)
  8006f2c:	2001      	movs	r0, #1
  8006f2e:	f007 fd33 	bl	800e998 <DIST_getNowVal>
  8006f32:	4603      	mov	r3, r0
- 8006f34:	f2a3 2403 	subw	r4, r3, #515	; 0x203
+ 8006f34:	f2a3 2485 	subw	r4, r3, #645	; 0x285
 									((R_FRONT_REF+FRONT_WALL_minus) - DIST_getNowVal( DIST_SEN_R_FRONT ));
  8006f38:	2000      	movs	r0, #0
  8006f3a:	f007 fd2d 	bl	800e998 <DIST_getNowVal>
  8006f3e:	4603      	mov	r3, r0
- 8006f40:	f5c3 7326 	rsb	r3, r3, #664	; 0x298
+ 8006f40:	f5c3 73ed 	rsb	r3, r3, #474	; 0x1da
  8006f44:	3301      	adds	r3, #1
 			l_frontSen_omegaErr = (DIST_getNowVal( DIST_SEN_L_FRONT )- (L_FRONT_REF+FRONT_WALL_minus)) + 
  8006f46:	4423      	add	r3, r4
@@ -20334,8 +20334,8 @@ void HAL_init( void )
 	GYRO_SetRef();
  8009868:	f7ff fec0 	bl	80095ec <GYRO_SetRef>
 	printf("Goal X %d Goal Y %d \r\n",GOAL_MAP_X_def,GOAL_MAP_Y_def);
- 800986c:	2200      	movs	r2, #0
- 800986e:	2101      	movs	r1, #1
+ 800986c:	2209      	movs	r2, #9
+ 800986e:	2109      	movs	r1, #9
  8009870:	4806      	ldr	r0, [pc, #24]	; (800988c <HAL_init+0x7c>)
  8009872:	f00e fda1 	bl	80183b8 <iprintf>
 }
@@ -21721,15 +21721,15 @@ void MODE_exe_m1( void )
  800a362:	f009 fe1d 	bl	8013fa0 <MAP_Goalsize>
 			MAP_makeContourMap_run( GOAL_MAP_X_def, GOAL_MAP_Y_def, BEST_WAY );					// 等高線�?�ップを作る
  800a366:	2201      	movs	r2, #1
- 800a368:	2100      	movs	r1, #0
- 800a36a:	2001      	movs	r0, #1
+ 800a368:	2109      	movs	r1, #9
+ 800a36a:	2009      	movs	r0, #9
  800a36c:	f008 ff62 	bl	8013234 <MAP_makeContourMap_run>
 			MAP_makeCmdList( 0, 0, NORTH, GOAL_MAP_X_def, GOAL_MAP_Y_def, &en_endDir2 );		// ドライブコマンド作�??
  800a370:	1dfb      	adds	r3, r7, #7
  800a372:	9301      	str	r3, [sp, #4]
- 800a374:	2300      	movs	r3, #0
+ 800a374:	2309      	movs	r3, #9
  800a376:	9300      	str	r3, [sp, #0]
- 800a378:	2301      	movs	r3, #1
+ 800a378:	2309      	movs	r3, #9
  800a37a:	2200      	movs	r2, #0
  800a37c:	2100      	movs	r1, #0
  800a37e:	2000      	movs	r0, #0
@@ -21873,8 +21873,8 @@ void MODE_exe_m2( void )
 			MAP_searchGoal(GOAL_MAP_X_def, GOAL_MAP_Y_def, SEARCH, SEARCH_SURA );			
  800a47e:	2301      	movs	r3, #1
  800a480:	2200      	movs	r2, #0
- 800a482:	2100      	movs	r1, #0
- 800a484:	2001      	movs	r0, #1
+ 800a482:	2109      	movs	r1, #9
+ 800a484:	2009      	movs	r0, #9
  800a486:	f00a fdd9 	bl	801503c <MAP_searchGoal>
 
 			if (( SW_IsOn_1() == SW_ON)||(SYS_isOutOfCtrl() == TRUE)){}
@@ -21927,15 +21927,15 @@ void MODE_exe_m2( void )
  800a4e2:	f008 fa07 	bl	80128f4 <MAP_setPos>
 				MAP_makeContourMap_run( GOAL_MAP_X_def, GOAL_MAP_Y_def, BEST_WAY );					// 等高線�?�ップを作る
  800a4e6:	2201      	movs	r2, #1
- 800a4e8:	2100      	movs	r1, #0
- 800a4ea:	2001      	movs	r0, #1
+ 800a4e8:	2109      	movs	r1, #9
+ 800a4ea:	2009      	movs	r0, #9
  800a4ec:	f008 fea2 	bl	8013234 <MAP_makeContourMap_run>
 				MAP_makeCmdList( 0, 0, NORTH, GOAL_MAP_X_def, GOAL_MAP_Y_def, &en_endDir2 );		// ドライブコマンド作�??
  800a4f0:	1dfb      	adds	r3, r7, #7
  800a4f2:	9301      	str	r3, [sp, #4]
- 800a4f4:	2300      	movs	r3, #0
+ 800a4f4:	2309      	movs	r3, #9
  800a4f6:	9300      	str	r3, [sp, #0]
- 800a4f8:	2301      	movs	r3, #1
+ 800a4f8:	2309      	movs	r3, #9
  800a4fa:	2200      	movs	r2, #0
  800a4fc:	2100      	movs	r1, #0
  800a4fe:	2000      	movs	r0, #0
@@ -22004,8 +22004,8 @@ void MODE_exe_m2( void )
 			MAP_searchGoalKnown(GOAL_MAP_X_def, GOAL_MAP_Y_def, SEARCH, SEARCH_SURA );			
  800a57e:	2301      	movs	r3, #1
  800a580:	2200      	movs	r2, #0
- 800a582:	2100      	movs	r1, #0
- 800a584:	2001      	movs	r0, #1
+ 800a582:	2109      	movs	r1, #9
+ 800a584:	2009      	movs	r0, #9
  800a586:	f00a feb1 	bl	80152ec <MAP_searchGoalKnown>
 
 			if (( SW_IsOn_1() == SW_ON)||(SYS_isOutOfCtrl() == TRUE)){}
@@ -22061,15 +22061,15 @@ void MODE_exe_m2( void )
  800a5ea:	f008 f983 	bl	80128f4 <MAP_setPos>
 				MAP_makeContourMap_run( GOAL_MAP_X_def, GOAL_MAP_Y_def, BEST_WAY );					// 等高線�?�ップを作る
  800a5ee:	2201      	movs	r2, #1
- 800a5f0:	2100      	movs	r1, #0
- 800a5f2:	2001      	movs	r0, #1
+ 800a5f0:	2109      	movs	r1, #9
+ 800a5f2:	2009      	movs	r0, #9
  800a5f4:	f008 fe1e 	bl	8013234 <MAP_makeContourMap_run>
 				MAP_makeCmdList( 0, 0, NORTH, GOAL_MAP_X_def, GOAL_MAP_Y_def, &en_endDir2 );		// ドライブコマンド作�??
  800a5f8:	1dfb      	adds	r3, r7, #7
  800a5fa:	9301      	str	r3, [sp, #4]
- 800a5fc:	2300      	movs	r3, #0
+ 800a5fc:	2309      	movs	r3, #9
  800a5fe:	9300      	str	r3, [sp, #0]
- 800a600:	2301      	movs	r3, #1
+ 800a600:	2309      	movs	r3, #9
  800a602:	2200      	movs	r2, #0
  800a604:	2100      	movs	r1, #0
  800a606:	2000      	movs	r0, #0
@@ -22139,8 +22139,8 @@ void MODE_exe_m2( void )
 			MAP_searchGoalKnown(GOAL_MAP_X_def, GOAL_MAP_Y_def, SEARCH, SEARCH_SURA );			
  800a686:	2301      	movs	r3, #1
  800a688:	2200      	movs	r2, #0
- 800a68a:	2100      	movs	r1, #0
- 800a68c:	2001      	movs	r0, #1
+ 800a68a:	2109      	movs	r1, #9
+ 800a68c:	2009      	movs	r0, #9
  800a68e:	f00a fe2d 	bl	80152ec <MAP_searchGoalKnown>
 
 			if (( SW_IsOn_1() == SW_ON)||(SYS_isOutOfCtrl() == TRUE)){}
@@ -22194,15 +22194,15 @@ void MODE_exe_m2( void )
  800a6ea:	f008 f903 	bl	80128f4 <MAP_setPos>
 				MAP_makeContourMap_run( GOAL_MAP_X_def, GOAL_MAP_Y_def, BEST_WAY );					// 等高線�?�ップを作る
  800a6ee:	2201      	movs	r2, #1
- 800a6f0:	2100      	movs	r1, #0
- 800a6f2:	2001      	movs	r0, #1
+ 800a6f0:	2109      	movs	r1, #9
+ 800a6f2:	2009      	movs	r0, #9
  800a6f4:	f008 fd9e 	bl	8013234 <MAP_makeContourMap_run>
 				MAP_makeCmdList( 0, 0, NORTH, GOAL_MAP_X_def, GOAL_MAP_Y_def, &en_endDir2 );		// ドライブコマンド作�??
  800a6f8:	1dfb      	adds	r3, r7, #7
  800a6fa:	9301      	str	r3, [sp, #4]
- 800a6fc:	2300      	movs	r3, #0
+ 800a6fc:	2309      	movs	r3, #9
  800a6fe:	9300      	str	r3, [sp, #0]
- 800a700:	2301      	movs	r3, #1
+ 800a700:	2309      	movs	r3, #9
  800a702:	2200      	movs	r2, #0
  800a704:	2100      	movs	r1, #0
  800a706:	2000      	movs	r0, #0
@@ -22712,15 +22712,15 @@ void MODE_exe_m3( void )
  800ab20:	f009 fa3e 	bl	8013fa0 <MAP_Goalsize>
 			MAP_makeContourMap_run( GOAL_MAP_X_def, GOAL_MAP_Y_def, BEST_WAY );					// 等高線�?�ップを作る
  800ab24:	2201      	movs	r2, #1
- 800ab26:	2100      	movs	r1, #0
- 800ab28:	2001      	movs	r0, #1
+ 800ab26:	2109      	movs	r1, #9
+ 800ab28:	2009      	movs	r0, #9
  800ab2a:	f008 fb83 	bl	8013234 <MAP_makeContourMap_run>
 			MAP_makeCmdList( 0, 0, NORTH, GOAL_MAP_X_def, GOAL_MAP_Y_def, &en_endDir2 );		// ドライブコマンド作�??
  800ab2e:	1dfb      	adds	r3, r7, #7
  800ab30:	9301      	str	r3, [sp, #4]
- 800ab32:	2300      	movs	r3, #0
+ 800ab32:	2309      	movs	r3, #9
  800ab34:	9300      	str	r3, [sp, #0]
- 800ab36:	2301      	movs	r3, #1
+ 800ab36:	2309      	movs	r3, #9
  800ab38:	2200      	movs	r2, #0
  800ab3a:	2100      	movs	r1, #0
  800ab3c:	2000      	movs	r0, #0
@@ -22808,15 +22808,15 @@ void MODE_exe_m3( void )
  800abec:	f009 f9d8 	bl	8013fa0 <MAP_Goalsize>
 			MAP_makeContourMap_run( GOAL_MAP_X_def, GOAL_MAP_Y_def, BEST_WAY );					// 等高線�?�ップを作る
  800abf0:	2201      	movs	r2, #1
- 800abf2:	2100      	movs	r1, #0
- 800abf4:	2001      	movs	r0, #1
+ 800abf2:	2109      	movs	r1, #9
+ 800abf4:	2009      	movs	r0, #9
  800abf6:	f008 fb1d 	bl	8013234 <MAP_makeContourMap_run>
 			MAP_makeCmdList( 0, 0, NORTH, GOAL_MAP_X_def, GOAL_MAP_Y_def, &en_endDir2 );		// ドライブコマンド作�??
  800abfa:	1dfb      	adds	r3, r7, #7
  800abfc:	9301      	str	r3, [sp, #4]
- 800abfe:	2300      	movs	r3, #0
+ 800abfe:	2309      	movs	r3, #9
  800ac00:	9300      	str	r3, [sp, #0]
- 800ac02:	2301      	movs	r3, #1
+ 800ac02:	2309      	movs	r3, #9
  800ac04:	2200      	movs	r2, #0
  800ac06:	2100      	movs	r1, #0
  800ac08:	2000      	movs	r0, #0
@@ -22904,15 +22904,15 @@ void MODE_exe_m3( void )
  800acb8:	f009 f972 	bl	8013fa0 <MAP_Goalsize>
 			MAP_makeContourMap_run( GOAL_MAP_X_def, GOAL_MAP_Y_def, BEST_WAY );					// 等高線�?�ップを作る
  800acbc:	2201      	movs	r2, #1
- 800acbe:	2100      	movs	r1, #0
- 800acc0:	2001      	movs	r0, #1
+ 800acbe:	2109      	movs	r1, #9
+ 800acc0:	2009      	movs	r0, #9
  800acc2:	f008 fab7 	bl	8013234 <MAP_makeContourMap_run>
 			MAP_makeCmdList( 0, 0, NORTH, GOAL_MAP_X_def, GOAL_MAP_Y_def, &en_endDir2 );		// ドライブコマンド作�??
  800acc6:	1dfb      	adds	r3, r7, #7
  800acc8:	9301      	str	r3, [sp, #4]
- 800acca:	2300      	movs	r3, #0
+ 800acca:	2309      	movs	r3, #9
  800accc:	9300      	str	r3, [sp, #0]
- 800acce:	2301      	movs	r3, #1
+ 800acce:	2309      	movs	r3, #9
  800acd0:	2200      	movs	r2, #0
  800acd2:	2100      	movs	r1, #0
  800acd4:	2000      	movs	r0, #0
@@ -23000,15 +23000,15 @@ void MODE_exe_m3( void )
  800ad84:	f009 f90c 	bl	8013fa0 <MAP_Goalsize>
 			MAP_makeContourMap_run( GOAL_MAP_X_def, GOAL_MAP_Y_def, BEST_WAY );					// 等高線�?�ップを作る
  800ad88:	2201      	movs	r2, #1
- 800ad8a:	2100      	movs	r1, #0
- 800ad8c:	2001      	movs	r0, #1
+ 800ad8a:	2109      	movs	r1, #9
+ 800ad8c:	2009      	movs	r0, #9
  800ad8e:	f008 fa51 	bl	8013234 <MAP_makeContourMap_run>
 			MAP_makeCmdList( 0, 0, NORTH, GOAL_MAP_X_def, GOAL_MAP_Y_def, &en_endDir2 );		// ドライブコマンド作�??
  800ad92:	1dfb      	adds	r3, r7, #7
  800ad94:	9301      	str	r3, [sp, #4]
- 800ad96:	2300      	movs	r3, #0
+ 800ad96:	2309      	movs	r3, #9
  800ad98:	9300      	str	r3, [sp, #0]
- 800ad9a:	2301      	movs	r3, #1
+ 800ad9a:	2309      	movs	r3, #9
  800ad9c:	2200      	movs	r2, #0
  800ad9e:	2100      	movs	r1, #0
  800ada0:	2000      	movs	r0, #0
@@ -23106,15 +23106,15 @@ void MODE_exe_m3( void )
  800ae68:	f009 f89a 	bl	8013fa0 <MAP_Goalsize>
 			MAP_makeContourMap_run( GOAL_MAP_X_def, GOAL_MAP_Y_def, BEST_WAY );					// 等高線�?�ップを作る
  800ae6c:	2201      	movs	r2, #1
- 800ae6e:	2100      	movs	r1, #0
- 800ae70:	2001      	movs	r0, #1
+ 800ae6e:	2109      	movs	r1, #9
+ 800ae70:	2009      	movs	r0, #9
  800ae72:	f008 f9df 	bl	8013234 <MAP_makeContourMap_run>
 			MAP_makeCmdList( 0, 0, NORTH, GOAL_MAP_X_def, GOAL_MAP_Y_def, &en_endDir2 );		// ドライブコマンド作�??
  800ae76:	1dfb      	adds	r3, r7, #7
  800ae78:	9301      	str	r3, [sp, #4]
- 800ae7a:	2300      	movs	r3, #0
+ 800ae7a:	2309      	movs	r3, #9
  800ae7c:	9300      	str	r3, [sp, #0]
- 800ae7e:	2301      	movs	r3, #1
+ 800ae7e:	2309      	movs	r3, #9
  800ae80:	2200      	movs	r2, #0
  800ae82:	2100      	movs	r1, #0
  800ae84:	2000      	movs	r0, #0
@@ -23202,15 +23202,15 @@ void MODE_exe_m3( void )
  800af34:	f009 f834 	bl	8013fa0 <MAP_Goalsize>
 			MAP_makeContourMap_run( GOAL_MAP_X_def, GOAL_MAP_Y_def, BEST_WAY );					// 等高線�?�ップを作る
  800af38:	2201      	movs	r2, #1
- 800af3a:	2100      	movs	r1, #0
- 800af3c:	2001      	movs	r0, #1
+ 800af3a:	2109      	movs	r1, #9
+ 800af3c:	2009      	movs	r0, #9
  800af3e:	f008 f979 	bl	8013234 <MAP_makeContourMap_run>
 			MAP_makeCmdList( 0, 0, NORTH, GOAL_MAP_X_def, GOAL_MAP_Y_def, &en_endDir2 );		// ドライブコマンド作�??
  800af42:	1dfb      	adds	r3, r7, #7
  800af44:	9301      	str	r3, [sp, #4]
- 800af46:	2300      	movs	r3, #0
+ 800af46:	2309      	movs	r3, #9
  800af48:	9300      	str	r3, [sp, #0]
- 800af4a:	2301      	movs	r3, #1
+ 800af4a:	2309      	movs	r3, #9
  800af4c:	2200      	movs	r2, #0
  800af4e:	2100      	movs	r1, #0
  800af50:	2000      	movs	r0, #0
@@ -23298,8 +23298,8 @@ void MODE_exe_m3( void )
  800affe:	f007 fc67 	bl	80128d0 <MAP_Goal_init>
 			MAP_makeContourMap_dijkstra_modoki(GOAL_MAP_X_def,GOAL_MAP_Y_def, BEST_WAY);
  800b002:	2201      	movs	r2, #1
- 800b004:	2100      	movs	r1, #0
- 800b006:	2001      	movs	r0, #1
+ 800b004:	2109      	movs	r1, #9
+ 800b006:	2009      	movs	r0, #9
  800b008:	f00a fb2e 	bl	8015668 <MAP_makeContourMap_dijkstra_modoki>
 			MAP_Goalsize(1);
  800b00c:	2001      	movs	r0, #1
@@ -23308,9 +23308,9 @@ void MODE_exe_m3( void )
 			MAP_makeCmdList_dijkstra_modoki(0, 0, NORTH, GOAL_MAP_X_def,GOAL_MAP_Y_def, &en_endDir2);		// ドライブコマンド作成
  800b012:	1dfb      	adds	r3, r7, #7
  800b014:	9301      	str	r3, [sp, #4]
- 800b016:	2300      	movs	r3, #0
+ 800b016:	2309      	movs	r3, #9
  800b018:	9300      	str	r3, [sp, #0]
- 800b01a:	2301      	movs	r3, #1
+ 800b01a:	2309      	movs	r3, #9
  800b01c:	2200      	movs	r2, #0
  800b01e:	2100      	movs	r1, #0
  800b020:	2000      	movs	r0, #0
@@ -23475,8 +23475,8 @@ void MODE_exe_m4( void )
 			MAP_searchGoal(GOAL_MAP_X_def, GOAL_MAP_Y_def, SEARCH, SEARCH_SURA );			
  800b152:	2301      	movs	r3, #1
  800b154:	2200      	movs	r2, #0
- 800b156:	2100      	movs	r1, #0
- 800b158:	2001      	movs	r0, #1
+ 800b156:	2109      	movs	r1, #9
+ 800b158:	2009      	movs	r0, #9
  800b15a:	f009 ff6f 	bl	801503c <MAP_searchGoal>
 
 			if (( SW_IsOn_1() == SW_ON)||(SYS_isOutOfCtrl() == TRUE)){}
@@ -23529,15 +23529,15 @@ void MODE_exe_m4( void )
  800b1b6:	f007 fb9d 	bl	80128f4 <MAP_setPos>
 				MAP_makeContourMap_run( GOAL_MAP_X_def, GOAL_MAP_Y_def, BEST_WAY );					// 等高線�?�ップを作る
  800b1ba:	2201      	movs	r2, #1
- 800b1bc:	2100      	movs	r1, #0
- 800b1be:	2001      	movs	r0, #1
+ 800b1bc:	2109      	movs	r1, #9
+ 800b1be:	2009      	movs	r0, #9
  800b1c0:	f008 f838 	bl	8013234 <MAP_makeContourMap_run>
 				MAP_makeCmdList( 0, 0, NORTH, GOAL_MAP_X_def, GOAL_MAP_Y_def, &en_endDir2 );		// ドライブコマンド作�??
  800b1c4:	1dfb      	adds	r3, r7, #7
  800b1c6:	9301      	str	r3, [sp, #4]
- 800b1c8:	2300      	movs	r3, #0
+ 800b1c8:	2309      	movs	r3, #9
  800b1ca:	9300      	str	r3, [sp, #0]
- 800b1cc:	2301      	movs	r3, #1
+ 800b1cc:	2309      	movs	r3, #9
  800b1ce:	2200      	movs	r2, #0
  800b1d0:	2100      	movs	r1, #0
  800b1d2:	2000      	movs	r0, #0
@@ -23606,8 +23606,8 @@ void MODE_exe_m4( void )
 			MAP_searchGoalKnown(GOAL_MAP_X_def, GOAL_MAP_Y_def, SEARCH, SEARCH_SURA );			
  800b252:	2301      	movs	r3, #1
  800b254:	2200      	movs	r2, #0
- 800b256:	2100      	movs	r1, #0
- 800b258:	2001      	movs	r0, #1
+ 800b256:	2109      	movs	r1, #9
+ 800b258:	2009      	movs	r0, #9
  800b25a:	f00a f847 	bl	80152ec <MAP_searchGoalKnown>
 
 			if (( SW_IsOn_1() == SW_ON)||(SYS_isOutOfCtrl() == TRUE)){}
@@ -23661,15 +23661,15 @@ void MODE_exe_m4( void )
  800b2b6:	f007 fb1d 	bl	80128f4 <MAP_setPos>
 				MAP_makeContourMap_run( GOAL_MAP_X_def, GOAL_MAP_Y_def, BEST_WAY );					// 等高線�?�ップを作る
  800b2ba:	2201      	movs	r2, #1
- 800b2bc:	2100      	movs	r1, #0
- 800b2be:	2001      	movs	r0, #1
+ 800b2bc:	2109      	movs	r1, #9
+ 800b2be:	2009      	movs	r0, #9
  800b2c0:	f007 ffb8 	bl	8013234 <MAP_makeContourMap_run>
 				MAP_makeCmdList( 0, 0, NORTH, GOAL_MAP_X_def, GOAL_MAP_Y_def, &en_endDir2 );		// ドライブコマンド作�??
  800b2c4:	1dfb      	adds	r3, r7, #7
  800b2c6:	9301      	str	r3, [sp, #4]
- 800b2c8:	2300      	movs	r3, #0
+ 800b2c8:	2309      	movs	r3, #9
  800b2ca:	9300      	str	r3, [sp, #0]
- 800b2cc:	2301      	movs	r3, #1
+ 800b2cc:	2309      	movs	r3, #9
  800b2ce:	2200      	movs	r2, #0
  800b2d0:	2100      	movs	r1, #0
  800b2d2:	2000      	movs	r0, #0
@@ -23739,8 +23739,8 @@ void MODE_exe_m4( void )
 			MAP_searchGoalKnown(GOAL_MAP_X_def, GOAL_MAP_Y_def, SEARCH, SEARCH_SURA );			
  800b352:	2301      	movs	r3, #1
  800b354:	2200      	movs	r2, #0
- 800b356:	2100      	movs	r1, #0
- 800b358:	2001      	movs	r0, #1
+ 800b356:	2109      	movs	r1, #9
+ 800b358:	2009      	movs	r0, #9
  800b35a:	f009 ffc7 	bl	80152ec <MAP_searchGoalKnown>
 
 			if (( SW_IsOn_1() == SW_ON)||(SYS_isOutOfCtrl() == TRUE)){}
@@ -23794,15 +23794,15 @@ void MODE_exe_m4( void )
  800b3b2:	f007 fa9f 	bl	80128f4 <MAP_setPos>
 				MAP_makeContourMap_run( GOAL_MAP_X_def, GOAL_MAP_Y_def, BEST_WAY );					// 等高線�?�ップを作る
  800b3b6:	2201      	movs	r2, #1
- 800b3b8:	2100      	movs	r1, #0
- 800b3ba:	2001      	movs	r0, #1
+ 800b3b8:	2109      	movs	r1, #9
+ 800b3ba:	2009      	movs	r0, #9
  800b3bc:	f007 ff3a 	bl	8013234 <MAP_makeContourMap_run>
 				MAP_makeCmdList( 0, 0, NORTH, GOAL_MAP_X_def, GOAL_MAP_Y_def, &en_endDir2 );		// ドライブコマンド作�??
  800b3c0:	1dfb      	adds	r3, r7, #7
  800b3c2:	9301      	str	r3, [sp, #4]
- 800b3c4:	2300      	movs	r3, #0
+ 800b3c4:	2309      	movs	r3, #9
  800b3c6:	9300      	str	r3, [sp, #0]
- 800b3c8:	2301      	movs	r3, #1
+ 800b3c8:	2309      	movs	r3, #9
  800b3ca:	2200      	movs	r2, #0
  800b3cc:	2100      	movs	r1, #0
  800b3ce:	2000      	movs	r0, #0
@@ -24009,15 +24009,15 @@ void MODE_exe_m5( void )
  800b550:	f008 fd26 	bl	8013fa0 <MAP_Goalsize>
 			MAP_makeContourMap_run( GOAL_MAP_X_def, GOAL_MAP_Y_def, BEST_WAY );					// 等高線�?�ップを作る
  800b554:	2201      	movs	r2, #1
- 800b556:	2100      	movs	r1, #0
- 800b558:	2001      	movs	r0, #1
+ 800b556:	2109      	movs	r1, #9
+ 800b558:	2009      	movs	r0, #9
  800b55a:	f007 fe6b 	bl	8013234 <MAP_makeContourMap_run>
 			MAP_makeCmdList( 0, 0, NORTH, GOAL_MAP_X_def, GOAL_MAP_Y_def, &en_endDir2 );		// ドライブコマンド作�??
  800b55e:	1dfb      	adds	r3, r7, #7
  800b560:	9301      	str	r3, [sp, #4]
- 800b562:	2300      	movs	r3, #0
+ 800b562:	2309      	movs	r3, #9
  800b564:	9300      	str	r3, [sp, #0]
- 800b566:	2301      	movs	r3, #1
+ 800b566:	2309      	movs	r3, #9
  800b568:	2200      	movs	r2, #0
  800b56a:	2100      	movs	r1, #0
  800b56c:	2000      	movs	r0, #0
@@ -24105,15 +24105,15 @@ void MODE_exe_m5( void )
  800b61c:	f008 fcc0 	bl	8013fa0 <MAP_Goalsize>
 			MAP_makeContourMap_run( GOAL_MAP_X_def, GOAL_MAP_Y_def, BEST_WAY );					// 等高線�?�ップを作る
  800b620:	2201      	movs	r2, #1
- 800b622:	2100      	movs	r1, #0
- 800b624:	2001      	movs	r0, #1
+ 800b622:	2109      	movs	r1, #9
+ 800b624:	2009      	movs	r0, #9
  800b626:	f007 fe05 	bl	8013234 <MAP_makeContourMap_run>
 			MAP_makeCmdList( 0, 0, NORTH, GOAL_MAP_X_def, GOAL_MAP_Y_def, &en_endDir2 );		// ドライブコマンド作�??
  800b62a:	1dfb      	adds	r3, r7, #7
  800b62c:	9301      	str	r3, [sp, #4]
- 800b62e:	2300      	movs	r3, #0
+ 800b62e:	2309      	movs	r3, #9
  800b630:	9300      	str	r3, [sp, #0]
- 800b632:	2301      	movs	r3, #1
+ 800b632:	2309      	movs	r3, #9
  800b634:	2200      	movs	r2, #0
  800b636:	2100      	movs	r1, #0
  800b638:	2000      	movs	r0, #0
@@ -24201,15 +24201,15 @@ void MODE_exe_m5( void )
  800b6e8:	f008 fc5a 	bl	8013fa0 <MAP_Goalsize>
 			MAP_makeContourMap_run( GOAL_MAP_X_def, GOAL_MAP_Y_def, BEST_WAY );					// 等高線�?�ップを作る
  800b6ec:	2201      	movs	r2, #1
- 800b6ee:	2100      	movs	r1, #0
- 800b6f0:	2001      	movs	r0, #1
+ 800b6ee:	2109      	movs	r1, #9
+ 800b6f0:	2009      	movs	r0, #9
  800b6f2:	f007 fd9f 	bl	8013234 <MAP_makeContourMap_run>
 			MAP_makeCmdList( 0, 0, NORTH, GOAL_MAP_X_def, GOAL_MAP_Y_def, &en_endDir2 );		// ドライブコマンド作�??
  800b6f6:	1dfb      	adds	r3, r7, #7
  800b6f8:	9301      	str	r3, [sp, #4]
- 800b6fa:	2300      	movs	r3, #0
+ 800b6fa:	2309      	movs	r3, #9
  800b6fc:	9300      	str	r3, [sp, #0]
- 800b6fe:	2301      	movs	r3, #1
+ 800b6fe:	2309      	movs	r3, #9
  800b700:	2200      	movs	r2, #0
  800b702:	2100      	movs	r1, #0
  800b704:	2000      	movs	r0, #0
@@ -24308,15 +24308,15 @@ void MODE_exe_m5( void )
  800b7e0:	f008 fbde 	bl	8013fa0 <MAP_Goalsize>
 			MAP_makeContourMap_run( GOAL_MAP_X_def, GOAL_MAP_Y_def, BEST_WAY );					// 等高線�?�ップを作る
  800b7e4:	2201      	movs	r2, #1
- 800b7e6:	2100      	movs	r1, #0
- 800b7e8:	2001      	movs	r0, #1
+ 800b7e6:	2109      	movs	r1, #9
+ 800b7e8:	2009      	movs	r0, #9
  800b7ea:	f007 fd23 	bl	8013234 <MAP_makeContourMap_run>
 			MAP_makeCmdList( 0, 0, NORTH, GOAL_MAP_X_def, GOAL_MAP_Y_def, &en_endDir2 );		// ドライブコマンド作�??
  800b7ee:	1dfb      	adds	r3, r7, #7
  800b7f0:	9301      	str	r3, [sp, #4]
- 800b7f2:	2300      	movs	r3, #0
+ 800b7f2:	2309      	movs	r3, #9
  800b7f4:	9300      	str	r3, [sp, #0]
- 800b7f6:	2301      	movs	r3, #1
+ 800b7f6:	2309      	movs	r3, #9
  800b7f8:	2200      	movs	r2, #0
  800b7fa:	2100      	movs	r1, #0
  800b7fc:	2000      	movs	r0, #0
@@ -24409,15 +24409,15 @@ void MODE_exe_m5( void )
  800b8b4:	f008 fb74 	bl	8013fa0 <MAP_Goalsize>
 			MAP_makeContourMap_run( GOAL_MAP_X_def, GOAL_MAP_Y_def, BEST_WAY );					// 等高線�?�ップを作る
  800b8b8:	2201      	movs	r2, #1
- 800b8ba:	2100      	movs	r1, #0
- 800b8bc:	2001      	movs	r0, #1
+ 800b8ba:	2109      	movs	r1, #9
+ 800b8bc:	2009      	movs	r0, #9
  800b8be:	f007 fcb9 	bl	8013234 <MAP_makeContourMap_run>
 			MAP_makeCmdList( 0, 0, NORTH, GOAL_MAP_X_def, GOAL_MAP_Y_def, &en_endDir2 );		// ドライブコマンド作�??
  800b8c2:	1dfb      	adds	r3, r7, #7
  800b8c4:	9301      	str	r3, [sp, #4]
- 800b8c6:	2300      	movs	r3, #0
+ 800b8c6:	2309      	movs	r3, #9
  800b8c8:	9300      	str	r3, [sp, #0]
- 800b8ca:	2301      	movs	r3, #1
+ 800b8ca:	2309      	movs	r3, #9
  800b8cc:	2200      	movs	r2, #0
  800b8ce:	2100      	movs	r1, #0
  800b8d0:	2000      	movs	r0, #0
@@ -24505,15 +24505,15 @@ void MODE_exe_m5( void )
  800b980:	f008 fb0e 	bl	8013fa0 <MAP_Goalsize>
 			MAP_makeContourMap_run( GOAL_MAP_X_def, GOAL_MAP_Y_def, BEST_WAY );					// 等高線�?�ップを作る
  800b984:	2201      	movs	r2, #1
- 800b986:	2100      	movs	r1, #0
- 800b988:	2001      	movs	r0, #1
+ 800b986:	2109      	movs	r1, #9
+ 800b988:	2009      	movs	r0, #9
  800b98a:	f007 fc53 	bl	8013234 <MAP_makeContourMap_run>
 			MAP_makeCmdList( 0, 0, NORTH, GOAL_MAP_X_def, GOAL_MAP_Y_def, &en_endDir2 );		// ドライブコマンド作�??
  800b98e:	1dfb      	adds	r3, r7, #7
  800b990:	9301      	str	r3, [sp, #4]
- 800b992:	2300      	movs	r3, #0
+ 800b992:	2309      	movs	r3, #9
  800b994:	9300      	str	r3, [sp, #0]
- 800b996:	2301      	movs	r3, #1
+ 800b996:	2309      	movs	r3, #9
  800b998:	2200      	movs	r2, #0
  800b99a:	2100      	movs	r1, #0
  800b99c:	2000      	movs	r0, #0
@@ -24601,8 +24601,8 @@ void MODE_exe_m5( void )
  800ba4a:	f006 ff41 	bl	80128d0 <MAP_Goal_init>
 			MAP_makeContourMap_dijkstra_modoki(GOAL_MAP_X_def,GOAL_MAP_Y_def, BEST_WAY);
  800ba4e:	2201      	movs	r2, #1
- 800ba50:	2100      	movs	r1, #0
- 800ba52:	2001      	movs	r0, #1
+ 800ba50:	2109      	movs	r1, #9
+ 800ba52:	2009      	movs	r0, #9
  800ba54:	f009 fe08 	bl	8015668 <MAP_makeContourMap_dijkstra_modoki>
 			MAP_Goalsize(1);
  800ba58:	2001      	movs	r0, #1
@@ -24611,9 +24611,9 @@ void MODE_exe_m5( void )
 			MAP_makeCmdList_dijkstra_modoki(0, 0, NORTH, GOAL_MAP_X_def,GOAL_MAP_Y_def, &en_endDir2);		// ドライブコマンド作成
  800ba5e:	1dfb      	adds	r3, r7, #7
  800ba60:	9301      	str	r3, [sp, #4]
- 800ba62:	2300      	movs	r3, #0
+ 800ba62:	2309      	movs	r3, #9
  800ba64:	9300      	str	r3, [sp, #0]
- 800ba66:	2301      	movs	r3, #1
+ 800ba66:	2309      	movs	r3, #9
  800ba68:	2200      	movs	r2, #0
  800ba6a:	2100      	movs	r1, #0
  800ba6c:	2000      	movs	r0, #0
@@ -29358,12 +29358,12 @@ void MOT_goSla( enMOT_SURA_CMD en_type, stSLA* p_sla )
  800de58:	2000      	movs	r0, #0
  800de5a:	f000 fd9d 	bl	800e998 <DIST_getNowVal>
  800de5e:	4603      	mov	r3, r0
- 800de60:	2bb4      	cmp	r3, #180	; 0xb4
+ 800de60:	2ba0      	cmp	r3, #160	; 0xa0
  800de62:	dd0a      	ble.n	800de7a <MOT_goSla+0x222>
  800de64:	2001      	movs	r0, #1
  800de66:	f000 fd97 	bl	800e998 <DIST_getNowVal>
  800de6a:	4603      	mov	r3, r0
- 800de6c:	2bb4      	cmp	r3, #180	; 0xb4
+ 800de6c:	2bc8      	cmp	r3, #200	; 0xc8
  800de6e:	dd04      	ble.n	800de7a <MOT_goSla+0x222>
  800de70:	e025      	b.n	800debe <MOT_goSla+0x266>
 		}
@@ -30433,7 +30433,7 @@ void DIST_Front_Wall_correction(void)
  800e702:	f7f2 fa31 	bl	8000b68 <__aeabi_dcmpgt>
  800e706:	4603      	mov	r3, r0
  800e708:	2b00      	cmp	r3, #0
- 800e70a:	d123      	bne.n	800e754 <DIST_Front_Wall_correction+0xc4>
+ 800e70a:	d121      	bne.n	800e750 <DIST_Front_Wall_correction+0xc0>
 			LL_mDelay(10);//volatile入れてないから回避用に入れてみる
  800e70c:	200a      	movs	r0, #10
  800e70e:	f008 fee3 	bl	80174d8 <LL_mDelay>
@@ -30442,64 +30442,63 @@ void DIST_Front_Wall_correction(void)
  800e714:	f000 f940 	bl	800e998 <DIST_getNowVal>
  800e718:	4603      	mov	r3, r0
 		||(DIST_getNowVal( DIST_SEN_L_FRONT )>(L_FRONT_REF+FRONT_WALL_minus+30))||(DIST_getNowVal( DIST_SEN_L_FRONT )<(L_FRONT_REF+FRONT_WALL_minus-30))){
- 800e71a:	f5b3 7f2e 	cmp.w	r3, #696	; 0x2b8
+ 800e71a:	f5b3 7ffd 	cmp.w	r3, #506	; 0x1fa
  800e71e:	dae8      	bge.n	800e6f2 <DIST_Front_Wall_correction+0x62>
 	while((DIST_getNowVal( DIST_SEN_R_FRONT )>(R_FRONT_REF+FRONT_WALL_minus+30))||(DIST_getNowVal( DIST_SEN_R_FRONT )<(R_FRONT_REF+FRONT_WALL_minus-30))
  800e720:	2000      	movs	r0, #0
  800e722:	f000 f939 	bl	800e998 <DIST_getNowVal>
  800e726:	4603      	mov	r3, r0
- 800e728:	461a      	mov	r2, r3
- 800e72a:	f240 237a 	movw	r3, #634	; 0x27a
- 800e72e:	429a      	cmp	r2, r3
- 800e730:	dddf      	ble.n	800e6f2 <DIST_Front_Wall_correction+0x62>
+ 800e728:	f5b3 7fde 	cmp.w	r3, #444	; 0x1bc
+ 800e72c:	dde1      	ble.n	800e6f2 <DIST_Front_Wall_correction+0x62>
 		||(DIST_getNowVal( DIST_SEN_L_FRONT )>(L_FRONT_REF+FRONT_WALL_minus+30))||(DIST_getNowVal( DIST_SEN_L_FRONT )<(L_FRONT_REF+FRONT_WALL_minus-30))){
- 800e732:	2001      	movs	r0, #1
- 800e734:	f000 f930 	bl	800e998 <DIST_getNowVal>
- 800e738:	4603      	mov	r3, r0
- 800e73a:	461a      	mov	r2, r3
- 800e73c:	f240 2321 	movw	r3, #545	; 0x221
- 800e740:	429a      	cmp	r2, r3
- 800e742:	dcd6      	bgt.n	800e6f2 <DIST_Front_Wall_correction+0x62>
- 800e744:	2001      	movs	r0, #1
- 800e746:	f000 f927 	bl	800e998 <DIST_getNowVal>
- 800e74a:	4603      	mov	r3, r0
- 800e74c:	f5b3 7ff2 	cmp.w	r3, #484	; 0x1e4
- 800e750:	ddcf      	ble.n	800e6f2 <DIST_Front_Wall_correction+0x62>
- 800e752:	e000      	b.n	800e756 <DIST_Front_Wall_correction+0xc6>
+ 800e72e:	2001      	movs	r0, #1
+ 800e730:	f000 f932 	bl	800e998 <DIST_getNowVal>
+ 800e734:	4603      	mov	r3, r0
+ 800e736:	f5b3 7f29 	cmp.w	r3, #676	; 0x2a4
+ 800e73a:	dada      	bge.n	800e6f2 <DIST_Front_Wall_correction+0x62>
+ 800e73c:	2001      	movs	r0, #1
+ 800e73e:	f000 f92b 	bl	800e998 <DIST_getNowVal>
+ 800e742:	4603      	mov	r3, r0
+ 800e744:	461a      	mov	r2, r3
+ 800e746:	f240 2366 	movw	r3, #614	; 0x266
+ 800e74a:	429a      	cmp	r2, r3
+ 800e74c:	ddd1      	ble.n	800e6f2 <DIST_Front_Wall_correction+0x62>
+ 800e74e:	e000      	b.n	800e752 <DIST_Front_Wall_correction+0xc2>
 			if(escape_wait > 0.8)break;
- 800e754:	bf00      	nop
+ 800e750:	bf00      	nop
 	}
 	LL_mDelay(50);
- 800e756:	2032      	movs	r0, #50	; 0x32
- 800e758:	f008 febe 	bl	80174d8 <LL_mDelay>
+ 800e752:	2032      	movs	r0, #50	; 0x32
+ 800e754:	f008 fec0 	bl	80174d8 <LL_mDelay>
 	CTRL_stop();			// 制御停止
- 800e75c:	f7f7 f81c 	bl	8005798 <CTRL_stop>
+ 800e758:	f7f7 f81e 	bl	8005798 <CTRL_stop>
 	DCM_brakeMot( DCM_R );		// ブレーキ
- 800e760:	2000      	movs	r0, #0
- 800e762:	f7fa fcff 	bl	8009164 <DCM_brakeMot>
+ 800e75c:	2000      	movs	r0, #0
+ 800e75e:	f7fa fd01 	bl	8009164 <DCM_brakeMot>
 	DCM_brakeMot( DCM_L );		// ブレーキ
- 800e766:	2001      	movs	r0, #1
- 800e768:	f7fa fcfc 	bl	8009164 <DCM_brakeMot>
+ 800e762:	2001      	movs	r0, #1
+ 800e764:	f7fa fcfe 	bl	8009164 <DCM_brakeMot>
 	GYRO_endErrChkAngle();					// エラー検出終了
- 800e76c:	f7fb f83e 	bl	80097ec <GYRO_endErrChkAngle>
+ 800e768:	f7fb f840 	bl	80097ec <GYRO_endErrChkAngle>
 	LL_mDelay(100);
- 800e770:	2064      	movs	r0, #100	; 0x64
- 800e772:	f008 feb1 	bl	80174d8 <LL_mDelay>
+ 800e76c:	2064      	movs	r0, #100	; 0x64
+ 800e76e:	f008 feb3 	bl	80174d8 <LL_mDelay>
 	f_MotNowSpeed = 0.0f;		//現在速度更新
- 800e776:	4b09      	ldr	r3, [pc, #36]	; (800e79c <DIST_Front_Wall_correction+0x10c>)
- 800e778:	f04f 0200 	mov.w	r2, #0
- 800e77c:	601a      	str	r2, [r3, #0]
+ 800e772:	4b0a      	ldr	r3, [pc, #40]	; (800e79c <DIST_Front_Wall_correction+0x10c>)
+ 800e774:	f04f 0200 	mov.w	r2, #0
+ 800e778:	601a      	str	r2, [r3, #0]
 
 	CTRL_clrNowData();
- 800e77e:	f7f7 f88f 	bl	80058a0 <CTRL_clrNowData>
+ 800e77a:	f7f7 f891 	bl	80058a0 <CTRL_clrNowData>
 	CTRL_clrAngleErrSum();
- 800e782:	f7f7 f879 	bl	8005878 <CTRL_clrAngleErrSum>
+ 800e77e:	f7f7 f87b 	bl	8005878 <CTRL_clrAngleErrSum>
 }
- 800e786:	bf00      	nop
- 800e788:	3778      	adds	r7, #120	; 0x78
- 800e78a:	46bd      	mov	sp, r7
- 800e78c:	bd80      	pop	{r7, pc}
- 800e78e:	bf00      	nop
+ 800e782:	bf00      	nop
+ 800e784:	3778      	adds	r7, #120	; 0x78
+ 800e786:	46bd      	mov	sp, r7
+ 800e788:	bd80      	pop	{r7, pc}
+ 800e78a:	bf00      	nop
+ 800e78c:	f3af 8000 	nop.w
  800e790:	9999999a 	.word	0x9999999a
  800e794:	3fe99999 	.word	0x3fe99999
  800e798:	20000c5c 	.word	0x20000c5c
@@ -30707,19 +30706,19 @@ void DIST_init( void )
  800e90e:	f009 ff77 	bl	8018800 <memset>
 	st_sen[DIST_SEN_R_FRONT].s_ref       = R_FRONT_REF;
  800e912:	4b1f      	ldr	r3, [pc, #124]	; (800e990 <DIST_init+0x8c>)
- 800e914:	f44f 721b 	mov.w	r2, #620	; 0x26c
+ 800e914:	f44f 72d7 	mov.w	r2, #430	; 0x1ae
  800e918:	80da      	strh	r2, [r3, #6]
 	st_sen[DIST_SEN_L_FRONT].s_ref       = L_FRONT_REF;
  800e91a:	4b1d      	ldr	r3, [pc, #116]	; (800e990 <DIST_init+0x8c>)
- 800e91c:	f44f 72eb 	mov.w	r2, #470	; 0x1d6
+ 800e91c:	f44f 7216 	mov.w	r2, #600	; 0x258
  800e920:	829a      	strh	r2, [r3, #20]
 	st_sen[DIST_SEN_R_SIDE].s_ref        = R_SIDE_REF;
  800e922:	4b1b      	ldr	r3, [pc, #108]	; (800e990 <DIST_init+0x8c>)
- 800e924:	f44f 72d7 	mov.w	r2, #430	; 0x1ae
+ 800e924:	f44f 72e1 	mov.w	r2, #450	; 0x1c2
  800e928:	845a      	strh	r2, [r3, #34]	; 0x22
 	st_sen[DIST_SEN_L_SIDE].s_ref        = L_SIDE_REF;
  800e92a:	4b19      	ldr	r3, [pc, #100]	; (800e990 <DIST_init+0x8c>)
- 800e92c:	f44f 72af 	mov.w	r2, #350	; 0x15e
+ 800e92c:	f44f 72b9 	mov.w	r2, #370	; 0x172
  800e930:	861a      	strh	r2, [r3, #48]	; 0x30
 	st_sen[DIST_SEN_R_FRONT].s_limit     = R_FRONT_WALL;
  800e932:	4b17      	ldr	r3, [pc, #92]	; (800e990 <DIST_init+0x8c>)
@@ -30727,15 +30726,15 @@ void DIST_init( void )
  800e936:	809a      	strh	r2, [r3, #4]
 	st_sen[DIST_SEN_L_FRONT].s_limit     = L_FRONT_WALL;
  800e938:	4b15      	ldr	r3, [pc, #84]	; (800e990 <DIST_init+0x8c>)
- 800e93a:	2264      	movs	r2, #100	; 0x64
+ 800e93a:	226e      	movs	r2, #110	; 0x6e
  800e93c:	825a      	strh	r2, [r3, #18]
 	st_sen[DIST_SEN_R_SIDE].s_limit      = R_SIDE_WALL;
  800e93e:	4b14      	ldr	r3, [pc, #80]	; (800e990 <DIST_init+0x8c>)
- 800e940:	2278      	movs	r2, #120	; 0x78
+ 800e940:	229b      	movs	r2, #155	; 0x9b
  800e942:	841a      	strh	r2, [r3, #32]
 	st_sen[DIST_SEN_L_SIDE].s_limit      = L_SIDE_WALL;
  800e944:	4b12      	ldr	r3, [pc, #72]	; (800e990 <DIST_init+0x8c>)
- 800e946:	2278      	movs	r2, #120	; 0x78
+ 800e946:	2287      	movs	r2, #135	; 0x87
  800e948:	85da      	strh	r2, [r3, #46]	; 0x2e
 	st_senF[DIST_SEN_R_FRONT].s_skewErr1	= R_FRONT_SKEW_ERR1;
  800e94a:	4b12      	ldr	r3, [pc, #72]	; (800e994 <DIST_init+0x90>)
@@ -30771,11 +30770,11 @@ void DIST_init( void )
  800e97c:	835a      	strh	r2, [r3, #26]
 	st_sen[DIST_SEN_R_FRONT].s_ctrl = R_FRONT_CTRL;
  800e97e:	4b04      	ldr	r3, [pc, #16]	; (800e990 <DIST_init+0x8c>)
- 800e980:	22b4      	movs	r2, #180	; 0xb4
+ 800e980:	22a0      	movs	r2, #160	; 0xa0
  800e982:	815a      	strh	r2, [r3, #10]
 	st_sen[DIST_SEN_L_FRONT].s_ctrl = L_FRONT_CTRL;
  800e984:	4b02      	ldr	r3, [pc, #8]	; (800e990 <DIST_init+0x8c>)
- 800e986:	22b4      	movs	r2, #180	; 0xb4
+ 800e986:	22c8      	movs	r2, #200	; 0xc8
  800e988:	831a      	strh	r2, [r3, #24]
 
 }
@@ -38482,11 +38481,11 @@ void MAP_Goal_init( void )
  80128d2:	af00      	add	r7, sp, #0
 	GOAL_MAP_X = GOAL_MAP_X_def;
  80128d4:	4b05      	ldr	r3, [pc, #20]	; (80128ec <MAP_Goal_init+0x1c>)
- 80128d6:	2201      	movs	r2, #1
+ 80128d6:	2209      	movs	r2, #9
  80128d8:	701a      	strb	r2, [r3, #0]
 	GOAL_MAP_Y = GOAL_MAP_Y_def;
  80128da:	4b05      	ldr	r3, [pc, #20]	; (80128f0 <MAP_Goal_init+0x20>)
- 80128dc:	2200      	movs	r2, #0
+ 80128dc:	2209      	movs	r2, #9
  80128de:	701a      	strb	r2, [r3, #0]
 }
  80128e0:	bf00      	nop
@@ -38948,7 +38947,7 @@ uint8_t MAP_getWallData( void )
  8012be8:	2003      	movs	r0, #3
  8012bea:	f7fb fed5 	bl	800e998 <DIST_getNowVal>
  8012bee:	4603      	mov	r3, r0
- 8012bf0:	f5b3 7faf 	cmp.w	r3, #350	; 0x15e
+ 8012bf0:	f5b3 7fb9 	cmp.w	r3, #370	; 0x172
  8012bf4:	dd02      	ble.n	8012bfc <MAP_getWallData+0x54>
 		near_wall = 1;
  8012bf6:	4b16      	ldr	r3, [pc, #88]	; (8012c50 <MAP_getWallData+0xa8>)
@@ -38959,7 +38958,7 @@ uint8_t MAP_getWallData( void )
  8012bfc:	2002      	movs	r0, #2
  8012bfe:	f7fb fecb 	bl	800e998 <DIST_getNowVal>
  8012c02:	4603      	mov	r3, r0
- 8012c04:	f5b3 7fd7 	cmp.w	r3, #430	; 0x1ae
+ 8012c04:	f5b3 7fe1 	cmp.w	r3, #450	; 0x1c2
  8012c08:	dd02      	ble.n	8012c10 <MAP_getWallData+0x68>
 		near_wall = 1;
  8012c0a:	4b11      	ldr	r3, [pc, #68]	; (8012c50 <MAP_getWallData+0xa8>)
@@ -41154,7 +41153,7 @@ void MAP_moveNextBlock_Sura(
  8013c18:	2000085c 	.word	0x2000085c
  8013c1c:	20001488 	.word	0x20001488
  8013c20:	200002d6 	.word	0x200002d6
- 8013c24:	2000001b 	.word	0x2000001b
+ 8013c24:	2000001c 	.word	0x2000001c
  8013c28:	00000000 	.word	0x00000000
  8013c2c:	3e6b851f 	.word	0x3e6b851f
 
@@ -41547,7 +41546,7 @@ void MAP_moveNextBlock_Sura(
  8013ecc:	2000085c 	.word	0x2000085c
  8013ed0:	20001488 	.word	0x20001488
  8013ed4:	200002d6 	.word	0x200002d6
- 8013ed8:	2000001b 	.word	0x2000001b
+ 8013ed8:	2000001c 	.word	0x2000001c
  8013edc:	00000000 	.word	0x00000000
  8013ee0:	2001c21c 	.word	0x2001c21c
  8013ee4:	3e6b851f 	.word	0x3e6b851f
@@ -41724,7 +41723,7 @@ void MAP_Goalsize(int size)
  8013ffa:	bf00      	nop
  8013ffc:	2001c222 	.word	0x2001c222
  8014000:	2000001a 	.word	0x2000001a
- 8014004:	200002d7 	.word	0x200002d7
+ 8014004:	2000001b 	.word	0x2000001b
 
 08014008 <MAP_makeReturnContourMap>:
 
@@ -42650,7 +42649,7 @@ void MAP_moveNextBlock_acc(enMAP_HEAD_DIR en_head, bool* p_type)
  801473c:	2000085c 	.word	0x2000085c
  8014740:	20001488 	.word	0x20001488
  8014744:	200002d6 	.word	0x200002d6
- 8014748:	2000001b 	.word	0x2000001b
+ 8014748:	2000001c 	.word	0x2000001c
  801474c:	200002ad 	.word	0x200002ad
  8014750:	00000000 	.word	0x00000000
  8014754:	3e6b851f 	.word	0x3e6b851f
@@ -42968,7 +42967,7 @@ void MAP_moveNextBlock_acc(enMAP_HEAD_DIR en_head, bool* p_type)
  8014990:	20001488 	.word	0x20001488
  8014994:	200002d8 	.word	0x200002d8
  8014998:	3e99999a 	.word	0x3e99999a
- 801499c:	2000001b 	.word	0x2000001b
+ 801499c:	2000001c 	.word	0x2000001c
 				if(wall_hit_flag == 0){
  80149a0:	4b74      	ldr	r3, [pc, #464]	; (8014b74 <MAP_moveNextBlock_acc+0x6fc>)
  80149a2:	781b      	ldrb	r3, [r3, #0]
@@ -45070,7 +45069,7 @@ void  MAP_makeContourMap_dijkstra_modoki(
  8015814:	2001c223 	.word	0x2001c223
  8015818:	2000001a 	.word	0x2000001a
  801581c:	2001c219 	.word	0x2001c219
- 8015820:	200002d7 	.word	0x200002d7
+ 8015820:	2000001b 	.word	0x2000001b
  8015824:	20000430 	.word	0x20000430
 				if (us_cmap[y][x] == uc_dase) {
  8015828:	8aba      	ldrh	r2, [r7, #20]
@@ -51282,9 +51281,9 @@ void LL_SetSystemCoreClock(uint32_t HCLKFrequency)
  80182a4:	4803      	ldr	r0, [pc, #12]	; (80182b4 <stdio_exit_handler+0x14>)
  80182a6:	f000 b869 	b.w	801837c <_fwalk_sglue>
  80182aa:	bf00      	nop
- 80182ac:	2000001c 	.word	0x2000001c
+ 80182ac:	20000020 	.word	0x20000020
  80182b0:	0801b4e9 	.word	0x0801b4e9
- 80182b4:	20000028 	.word	0x20000028
+ 80182b4:	2000002c 	.word	0x2000002c
 
 080182b8 <cleanup_stdio>:
  80182b8:	6841      	ldr	r1, [r0, #4]
@@ -51409,7 +51408,7 @@ void LL_SetSystemCoreClock(uint32_t HCLKFrequency)
  80183d0:	f85d eb04 	ldr.w	lr, [sp], #4
  80183d4:	b004      	add	sp, #16
  80183d6:	4770      	bx	lr
- 80183d8:	20000074 	.word	0x20000074
+ 80183d8:	20000078 	.word	0x20000078
 
 080183dc <putchar>:
  80183dc:	4b02      	ldr	r3, [pc, #8]	; (80183e8 <putchar+0xc>)
@@ -51417,7 +51416,7 @@ void LL_SetSystemCoreClock(uint32_t HCLKFrequency)
  80183e0:	6818      	ldr	r0, [r3, #0]
  80183e2:	6882      	ldr	r2, [r0, #8]
  80183e4:	f003 b90a 	b.w	801b5fc <_putc_r>
- 80183e8:	20000074 	.word	0x20000074
+ 80183e8:	20000078 	.word	0x20000078
 
 080183ec <_puts_r>:
  80183ec:	6a03      	ldr	r3, [r0, #32]
@@ -51503,7 +51502,7 @@ void LL_SetSystemCoreClock(uint32_t HCLKFrequency)
  8018498:	6818      	ldr	r0, [r3, #0]
  801849a:	f7ff bfa7 	b.w	80183ec <_puts_r>
  801849e:	bf00      	nop
- 80184a0:	20000074 	.word	0x20000074
+ 80184a0:	20000078 	.word	0x20000078
 
 080184a4 <setbuf>:
  80184a4:	fab1 f281 	clz	r2, r1
@@ -51653,7 +51652,7 @@ void LL_SetSystemCoreClock(uint32_t HCLKFrequency)
  8018604:	e7e7      	b.n	80185d6 <setvbuf+0x122>
  8018606:	f04f 35ff 	mov.w	r5, #4294967295
  801860a:	e7c2      	b.n	8018592 <setvbuf+0xde>
- 801860c:	20000074 	.word	0x20000074
+ 801860c:	20000078 	.word	0x20000078
 
 08018610 <siprintf>:
  8018610:	b40e      	push	{r1, r2, r3}
@@ -51680,7 +51679,7 @@ void LL_SetSystemCoreClock(uint32_t HCLKFrequency)
  8018640:	f85d eb04 	ldr.w	lr, [sp], #4
  8018644:	b003      	add	sp, #12
  8018646:	4770      	bx	lr
- 8018648:	20000074 	.word	0x20000074
+ 8018648:	20000078 	.word	0x20000078
  801864c:	ffff0208 	.word	0xffff0208
 
 08018650 <__sread>:
@@ -51873,7 +51872,7 @@ void LL_SetSystemCoreClock(uint32_t HCLKFrequency)
  80187f6:	e7f4      	b.n	80187e2 <__swsetup_r+0x92>
  80187f8:	2000      	movs	r0, #0
  80187fa:	e7f7      	b.n	80187ec <__swsetup_r+0x9c>
- 80187fc:	20000074 	.word	0x20000074
+ 80187fc:	20000078 	.word	0x20000078
 
 08018800 <memset>:
  8018800:	4402      	add	r2, r0
@@ -51887,7 +51886,7 @@ void LL_SetSystemCoreClock(uint32_t HCLKFrequency)
 08018810 <_localeconv_r>:
  8018810:	4800      	ldr	r0, [pc, #0]	; (8018814 <_localeconv_r+0x4>)
  8018812:	4770      	bx	lr
- 8018814:	20000168 	.word	0x20000168
+ 8018814:	2000016c 	.word	0x2000016c
 
 08018818 <_close_r>:
  8018818:	b538      	push	{r3, r4, r5, lr}
@@ -51964,7 +51963,7 @@ void LL_SetSystemCoreClock(uint32_t HCLKFrequency)
  80188a6:	6818      	ldr	r0, [r3, #0]
  80188a8:	4770      	bx	lr
  80188aa:	bf00      	nop
- 80188ac:	20000074 	.word	0x20000074
+ 80188ac:	20000078 	.word	0x20000078
 
 080188b0 <__libc_init_array>:
  80188b0:	b570      	push	{r4, r5, r6, lr}
@@ -53402,7 +53401,7 @@ void LL_SetSystemCoreClock(uint32_t HCLKFrequency)
  80196b8:	6818      	ldr	r0, [r3, #0]
  80196ba:	f000 b823 	b.w	8019704 <_malloc_r>
  80196be:	bf00      	nop
- 80196c0:	20000074 	.word	0x20000074
+ 80196c0:	20000078 	.word	0x20000078
 
 080196c4 <sbrk_aligned>:
  80196c4:	b570      	push	{r4, r5, r6, lr}
@@ -55695,7 +55694,7 @@ void LL_SetSystemCoreClock(uint32_t HCLKFrequency)
  801ad90:	4b01      	ldr	r3, [pc, #4]	; (801ad98 <_strtod_r+0x8>)
  801ad92:	f7ff ba0d 	b.w	801a1b0 <_strtod_l>
  801ad96:	bf00      	nop
- 801ad98:	20000078 	.word	0x20000078
+ 801ad98:	2000007c 	.word	0x2000007c
 
 0801ad9c <_strtol_l.constprop.0>:
  801ad9c:	2b01      	cmp	r3, #1
@@ -56771,7 +56770,7 @@ void LL_SetSystemCoreClock(uint32_t HCLKFrequency)
  801b756:	461c      	mov	r4, r3
  801b758:	e7f3      	b.n	801b742 <__assert_func+0x12>
  801b75a:	bf00      	nop
- 801b75c:	20000074 	.word	0x20000074
+ 801b75c:	20000078 	.word	0x20000078
  801b760:	0801e17a 	.word	0x0801e17a
  801b764:	0801e187 	.word	0x0801e187
  801b768:	0801e1b5 	.word	0x0801e1b5
@@ -57570,7 +57569,7 @@ void LL_SetSystemCoreClock(uint32_t HCLKFrequency)
  801befc:	f85d eb04 	ldr.w	lr, [sp], #4
  801bf00:	b003      	add	sp, #12
  801bf02:	4770      	bx	lr
- 801bf04:	20000074 	.word	0x20000074
+ 801bf04:	20000078 	.word	0x20000078
 
 0801bf08 <abort>:
  801bf08:	b508      	push	{r3, lr}
@@ -57631,7 +57630,7 @@ void LL_SetSystemCoreClock(uint32_t HCLKFrequency)
  801bf7c:	6818      	ldr	r0, [r3, #0]
  801bf7e:	f7ff bfd2 	b.w	801bf26 <_raise_r>
  801bf82:	bf00      	nop
- 801bf84:	20000074 	.word	0x20000074
+ 801bf84:	20000078 	.word	0x20000078
 
 0801bf88 <_kill_r>:
  801bf88:	b538      	push	{r3, r4, r5, lr}
