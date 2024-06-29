@@ -48,7 +48,8 @@ typedef enum{
 	CTRL_DEC_SURA,			// [13] 
 	CTRL_EXIT_SURA,			// [14] 
 
-	CTRL_FRONT_WALL,		// [15]
+	CTRL_FRONT_WALL_DIST,		// [15]
+	CTRL_FRONT_WALL_ROT,		// [16]
 
 	CTRL_MAX,
 

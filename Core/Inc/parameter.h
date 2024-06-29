@@ -47,12 +47,12 @@
 #define		f_FB_wall_kp		(0.4)//0.4
 #define		f_FB_wall_kd		(0.2)//0.2
 */
-#define		f_FB_front_wall_v_kp	(0.001)
-#define		f_FB_front_wall_v_ki	(0.0)
-#define		f_FB_front_wall_v_kd	(0.0001)
-#define		f_FB_front_wall_omega_kp	(0.9)
-#define		f_FB_front_wall_omega_ki	(0.0)
-#define		f_FB_front_wall_omega_kd	(0.3)
+#define		f_FB_front_wall_v_kp	(0.1)
+#define		f_FB_front_wall_v_ki	(0.0)	//未使用
+#define		f_FB_front_wall_v_kd	(0.0)
+#define		f_FB_front_wall_omega_kp	(0.2)
+#define		f_FB_front_wall_omega_ki	(0.0)	//未使用
+#define		f_FB_front_wall_omega_kd	(0.0)
 
 /*
 #define 		f_FB_speed_kp		(10.0)

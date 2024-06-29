@@ -153,6 +153,7 @@ void MODE_exe_m0( void )
 
 		case MODE_1:
 			SetLED(0x0e);
+/*
 			printf("\n");
 			LL_mDelay(1000);
 			SetLED(0x00);
@@ -162,6 +163,35 @@ void MODE_exe_m0( void )
 				);
 				LL_mDelay( 500 );
 			}
+*/
+
+			MOT_setTrgtSpeed(SEARCH_SPEED);
+			MOT_setSuraStaSpeed( SEARCH_SPEED , SLA_90);							// スラロー�?開始速度設�?
+			MOT_setSuraStaSpeed( SEARCH_SPEED , SLA_45);
+			MOT_setSuraStaSpeed( SEARCH_SPEED , SLA_135);
+			MOT_setSuraStaSpeed( SEARCH_SPEED , SLA_N90);
+			PARAM_setSpeedType( PARAM_ST,   PARAM_VERY_FAST );							// [直進] 速度普�?
+			PARAM_setSpeedType( PARAM_TRUN, PARAM_VERY_SLOW );							// [旋回] 速度普�?
+			PARAM_setSpeedType( PARAM_SLA,  PARAM_VERY_SLOW );							// [スラ] 速度普�?
+			SetLED(0x00);
+			LL_mDelay(500);
+			CTRL_clrData();
+			CTRL_clrAngleErrSum();
+			CTRL_clrNowData();
+			log_flag_on();
+
+			DIST_Front_Wall_correction();
+
+			log_flag_off();
+
+			SetLED(0x0e);
+			LL_mDelay(500);
+			SetLED(0x00);
+			LL_mDelay(500);
+			SetLED(0x0e);
+			LL_mDelay(500);
+			SetLED(0x00);
+			LL_mDelay(500);
 			break;
 
 		case MODE_2:

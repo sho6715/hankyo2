@@ -28,4 +28,4 @@
 ../Core/Src/hal/run.c:1340:6:MOT_setWallEdge	1
 ../Core/Src/hal/run.c:1346:6:MOT_setWallEdgeDist	4
 ../Core/Src/hal/run.c:1372:6:MOT_setWallEdgeDist_LoopWait	2
-../Core/Src/hal/run.c:1386:6:DIST_Front_Wall_correction	6
+../Core/Src/hal/run.c:1386:6:DIST_Front_Wall_correction	9
