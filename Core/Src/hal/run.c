@@ -1406,13 +1406,20 @@ void DIST_Front_Wall_correction(void)
 	CTRL_setData( &st_data );							// データセット
 	DCM_staMotAll();									// モータON
 
-	while((DIST_getNowVal( DIST_SEN_L_FRONT ) - DIST_getNowVal( DIST_SEN_R_FRONT ) < (L_FRONT_REF - R_FRONT_REF)-20)
-		|| (DIST_getNowVal( DIST_SEN_R_FRONT ) - DIST_getNowVal( DIST_SEN_L_FRONT ) > (R_FRONT_REF - L_FRONT_REF)+20))
+	while((DIST_getNowVal( DIST_SEN_L_FRONT ) - DIST_getNowVal( DIST_SEN_R_FRONT ) < (L_FRONT_REF - R_FRONT_REF)-5)
+		|| (DIST_getNowVal( DIST_SEN_R_FRONT ) - DIST_getNowVal( DIST_SEN_L_FRONT ) > (R_FRONT_REF - L_FRONT_REF)+5))
 	{
-			if(escape_wait > 0.8)break;
-			LL_mDelay(1);//volatile入れてないから回避用に入れてみる
+	//		if(escape_wait > 0.8)break;
+	//		LL_mDelay(1);//volatile入れてないから回避用に入れてみる
+
+			if( SYS_isOutOfCtrl() == TRUE ){
+			CTRL_stop();
+			DCM_brakeMot( DCM_R );		// ブレーキ
+			DCM_brakeMot( DCM_L );		// ブレーキ
+			break;
+		}				// 途中で制御不能になった
 	}
-	LL_mDelay(50);
+	LL_mDelay(500);
 //前後補正
 	st_data.en_type			= CTRL_FRONT_WALL_DIST;
 	st_data.f_acc			= 0;						// 加速度指定
@@ -1430,8 +1437,15 @@ void DIST_Front_Wall_correction(void)
 	CTRL_setData( &st_data );							// データセット
 	while((DIST_getNowVal( DIST_SEN_R_FRONT )>(R_FRONT_REF+20))||(DIST_getNowVal( DIST_SEN_R_FRONT )<(R_FRONT_REF-20))
 		||(DIST_getNowVal( DIST_SEN_L_FRONT )>(L_FRONT_REF+20))||(DIST_getNowVal( DIST_SEN_L_FRONT )<(L_FRONT_REF-20))){
-			if(escape_wait > 0.8)break;
+			if(escape_wait > 2.0)break;
 			LL_mDelay(1);//volatile入れてないから回避用に入れてみる
+
+			if( SYS_isOutOfCtrl() == TRUE ){
+			CTRL_stop();
+			DCM_brakeMot( DCM_R );		// ブレーキ
+			DCM_brakeMot( DCM_L );		// ブレーキ
+			break;
+		}				// 途中で制御不能になった
 	}
 	LL_mDelay(50);
 

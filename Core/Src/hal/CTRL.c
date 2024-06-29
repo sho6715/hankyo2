@@ -503,6 +503,8 @@ enPARAM_MODE Chg_ParamID( enCTRL_TYPE en_type )
 		case CTRL_CONST_SURA:		return PARAM_CONST_SURA;		// 等速中(スラローム)
 		case CTRL_DEC_SURA:		return PARAM_DEC_SURA;			// 減速中(スラローム)
 		case CTRL_EXIT_SURA:		return PARAM_EXIT_SURA;			// スラローム後の前進動作(スラローム)
+		case CTRL_FRONT_WALL_DIST:	return PARAM_F_WALL;			//前壁用制御抜け
+		case CTRL_FRONT_WALL_ROT:	return PARAM_F_WALL;			//前壁用制御抜け
 		default:			return PARAM_NC;
 	}
 }
@@ -729,17 +731,15 @@ void CTRL_get_frontwall_v_FB( float* p_err)
 		f_v_ki = f_FB_front_wall_v_ki;
 		f_v_kd = f_FB_front_wall_v_kd;
 
-		if( en_Type == CTRL_FRONT_WALL_DIST){
-			l_frontSen_vErr = (L_FRONT_REF - DIST_getNowVal( DIST_SEN_L_FRONT )) + (R_FRONT_REF - DIST_getNowVal( DIST_SEN_R_FRONT ))/100.0;
-			f_v_err = (float)l_frontSen_vErr;
+		l_frontSen_vErr = ((L_FRONT_REF - DIST_getNowVal( DIST_SEN_L_FRONT )) + (R_FRONT_REF - DIST_getNowVal( DIST_SEN_R_FRONT )));
+		f_v_err = (float)l_frontSen_vErr/100.0;
 	
-			/* PD制御 */
-			*p_err = f_v_err * f_v_kp + ( f_v_err - f_ErrFrontSen_vBuf ) * f_v_kd;		// PD制御
-			f_ErrFrontSen_vBuf = f_v_err;		// 偏差をバッファリング
+		/* PD制御 */
+		*p_err = f_v_err * f_v_kp + ( f_v_err - f_ErrFrontSen_vBuf ) * f_v_kd;		// PD制御
+		f_ErrFrontSen_vBuf = f_v_err;		// 偏差をバッファリング
 
-			if(*p_err < - 0.5)*p_err = -0.5;
-			else if(*p_err > 0.5)*p_err = 0.5;
-		}
+		if(*p_err < - 7)*p_err = -7.0;
+		else if(*p_err > 7)*p_err = 7.0;
 	}
 
 }
@@ -759,17 +759,15 @@ void CTRL_get_frontwall_omega_FB( float* p_err)
 		f_omega_ki = f_FB_front_wall_omega_ki;
 		f_omega_kd = f_FB_front_wall_omega_kd;
 
-		if( en_Type == CTRL_FRONT_WALL_ROT){	
-			l_frontSen_omegaErr = (DIST_getNowVal( DIST_SEN_L_FRONT )- DIST_getNowVal( DIST_SEN_R_FRONT ));
-			f_omega_err = (float)l_frontSen_omegaErr;
+		l_frontSen_omegaErr = (DIST_getNowVal( DIST_SEN_L_FRONT ) - DIST_getNowVal( DIST_SEN_R_FRONT ));
+		f_omega_err = (float)l_frontSen_omegaErr;
 	
-			/* PD制御 */
-			*p_err =f_omega_err * f_omega_kp + ( f_omega_err - f_ErrFrontSen_omegaBuf ) * f_omega_kd;		// PD制御
-			f_ErrFrontSen_omegaBuf = f_omega_err;		// 偏差をバッファリング
+		/* PD制御 */
+		*p_err = f_omega_err * f_omega_kp + ( f_omega_err - f_ErrFrontSen_omegaBuf ) * f_omega_kd;		// PD制御
+		f_ErrFrontSen_omegaBuf = f_omega_err;		// 偏差をバッファリング
 
-			if(*p_err < - 0.5)*p_err = -0.5;
-			else if(*p_err > 0.5)*p_err = 0.5;
-		}
+		if(*p_err < - 300.0)*p_err = -300.0;
+		else if(*p_err > 300.0)*p_err = 300.0;
 	}
 
 }

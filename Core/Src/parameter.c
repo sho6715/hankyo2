@@ -152,6 +152,10 @@ const stGAIN* PARAM_getGain( enPARAM_MODE en_mode )
 		case PARAM_EXIT_SURA:											// スラローム後の前進動作(スラローム)
 			p_adr = &f_SlaGainData[en_Speed_sla];
 			break;
+
+		case PARAM_F_WALL:
+			p_adr = &f_SlaGainData[PARAM_VERY_SLOW];					//とりあえずSLOW
+			break;
 		
 		default:														// Err、とりあえず・・・（メモリ破壊を防ぐため）
 			printf("設定したゲインタイプがありません \n\r");

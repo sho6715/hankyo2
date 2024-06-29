@@ -47,10 +47,10 @@
 #define		f_FB_wall_kp		(0.4)//0.4
 #define		f_FB_wall_kd		(0.2)//0.2
 */
-#define		f_FB_front_wall_v_kp	(0.1)
+#define		f_FB_front_wall_v_kp	(0.4)
 #define		f_FB_front_wall_v_ki	(0.0)	//未使用
 #define		f_FB_front_wall_v_kd	(0.0)
-#define		f_FB_front_wall_omega_kp	(0.2)
+#define		f_FB_front_wall_omega_kp	(3.2)
 #define		f_FB_front_wall_omega_ki	(0.0)	//未使用
 #define		f_FB_front_wall_omega_kd	(0.0)
 
@@ -101,7 +101,9 @@ typedef enum{
 	
 	PARAM_ST,		
 	PARAM_TRUN,			
-	PARAM_SLA,	
+	PARAM_SLA,
+
+	PARAM_F_WALL,
 
 	PARAM_ST_MAX		= PARAM_ST_BTM   - PARAM_ST_TOP,		
 	PARAM_TRUN_MAX		= PARAM_TRUN_BTM - PARAM_TRUN_TOP,		
