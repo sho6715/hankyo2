@@ -58,11 +58,13 @@ typedef enum{
 typedef struct{
 	enCTRL_TYPE		en_type;		// motion type
 	float			f_time;			// target time[sec]
-	float			f_acc;			// [speed ctrl] accel speed[mm/s2]
-	float			f_now;			// [speed ctrl] now speed[mm/s]
-	float			f_trgt;			// [speed ctrl] finish speed[mm/s]
-	float			f_nowDist;		// [dist ctrl] now distance[mm]
-	float			f_dist;			// [dist ctrl] finish distance[mm]
+	float			f_jerk;			// jerk[m/s3]
+	float			f_acc;			// [speed ctrl] accel speed[m/s2]
+	float			f_now;			// [speed ctrl] now speed[m/s]
+	float			f_trgt;			// [speed ctrl] finish speed[m/s]
+	float			f_nowDist;		// [dist ctrl] now distance[m]
+	float			f_dist;			// [dist ctrl] finish distance[m]
+	float			f_jerkAngle;	// jerk angle[rad/s3]
 	float			f_accAngleS;	// [angle speed ctrl] angle accel speed[rad/s2]
 	float			f_nowAngleS;	// [angle speed ctrl] now angle speed[rad/s]
 	float			f_trgtAngleS;	// [angle speed ctrl] finish angle speed[rad/s]

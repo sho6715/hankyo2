@@ -28,6 +28,7 @@ typedef struct{
 
 	float			f_time;			// 時間					[msec]
 
+	float			f_jerk;
 	/* 速度制御 */
 	float			f_acc1;			// [m/s2]
 	float			f_acc3;			// [m/s2]
@@ -40,6 +41,8 @@ typedef struct{
 	float			f_l1;			// 第1移動距離			[m]
 	float			f_l1_2;			// 第1+2移動距離		[m]
 
+	float			f_jerkAngle;
+	
 	/* 角速度制御 */
 	float			f_accAngleS1;	// 角加速度1			[rad/s2]
 	float			f_accAngleS3;	// 角加速度3			[rad/s2]
@@ -76,6 +79,16 @@ float MOT_getAcc1( void )
 float MOT_getAcc3( void )
 {
 	return PARAM_getSpeed( PARAM_ST )->f_dec;
+}
+
+float MOT_getjerk1( void )
+{
+	return PARAM_getSpeed( PARAM_ST )->f_jerk;
+}
+
+float MOT_getjerk3( void )
+{
+	return PARAM_getSpeed( PARAM_ST )->f_jerk;
 }
 
 void MOT_goBlock_AccConstDec( float f_fin, enMOT_ST_TYPE en_type, enMOT_GO_ST_TYPE en_goType )
@@ -706,14 +719,22 @@ void testrun(void)
 
 float MOT_getAccAngle1( void )
 {
-//	return ( 1800 );
 	return PARAM_getSpeed( PARAM_TRUN )->f_accAngle;
 }
 
 float MOT_getAccAngle3( void )
 {
-//	return ( 1800 );
 	return PARAM_getSpeed( PARAM_TRUN )->f_decAngle;
+}
+
+float MOT_getjerkAngle1( void )
+{
+	return PARAM_getSpeed( PARAM_TRUN )->f_jerkAngle;
+}
+
+float MOT_getjerkAngle3( void )
+{
+	return PARAM_getSpeed( PARAM_TRUN )->f_jerkAngle;
 }
 
 void MOT_turn( enMOT_TURN_CMD en_type )

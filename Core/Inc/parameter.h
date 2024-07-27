@@ -125,8 +125,10 @@ typedef enum{
 }enPARAM_MOVE_SPEED;
 
 typedef struct{
+	float			f_jerk;
 	float			f_acc;					
-	float			f_dec;					
+	float			f_dec;
+	float			f_jerkAngle;					
 	float			f_accAngle;				
 	float			f_decAngle;				
 }stSPEED;
