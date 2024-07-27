@@ -34,13 +34,13 @@
 #define TIRE_D						( 0.01251f )	//ć¨ĺŽĺ¤								// ăżă¤ă¤ç´ĺž? [mm]
 #define TREAD_imagin					(0.0386f)
 #define TREAD						( 0.0335f )
-#define ROTATE_PULSE				( 4096 )									// 1ĺ¨ăŽćĺ¤§ć°ĺ¤
+#define ROTATE_PULSE				( 4096.0 )									// 1ĺ¨ăŽćĺ¤§ć°ĺ¤
 #define DIST_1STEP					( PI * TIRE_D / ROTATE_PULSE )				// 1ăăŤăšă§é˛ăčˇé˘ [m]
 #define F_CNT2MM(cnt)				( (float)cnt * DIST_1STEP )				// [ăŤăŚăłăĺ¤]ăă[mm]ă¸ćçŽ?
 #define GEAR_RATIO					(36.0f/10.0f)
 
 #define Weight						(0.018f)
-#define Inertia						(4.6f/1000000.0f)
+#define Inertia						(10.5f/1000000.0f)//(4.6f/1000000.0f)
 #define Torque_constant				(0.594f/1000.0f)
 #define Motor_Register				(4.8f)
 

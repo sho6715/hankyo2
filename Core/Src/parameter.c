@@ -25,8 +25,8 @@ stSLA				st_Sla[SLA_TYPE_MAX];					// スラローム時の走行パラメータ
 	const stSPEED f_StSpeedData[PARAM_MOVE_SPEED_MAX] = {
 		
 		//	加速度		減速度		角加速度		角減速度
-		{ 1.8,			1.8,		0,				0,				},		// 超低速(PARAM_VERY_SLOW)
-		{ 1.8,			1.8,		0,				0,				},		// 低速(PARAM_SLOW)
+		{ 2.5,			2.5,		0,				0,				},		// 超低速(PARAM_VERY_SLOW)
+		{ 2.5,			2.5,		0,				0,				},		// 低速(PARAM_SLOW)
 		{ 2.5,			2.5,		0,				0,				},		// 通常(PARAM_NORMAL)
 		{ 4.0,			4.0,		0,				0,				},		// 高速(PARAM_FAST)
 		{ 10.0,			10.0,		0,				0,				},		// 超高速(PARAM_VERY_FAST)
@@ -47,11 +47,11 @@ stSLA				st_Sla[SLA_TYPE_MAX];					// スラローム時の走行パラメータ
 	const stSPEED f_SlaSpeedData[PARAM_MOVE_SPEED_MAX] = {
 		
 		//	加速度		減速度		角加速度		角減速度
-		{ 1.8,			1.8,		10.0*PI,			10.0*PI,			},		// 超低速(PARAM_VERY_SLOW)
-		{ 1.8,			1.8,		10.0*PI,			10.0*PI,			},		// 低速(PARAM_SLOW)
-		{ 1.8,			1.8,		10.0*PI,			10.0*PI,			},		// 通常(PARAM_NORMAL)
-		{ 1.8,			1.8,		10.0*PI,			10.0*PI,			},		// 高速(PARAM_FAST)
-		{ 1.8,			1.8,		10.0*PI,			10.0*PI,			},		// 超高速(PARAM_VERY_FAST)
+		{ 2.5,			2.5,		10.0*PI,			10.0*PI,			},		// 超低速(PARAM_VERY_SLOW)
+		{ 2.5,			2.5,		10.0*PI,			10.0*PI,			},		// 低速(PARAM_SLOW)
+		{ 2.5,			2.5,		10.0*PI,			10.0*PI,			},		// 通常(PARAM_NORMAL)
+		{ 2.5,			2.5,		10.0*PI,			10.0*PI,			},		// 高速(PARAM_FAST)
+		{ 2.5,			2.5,		10.0*PI,			10.0*PI,			},		// 超高速(PARAM_VERY_FAST)
 	};
 
 
@@ -65,7 +65,7 @@ stSLA				st_Sla[SLA_TYPE_MAX];					// スラローム時の走行パラメータ
 		
 		/* 超低速(PARAM_VERY_SLOW) */
 			//速度kp,速度ki,速度kd,	角速度kp,角速度ki,角速度kd,	角度kp,角度ki,	壁kp,壁kd
-			{ 35.0,2.0,0.1,	55.0,0.2,0.03,	0.0,0.0,	0.4,0.1,},
+			{ 0.0,0.0,0.0,	55.0,0.2,0.03,	0.0,0.0,	0.4,0.1,},
 		/* 低速(PARAM_SLOW) */
 			///速度kp,速度ki,速度kd,	角速度kp,角速度ki,角速度kd,	角度kp,角度ki,	壁kp,壁kd
 			{ 35.0,2.0,0.1,	55.0,0.2,0.03,	0.0,0.0,	0.4,0.1,},
@@ -108,7 +108,7 @@ stSLA				st_Sla[SLA_TYPE_MAX];					// スラローム時の走行パラメータ
 			{ 35.0,2.0,0.1,	35.5,2.0,3.0,	0.0,0.0,	0.4,0.1,},
 		/* 低速(PARAM_SLOW) *///吸引あり300
 			//速度kp,速度ki,速度kd,	角速度kp,角速度ki,角速度kd,	角度kp,角度ki,	壁kp,壁kd
-			{ 35.0,2.0,0.1,	35.5,2.0,3.0,	0.0,0.0,	0.4,0.1,},
+			{ 35.0,2.0,0.1,	60.0,2.0,200.0,	0.0,0.0,	0.4,0.1,},
 		/* 通常(PARAM_NORMAL)*///吸引あり500
 			//速度kp,速度ki,速度kd,	角速度kp,角速度ki,角速度kd,	角度kp,角度ki,	壁kp,壁kd
 			{ 35.0,2.0,0.1,	45.5,2.0,3.0,	0.0,0.0,	0.4,0.1,},

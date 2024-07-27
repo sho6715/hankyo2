@@ -57,7 +57,6 @@ stMOT_DATA 		st_Info;				// シーケンスデータ
 /* 動作 */
 float 			f_MotNowSpeed 		= 0.0f;		// 現在速度
 float 			f_MotTrgtSpeed 		= 0.0f;		// 目標速度
-stMOT_DATA 		st_Info;				// シーケンスデータ
 float			f_MotSuraStaSpeed_90S	= 0.0f;
 float			f_MotSuraStaSpeed_45S	= 0.0f;
 float			f_MotSuraStaSpeed_135S	= 0.0f;
@@ -1218,7 +1217,7 @@ void MOT_goSla( enMOT_SURA_CMD en_type, stSLA* p_sla )
 //	log_in(0);
 //	log_in(f_NowAngle);
 
-		CTRL_clrAngleErrSum();
+//		CTRL_clrAngleErrSum();
 		
 	/* ------ */
 	/*  dec  */

@@ -126,6 +126,9 @@ bool CountUP_mode(void){
 void MODE_exe_m0( void )
 {
 	enMAP_HEAD_DIR		en_endDir2;
+
+	char test_mode = 0;
+
 	GYRO_SetRef();
 
 	CTRL_clrData();
@@ -249,6 +252,8 @@ void MODE_exe_m0( void )
 			break;
 
 		case MODE_5:
+			test_mode = 1;		// 0:straight 1:turn 2:sura90 3:sura135 4:sura45 5:suraN90
+
 			SetLED(0x0e);
 
 			printf("\r\n turn 45 \r\r");
@@ -277,25 +282,44 @@ void MODE_exe_m0( void )
 			Set_DutyTIM8(600);
 			LL_mDelay(2000);
 			log_flag_on();
-/*
-			MOT_goBlock_FinSpeed(0.5, 0.5);
-			MOT_goSla(MOT_R90S, PARAM_getSra( SLA_90 ));
-			MOT_goBlock_FinSpeed(0.5, 0);
-*/
-/*
-			MOT_goBlock_FinSpeed(1.0, 0.5);
-			MOT_goSla(MOT_R45S_S2N, PARAM_getSra( SLA_45 ));
-			MOT_goSkewBlock_FinSpeed(0.5, 0);
-*/
-/*
-			MOT_goSkewBlock_FinSpeed(0.5, 0.5);
-			MOT_goSla(MOT_R90S_N, PARAM_getSra( SLA_N90 ));
-			MOT_goSkewBlock_FinSpeed(0.5, 0);
-*/
 
-			MOT_goBlock_FinSpeed(0.5, 0.5);
-			MOT_goSla(MOT_R135S_S2N, PARAM_getSra( SLA_135 ));
-			MOT_goSkewBlock_FinSpeed(0.5, 0);
+			switch(test_mode)
+			{
+				case 0://straight
+					MOT_setTrgtSpeed( SEARCH_SPEED );
+					MOT_goBlock_FinSpeed(3.0, 0);
+					MOT_setTrgtSpeed( SEARCH_SPEED );
+					break;
+
+				case 1://turn
+					MOT_turn(MOT_R90);
+					break;
+
+				case 2://sura90
+					MOT_goBlock_FinSpeed(0.5, SEARCH_SPEED);
+					MOT_goSla(MOT_R90S, PARAM_getSra( SLA_90 ));
+	//				MOT_goSla(MOT_L90S, PARAM_getSra( SLA_90 ));
+					MOT_goBlock_FinSpeed(0.5, 0);
+					break;
+
+				case 3://sura1
+					MOT_goBlock_FinSpeed(0.5, SEARCH_SPEED);
+					MOT_goSla(MOT_R135S_S2N, PARAM_getSra( SLA_135 ));
+					MOT_goSkewBlock_FinSpeed(0.5, 0);
+					break;
+
+				case 4://sura45
+					MOT_goBlock_FinSpeed(1.0, SEARCH_SPEED);
+					MOT_goSla(MOT_R45S_S2N, PARAM_getSra( SLA_45 ));
+					MOT_goSkewBlock_FinSpeed(0.5, 0);
+					break;
+
+				case 5://suraN90
+					MOT_goSkewBlock_FinSpeed(0.5, SEARCH_SPEED);
+					MOT_goSla(MOT_R90S_N, PARAM_getSra( SLA_N90 ));
+					MOT_goSkewBlock_FinSpeed(0.5, 0);
+					break;
+		}
 
 			log_flag_off();
 
@@ -319,6 +343,8 @@ void MODE_exe_m0( void )
 			break;
 
 		case MODE_6:
+			test_mode = 2;		// 0:straight 1:turn 2:sura90 3:sura135 4:sura45 5:suraN90
+
 			SetLED(0x0e);
 			MOT_setTrgtSpeed(SEARCH_SPEED);
 			MOT_setSuraStaSpeed( SEARCH_SPEED , SLA_90);							// スラロー�?開始速度設�?
@@ -334,33 +360,45 @@ void MODE_exe_m0( void )
 			CTRL_clrAngleErrSum();
 			CTRL_clrNowData();
 			log_flag_on();
-/*
-			MOT_setTrgtSpeed( SEARCH_SPEED );
-			MOT_goBlock_FinSpeed(3.0, 0);
-			MOT_setTrgtSpeed( SEARCH_SPEED );
-*/
-//			MOT_turn(MOT_R90);
-			
-			MOT_goBlock_FinSpeed(0.5, SEARCH_SPEED);
-			MOT_goSla(MOT_R90S, PARAM_getSra( SLA_90 ));
-//			MOT_goSla(MOT_L90S, PARAM_getSra( SLA_90 ));
-			MOT_goBlock_FinSpeed(0.5, 0);
 
-/*
-			MOT_goBlock_FinSpeed(1.0, SEARCH_SPEED);
-			MOT_goSla(MOT_R45S_S2N, PARAM_getSra( SLA_45 ));
-			MOT_goSkewBlock_FinSpeed(0.5, 0);
-*/
-/*
-			MOT_goSkewBlock_FinSpeed(0.5, SEARCH_SPEED);
-			MOT_goSla(MOT_R90S_N, PARAM_getSra( SLA_N90 ));
-			MOT_goSkewBlock_FinSpeed(0.5, 0);
-*/
-/*
-			MOT_goBlock_FinSpeed(0.5, SEARCH_SPEED);
-			MOT_goSla(MOT_R135S_S2N, PARAM_getSra( SLA_135 ));
-			MOT_goSkewBlock_FinSpeed(0.5, 0);
-*/
+			switch(test_mode)
+			{
+				case 0://straight
+					MOT_setTrgtSpeed( SEARCH_SPEED );
+					MOT_goBlock_FinSpeed(3.0, 0);
+					MOT_setTrgtSpeed( SEARCH_SPEED );
+					break;
+
+				case 1://turn
+					MOT_turn(MOT_R90);
+					break;
+
+				case 2://sura90
+					MOT_goBlock_FinSpeed(0.5, SEARCH_SPEED);
+					MOT_goSla(MOT_R90S, PARAM_getSra( SLA_90 ));
+//					MOT_goSla(MOT_L90S, PARAM_getSra( SLA_90 ));
+					MOT_goBlock_FinSpeed(0.5, 0);
+					break;
+
+				case 3://sura1
+					MOT_goBlock_FinSpeed(0.5, SEARCH_SPEED);
+					MOT_goSla(MOT_R135S_S2N, PARAM_getSra( SLA_135 ));
+					MOT_goSkewBlock_FinSpeed(0.5, 0);
+					break;
+
+				case 4://sura45
+					MOT_goBlock_FinSpeed(1.0, SEARCH_SPEED);
+					MOT_goSla(MOT_R45S_S2N, PARAM_getSra( SLA_45 ));
+					MOT_goSkewBlock_FinSpeed(0.5, 0);
+					break;
+
+				case 5://suraN90
+					MOT_goSkewBlock_FinSpeed(0.5, SEARCH_SPEED);
+					MOT_goSla(MOT_R90S_N, PARAM_getSra( SLA_N90 ));
+					MOT_goSkewBlock_FinSpeed(0.5, 0);
+					break;
+			}
+
 			log_flag_off();
 			break;
 
