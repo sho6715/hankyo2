@@ -8,10 +8,10 @@
 
 #include "search/map_flash.h"
 
-void map_write(void)
+void Map_Write(void)
 {
 	uint64_t *map_add;
-	map_add = (uint64_t *)g_sysMap;
+	map_add = (uint64_t *)g_SysMap;
 	
 	//DataFlashイレース
 //    FLASH_Erase(0x7F);  //reg127
@@ -19,10 +19,10 @@ void map_write(void)
     FLASH_WriteData(0x7F,(uint32_t)sta_add_127, map_add, 32*32);
 }
 
-void map_copy(void)
+void Map_Copy(void)
 {
     uint64_t *map_add;
-    map_add = (uint64_t *)&g_sysMap;
+    map_add = (uint64_t *)&g_SysMap;
     uint32_t read_address = sta_add_127;
 
     for (uint16_t i = 0;i<MAP_X_SIZE*MAP_Y_SIZE;i += 8){
@@ -32,7 +32,7 @@ void map_copy(void)
     }
 }
 
-void map_erase(void)
+void Map_Erase(void)
 {
 	FLASH_Unlock();
 	FLASH_Erase(0x7F);

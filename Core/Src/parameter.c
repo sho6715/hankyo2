@@ -398,43 +398,43 @@ void PARAM_makeSra( float f_speed, float f_angAcc, float f_g , enSLA_TYPE en_mod
 	// ---------------------------- 
 	//  sla parameter  
 	// ---------------------------- 
-	p_adr->f_speed				= f_speed;
+	p_adr->f_sla_speed				= f_speed;
 	printf("enter speed %5.2f\n\r",f_speed);
-	p_adr->f_angAcc				= f_angAcc;// * RAD_TO_DEG ;
+	p_adr->f_sla_angAcc				= f_angAcc;// * RAD_TO_DEG ;
 	printf("angle acc%5.2f\n\r",f_angAcc);// * RAD_TO_DEG);
-	p_adr->f_angvel				= f_maxAngleV;// * RAD_TO_DEG;
+	p_adr->f_sla_angvel				= f_maxAngleV;// * RAD_TO_DEG;
 	printf("max angle speed%5.2f\n\r",f_maxAngleV);// * RAD_TO_DEG);
-	p_adr->us_accAngvelTime		= (uint16_t)( f_timeAcc * 1000.0f );
+	p_adr->us_sla_accAngvelTime		= (uint16_t)( f_timeAcc * 1000.0f );
 	printf("time of angle acc %5.2f\n\r",f_timeAcc * 1000.0f);
-	p_adr->us_constAngvelTime	= (uint16_t)( f_timeConst * 1000.0f );
+	p_adr->us_sla_constAngvelTime	= (uint16_t)( f_timeConst * 1000.0f );
 	printf("time of constant angle acc %5.2f\n\r",f_timeConst * 1000.0f);
-	p_adr->f_ang_AccEnd			= f_accAngle;// * RAD_TO_DEG;
+	p_adr->f_sla_ang_AccEnd			= f_accAngle;// * RAD_TO_DEG;
 	printf("acc angle[deg] %5.2f\n\r",f_accAngle);// * RAD_TO_DEG);
-	p_adr->f_ang_ConstEnd		= ( f_accAngle + f_constAngle );// * RAD_TO_DEG;
+	p_adr->f_sla_ang_ConstEnd		= ( f_accAngle + f_constAngle );// * RAD_TO_DEG;
 	printf("const angle[deg] %5.2f\n\r",( f_accAngle + f_constAngle ));// * RAD_TO_DEG);
-	p_adr->f_ang_Total			= f_final_ang;// * RAD_TO_DEG;
+	p_adr->f_sla_ang_Total			= f_final_ang;// * RAD_TO_DEG;
 	printf("angle [deg] %5.2f\n\r",f_final_ang);// * RAD_TO_DEG);
 	
 	// calaculate enter and exit length 
 	switch(en_mode){
 		case SLA_90:
-			p_adr->f_escapeLen = f_final_x - f_x ;
-			p_adr->f_entryLen  = f_final_y - f_y ;
+			p_adr->f_sla_escapeLen = f_final_x - f_x ;
+			p_adr->f_sla_entryLen  = f_final_y - f_y ;
 			break;
 
 		case SLA_45:
-			p_adr->f_escapeLen = 1.4142f * ( f_final_x - f_x );
-			p_adr->f_entryLen  = f_final_y - f_y - ( f_final_x - f_x );
+			p_adr->f_sla_escapeLen = 1.4142f * ( f_final_x - f_x );
+			p_adr->f_sla_entryLen  = f_final_y - f_y - ( f_final_x - f_x );
 			break;
 
 		case SLA_N90:
-			p_adr->f_escapeLen = f_final_x - f_x;
-			p_adr->f_entryLen  = f_final_y - f_y;
+			p_adr->f_sla_escapeLen = f_final_x - f_x;
+			p_adr->f_sla_entryLen  = f_final_y - f_y;
 			break;
 
 		case SLA_135:
-			p_adr->f_escapeLen = 1.4142f * ( f_final_x - f_x );
-			p_adr->f_entryLen  = f_final_y - f_y + ( f_final_x - f_x );
+			p_adr->f_sla_escapeLen = 1.4142f * ( f_final_x - f_x );
+			p_adr->f_sla_entryLen  = f_final_y - f_y + ( f_final_x - f_x );
 			break;
 
 		default:

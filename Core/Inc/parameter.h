@@ -47,23 +47,13 @@
 #define		f_FB_wall_kp		(0.4)//0.4
 #define		f_FB_wall_kd		(0.2)//0.2
 */
-#define		f_FB_front_wall_v_kp	(0.001)
-#define		f_FB_front_wall_v_ki	(0.0)
-#define		f_FB_front_wall_v_kd	(0.0001)
-#define		f_FB_front_wall_omega_kp	(0.9)
-#define		f_FB_front_wall_omega_ki	(0.0)
-#define		f_FB_front_wall_omega_kd	(0.3)
+#define		FB_FRONT_WALL_V_KP	(0.001)
+#define		FB_FRONT_WALL_V_KI	(0.0)
+#define		FB_FRONT_WALL_V_KD	(0.0001)
+#define		FB_FRONT_WALL_OMEGA_KP	(0.9)
+#define		FB_FRONT_WALL_OMEGA_KI	(0.0)
+#define		FB_FRONT_WALL_OMEGA_KD	(0.3)
 
-/*
-#define 		f_FB_speed_kp		(10.0)
-#define 		f_FB_speed_ki		(3.0)
-#define 	f_FB_speed_kd		(0.2)
-#define		f_FB_angleS_kp		(10.0)
-#define		f_FB_angleS_ki		(0.4)
-#define		f_FB_angleS_kd		(0.1)
-#define		f_FB_wall_kp		(0.5)
-#define		f_FB_wall_kd		(0.1)
-*/
 typedef enum{
 	
 	PARAM_ST_TOP = 0,		
@@ -125,12 +115,12 @@ typedef enum{
 }enPARAM_MOVE_SPEED;
 
 typedef struct{
-	float			f_jerk;
-	float			f_acc;					
-	float			f_dec;
-	float			f_jerkAngle;					
-	float			f_accAngle;				
-	float			f_decAngle;				
+	float			f_speed_jerk;
+	float			f_speed_acc;					
+	float			f_speed_dec;
+	float			f_speed_jerkangle;					
+	float			f_speed_accangle;				
+	float			f_speed_decangle;				
 }stSPEED;
 
 /* ゲイン */
@@ -148,16 +138,16 @@ typedef struct{
 }stGAIN;
 
 typedef struct{
-	float	f_speed;
-	float	f_angAcc;
-	float	f_angvel;
-	float	f_entryLen;
-	float	f_escapeLen;
-	uint16_t	us_accAngvelTime;
-	uint16_t	us_constAngvelTime;
-	float	f_ang_AccEnd;
-	float	f_ang_ConstEnd;
-	float	f_ang_Total;
+	float	f_sla_speed;
+	float	f_sla_angAcc;
+	float	f_sla_angvel;
+	float	f_sla_entryLen;
+	float	f_sla_escapeLen;
+	uint16_t	us_sla_accAngvelTime;
+	uint16_t	us_sla_constAngvelTime;
+	float	f_sla_ang_AccEnd;
+	float	f_sla_ang_ConstEnd;
+	float	f_sla_ang_Total;
 }stSLA;
 
 

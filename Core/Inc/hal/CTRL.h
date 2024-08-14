@@ -54,29 +54,29 @@ typedef enum{
 
 }enCTRL_TYPE;
 
-/* 制御�?ータ */
+/* 制御データ */
 typedef struct{
-	enCTRL_TYPE		en_type;		// motion type
-	float			f_time;			// target time[sec]
-	float			f_jerk;			// jerk[m/s3]
-	float			f_acc;			// [speed ctrl] accel speed[m/s2]
-	float			f_now;			// [speed ctrl] now speed[m/s]
-	float			f_trgt;			// [speed ctrl] finish speed[m/s]
-	float			f_nowDist;		// [dist ctrl] now distance[m]
-	float			f_dist;			// [dist ctrl] finish distance[m]
-	float			f_jerkAngle;	// jerk angle[rad/s3]
-	float			f_accAngleS;	// [angle speed ctrl] angle accel speed[rad/s2]
-	float			f_nowAngleS;	// [angle speed ctrl] now angle speed[rad/s]
-	float			f_trgtAngleS;	// [angle speed ctrl] finish angle speed[rad/s]
-	float			f_nowAngle;		// [angle ctrl] now angle[rad]
-	float			f_angle;		// [angle ctrl] finish angle[rad]
+	enCTRL_TYPE		en_ctrl_type;		// motion type
+	float			f_ctrl_time;			// target time[sec]
+	float			f_ctrl_jerk;			// jerk[m/s3]
+	float			f_ctrl_acc;			// [speed ctrl] accel speed[m/s2]
+	float			f_ctrl_now;			// [speed ctrl] now speed[m/s]
+	float			f_ctrl_trgt;			// [speed ctrl] finish speed[m/s]
+	float			f_ctrl_nowDist;		// [dist ctrl] now distance[m]
+	float			f_ctrl_dist;			// [dist ctrl] finish distance[m]
+	float			f_ctrl_jerkAngle;	// jerk angle[rad/s3]
+	float			f_ctrl_accAngleS;	// [angle speed ctrl] angle accel speed[rad/s2]
+	float			f_ctrl_nowAngleS;	// [angle speed ctrl] now angle speed[rad/s]
+	float			f_ctrl_trgtAngleS;	// [angle speed ctrl] finish angle speed[rad/s]
+	float			f_ctrl_nowAngle;		// [angle ctrl] now angle[rad]
+	float			f_ctrl_angle;		// [angle ctrl] finish angle[rad]
 }stCTRL_DATA;
 
 enCTRL_TYPE		en_Type;						// motion type
 //escape time 
-float	escape_wait;
+float	EscapeWait;
 
-uint8_t	uc_dist_control;
+uint8_t	uc_DistControl;
 
 float Get_NowSpeed(void);
 float Get_NowDist(void);
@@ -94,7 +94,7 @@ void CTRL_pol( void );
 void CTRL_clrData( void );
 void CTRL_clrNowData( void );
 void CTRL_clrAngleErrSum(void);
-void CTRL_setNowData_Err(/*float trgt_Dist, */float trgt_Angle);
+void CTRL_setNowData_Err(/*float trgtDist, */float trgtAngle);
 void CTRL_setData( stCTRL_DATA* p_data );
 void CTRL_refNow( void );
 void CTRL_refTarget( void );

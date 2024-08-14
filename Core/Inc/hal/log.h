@@ -18,7 +18,7 @@
 #include "hal/CTRL.h"
 #endif
 
-float templog1,templog2,templog3,templog4,duty_L,duty_R ; 
+float TempLog1,TempLog2,TempLog3,TempLog4,Duty_L,Duty_R ; 
 /*
 void log_in2( 	short log1,short log2,
 			short log3,short log4,

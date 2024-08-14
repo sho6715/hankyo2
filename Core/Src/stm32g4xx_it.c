@@ -327,14 +327,14 @@ void TIM4_IRQHandler(void)
 	}
   switch(i){
 		case 0:
-			recv_spi_encoder(enL);
+			recv_spi_encoder(EN_L);
 			break;
 		case 1:
-			Set_encoder_data(enL);
-      recv_spi_encoder(enR);
+			Set_encoder_data(EN_L);
+      recv_spi_encoder(EN_R);
 			break;
 		case 2:
-      Set_encoder_data(enR);
+      Set_encoder_data(EN_R);
       ICM_42688_GyroRead_DMA(0x29);
 			break;
 		case 3:

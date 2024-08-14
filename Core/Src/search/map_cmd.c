@@ -392,22 +392,22 @@ bool MAP_setWallCut( uint8_t uc_cmd )
 			// s_PosDir：進行方向（[0]北 [1]北東 [2]東 [3]南東 [4]南 [5]南西 [6]西 [7]北西 ）
 			switch( s_PosDir ){
 				
-				/* 柱基準で旋回するので、半区画手前が壁の有無を調べたい座標となる（注意：g_sysMapは2次元配列です） */
+				/* 柱基準で旋回するので、半区画手前が壁の有無を調べたい座標となる（注意：g_SysMapは2次元配列です） */
 				case 0: 
-					if( 0 < f_PosY-0.5 ) uc_val     = g_sysMap[(uint8_t)(f_PosY-0.5)][(uint8_t)(f_PosX)] & 0x02;		// 北を向いているので東側の壁があるか
-					if( 0 < f_PosY-1.5 ) uc_valPrev = g_sysMap[(uint8_t)(f_PosY-1.5)][(uint8_t)(f_PosX)] & 0x02;		// 北を向いているので東側の壁があるか
+					if( 0 < f_PosY-0.5 ) uc_val     = g_SysMap[(uint8_t)(f_PosY-0.5)][(uint8_t)(f_PosX)] & 0x02;		// 北を向いているので東側の壁があるか
+					if( 0 < f_PosY-1.5 ) uc_valPrev = g_SysMap[(uint8_t)(f_PosY-1.5)][(uint8_t)(f_PosX)] & 0x02;		// 北を向いているので東側の壁があるか
 					break;	
 				case 2: 
-					if( 0 < f_PosX-0.5 ) uc_val     = g_sysMap[(uint8_t)(f_PosY)][(uint8_t)(f_PosX-0.5)] & 0x04;		// 東を向いているので南側の壁があるか
-					if( 0 < f_PosX-1.5 ) uc_valPrev = g_sysMap[(uint8_t)(f_PosY)][(uint8_t)(f_PosX-1.5)] & 0x04;		// 東を向いているので南側の壁があるか
+					if( 0 < f_PosX-0.5 ) uc_val     = g_SysMap[(uint8_t)(f_PosY)][(uint8_t)(f_PosX-0.5)] & 0x04;		// 東を向いているので南側の壁があるか
+					if( 0 < f_PosX-1.5 ) uc_valPrev = g_SysMap[(uint8_t)(f_PosY)][(uint8_t)(f_PosX-1.5)] & 0x04;		// 東を向いているので南側の壁があるか
 					break;
 				case 4: 
-					if( MAP_Y_SIZE_REAL > f_PosY+0.5 ) uc_val     = g_sysMap[(uint8_t)(f_PosY+0.5)][(uint8_t)(f_PosX)] & 0x08;		// 南を向いているので西側の壁があるか
-					if( MAP_Y_SIZE_REAL > f_PosY+1.5 ) uc_valPrev = g_sysMap[(uint8_t)(f_PosY+1.5)][(uint8_t)(f_PosX)] & 0x08;		// 南を向いているので西側の壁があるか
+					if( MAP_Y_SIZE_REAL > f_PosY+0.5 ) uc_val     = g_SysMap[(uint8_t)(f_PosY+0.5)][(uint8_t)(f_PosX)] & 0x08;		// 南を向いているので西側の壁があるか
+					if( MAP_Y_SIZE_REAL > f_PosY+1.5 ) uc_valPrev = g_SysMap[(uint8_t)(f_PosY+1.5)][(uint8_t)(f_PosX)] & 0x08;		// 南を向いているので西側の壁があるか
 					break;
 				case 6:
-					if( MAP_X_SIZE_REAL > f_PosX+0.5 ) uc_val     = g_sysMap[(uint8_t)(f_PosY)][(uint8_t)(f_PosX+0.5)] & 0x01;		// 西を向いているので北側の壁があるか
-					if( MAP_X_SIZE_REAL > f_PosX+1.5 ) uc_valPrev = g_sysMap[(uint8_t)(f_PosY)][(uint8_t)(f_PosX+1.5)] & 0x01;		// 西を向いているので北側の壁があるか
+					if( MAP_X_SIZE_REAL > f_PosX+0.5 ) uc_val     = g_SysMap[(uint8_t)(f_PosY)][(uint8_t)(f_PosX+0.5)] & 0x01;		// 西を向いているので北側の壁があるか
+					if( MAP_X_SIZE_REAL > f_PosX+1.5 ) uc_valPrev = g_SysMap[(uint8_t)(f_PosY)][(uint8_t)(f_PosX+1.5)] & 0x01;		// 西を向いているので北側の壁があるか
 					break;
 			}
 			/* 壁があるため壁切れ補正を行う */
@@ -424,22 +424,22 @@ bool MAP_setWallCut( uint8_t uc_cmd )
 			// s_PosDir：進行方向（[0]北 [1]北東 [2]東 [3]南東 [4]南 [5]南西 [6]西 [7]北西 ）
 			switch( s_PosDir ){
 				
-				/* 柱基準で旋回するので、半区画手前が壁の有無を調べたい座標となる（注意：g_sysMapは2次元配列です） */
+				/* 柱基準で旋回するので、半区画手前が壁の有無を調べたい座標となる（注意：g_SysMapは2次元配列です） */
 				case 0: 
-					if( 0 < f_PosY-0.5 ) uc_val     = g_sysMap[(uint8_t)(f_PosY-0.5)][(uint8_t)(f_PosX)] & 0x08;			// 北を向いているので西側の壁があるか
-					if( 0 < f_PosY-1.5 ) uc_valPrev = g_sysMap[(uint8_t)(f_PosY-1.5)][(uint8_t)(f_PosX)] & 0x08;			// 北を向いているので西側の壁があるか
+					if( 0 < f_PosY-0.5 ) uc_val     = g_SysMap[(uint8_t)(f_PosY-0.5)][(uint8_t)(f_PosX)] & 0x08;			// 北を向いているので西側の壁があるか
+					if( 0 < f_PosY-1.5 ) uc_valPrev = g_SysMap[(uint8_t)(f_PosY-1.5)][(uint8_t)(f_PosX)] & 0x08;			// 北を向いているので西側の壁があるか
 					break;
 				case 2: 
-					if( 0 < f_PosX-0.5 ) uc_val     = g_sysMap[(uint8_t)(f_PosY)][(uint8_t)(f_PosX-0.5)] & 0x01;			// 東を向いているので北側の壁があるか
-					if( 0 < f_PosX-1.5 ) uc_valPrev = g_sysMap[(uint8_t)(f_PosY)][(uint8_t)(f_PosX-1.5)] & 0x01;			// 東を向いているので北側の壁があるか
+					if( 0 < f_PosX-0.5 ) uc_val     = g_SysMap[(uint8_t)(f_PosY)][(uint8_t)(f_PosX-0.5)] & 0x01;			// 東を向いているので北側の壁があるか
+					if( 0 < f_PosX-1.5 ) uc_valPrev = g_SysMap[(uint8_t)(f_PosY)][(uint8_t)(f_PosX-1.5)] & 0x01;			// 東を向いているので北側の壁があるか
 					break;
 				case 4: 
-					if( MAP_Y_SIZE_REAL > f_PosY+0.5 ) uc_val     = g_sysMap[(uint8_t)(f_PosY+0.5)][(uint8_t)(f_PosX)] & 0x02;			// 南を向いているので東側の壁があるか
-					if( MAP_Y_SIZE_REAL > f_PosY+1.5 ) uc_valPrev = g_sysMap[(uint8_t)(f_PosY+1.5)][(uint8_t)(f_PosX)] & 0x02;			// 南を向いているので東側の壁があるか
+					if( MAP_Y_SIZE_REAL > f_PosY+0.5 ) uc_val     = g_SysMap[(uint8_t)(f_PosY+0.5)][(uint8_t)(f_PosX)] & 0x02;			// 南を向いているので東側の壁があるか
+					if( MAP_Y_SIZE_REAL > f_PosY+1.5 ) uc_valPrev = g_SysMap[(uint8_t)(f_PosY+1.5)][(uint8_t)(f_PosX)] & 0x02;			// 南を向いているので東側の壁があるか
 					break;
 				case 6: 
-					if( MAP_X_SIZE_REAL > f_PosX+0.5 ) uc_val     = g_sysMap[(uint8_t)(f_PosY)][(uint8_t)(f_PosX+0.5)] & 0x04;			// 西を向いているので南側の壁があるか
-					if( MAP_X_SIZE_REAL > f_PosX+1.5 ) uc_valPrev = g_sysMap[(uint8_t)(f_PosY)][(uint8_t)(f_PosX+1.5)] & 0x04;			// 西を向いているので南側の壁があるか
+					if( MAP_X_SIZE_REAL > f_PosX+0.5 ) uc_val     = g_SysMap[(uint8_t)(f_PosY)][(uint8_t)(f_PosX+0.5)] & 0x04;			// 西を向いているので南側の壁があるか
+					if( MAP_X_SIZE_REAL > f_PosX+1.5 ) uc_valPrev = g_SysMap[(uint8_t)(f_PosY)][(uint8_t)(f_PosX+1.5)] & 0x04;			// 西を向いているので南側の壁があるか
 					break;
 			}
 			/* 壁があるため壁切れ補正を行う */
@@ -516,30 +516,30 @@ void MAP_makeCmdList(
 
 	/* 迷路情報からコマンド作成 */
 	while(1){	
-		us_high = us_cmap[uc_staY][uc_staX]-1;
+		us_high = us_Cmap[uc_staY][uc_staX]-1;
 		if (en_staDir == NORTH){
-			if     (((g_sysMap[uc_staY][uc_staX] & 0x11)==0x10)&&(us_cmap[uc_staY+1][uc_staX]==us_high)) en_nowDir=NORTH;
-			else if(((g_sysMap[uc_staY][uc_staX] & 0x22)==0x20)&&(us_cmap[uc_staY][uc_staX+1]==us_high)) en_nowDir=EAST;
-			else if(((g_sysMap[uc_staY][uc_staX] & 0x88)==0x80)&&(us_cmap[uc_staY][uc_staX-1]==us_high)) en_nowDir=WEST;
-			else if(((g_sysMap[uc_staY][uc_staX] & 0x44)==0x40)&&(us_cmap[uc_staY-1][uc_staX]==us_high)) en_nowDir=SOUTH;
+			if     (((g_SysMap[uc_staY][uc_staX] & 0x11)==0x10)&&(us_Cmap[uc_staY+1][uc_staX]==us_high)) en_nowDir=NORTH;
+			else if(((g_SysMap[uc_staY][uc_staX] & 0x22)==0x20)&&(us_Cmap[uc_staY][uc_staX+1]==us_high)) en_nowDir=EAST;
+			else if(((g_SysMap[uc_staY][uc_staX] & 0x88)==0x80)&&(us_Cmap[uc_staY][uc_staX-1]==us_high)) en_nowDir=WEST;
+			else if(((g_SysMap[uc_staY][uc_staX] & 0x44)==0x40)&&(us_Cmap[uc_staY-1][uc_staX]==us_high)) en_nowDir=SOUTH;
 			else   while(1);
 		}else if (en_staDir == EAST){
-			if     (((g_sysMap[uc_staY][uc_staX] & 0x22)==0x20)&&(us_cmap[uc_staY][uc_staX+1]==us_high)) en_nowDir=EAST;
-			else if(((g_sysMap[uc_staY][uc_staX] & 0x11)==0x10)&&(us_cmap[uc_staY+1][uc_staX]==us_high)) en_nowDir=NORTH;
-			else if(((g_sysMap[uc_staY][uc_staX] & 0x44)==0x40)&&(us_cmap[uc_staY-1][uc_staX]==us_high)) en_nowDir=SOUTH;
-			else if(((g_sysMap[uc_staY][uc_staX] & 0x88)==0x80)&&(us_cmap[uc_staY][uc_staX-1]==us_high)) en_nowDir=WEST;
+			if     (((g_SysMap[uc_staY][uc_staX] & 0x22)==0x20)&&(us_Cmap[uc_staY][uc_staX+1]==us_high)) en_nowDir=EAST;
+			else if(((g_SysMap[uc_staY][uc_staX] & 0x11)==0x10)&&(us_Cmap[uc_staY+1][uc_staX]==us_high)) en_nowDir=NORTH;
+			else if(((g_SysMap[uc_staY][uc_staX] & 0x44)==0x40)&&(us_Cmap[uc_staY-1][uc_staX]==us_high)) en_nowDir=SOUTH;
+			else if(((g_SysMap[uc_staY][uc_staX] & 0x88)==0x80)&&(us_Cmap[uc_staY][uc_staX-1]==us_high)) en_nowDir=WEST;
 			else   while(1);
 		}else if (en_staDir == SOUTH){
-			if     (((g_sysMap[uc_staY][uc_staX] & 0x44)==0x40)&&(us_cmap[uc_staY-1][uc_staX]==us_high)) en_nowDir=SOUTH;
-			else if(((g_sysMap[uc_staY][uc_staX] & 0x22)==0x20)&&(us_cmap[uc_staY][uc_staX+1]==us_high)) en_nowDir=EAST;
-			else if(((g_sysMap[uc_staY][uc_staX] & 0x88)==0x80)&&(us_cmap[uc_staY][uc_staX-1]==us_high)) en_nowDir=WEST;
-			else if(((g_sysMap[uc_staY][uc_staX] & 0x11)==0x10)&&(us_cmap[uc_staY+1][uc_staX]==us_high)) en_nowDir=NORTH;
+			if     (((g_SysMap[uc_staY][uc_staX] & 0x44)==0x40)&&(us_Cmap[uc_staY-1][uc_staX]==us_high)) en_nowDir=SOUTH;
+			else if(((g_SysMap[uc_staY][uc_staX] & 0x22)==0x20)&&(us_Cmap[uc_staY][uc_staX+1]==us_high)) en_nowDir=EAST;
+			else if(((g_SysMap[uc_staY][uc_staX] & 0x88)==0x80)&&(us_Cmap[uc_staY][uc_staX-1]==us_high)) en_nowDir=WEST;
+			else if(((g_SysMap[uc_staY][uc_staX] & 0x11)==0x10)&&(us_Cmap[uc_staY+1][uc_staX]==us_high)) en_nowDir=NORTH;
 			else   while(1);
 		}else if (en_staDir == WEST){
-			if     (((g_sysMap[uc_staY][uc_staX] & 0x88)==0x80)&&(us_cmap[uc_staY][uc_staX-1]==us_high)) en_nowDir=WEST;
-			else if(((g_sysMap[uc_staY][uc_staX] & 0x11)==0x10)&&(us_cmap[uc_staY+1][uc_staX]==us_high)) en_nowDir=NORTH;
-			else if(((g_sysMap[uc_staY][uc_staX] & 0x44)==0x40)&&(us_cmap[uc_staY-1][uc_staX]==us_high)) en_nowDir=SOUTH;
-			else if(((g_sysMap[uc_staY][uc_staX] & 0x22)==0x20)&&(us_cmap[uc_staY][uc_staX+1]==us_high)) en_nowDir=EAST;
+			if     (((g_SysMap[uc_staY][uc_staX] & 0x88)==0x80)&&(us_Cmap[uc_staY][uc_staX-1]==us_high)) en_nowDir=WEST;
+			else if(((g_SysMap[uc_staY][uc_staX] & 0x11)==0x10)&&(us_Cmap[uc_staY+1][uc_staX]==us_high)) en_nowDir=NORTH;
+			else if(((g_SysMap[uc_staY][uc_staX] & 0x44)==0x40)&&(us_Cmap[uc_staY-1][uc_staX]==us_high)) en_nowDir=SOUTH;
+			else if(((g_SysMap[uc_staY][uc_staX] & 0x22)==0x20)&&(us_Cmap[uc_staY][uc_staX+1]==us_high)) en_nowDir=EAST;
 			else   while(1);
 		}
 		
@@ -1069,39 +1069,39 @@ void MAP_searchCmdList(
 //	printf("mx%d,my%d\n", uc_staX, uc_staY);
 	/* 迷路情報からコマンド作成 */
 	while (1) {
-		us_high = us_cmap[uc_staY][uc_staX] - 1;
-		if ((g_sysMap[uc_staY][uc_staX]&0xf0) != 0xf0){
+		us_high = us_Cmap[uc_staY][uc_staX] - 1;
+		if ((g_SysMap[uc_staY][uc_staX]&0xf0) != 0xf0){
 			Return_X = uc_staX;
 			Return_Y = uc_staY;
 			break;
 		}
 
 		if (en_staDir == NORTH) {
-			if (((g_sysMap[uc_staY][uc_staX] & 0x11) == 0x10) && (us_cmap[uc_staY + 1][uc_staX] == us_high)) en_nowDir = NORTH;
-			else if (((g_sysMap[uc_staY][uc_staX] & 0x22) == 0x20) && (us_cmap[uc_staY][uc_staX + 1] == us_high)) en_nowDir = EAST;
-			else if (((g_sysMap[uc_staY][uc_staX] & 0x88) == 0x80) && (us_cmap[uc_staY][uc_staX - 1] == us_high)) en_nowDir = WEST;
-			else if (((g_sysMap[uc_staY][uc_staX] & 0x44) == 0x40) && (us_cmap[uc_staY - 1][uc_staX] == us_high)) en_nowDir = SOUTH;
+			if (((g_SysMap[uc_staY][uc_staX] & 0x11) == 0x10) && (us_Cmap[uc_staY + 1][uc_staX] == us_high)) en_nowDir = NORTH;
+			else if (((g_SysMap[uc_staY][uc_staX] & 0x22) == 0x20) && (us_Cmap[uc_staY][uc_staX + 1] == us_high)) en_nowDir = EAST;
+			else if (((g_SysMap[uc_staY][uc_staX] & 0x88) == 0x80) && (us_Cmap[uc_staY][uc_staX - 1] == us_high)) en_nowDir = WEST;
+			else if (((g_SysMap[uc_staY][uc_staX] & 0x44) == 0x40) && (us_Cmap[uc_staY - 1][uc_staX] == us_high)) en_nowDir = SOUTH;
 			else   while (1);
 		}
 		else if (en_staDir == EAST) {
-			if (((g_sysMap[uc_staY][uc_staX] & 0x22) == 0x20) && (us_cmap[uc_staY][uc_staX + 1] == us_high)) en_nowDir = EAST;
-			else if (((g_sysMap[uc_staY][uc_staX] & 0x11) == 0x10) && (us_cmap[uc_staY + 1][uc_staX] == us_high)) en_nowDir = NORTH;
-			else if (((g_sysMap[uc_staY][uc_staX] & 0x44) == 0x40) && (us_cmap[uc_staY - 1][uc_staX] == us_high)) en_nowDir = SOUTH;
-			else if (((g_sysMap[uc_staY][uc_staX] & 0x88) == 0x80) && (us_cmap[uc_staY][uc_staX - 1] == us_high)) en_nowDir = WEST;
+			if (((g_SysMap[uc_staY][uc_staX] & 0x22) == 0x20) && (us_Cmap[uc_staY][uc_staX + 1] == us_high)) en_nowDir = EAST;
+			else if (((g_SysMap[uc_staY][uc_staX] & 0x11) == 0x10) && (us_Cmap[uc_staY + 1][uc_staX] == us_high)) en_nowDir = NORTH;
+			else if (((g_SysMap[uc_staY][uc_staX] & 0x44) == 0x40) && (us_Cmap[uc_staY - 1][uc_staX] == us_high)) en_nowDir = SOUTH;
+			else if (((g_SysMap[uc_staY][uc_staX] & 0x88) == 0x80) && (us_Cmap[uc_staY][uc_staX - 1] == us_high)) en_nowDir = WEST;
 			else   while (1);
 		}
 		else if (en_staDir == SOUTH) {
-			if (((g_sysMap[uc_staY][uc_staX] & 0x44) == 0x40) && (us_cmap[uc_staY - 1][uc_staX] == us_high)) en_nowDir = SOUTH;
-			else if (((g_sysMap[uc_staY][uc_staX] & 0x22) == 0x20) && (us_cmap[uc_staY][uc_staX + 1] == us_high)) en_nowDir = EAST;
-			else if (((g_sysMap[uc_staY][uc_staX] & 0x88) == 0x80) && (us_cmap[uc_staY][uc_staX - 1] == us_high)) en_nowDir = WEST;
-			else if (((g_sysMap[uc_staY][uc_staX] & 0x11) == 0x10) && (us_cmap[uc_staY + 1][uc_staX] == us_high)) en_nowDir = NORTH;
+			if (((g_SysMap[uc_staY][uc_staX] & 0x44) == 0x40) && (us_Cmap[uc_staY - 1][uc_staX] == us_high)) en_nowDir = SOUTH;
+			else if (((g_SysMap[uc_staY][uc_staX] & 0x22) == 0x20) && (us_Cmap[uc_staY][uc_staX + 1] == us_high)) en_nowDir = EAST;
+			else if (((g_SysMap[uc_staY][uc_staX] & 0x88) == 0x80) && (us_Cmap[uc_staY][uc_staX - 1] == us_high)) en_nowDir = WEST;
+			else if (((g_SysMap[uc_staY][uc_staX] & 0x11) == 0x10) && (us_Cmap[uc_staY + 1][uc_staX] == us_high)) en_nowDir = NORTH;
 			else   while (1);
 		}
 		else if (en_staDir == WEST) {
-			if (((g_sysMap[uc_staY][uc_staX] & 0x88) == 0x80) && (us_cmap[uc_staY][uc_staX - 1] == us_high)) en_nowDir = WEST;
-			else if (((g_sysMap[uc_staY][uc_staX] & 0x11) == 0x10) && (us_cmap[uc_staY + 1][uc_staX] == us_high)) en_nowDir = NORTH;
-			else if (((g_sysMap[uc_staY][uc_staX] & 0x44) == 0x40) && (us_cmap[uc_staY - 1][uc_staX] == us_high)) en_nowDir = SOUTH;
-			else if (((g_sysMap[uc_staY][uc_staX] & 0x22) == 0x20) && (us_cmap[uc_staY][uc_staX + 1] == us_high)) en_nowDir = EAST;
+			if (((g_SysMap[uc_staY][uc_staX] & 0x88) == 0x80) && (us_Cmap[uc_staY][uc_staX - 1] == us_high)) en_nowDir = WEST;
+			else if (((g_SysMap[uc_staY][uc_staX] & 0x11) == 0x10) && (us_Cmap[uc_staY + 1][uc_staX] == us_high)) en_nowDir = NORTH;
+			else if (((g_SysMap[uc_staY][uc_staX] & 0x44) == 0x40) && (us_Cmap[uc_staY - 1][uc_staX] == us_high)) en_nowDir = SOUTH;
+			else if (((g_SysMap[uc_staY][uc_staX] & 0x22) == 0x20) && (us_Cmap[uc_staY][uc_staX + 1] == us_high)) en_nowDir = EAST;
 			else   while (1);
 		}
 
@@ -1116,7 +1116,7 @@ void MAP_searchCmdList(
 		en_staDir = en_nowDir;
 
 //		if ((uc_staX == uc_endX) && (uc_staY == uc_endY)) break;
-		if (us_cmap[uc_staY][uc_staX] == 0) {
+		if (us_Cmap[uc_staY][uc_staX] == 0) {
 			Return_X = 0;
 			Return_Y = 0;
 			break;
@@ -1150,38 +1150,38 @@ void MAP_makeCmdList_dijkstra_modoki(
 
 	/* 迷路情報からコマンド作成 */
 	while (1) {
-		us_high = us_cmap[uc_staY][uc_staX];
+		us_high = us_Cmap[uc_staY][uc_staX];
 
 		if ((uc_staX == uc_endX) && (uc_staY == uc_endY)) {
 			break;
 		}
 		
 		if (en_staDir == NORTH) {
-			if (((g_sysMap[uc_staY][uc_staX] & 0x11) == 0x10) && (us_cmap[uc_staY + 1][uc_staX] < us_high)) en_nowDir = NORTH;
-			else if (((g_sysMap[uc_staY][uc_staX] & 0x22) == 0x20) && (us_cmap[uc_staY][uc_staX + 1] < us_high)) en_nowDir = EAST;
-			else if (((g_sysMap[uc_staY][uc_staX] & 0x88) == 0x80) && (us_cmap[uc_staY][uc_staX - 1] < us_high)) en_nowDir = WEST;
-			else if (((g_sysMap[uc_staY][uc_staX] & 0x44) == 0x40) && (us_cmap[uc_staY - 1][uc_staX] < us_high)) en_nowDir = SOUTH;
+			if (((g_SysMap[uc_staY][uc_staX] & 0x11) == 0x10) && (us_Cmap[uc_staY + 1][uc_staX] < us_high)) en_nowDir = NORTH;
+			else if (((g_SysMap[uc_staY][uc_staX] & 0x22) == 0x20) && (us_Cmap[uc_staY][uc_staX + 1] < us_high)) en_nowDir = EAST;
+			else if (((g_SysMap[uc_staY][uc_staX] & 0x88) == 0x80) && (us_Cmap[uc_staY][uc_staX - 1] < us_high)) en_nowDir = WEST;
+			else if (((g_SysMap[uc_staY][uc_staX] & 0x44) == 0x40) && (us_Cmap[uc_staY - 1][uc_staX] < us_high)) en_nowDir = SOUTH;
 			else   while (1);
 		}
 		else if (en_staDir == EAST) {
-			if (((g_sysMap[uc_staY][uc_staX] & 0x22) == 0x20) && (us_cmap[uc_staY][uc_staX + 1] < us_high)) en_nowDir = EAST;
-			else if (((g_sysMap[uc_staY][uc_staX] & 0x11) == 0x10) && (us_cmap[uc_staY + 1][uc_staX] < us_high)) en_nowDir = NORTH;
-			else if (((g_sysMap[uc_staY][uc_staX] & 0x44) == 0x40) && (us_cmap[uc_staY - 1][uc_staX] < us_high)) en_nowDir = SOUTH;
-			else if (((g_sysMap[uc_staY][uc_staX] & 0x88) == 0x80) && (us_cmap[uc_staY][uc_staX - 1] < us_high)) en_nowDir = WEST;
+			if (((g_SysMap[uc_staY][uc_staX] & 0x22) == 0x20) && (us_Cmap[uc_staY][uc_staX + 1] < us_high)) en_nowDir = EAST;
+			else if (((g_SysMap[uc_staY][uc_staX] & 0x11) == 0x10) && (us_Cmap[uc_staY + 1][uc_staX] < us_high)) en_nowDir = NORTH;
+			else if (((g_SysMap[uc_staY][uc_staX] & 0x44) == 0x40) && (us_Cmap[uc_staY - 1][uc_staX] < us_high)) en_nowDir = SOUTH;
+			else if (((g_SysMap[uc_staY][uc_staX] & 0x88) == 0x80) && (us_Cmap[uc_staY][uc_staX - 1] < us_high)) en_nowDir = WEST;
 			else   while (1);
 		}
 		else if (en_staDir == SOUTH) {
-			if (((g_sysMap[uc_staY][uc_staX] & 0x44) == 0x40) && (us_cmap[uc_staY - 1][uc_staX] < us_high)) en_nowDir = SOUTH;
-			else if (((g_sysMap[uc_staY][uc_staX] & 0x22) == 0x20) && (us_cmap[uc_staY][uc_staX + 1] < us_high)) en_nowDir = EAST;
-			else if (((g_sysMap[uc_staY][uc_staX] & 0x88) == 0x80) && (us_cmap[uc_staY][uc_staX - 1] < us_high)) en_nowDir = WEST;
-			else if (((g_sysMap[uc_staY][uc_staX] & 0x11) == 0x10) && (us_cmap[uc_staY + 1][uc_staX] < us_high)) en_nowDir = NORTH;
+			if (((g_SysMap[uc_staY][uc_staX] & 0x44) == 0x40) && (us_Cmap[uc_staY - 1][uc_staX] < us_high)) en_nowDir = SOUTH;
+			else if (((g_SysMap[uc_staY][uc_staX] & 0x22) == 0x20) && (us_Cmap[uc_staY][uc_staX + 1] < us_high)) en_nowDir = EAST;
+			else if (((g_SysMap[uc_staY][uc_staX] & 0x88) == 0x80) && (us_Cmap[uc_staY][uc_staX - 1] < us_high)) en_nowDir = WEST;
+			else if (((g_SysMap[uc_staY][uc_staX] & 0x11) == 0x10) && (us_Cmap[uc_staY + 1][uc_staX] < us_high)) en_nowDir = NORTH;
 			else   while (1);
 		}
 		else if (en_staDir == WEST) {
-			if (((g_sysMap[uc_staY][uc_staX] & 0x88) == 0x80) && (us_cmap[uc_staY][uc_staX - 1] < us_high)) en_nowDir = WEST;
-			else if (((g_sysMap[uc_staY][uc_staX] & 0x11) == 0x10) && (us_cmap[uc_staY + 1][uc_staX] < us_high)) en_nowDir = NORTH;
-			else if (((g_sysMap[uc_staY][uc_staX] & 0x44) == 0x40) && (us_cmap[uc_staY - 1][uc_staX] < us_high)) en_nowDir = SOUTH;
-			else if (((g_sysMap[uc_staY][uc_staX] & 0x22) == 0x20) && (us_cmap[uc_staY][uc_staX + 1] < us_high)) en_nowDir = EAST;
+			if (((g_SysMap[uc_staY][uc_staX] & 0x88) == 0x80) && (us_Cmap[uc_staY][uc_staX - 1] < us_high)) en_nowDir = WEST;
+			else if (((g_SysMap[uc_staY][uc_staX] & 0x11) == 0x10) && (us_Cmap[uc_staY + 1][uc_staX] < us_high)) en_nowDir = NORTH;
+			else if (((g_SysMap[uc_staY][uc_staX] & 0x44) == 0x40) && (us_Cmap[uc_staY - 1][uc_staX] < us_high)) en_nowDir = SOUTH;
+			else if (((g_SysMap[uc_staY][uc_staX] & 0x22) == 0x20) && (us_Cmap[uc_staY][uc_staX + 1] < us_high)) en_nowDir = EAST;
 			else   while (1);
 		}
 
@@ -1221,7 +1221,7 @@ void MAP_makeCmdList_dijkstra_modoki(
 			break;
 		}
 */
-//		if (us_cmap[uc_staY][uc_staX] == 0) break;
+//		if (us_Cmap[uc_staY][uc_staX] == 0) break;
 	}
 
 	/* 超地信旋回用のコマンドリスト作成 */

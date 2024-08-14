@@ -53,13 +53,13 @@ typedef enum{
 uint8_t	Return_X;
 uint8_t	Return_Y;
 
-uint16_t	us_cmap[MAP_Y_SIZE][MAP_X_SIZE];				//< 等高�? �?ータ
-uint8_t		g_sysMap[ MAP_Y_SIZE ][ MAP_X_SIZE ];			///< 迷路�?報
+uint16_t	us_Cmap[MAP_Y_SIZE][MAP_X_SIZE];				//< 等高�? �?ータ
+uint8_t		g_SysMap[ MAP_Y_SIZE ][ MAP_X_SIZE ];			///< 迷路�?報
 
-uint8_t		g_Map_direction[MAP_Y_SIZE][MAP_X_SIZE];			///< 迷路情報
+uint8_t		g_MapDirection[MAP_Y_SIZE][MAP_X_SIZE];			///< 迷路情報
 
 
-bool			search_flag;
+bool			SearchFlag;
 
 void MAP_init( void );
 void MAP_Goal_init( void );

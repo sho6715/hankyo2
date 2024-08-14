@@ -79,26 +79,10 @@ void log_in2( 	float log1,float log2,
 
 void log_interrupt ( void )
 {
-//	log_in2(GYRO_getSpeedErr(), Get_TrgtAngleS(),
-//			Get_NowAngle(),Get_TrgtAngle(),templog2);
-
-//	log_in2(Get_NowSpeed(), Get_TrgtSpeed(),
-//			Get_NowDist(), Get_TrgtDist(),templog2);
-/*
-	log_in2(DIST_getNowVal( DIST_SEN_R_FRONT ), DIST_getNowVal( DIST_SEN_L_FRONT ),
-		DIST_getNowVal( DIST_SEN_R_SIDE ), DIST_getNowVal( DIST_SEN_L_SIDE ));
-*/
-/*
-	log_in2(GYRO_getSpeedErr()*1000.0, Get_TrgtAngleS()*1000.0,
-			Get_NowAngle()*1000.0,Get_TrgtAngle()*1000.0,
-			Get_NowSpeed()*1000.0, Get_TrgtSpeed()*1000.0,
-			Get_NowDist()*1000.0, Get_TrgtDist()*1000.0,
-			duty_L*1000.0,duty_R*1000.0,templog1*1000.0,templog2*1000.0,templog3*1000,templog4*1000.0);
-*/
 	log_in2(GYRO_getSpeedErr(), Get_TrgtAngleS(),
 			Get_NowAngle(),Get_TrgtAngle(),
 			Get_NowSpeed(), Get_TrgtSpeed(),
-			Get_NowDist(), Get_TrgtDist(),templog1,templog2,templog3,templog4);
+			Get_NowDist(), Get_TrgtDist(),TempLog1,TempLog2,TempLog3,TempLog4);
 
 }
 

@@ -20,8 +20,8 @@
 /* ăăŻă­ */
 #define FABS(x)						( (x)>=0 ? (x) : -(x) )
 
-#define GOAL_MAP_X_def					( 9 )//2				// ă´ăźăŤăŽXĺşçťć°?źć¨Şćšĺďź? [ĺşçť]17
-#define GOAL_MAP_Y_def					( 9 )//11				// ă´ăźăŤăŽYĺşçťć°?źç¸Śćšĺďź? [ĺşçť]13
+#define GOAL_MAP_X_DEF					( 9 )//2				// ă´ăźăŤăŽXĺşçťć°?źć¨Şćšĺďź? [ĺşçť]17
+#define GOAL_MAP_Y_DEF					( 9 )//11				// ă´ăźăŤăŽYĺşçťć°?źç¸Śćšĺďź? [ĺşçť]13
 #define MAP_X_SIZE					( 32 )				// čżˇčˇŻăŽXĺşçťć°?źć¨Şćšĺďź? [ĺşçť]
 #define MAP_Y_SIZE					( 32 )				// čżˇčˇŻăŽYĺşçťć°?źç¸Śćšĺďź? [ĺşçť]
 
@@ -32,17 +32,17 @@
 
 #define VCC_MAX						( 4.2f )									// ăăă?ăŞćĺ¤§éťĺ§[V]ă?4.2[V]Ă?1[ăťăŤ]
 #define TIRE_D						( 0.01251f )	//ć¨ĺŽĺ¤								// ăżă¤ă¤ç´ĺž? [mm]
-#define TREAD_imagin					(0.0386f)
+#define TREAD_IMAGIN					(0.0386f)
 #define TREAD						( 0.0335f )
 #define ROTATE_PULSE				( 4096 )									// 1ĺ¨ăŽćĺ¤§ć°ĺ¤
 #define DIST_1STEP					( PI * TIRE_D / ROTATE_PULSE )				// 1ăăŤăšă§é˛ăčˇé˘ [m]
 #define F_CNT2MM(cnt)				( (float)cnt * DIST_1STEP )				// [ăŤăŚăłăĺ¤]ăă[mm]ă¸ćçŽ?
 #define GEAR_RATIO					(36.0f/10.0f)
 
-#define Weight						(0.018f)
-#define Inertia						(4.6f/1000000.0f)
-#define Torque_constant				(0.594f/1000.0f)
-#define Motor_Register				(4.8f)
+#define WEIGHT						(0.018f)
+#define INERTIA						(4.6f/1000000.0f)
+#define TORQUE_CONSTANT				(0.594f/1000.0f)
+#define MOTOR_REGISTER				(4.8f)
 
 typedef enum{
 	DIST_SEN_R_FRONT = 0,

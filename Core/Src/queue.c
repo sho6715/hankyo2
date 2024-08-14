@@ -7,7 +7,7 @@
 
 #include "queue.h"
 
-void printQueue(queue_t* pQueue) {
+void PrintQueue(queue_t* pQueue) {
 	int i;
 	for (i = 0; i <= SIZE - 1; i++) {
 		printf("%d ", pQueue->data[i]);
@@ -16,7 +16,7 @@ void printQueue(queue_t* pQueue) {
 }
 
 //キューの初期化
-void initQueue(queue_t* pQueue) {
+void InitQueue(queue_t* pQueue) {
 	int i;
 	//キューの中身を0埋め
 	for (i = 0; i <= SIZE - 1; i++) {
@@ -28,13 +28,13 @@ void initQueue(queue_t* pQueue) {
 	pQueue->head = 0;
 	pQueue->tail = 0;
 	pQueue->flag = EMPTY;
-//	printQueue(pQueue);
+//	PrintQueue(pQueue);
 }
 
 
 //enqueue関数
-void enqueue(queue_t* pQueue, stPOSITION value) {
-//	printf("enQ(%d)\n", value);
+void EnQueue(queue_t* pQueue, stPOSITION value) {
+//	Printf("enQ(%d)\n", value);
 	//キューがFullの処理
 	if (pQueue->flag == FULL) {
 		printf("Full\n");
@@ -57,11 +57,11 @@ void enqueue(queue_t* pQueue, stPOSITION value) {
 	else {
 		pQueue->flag = AVAILABLE;
 	}
-//	printQueue(pQueue);
+//	PrintQueue(pQueue);
 }
 
 //dequeue関数
-stPOSITION dequeue(queue_t* pQueue) {
+stPOSITION DeQueue(queue_t* pQueue) {
 //	printf("deQ\n");
 	stPOSITION dequeue;
 	//キューがEmptyの処理
@@ -92,7 +92,7 @@ stPOSITION dequeue(queue_t* pQueue) {
 	else {
 		pQueue->flag = AVAILABLE;
 	}
-//	printQueue(pQueue);
+//	PrintQueue(pQueue);
 
 	return dequeue;
 }

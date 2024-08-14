@@ -21,17 +21,17 @@
 #endif
 
 typedef enum{
-    enL=0,
-    enR,
-    endir_MAX
-}en_endir;
+    EN_L=0,
+    EN_R,
+    ENDIR_MAX
+}en_ENDIR;
 
-en_endir encoderdir;
+en_ENDIR encoderdir;
 
-uint16_t Get_encoder_value(en_endir dir);
+uint16_t Get_encoder_value(en_ENDIR dir);
 void ENC_GetDiv( int32_t* p_r, int32_t* p_l );
 void ENC_setref(void);
 void ENC_print(void);
-void recv_spi_encoder(en_endir dir);
-void Set_encoder_data(en_endir dir);
+void recv_spi_encoder(en_ENDIR dir);
+void Set_encoder_data(en_ENDIR dir);
 #endif /* INC_ENCODER_H_ */

@@ -32,12 +32,12 @@ typedef struct {
 }queue_t;
 
 //キューの中身をprint出力
-void printQueue(queue_t* pQueue) ;
+void PrintQueue(queue_t* pQueue) ;
 //キューの初期化
-void initQueue(queue_t* pQueue) ;
+void InitQueue(queue_t* pQueue) ;
 //enqueue関数
-void enqueue(queue_t* pQueue, stPOSITION value) ;
+void EnQueue(queue_t* pQueue, stPOSITION value) ;
 //dequeue関数
-stPOSITION dequeue(queue_t* pQueue);
+stPOSITION DeQueue(queue_t* pQueue);
 
 #endif /* INC_QUEUE_H_ */

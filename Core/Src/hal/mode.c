@@ -8,8 +8,8 @@
 
 #include "hal/mode.h"
 
-#define mode_1  (0x01)
-#define mode_2  (0x10)
+#define MODELED_1  (0x01)
+#define MODELED_2  (0x10)
 
 typedef enum{
 	MODE_0 = 0,
@@ -23,13 +23,13 @@ typedef enum{
 	MODE_MAX
 }enMODE;
 
-uint8_t now_mode = mode_1;
+uint8_t NowModeLed = MODELED_1;
 
 enMODE		en_Mode;		//現在のモー�?
 
-uint8_t		wall_hit_flag = 0; //0 = not wall_hit
+uint8_t		WallHitFlag = 0; //0 = not wall_hit
 
-extern uint8_t			SLA_count;
+extern uint8_t			SLA_Count;
 
 void SYS_start( void )
 {
@@ -78,35 +78,35 @@ void MODE_inc( void )
 	switch( en_Mode ){
 
 		case MODE_0:
-			SetLED(0x00 | now_mode);
+			SetLED(0x00 | NowModeLed);
 			break;
 
 		case MODE_1:
-			SetLED((0x01<<1) | now_mode);
+			SetLED((0x01<<1) | NowModeLed);
 			break;
 
 		case MODE_2:
-			SetLED((0x02<<1) | now_mode);
+			SetLED((0x02<<1) | NowModeLed);
 			break;
 
 		case MODE_3:
-			SetLED((0x03<<1) | now_mode);
+			SetLED((0x03<<1) | NowModeLed);
 			break;
 
 		case MODE_4:
-			SetLED((0x04<<1) | now_mode);
+			SetLED((0x04<<1) | NowModeLed);
 			break;
 
 		case MODE_5:
-			SetLED((0x05<<1) | now_mode);
+			SetLED((0x05<<1) | NowModeLed);
 			break;
 
 		case MODE_6:
-			SetLED((0x06<<1) | now_mode);
+			SetLED((0x06<<1) | NowModeLed);
 			break;
 
 		case MODE_7:
-			SetLED((0x07<<1) | now_mode);
+			SetLED((0x07<<1) | NowModeLed);
 			break;
 
 		default:
@@ -158,7 +158,7 @@ void MODE_exe_m0( void )
 			SetLED(0x00);
 			while(1){
 				printf("  ENC_R%5d ENC_L%5d \r", 
-					Get_encoder_value(enR),Get_encoder_value(enL)
+					Get_encoder_value(EN_R),Get_encoder_value(EN_L)
 				);
 				LL_mDelay( 500 );
 			}
@@ -363,7 +363,7 @@ void MODE_exe_m1( void )
 
 		case MODE_1:
 			SetLED(0x0e);
-			map_erase();
+			Map_Erase();
 			break;
 
 		case MODE_2:
@@ -373,20 +373,20 @@ void MODE_exe_m1( void )
 
 		case MODE_3:
 			SetLED(0x0e);
-			map_copy();
+			Map_Copy();
 			break;
 
 		case MODE_4:
 			SetLED(0x0e);
-			map_write();
+			Map_Write();
 			break;
 
 		case MODE_5:
 			SetLED(0x0e);
 			MAP_setPos( 0, 0, NORTH );												// スタート位置
 			MAP_Goalsize(1);
-			MAP_makeContourMap_run( GOAL_MAP_X_def, GOAL_MAP_Y_def, BEST_WAY );					// 等高線�?�ップを作る
-			MAP_makeCmdList( 0, 0, NORTH, GOAL_MAP_X_def, GOAL_MAP_Y_def, &en_endDir2 );		// ドライブコマンド作�??
+			MAP_makeContourMap_run( GOAL_MAP_X_DEF, GOAL_MAP_Y_DEF, BEST_WAY );					// 等高線�?�ップを作る
+			MAP_makeCmdList( 0, 0, NORTH, GOAL_MAP_X_DEF, GOAL_MAP_Y_DEF, &en_endDir2 );		// ドライブコマンド作�??
 			MAP_makeSuraCmdList();													// スラロー�?コマンド作�??
 			MAP_makeSkewCmdList();													
 			MAP_showCmdLog();
@@ -437,11 +437,11 @@ void MODE_exe_m2( void )
 			MAP_Goalsize(1);
 			MAP_setPos( 0, 0, NORTH );						
 
-			MAP_searchGoal(GOAL_MAP_X_def, GOAL_MAP_Y_def, SEARCH, SEARCH_SURA );			
+			MAP_searchGoal(GOAL_MAP_X_DEF, GOAL_MAP_Y_DEF, SEARCH, SEARCH_SURA );			
 
 			if (( SW_IsOn_1() == SW_ON)||(SYS_isOutOfCtrl() == TRUE)){}
 			else{
-				map_write();
+				Map_Write();
 			}
 			
 			SetLED(0x0e);
@@ -452,10 +452,10 @@ void MODE_exe_m2( void )
 
 			if (( SW_IsOn_1() == SW_ON)||(SYS_isOutOfCtrl() == TRUE)){}
 			else{
-				map_write();
+				Map_Write();
 				MAP_setPos( 0, 0, NORTH );								// スタート位置
-				MAP_makeContourMap_run( GOAL_MAP_X_def, GOAL_MAP_Y_def, BEST_WAY );					// 等高線�?�ップを作る
-				MAP_makeCmdList( 0, 0, NORTH, GOAL_MAP_X_def, GOAL_MAP_Y_def, &en_endDir2 );		// ドライブコマンド作�??
+				MAP_makeContourMap_run( GOAL_MAP_X_DEF, GOAL_MAP_Y_DEF, BEST_WAY );					// 等高線�?�ップを作る
+				MAP_makeCmdList( 0, 0, NORTH, GOAL_MAP_X_DEF, GOAL_MAP_Y_DEF, &en_endDir2 );		// ドライブコマンド作�??
 				MAP_makeSuraCmdList();													// スラロー�?コマンド作�??
 				MAP_makeSkewCmdList();
 				SetLED(0x00);
@@ -477,11 +477,11 @@ void MODE_exe_m2( void )
 			MAP_Goalsize(1);
 			MAP_setPos( 0, 0, NORTH );							
 
-			MAP_searchGoalKnown(GOAL_MAP_X_def, GOAL_MAP_Y_def, SEARCH, SEARCH_SURA );			
+			MAP_searchGoalKnown(GOAL_MAP_X_DEF, GOAL_MAP_Y_DEF, SEARCH, SEARCH_SURA );			
 
 			if (( SW_IsOn_1() == SW_ON)||(SYS_isOutOfCtrl() == TRUE)){}
 			else{
-				map_write();
+				Map_Write();
 			}
 			
 			SetLED(0x0e);
@@ -493,10 +493,10 @@ void MODE_exe_m2( void )
 			log_flag_off();
 			if (( SW_IsOn_1() == SW_ON)||(SYS_isOutOfCtrl() == TRUE)){}
 			else{
-				map_write();
+				Map_Write();
 				MAP_setPos( 0, 0, NORTH );								// スタート位置
-				MAP_makeContourMap_run( GOAL_MAP_X_def, GOAL_MAP_Y_def, BEST_WAY );					// 等高線�?�ップを作る
-				MAP_makeCmdList( 0, 0, NORTH, GOAL_MAP_X_def, GOAL_MAP_Y_def, &en_endDir2 );		// ドライブコマンド作�??
+				MAP_makeContourMap_run( GOAL_MAP_X_DEF, GOAL_MAP_Y_DEF, BEST_WAY );					// 等高線�?�ップを作る
+				MAP_makeCmdList( 0, 0, NORTH, GOAL_MAP_X_DEF, GOAL_MAP_Y_DEF, &en_endDir2 );		// ドライブコマンド作�??
 				MAP_makeSuraCmdList();													// スラロー�?コマンド作�??
 				MAP_makeSkewCmdList();
 				SetLED(0x00);
@@ -519,11 +519,11 @@ void MODE_exe_m2( void )
 			MAP_Goalsize(1);
 			MAP_setPos( 0, 0, NORTH );							
 
-			MAP_searchGoalKnown(GOAL_MAP_X_def, GOAL_MAP_Y_def, SEARCH, SEARCH_SURA );			
+			MAP_searchGoalKnown(GOAL_MAP_X_DEF, GOAL_MAP_Y_DEF, SEARCH, SEARCH_SURA );			
 
 			if (( SW_IsOn_1() == SW_ON)||(SYS_isOutOfCtrl() == TRUE)){}
 			else{
-				map_write();
+				Map_Write();
 			}
 			
 			SetLED(0x0e);
@@ -535,10 +535,10 @@ void MODE_exe_m2( void )
 
 			if (( SW_IsOn_1() == SW_ON)||(SYS_isOutOfCtrl() == TRUE)){}
 			else{
-				map_write();
+				Map_Write();
 				MAP_setPos( 0, 0, NORTH );								// スタート位置
-				MAP_makeContourMap_run( GOAL_MAP_X_def, GOAL_MAP_Y_def, BEST_WAY );					// 等高線�?�ップを作る
-				MAP_makeCmdList( 0, 0, NORTH, GOAL_MAP_X_def, GOAL_MAP_Y_def, &en_endDir2 );		// ドライブコマンド作�??
+				MAP_makeContourMap_run( GOAL_MAP_X_DEF, GOAL_MAP_Y_DEF, BEST_WAY );					// 等高線�?�ップを作る
+				MAP_makeCmdList( 0, 0, NORTH, GOAL_MAP_X_DEF, GOAL_MAP_Y_DEF, &en_endDir2 );		// ドライブコマンド作�??
 				MAP_makeSuraCmdList();													// スラロー�?コマンド作�??
 				MAP_makeSkewCmdList();
 				SetLED(0x00);
@@ -575,7 +575,7 @@ void MODE_exe_m2( void )
 
 			if (( SW_IsOn_1() == SW_ON)||(SYS_isOutOfCtrl() == TRUE)){}
 			else{
-				map_write();
+				Map_Write();
 			}
 			
 			SetLED(0x0e);
@@ -587,7 +587,7 @@ void MODE_exe_m2( void )
 
 			if (( SW_IsOn_1() == SW_ON)||(SYS_isOutOfCtrl() == TRUE)){}
 			else{
-				map_write();
+				Map_Write();
 				MAP_setPos( 0, 0, NORTH );								// スタート位置
 				MAP_makeContourMap_run( 2, 0, BEST_WAY );					// 等高線�?�ップを作る
 				MAP_makeCmdList( 0, 0, NORTH,2, 0, &en_endDir2 );		// ドライブコマンド作�??
@@ -608,7 +608,7 @@ void MODE_exe_m2( void )
 			printf("\r\n turn N90 \r\r");	
 			PARAM_makeSra( 0.5, 800.0f, 11.00f, SLA_N90 );	
 
-			map_copy();
+			Map_Copy();
 
 			GYRO_SetRef();
 			CTRL_clrData();
@@ -677,7 +677,7 @@ void MODE_exe_m3( void )
 
 	uint64_t data =0;
 
-	map_copy();
+	Map_Copy();
 
 	GYRO_SetRef();
 	CTRL_clrData();
@@ -699,8 +699,8 @@ void MODE_exe_m3( void )
 			SetLED(0x00);
 			MAP_setPos( 0, 0, NORTH );												// スタート位置
 			MAP_Goalsize(1);
-			MAP_makeContourMap_run( GOAL_MAP_X_def, GOAL_MAP_Y_def, BEST_WAY );					// 等高線�?�ップを作る
-			MAP_makeCmdList( 0, 0, NORTH, GOAL_MAP_X_def, GOAL_MAP_Y_def, &en_endDir2 );		// ドライブコマンド作�??
+			MAP_makeContourMap_run( GOAL_MAP_X_DEF, GOAL_MAP_Y_DEF, BEST_WAY );					// 等高線�?�ップを作る
+			MAP_makeCmdList( 0, 0, NORTH, GOAL_MAP_X_DEF, GOAL_MAP_Y_DEF, &en_endDir2 );		// ドライブコマンド作�??
 			MAP_makeSuraCmdList();													// スラロー�?コマンド作�??
 			MAP_makeSkewCmdList();													
 			LL_mDelay(500);
@@ -728,8 +728,8 @@ void MODE_exe_m3( void )
 			SetLED(0x00);
 			MAP_setPos( 0, 0, NORTH );												// スタート位置
 			MAP_Goalsize(1);
-			MAP_makeContourMap_run( GOAL_MAP_X_def, GOAL_MAP_Y_def, BEST_WAY );					// 等高線�?�ップを作る
-			MAP_makeCmdList( 0, 0, NORTH, GOAL_MAP_X_def, GOAL_MAP_Y_def, &en_endDir2 );		// ドライブコマンド作�??
+			MAP_makeContourMap_run( GOAL_MAP_X_DEF, GOAL_MAP_Y_DEF, BEST_WAY );					// 等高線�?�ップを作る
+			MAP_makeCmdList( 0, 0, NORTH, GOAL_MAP_X_DEF, GOAL_MAP_Y_DEF, &en_endDir2 );		// ドライブコマンド作�??
 			MAP_makeSuraCmdList();													// スラロー�?コマンド作�??
 			MAP_makeSkewCmdList();													
 			LL_mDelay(500);
@@ -757,8 +757,8 @@ void MODE_exe_m3( void )
 			SetLED(0x00);
 			MAP_setPos( 0, 0, NORTH );												// スタート位置
 			MAP_Goalsize(1);
-			MAP_makeContourMap_run( GOAL_MAP_X_def, GOAL_MAP_Y_def, BEST_WAY );					// 等高線�?�ップを作る
-			MAP_makeCmdList( 0, 0, NORTH, GOAL_MAP_X_def, GOAL_MAP_Y_def, &en_endDir2 );		// ドライブコマンド作�??
+			MAP_makeContourMap_run( GOAL_MAP_X_DEF, GOAL_MAP_Y_DEF, BEST_WAY );					// 等高線�?�ップを作る
+			MAP_makeCmdList( 0, 0, NORTH, GOAL_MAP_X_DEF, GOAL_MAP_Y_DEF, &en_endDir2 );		// ドライブコマンド作�??
 			MAP_makeSuraCmdList();													// スラロー�?コマンド作�??
 			MAP_makeSkewCmdList();													
 			LL_mDelay(500);
@@ -786,8 +786,8 @@ void MODE_exe_m3( void )
 			SetLED(0x00);
 			MAP_setPos( 0, 0, NORTH );												// スタート位置
 			MAP_Goalsize(1);
-			MAP_makeContourMap_run( GOAL_MAP_X_def, GOAL_MAP_Y_def, BEST_WAY );					// 等高線�?�ップを作る
-			MAP_makeCmdList( 0, 0, NORTH, GOAL_MAP_X_def, GOAL_MAP_Y_def, &en_endDir2 );		// ドライブコマンド作�??
+			MAP_makeContourMap_run( GOAL_MAP_X_DEF, GOAL_MAP_Y_DEF, BEST_WAY );					// 等高線�?�ップを作る
+			MAP_makeCmdList( 0, 0, NORTH, GOAL_MAP_X_DEF, GOAL_MAP_Y_DEF, &en_endDir2 );		// ドライブコマンド作�??
 			MAP_makeSuraCmdList();													// スラロー�?コマンド作�??
 			MAP_makeSkewCmdList();													
 			LL_mDelay(500);
@@ -819,8 +819,8 @@ void MODE_exe_m3( void )
 			SetLED(0x00);
 			MAP_setPos( 0, 0, NORTH );												// スタート位置
 			MAP_Goalsize(1);
-			MAP_makeContourMap_run( GOAL_MAP_X_def, GOAL_MAP_Y_def, BEST_WAY );					// 等高線�?�ップを作る
-			MAP_makeCmdList( 0, 0, NORTH, GOAL_MAP_X_def, GOAL_MAP_Y_def, &en_endDir2 );		// ドライブコマンド作�??
+			MAP_makeContourMap_run( GOAL_MAP_X_DEF, GOAL_MAP_Y_DEF, BEST_WAY );					// 等高線�?�ップを作る
+			MAP_makeCmdList( 0, 0, NORTH, GOAL_MAP_X_DEF, GOAL_MAP_Y_DEF, &en_endDir2 );		// ドライブコマンド作�??
 			MAP_makeSuraCmdList();													// スラロー�?コマンド作�??
 			MAP_makeSkewCmdList();													
 			LL_mDelay(500);
@@ -848,8 +848,8 @@ void MODE_exe_m3( void )
 			SetLED(0x00);
 			MAP_setPos( 0, 0, NORTH );												// スタート位置
 			MAP_Goalsize(1);
-			MAP_makeContourMap_run( GOAL_MAP_X_def, GOAL_MAP_Y_def, BEST_WAY );					// 等高線�?�ップを作る
-			MAP_makeCmdList( 0, 0, NORTH, GOAL_MAP_X_def, GOAL_MAP_Y_def, &en_endDir2 );		// ドライブコマンド作�??
+			MAP_makeContourMap_run( GOAL_MAP_X_DEF, GOAL_MAP_Y_DEF, BEST_WAY );					// 等高線�?�ップを作る
+			MAP_makeCmdList( 0, 0, NORTH, GOAL_MAP_X_DEF, GOAL_MAP_Y_DEF, &en_endDir2 );		// ドライブコマンド作�??
 			MAP_makeSuraCmdList();													// スラロー�?コマンド作�??
 			MAP_makeSkewCmdList();													
 			LL_mDelay(500);
@@ -878,10 +878,10 @@ void MODE_exe_m3( void )
 			MAP_setPos( 0, 0, NORTH );												// スタート位置
 
 			MAP_Goal_init();
-			MAP_makeContourMap_dijkstra_modoki(GOAL_MAP_X_def,GOAL_MAP_Y_def, BEST_WAY);
+			MAP_makeContourMap_dijkstra_modoki(GOAL_MAP_X_DEF,GOAL_MAP_Y_DEF, BEST_WAY);
 			MAP_Goalsize(1);
 	
-			MAP_makeCmdList_dijkstra_modoki(0, 0, NORTH, GOAL_MAP_X_def,GOAL_MAP_Y_def, &en_endDir2);		// ドライブコマンド作成
+			MAP_makeCmdList_dijkstra_modoki(0, 0, NORTH, GOAL_MAP_X_DEF,GOAL_MAP_Y_DEF, &en_endDir2);		// ドライブコマンド作成
 			MAP_makeSuraCmdList();													// スラロームコマンド作成
 			MAP_makeSkewCmdList();
 
@@ -939,11 +939,11 @@ void MODE_exe_m4( void )
 			MAP_Goalsize(1);
 			MAP_setPos( 0, 0, NORTH );						
 
-			MAP_searchGoal(GOAL_MAP_X_def, GOAL_MAP_Y_def, SEARCH, SEARCH_SURA );			
+			MAP_searchGoal(GOAL_MAP_X_DEF, GOAL_MAP_Y_DEF, SEARCH, SEARCH_SURA );			
 
 			if (( SW_IsOn_1() == SW_ON)||(SYS_isOutOfCtrl() == TRUE)){}
 			else{
-				map_write();
+				Map_Write();
 			}
 			
 			SetLED(0x0e);
@@ -954,10 +954,10 @@ void MODE_exe_m4( void )
 
 			if (( SW_IsOn_1() == SW_ON)||(SYS_isOutOfCtrl() == TRUE)){}
 			else{
-				map_write();
+				Map_Write();
 				MAP_setPos( 0, 0, NORTH );								// スタート位置
-				MAP_makeContourMap_run( GOAL_MAP_X_def, GOAL_MAP_Y_def, BEST_WAY );					// 等高線�?�ップを作る
-				MAP_makeCmdList( 0, 0, NORTH, GOAL_MAP_X_def, GOAL_MAP_Y_def, &en_endDir2 );		// ドライブコマンド作�??
+				MAP_makeContourMap_run( GOAL_MAP_X_DEF, GOAL_MAP_Y_DEF, BEST_WAY );					// 等高線�?�ップを作る
+				MAP_makeCmdList( 0, 0, NORTH, GOAL_MAP_X_DEF, GOAL_MAP_Y_DEF, &en_endDir2 );		// ドライブコマンド作�??
 				MAP_makeSuraCmdList();													// スラロー�?コマンド作�??
 				MAP_makeSkewCmdList();
 				SetLED(0x00);
@@ -979,11 +979,11 @@ void MODE_exe_m4( void )
 			MAP_Goalsize(1);
 			MAP_setPos( 0, 0, NORTH );							
 
-			MAP_searchGoalKnown(GOAL_MAP_X_def, GOAL_MAP_Y_def, SEARCH, SEARCH_SURA );			
+			MAP_searchGoalKnown(GOAL_MAP_X_DEF, GOAL_MAP_Y_DEF, SEARCH, SEARCH_SURA );			
 
 			if (( SW_IsOn_1() == SW_ON)||(SYS_isOutOfCtrl() == TRUE)){}
 			else{
-				map_write();
+				Map_Write();
 			}
 			
 			SetLED(0x0e);
@@ -995,10 +995,10 @@ void MODE_exe_m4( void )
 
 			if (( SW_IsOn_1() == SW_ON)||(SYS_isOutOfCtrl() == TRUE)){}
 			else{
-				map_write();
+				Map_Write();
 				MAP_setPos( 0, 0, NORTH );								// スタート位置
-				MAP_makeContourMap_run( GOAL_MAP_X_def, GOAL_MAP_Y_def, BEST_WAY );					// 等高線�?�ップを作る
-				MAP_makeCmdList( 0, 0, NORTH, GOAL_MAP_X_def, GOAL_MAP_Y_def, &en_endDir2 );		// ドライブコマンド作�??
+				MAP_makeContourMap_run( GOAL_MAP_X_DEF, GOAL_MAP_Y_DEF, BEST_WAY );					// 等高線�?�ップを作る
+				MAP_makeCmdList( 0, 0, NORTH, GOAL_MAP_X_DEF, GOAL_MAP_Y_DEF, &en_endDir2 );		// ドライブコマンド作�??
 				MAP_makeSuraCmdList();													// スラロー�?コマンド作�??
 				MAP_makeSkewCmdList();
 				SetLED(0x00);
@@ -1021,11 +1021,11 @@ void MODE_exe_m4( void )
 			MAP_Goalsize(1);
 			MAP_setPos( 0, 0, NORTH );							
 
-			MAP_searchGoalKnown(GOAL_MAP_X_def, GOAL_MAP_Y_def, SEARCH, SEARCH_SURA );			
+			MAP_searchGoalKnown(GOAL_MAP_X_DEF, GOAL_MAP_Y_DEF, SEARCH, SEARCH_SURA );			
 
 			if (( SW_IsOn_1() == SW_ON)||(SYS_isOutOfCtrl() == TRUE)){}
 			else{
-				map_write();
+				Map_Write();
 			}
 			
 			SetLED(0x0e);
@@ -1037,10 +1037,10 @@ void MODE_exe_m4( void )
 
 			if (( SW_IsOn_1() == SW_ON)||(SYS_isOutOfCtrl() == TRUE)){}
 			else{
-				map_write();
+				Map_Write();
 				MAP_setPos( 0, 0, NORTH );								// スタート位置
-				MAP_makeContourMap_run( GOAL_MAP_X_def, GOAL_MAP_Y_def, BEST_WAY );					// 等高線�?�ップを作る
-				MAP_makeCmdList( 0, 0, NORTH, GOAL_MAP_X_def, GOAL_MAP_Y_def, &en_endDir2 );		// ドライブコマンド作�??
+				MAP_makeContourMap_run( GOAL_MAP_X_DEF, GOAL_MAP_Y_DEF, BEST_WAY );					// 等高線�?�ップを作る
+				MAP_makeCmdList( 0, 0, NORTH, GOAL_MAP_X_DEF, GOAL_MAP_Y_DEF, &en_endDir2 );		// ドライブコマンド作�??
 				MAP_makeSuraCmdList();													// スラロー�?コマンド作�??
 				MAP_makeSkewCmdList();
 				SetLED(0x00);
@@ -1090,7 +1090,7 @@ void MODE_exe_m5( void )
 	printf("\r\n turn N90 \r\r");	
 	PARAM_makeSra( 0.5, 800.0f, 11.00f, SLA_N90 );	
 
-	map_copy();
+	Map_Copy();
 
 	GYRO_SetRef();
 	CTRL_clrData();
@@ -1112,8 +1112,8 @@ void MODE_exe_m5( void )
 			SetLED(0x00);	
 			MAP_setPos( 0, 0, NORTH );												// スタート位置
 			MAP_Goalsize(1);
-			MAP_makeContourMap_run( GOAL_MAP_X_def, GOAL_MAP_Y_def, BEST_WAY );					// 等高線�?�ップを作る
-			MAP_makeCmdList( 0, 0, NORTH, GOAL_MAP_X_def, GOAL_MAP_Y_def, &en_endDir2 );		// ドライブコマンド作�??
+			MAP_makeContourMap_run( GOAL_MAP_X_DEF, GOAL_MAP_Y_DEF, BEST_WAY );					// 等高線�?�ップを作る
+			MAP_makeCmdList( 0, 0, NORTH, GOAL_MAP_X_DEF, GOAL_MAP_Y_DEF, &en_endDir2 );		// ドライブコマンド作�??
 			MAP_makeSuraCmdList();													// スラロー�?コマンド作�??
 			MAP_makeSkewCmdList();													
 			LL_mDelay(500);
@@ -1141,8 +1141,8 @@ void MODE_exe_m5( void )
 			SetLED(0x00);
 			MAP_setPos( 0, 0, NORTH );												// スタート位置
 			MAP_Goalsize(1);
-			MAP_makeContourMap_run( GOAL_MAP_X_def, GOAL_MAP_Y_def, BEST_WAY );					// 等高線�?�ップを作る
-			MAP_makeCmdList( 0, 0, NORTH, GOAL_MAP_X_def, GOAL_MAP_Y_def, &en_endDir2 );		// ドライブコマンド作�??
+			MAP_makeContourMap_run( GOAL_MAP_X_DEF, GOAL_MAP_Y_DEF, BEST_WAY );					// 等高線�?�ップを作る
+			MAP_makeCmdList( 0, 0, NORTH, GOAL_MAP_X_DEF, GOAL_MAP_Y_DEF, &en_endDir2 );		// ドライブコマンド作�??
 			MAP_makeSuraCmdList();													// スラロー�?コマンド作�??
 			MAP_makeSkewCmdList();													
 			LL_mDelay(500);
@@ -1170,8 +1170,8 @@ void MODE_exe_m5( void )
 			SetLED(0x00);
 			MAP_setPos( 0, 0, NORTH );												// スタート位置
 			MAP_Goalsize(1);
-			MAP_makeContourMap_run( GOAL_MAP_X_def, GOAL_MAP_Y_def, BEST_WAY );					// 等高線�?�ップを作る
-			MAP_makeCmdList( 0, 0, NORTH, GOAL_MAP_X_def, GOAL_MAP_Y_def, &en_endDir2 );		// ドライブコマンド作�??
+			MAP_makeContourMap_run( GOAL_MAP_X_DEF, GOAL_MAP_Y_DEF, BEST_WAY );					// 等高線�?�ップを作る
+			MAP_makeCmdList( 0, 0, NORTH, GOAL_MAP_X_DEF, GOAL_MAP_Y_DEF, &en_endDir2 );		// ドライブコマンド作�??
 			MAP_makeSuraCmdList();													// スラロー�?コマンド作�??
 			MAP_makeSkewCmdList();													
 			LL_mDelay(500);
@@ -1199,8 +1199,8 @@ void MODE_exe_m5( void )
 			SetLED(0x00);
 			MAP_setPos( 0, 0, NORTH );												// スタート位置
 			MAP_Goalsize(1);
-			MAP_makeContourMap_run( GOAL_MAP_X_def, GOAL_MAP_Y_def, BEST_WAY );					// 等高線�?�ップを作る
-			MAP_makeCmdList( 0, 0, NORTH, GOAL_MAP_X_def, GOAL_MAP_Y_def, &en_endDir2 );		// ドライブコマンド作�??
+			MAP_makeContourMap_run( GOAL_MAP_X_DEF, GOAL_MAP_Y_DEF, BEST_WAY );					// 等高線�?�ップを作る
+			MAP_makeCmdList( 0, 0, NORTH, GOAL_MAP_X_DEF, GOAL_MAP_Y_DEF, &en_endDir2 );		// ドライブコマンド作�??
 			MAP_makeSuraCmdList();													// スラロー�?コマンド作�??
 			MAP_makeSkewCmdList();													
 			LL_mDelay(500);
@@ -1231,8 +1231,8 @@ void MODE_exe_m5( void )
 			SetLED(0x00);
 			MAP_setPos( 0, 0, NORTH );												// スタート位置
 			MAP_Goalsize(1);
-			MAP_makeContourMap_run( GOAL_MAP_X_def, GOAL_MAP_Y_def, BEST_WAY );					// 等高線�?�ップを作る
-			MAP_makeCmdList( 0, 0, NORTH, GOAL_MAP_X_def, GOAL_MAP_Y_def, &en_endDir2 );		// ドライブコマンド作�??
+			MAP_makeContourMap_run( GOAL_MAP_X_DEF, GOAL_MAP_Y_DEF, BEST_WAY );					// 等高線�?�ップを作る
+			MAP_makeCmdList( 0, 0, NORTH, GOAL_MAP_X_DEF, GOAL_MAP_Y_DEF, &en_endDir2 );		// ドライブコマンド作�??
 			MAP_makeSuraCmdList();													// スラロー�?コマンド作�??
 			MAP_makeSkewCmdList();													
 			LL_mDelay(500);
@@ -1260,8 +1260,8 @@ void MODE_exe_m5( void )
 			SetLED(0x00);
 			MAP_setPos( 0, 0, NORTH );												// スタート位置
 			MAP_Goalsize(1);
-			MAP_makeContourMap_run( GOAL_MAP_X_def, GOAL_MAP_Y_def, BEST_WAY );					// 等高線�?�ップを作る
-			MAP_makeCmdList( 0, 0, NORTH, GOAL_MAP_X_def, GOAL_MAP_Y_def, &en_endDir2 );		// ドライブコマンド作�??
+			MAP_makeContourMap_run( GOAL_MAP_X_DEF, GOAL_MAP_Y_DEF, BEST_WAY );					// 等高線�?�ップを作る
+			MAP_makeCmdList( 0, 0, NORTH, GOAL_MAP_X_DEF, GOAL_MAP_Y_DEF, &en_endDir2 );		// ドライブコマンド作�??
 			MAP_makeSuraCmdList();													// スラロー�?コマンド作�??
 			MAP_makeSkewCmdList();													
 			LL_mDelay(500);
@@ -1290,10 +1290,10 @@ void MODE_exe_m5( void )
 			MAP_setPos( 0, 0, NORTH );												// スタート位置
 
 			MAP_Goal_init();
-			MAP_makeContourMap_dijkstra_modoki(GOAL_MAP_X_def,GOAL_MAP_Y_def, BEST_WAY);
+			MAP_makeContourMap_dijkstra_modoki(GOAL_MAP_X_DEF,GOAL_MAP_Y_DEF, BEST_WAY);
 			MAP_Goalsize(1);
 	
-			MAP_makeCmdList_dijkstra_modoki(0, 0, NORTH, GOAL_MAP_X_def,GOAL_MAP_Y_def, &en_endDir2);		// ドライブコマンド作成
+			MAP_makeCmdList_dijkstra_modoki(0, 0, NORTH, GOAL_MAP_X_DEF,GOAL_MAP_Y_DEF, &en_endDir2);		// ドライブコマンド作成
 			MAP_makeSuraCmdList();													// スラロームコマンド作成
 			MAP_makeSkewCmdList();
 
@@ -1334,7 +1334,7 @@ void MODE_exe( void )
 //	uint16_t *read;
 	enMAP_HEAD_DIR		en_endDir;
 
-	now_mode = mode_1;
+	NowModeLed = MODELED_1;
 	uint8_t i;
 	LL_mDelay(300);
 	GYRO_SetRef();
@@ -1349,7 +1349,7 @@ void MODE_exe( void )
 			en_Mode = MODE_0;	
 			LL_mDelay(100);
 			SetLED(0x00);
-			now_mode = mode_2;
+			NowModeLed = MODELED_2;
 			while(1){
 				if (( SW_IsOn_1() == SW_ON)||CountUP_mode()){
 					MODE_inc();								
@@ -1360,7 +1360,7 @@ void MODE_exe( void )
 					MODE_exe_m0();								
 					LL_mDelay(200);				
 					if (en_Mode == MODE_7){
-						now_mode = mode_1;
+						NowModeLed = MODELED_1;
 						break;
 					}
 				}
@@ -1374,7 +1374,7 @@ void MODE_exe( void )
 			en_Mode = MODE_0;	
 			LL_mDelay(100);
 			SetLED(0x00);
-			now_mode = mode_2;
+			NowModeLed = MODELED_2;
 			while(1){
 				if (( SW_IsOn_1() == SW_ON)||CountUP_mode()){
 					MODE_inc();								
@@ -1385,7 +1385,7 @@ void MODE_exe( void )
 					MODE_exe_m1();								
 					LL_mDelay(200);				
 					if (en_Mode == MODE_7){
-						now_mode = mode_1;
+						NowModeLed = MODELED_1;
 						break;
 					}
 				}
@@ -1399,7 +1399,7 @@ void MODE_exe( void )
 			en_Mode = MODE_0;	
 			LL_mDelay(100);
 			SetLED(0x00);
-			now_mode = mode_2;
+			NowModeLed = MODELED_2;
 			while(1){
 				if (( SW_IsOn_1() == SW_ON)||CountUP_mode()){
 					MODE_inc();								
@@ -1410,7 +1410,7 @@ void MODE_exe( void )
 					MODE_exe_m2();								
 					LL_mDelay(200);				
 					if (en_Mode == MODE_7){
-						now_mode = mode_1;
+						NowModeLed = MODELED_1;
 						break;
 					}
 				}
@@ -1424,7 +1424,7 @@ void MODE_exe( void )
 			en_Mode = MODE_0;	
 			LL_mDelay(100);
 			SetLED(0x00);
-			now_mode = mode_2;
+			NowModeLed = MODELED_2;
 			while(1){
 				if (( SW_IsOn_1() == SW_ON)||CountUP_mode()){
 					MODE_inc();								
@@ -1435,7 +1435,7 @@ void MODE_exe( void )
 					MODE_exe_m3();								
 					LL_mDelay(200);				
 					if (en_Mode == MODE_7){
-						now_mode = mode_1;
+						NowModeLed = MODELED_1;
 						break;
 					}
 				}
@@ -1449,8 +1449,8 @@ void MODE_exe( void )
 			en_Mode = MODE_0;	
 			LL_mDelay(100);
 			SetLED(0x00);
-			now_mode = mode_2;
-			wall_hit_flag = 1;
+			NowModeLed = MODELED_2;
+			WallHitFlag = 1;
 			while(1){
 				if (( SW_IsOn_1() == SW_ON)||CountUP_mode()){
 					MODE_inc();								
@@ -1461,8 +1461,8 @@ void MODE_exe( void )
 					MODE_exe_m4();								
 					LL_mDelay(200);				
 					if (en_Mode == MODE_7){
-						now_mode = mode_1;
-						wall_hit_flag = 0;
+						NowModeLed = MODELED_1;
+						WallHitFlag = 0;
 						break;
 					}
 				}
@@ -1476,7 +1476,7 @@ void MODE_exe( void )
 			en_Mode = MODE_0;	
 			LL_mDelay(100);
 			SetLED(0x00);
-			now_mode = mode_2;
+			NowModeLed = MODELED_2;
 			while(1){
 				if (( SW_IsOn_1() == SW_ON)||CountUP_mode()){
 					MODE_inc();								
@@ -1487,7 +1487,7 @@ void MODE_exe( void )
 					MODE_exe_m5();								
 					LL_mDelay(200);				
 					if (en_Mode == MODE_7){
-						now_mode = mode_1;
+						NowModeLed = MODELED_1;
 						break;
 					}
 				}

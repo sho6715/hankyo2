@@ -346,7 +346,7 @@ void SPI2_Start(void)
 
 void SPI2_DMA_Communication(uint8_t length,uint8_t dir)
 {
-  if(dir == enL){
+  if(dir == EN_L){
 	  LL_GPIO_ResetOutputPin(CS_enL_GPIO_Port, CS_enL_Pin);
   }else{
     LL_GPIO_ResetOutputPin(CS_enR_GPIO_Port, CS_enR_Pin);
@@ -380,7 +380,7 @@ void SPI2_DMA_Communication(uint8_t length,uint8_t dir)
 void SPI2_DMA1_ReceiveComplete_Callback(void)
 {
 	LL_DMA_DisableChannel(DMA1,LL_DMA_CHANNEL_3);
-  if(encoderdir == enL){
+  if(encoderdir == EN_L){
 	  LL_GPIO_SetOutputPin(CS_enL_GPIO_Port, CS_enL_Pin);
   }else{
     LL_GPIO_SetOutputPin(CS_enR_GPIO_Port, CS_enR_Pin);

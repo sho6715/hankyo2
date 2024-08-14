@@ -21,9 +21,6 @@ int16_t s_AccelVal; 					  				// get value of accel speed
 float f_NowAccel;										// now accel speed
 int32_t  l_AccelRef; 									// reference of accel speed
 
-
-
-
 //failsafe
 float  			f_ErrChkAngle; 			  // ジャイロセンサのエラー検出用の角度
 bool   			bl_ErrChk; 				  // ジャイロセンサのエラー検出(FALSE：検知しない、TRUE：検知する）

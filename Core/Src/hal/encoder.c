@@ -10,16 +10,16 @@
 
 uint16_t ENC_L_CNT;
 uint16_t ENC_R_CNT;
-uint16_t ENC_L_CNT_old;
-uint16_t ENC_R_CNT_old;
+uint16_t ENC_L_CNT_Old;
+uint16_t ENC_R_CNT_Old;
 
-uint16_t Get_encoder_value(en_endir dir)
+uint16_t Get_encoder_value(en_ENDIR dir)
 {
-	if(dir == enL) return ENC_L_CNT;
+	if(dir == EN_L) return ENC_L_CNT;
 	else return ENC_R_CNT;
 }
 
-void MA702_ReadByte(en_endir dir)
+void MA702_ReadByte(en_ENDIR dir)
 {
 	encoderdir = dir;
 	SetSPI2TransmitData(0,0x00);
@@ -28,14 +28,14 @@ void MA702_ReadByte(en_endir dir)
 	SPI2_DMA_Communication(2,encoderdir);
 }
 
-void recv_spi_encoder(en_endir dir)
+void recv_spi_encoder(en_ENDIR dir)
 {
 	MA702_ReadByte(dir);
 }
 
-void Set_encoder_data(en_endir dir)
+void Set_encoder_data(en_ENDIR dir)
 {
-	if(dir == enL) ENC_L_CNT = ((uint16_t)Get_SPI2ReciveData(0)<<4|Get_SPI2ReciveData(1)>>4);
+	if(dir == EN_L) ENC_L_CNT = ((uint16_t)Get_SPI2ReciveData(0)<<4|Get_SPI2ReciveData(1)>>4);
 	else ENC_R_CNT = ((uint16_t)Get_SPI2ReciveData(0)<<4|Get_SPI2ReciveData(1)>>4);
 }
 
@@ -43,7 +43,7 @@ void Set_encoder_data(en_endir dir)
 uint8_t Runmode_check( enDCM_ID en_id )
 {
 	if(en_id == DCM_R){
-		if((en_Type == 6)||(((en_Type == 7)||(en_Type == 8)||(en_Type == 9))&&(en_Turntype == Right)) ){
+		if((en_Type == 6)||(((en_Type == 7)||(en_Type == 8)||(en_Type == 9))&&(en_TurnType == Right)) ){
 			return(0);
 		}
 		else{
@@ -51,7 +51,7 @@ uint8_t Runmode_check( enDCM_ID en_id )
 		}
 	}
 	else{
-		if((en_Type == 6)||(((en_Type == 7)||(en_Type == 8)||(en_Type == 9))&&(en_Turntype == Left)) ){
+		if((en_Type == 6)||(((en_Type == 7)||(en_Type == 8)||(en_Type == 9))&&(en_TurnType == Left)) ){
 			return(0);
 		}
 		else{
@@ -67,8 +67,8 @@ void ENC_GetDiv( int32_t* p_r, int32_t* p_l )
 	int32_t cntR_dif;
 	int32_t cntL_dif;
 //	recv_spi_encoder();
-	cntR_dif = ENC_R_CNT - ENC_R_CNT_old;
-	cntL_dif = ENC_L_CNT_old - ENC_L_CNT;
+	cntR_dif = ENC_R_CNT - ENC_R_CNT_Old;
+	cntL_dif = ENC_L_CNT_Old - ENC_L_CNT;
 
 	//モードを使って正逆をチェックして加算方法を決める
 	if(Runmode_check(DCM_R) == 1){	//正方向カウント
@@ -122,14 +122,14 @@ void ENC_GetDiv( int32_t* p_r, int32_t* p_l )
 	*p_r = cntR;		//2^12(4096) LSB/1回転
 	*p_l = cntL;
 
-	ENC_R_CNT_old = ENC_R_CNT;
-	ENC_L_CNT_old = ENC_L_CNT;
+	ENC_R_CNT_Old = ENC_R_CNT;
+	ENC_L_CNT_Old = ENC_L_CNT;
 }
 
 void ENC_setref(void)
 {
-	ENC_R_CNT_old = ENC_R_CNT;
-	ENC_L_CNT_old = ENC_L_CNT;
+	ENC_R_CNT_Old = ENC_R_CNT;
+	ENC_L_CNT_Old = ENC_L_CNT;
 }
 
 void ENC_print(void)

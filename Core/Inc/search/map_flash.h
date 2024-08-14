@@ -16,8 +16,8 @@
 #include "search/search.h"
 #endif
 
-void map_write(void);
-void map_copy(void);
-void map_erase(void);
+void Map_Write(void);
+void Map_Copy(void);
+void Map_Erase(void);
 
 #endif /* INC_SEARCH_MAP_FLASH_H_ */
