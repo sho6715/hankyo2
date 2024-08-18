@@ -193,7 +193,7 @@ void MODE_exe_m0( void )
 			MOT_setSuraStaSpeed( SEARCH_SPEED , SLA_45);
 			MOT_setSuraStaSpeed( SEARCH_SPEED , SLA_135);
 			MOT_setSuraStaSpeed( SEARCH_SPEED , SLA_N90);
-			PARAM_setSpeedType( PARAM_ST,   PARAM_VERY_FAST );							// [直進] 速度普�?
+			PARAM_setSpeedType( PARAM_ST,   PARAM_VERY_SLOW );							// [直進] 速度普�?
 			PARAM_setSpeedType( PARAM_TRUN, PARAM_VERY_SLOW );							// [旋回] 速度普�?
 			PARAM_setSpeedType( PARAM_SLA,  PARAM_VERY_SLOW );							// [スラ] 速度普�?
 			SetLED(0x00);
@@ -214,7 +214,7 @@ void MODE_exe_m0( void )
 			MOT_goSla(MOT_R135S_N2S,PARAM_getSra( SLA_135 ));
 			MOT_goBlock_FinSpeed(0.5, 0);
 */
-			MOT_goBlock_FinSpeed(15.0,0);
+			MOT_goBlock_FinSpeed(2.0,0);
 			log_flag_off();
 			break;
 

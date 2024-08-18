@@ -17,14 +17,14 @@ float			f_TrgtTime 			= 1000;		// operating target time [msec]	(set value)
 
 float			f_Jerk			= 0;
 float			f_BaseAcc		= 0;	//start accel
-float			f_LastAcc		= 0;	//last accel
-float			f_TrgtAcc			= 0;	//now accel
+volatile float			f_TrgtAcc			= 0;	//now accel
+float			f_LastAcc		= 0;
 // velocity control
 //float 			f_Acc			= 0;		// [velocity control]   acceleration[m/s2]	(set value)
 float			f_BaseSpeed		= 0;		// [velocity control]   initial velocity[m/s]	(set value)
 float			f_LastSpeed 		= 0;		// [velocity control]   last target velocity[m/s]	(set value)
 float			f_NowSpeed		= 0;		// [velocity control]   now velocity [m/s]	(updated 1[msec])
-float			f_TrgtSpeed 		= 0;		// [velocity control]   target velocity[m/s]		(updated 1[msec])
+volatile float			f_TrgtSpeed 		= 0;		// [velocity control]   target velocity[m/s]		(updated 1[msec])
 float			f_ErrSpeedBuf		= 0;		// [velocity control] 縲velocity error buffer	(updated 1[msec])
 float			f_SpeedErrSum 		= 0;		// [velocity control]   sum of velocity integral control	(updated 1[msec])
 
@@ -34,13 +34,17 @@ float			f_MotorL_AngleS = 0;
 // dist
 float			f_BaseDist		= 0;		// [dist]   initial distance[m]		(set value)
 float			f_LastDist 		= 0;		// [距離制御]   最終移動距離					（設定値）
-float			f_TrgtDist 		= 0;		// [距離制御]   目標移動距離					（1[msec]毎に更新される）
+volatile float			f_TrgtDist 		= 0;		// [距離制御]   目標移動距離					（1[msec]毎に更新される）
 volatile float 		f_NowDist		= 0;		// [距離制御]   現在距離						（1[msec]毎に更新される）
 float			f_NowDistR		= 0;		// [距離制御]   現在距離（右）					（1[msec]毎に更新される）
 float 			f_NowDistL		= 0;		// [距離制御]   現在距離（左）					（1[msec]毎に更新される）
 float			f_DistErrSum 		= 0;		// [距離制御]   距離積分制御のサム値			（1[msec]毎に更新される）
 
 float			f_JerkAngle		=0;
+
+
+
+
 // angular velocity control
 float 			f_AccAngleS		= 0;		// [angle velocity control] angular acceleration[rad/s2]	(set value)
 float			f_BaseAngleS		= 0;		// [angle velocity control] initial angular velocity[rad/s]		(set value)
@@ -211,12 +215,18 @@ void CTRL_setData( stCTRL_DATA* p_data )
 
 	f_Jerk					= p_data->f_ctrl_jerk;
 
+	f_TrgtAcc				= p_data->f_ctrl_nowAcc;
+	f_BaseAcc				= p_data->f_ctrl_nowAcc;
+	f_LastAcc				= p_data->f_ctrl_trgtAcc;
+
 	/* 速度制御 */
-	f_TrgtAcc 					= p_data->f_ctrl_acc;
+//	f_TrgtAcc 				= p_data->f_ctrl_acc;
+	f_TrgtSpeed				= p_data->f_ctrl_now;
 	f_BaseSpeed				= p_data->f_ctrl_now;
 	f_LastSpeed				= p_data->f_ctrl_trgt;
 
 	/* 距離制御 */
+	f_TrgtDist				= p_data->f_ctrl_nowDist;
 	f_BaseDist 				= p_data->f_ctrl_nowDist;
 	f_LastDist 				= p_data->f_ctrl_dist;
 
@@ -270,17 +280,26 @@ void CTRL_refTarget( void )
 		/* acc(straight) */
 		case CTRL_ACC:
 		case CTRL_SKEW_ACC:
+			f_TrgtAcc += f_Jerk*0.001;
 
-			if( f_TrgtAcc < f_TrgtAcc){
-
+			if(f_BaseAcc > 0){
+				if(f_TrgtAcc < 0.0){
+					f_TrgtAcc = 0.0;
+				}
+			}else{
+				if(f_TrgtAcc > f_LastAcc){
+					f_TrgtAcc = f_LastAcc;
+				}
 			}
 
 			if( f_TrgtSpeed < (f_LastSpeed -(f_TrgtAcc * 0.001)) ){								// 加速目標更新区間
-				f_TrgtSpeed = f_BaseSpeed + f_TrgtAcc * f_Time;									// 目標速度
+//			if( f_TrgtSpeed < f_LastSpeed ){
+				f_TrgtSpeed += f_TrgtAcc * 0.001;									// 目標速度
 			}
 			else{
 				f_TrgtSpeed = f_LastSpeed;
 			}
+
 			break;
 
 		/* const(straight) */
@@ -292,10 +311,23 @@ void CTRL_refTarget( void )
 		/* dec(straight) */
 		case CTRL_DEC:
 		case CTRL_SKEW_DEC:
+			f_TrgtAcc += f_Jerk*0.001;
+
+			if(f_BaseAcc < 0){
+				if(f_TrgtAcc > 0.0){
+					f_TrgtAcc = 0.0;
+				}
+			}else{
+				if(f_TrgtAcc < f_LastAcc){
+					f_TrgtAcc = f_LastAcc;
+				}
+			}
+
 			/* speed CTRL + position CTRL */
 			if( f_TrgtSpeed > (f_LastSpeed +(f_TrgtAcc * 0.001))){								// 減速目標更新区間
-				f_TrgtSpeed = f_BaseSpeed - f_TrgtAcc * f_Time;									// 目標速度
-				f_TrgtDist  = f_BaseDist + ( f_BaseSpeed + f_TrgtSpeed ) * f_Time / 2;		// 目標距離
+//			if( f_TrgtSpeed > f_LastSpeed){								// 減速目標更新区間
+				f_TrgtSpeed += f_TrgtAcc * 0.001;									// 目標速度
+				f_TrgtDist  += f_TrgtSpeed * 0.001;		// 目標距離
 			}
 			/* position CTRL */
 			else{
@@ -547,7 +579,7 @@ void CTRL_getFF_speed( float* p_err )
 		case CTRL_DEC_TRUN:
 		case CTRL_DEC_SURA:
 		case CTRL_HIT_WALL:
-			*p_err = f_TrgtAcc * (-1.0);
+			*p_err = f_TrgtAcc;
 			break;
 
 		// 加速以外 
@@ -1093,10 +1125,10 @@ void CTRL_pol( void )
 	Duty_L = f_duty10_L;
 	Duty_R = f_duty10_R;
 
-	TempLog1 = f_AngleSErrSum;//TR;//f_floorfriction;//f_duty10_R;
-	TempLog2 = Duty_L;//f_angleSpeedCtrl;//TL;//f_duty10_L;
-	TempLog3 = Duty_R;//f_floorfriction;//f_feedFoard_angle*(-1.0);
-	TempLog4 = f_angleSpeedCtrl;//f_floorfriction;//INERTIA*(f_feedFoard_angle*(-1.0) + f_angleSpeedCtrl+f_angleCtrl)+f_floorfriction * 1000000.0;
+	TempLog1 = f_feedFoard_speed;//f_AngleSErrSum;//TR;//f_floorfriction;//f_duty10_R;
+	TempLog2 = f_speedCtrl;//f_angleSpeedCtrl;//TL;//f_duty10_L;
+	TempLog3 = f_SpeedErrSum;//f_floorfriction;//f_feedFoard_angle*(-1.0);
+//	TempLog4 = f_duty10_L;//f_floorfriction;//INERTIA*(f_feedFoard_angle*(-1.0) + f_angleSpeedCtrl+f_angleCtrl)+f_floorfriction * 1000000.0;
 
 	EscapeWait = EscapeWait+0.001;
 	CTRL_outMot( f_duty10_R, f_duty10_L );				// モータへ出力

@@ -28,23 +28,37 @@ typedef struct{
 
 	float			f_mot_time;			// 時間					[msec]
 	/* 加速度制御 */
-	float			f_mot_trgtacc1;
-	float			f_mot_trgtacc3;
 	float			f_mot_jerk;
+	float			f_mot_trgtAcc1;
+	float			f_mot_trgtAcc3;
+	float			f_mot_nowAcc;
+	float			f_mot_trgtAcc;
+	float			f_mot_lastAcc;
 
 	/* 速度制御 */
-	float			f_mot_acc1;			// [m/s2]
-	float			f_mot_acc3;			// [m/s2]
+//	float			f_mot_acc1;			// [m/s2]
+//	float			f_mot_acc3;			// [m/s2]
 	float			f_mot_now;			// [m/s]
 	float			f_mot_trgt;			// [m/s]
 	float			f_mot_last;			// [m/s]
 
+	float			f_mot_accjerk_v;
+
 	/* 距離制御 */
 	float			f_mot_dist;			// 移動距離				[m]
 	float			f_mot_l1;			// 第1移動距離			[m]
+	float			f_mot_l1_accjerk;	//　第1移動プラスジャーク
+	float			f_mot_l1_accconst;	//　第1移動一定ジャーク
+	float			f_mot_l1_decjerk;	//　第1移動マイナスジャーク
 	float			f_mot_l1_2;			// 第1+2移動距離		[m]
+	float			f_mot_l3_decjerk;	//　第3移動マイナスジャーク
+	float			f_mot_l3_decconst;	//　第3移動一定ジャーク
+	float			f_mot_l3_accjerk;	//　第3移動プラスジャーク
 
 	float			f_mot_jerkAngle;
+
+
+
 	
 	/* 角速度制御 */
 	float			f_mot_accAngleS1;	// 角加速度1			[rad/s2]
@@ -83,13 +97,15 @@ float MOT_getAcc3( void )
 	return PARAM_getSpeed( PARAM_ST )->f_speed_dec;
 }
 
-float MOT_getjerk( void )
+float MOT_getJerk( void )
 {
 	return PARAM_getSpeed( PARAM_ST )->f_speed_jerk;
 }
 
 void MOT_goBlock_AccConstDec( float f_fin, enMOT_ST_TYPE en_type, enMOT_GO_ST_TYPE en_goType )
 {
+
+	TempLog4 = 0;
 
 	stCTRL_DATA		st_data;					// CTRLdata
 	GYRO_staErrChkAngle();
@@ -98,7 +114,7 @@ void MOT_goBlock_AccConstDec( float f_fin, enMOT_ST_TYPE en_type, enMOT_GO_ST_TY
 	/*      motion      */
 	/* ================ */
 	/* ------ */
-	/*  acc   */
+	/*  acc+jerk   */
 	/* ------ */
 	if( ( en_type != MOT_CONST_DEC ) && ( en_type != MOT_CONST_DEC_CUSTOM ) ){
 
@@ -109,12 +125,13 @@ void MOT_goBlock_AccConstDec( float f_fin, enMOT_ST_TYPE en_type, enMOT_GO_ST_TY
 			st_data.en_ctrl_type		= CTRL_SKEW_ACC;
 		}
 		st_data.f_ctrl_jerk			= st_Info.f_mot_jerk;
-		st_data.f_ctrl_acc			= st_Info.f_mot_acc1;		// 加速度指定
+		st_data.f_ctrl_trgtAcc		= st_Info.f_mot_trgtAcc1;		// 加速度指定
+		st_data.f_ctrl_nowAcc		= 0;
 		st_data.f_ctrl_now			= st_Info.f_mot_now;		// 現在速度
 		st_data.f_ctrl_trgt			= st_Info.f_mot_trgt;		// 目標速度
 		st_data.f_ctrl_nowDist		= 0;				// 進んでいない
-		st_data.f_ctrl_dist			= st_Info.f_mot_l1;			// 加速距離
-		st_data.f_ctrl_jerkAngle		= st_Info.f_mot_jerkAngle;
+		st_data.f_ctrl_dist			= st_Info.f_mot_l1_accjerk;			// 加速距離
+		st_data.f_ctrl_jerkAngle		= 0;
 		st_data.f_ctrl_accAngleS		= 0;				// 角加速度
 		st_data.f_ctrl_nowAngleS		= 0;				// 現在角速度
 		st_data.f_ctrl_trgtAngleS		= 0;				// 目標角度
@@ -122,6 +139,62 @@ void MOT_goBlock_AccConstDec( float f_fin, enMOT_ST_TYPE en_type, enMOT_GO_ST_TY
 		st_data.f_ctrl_angle			= 0;				// 目標角度
 		st_data.f_ctrl_time 			= 0;				// 目標時間 [sec] ← 指定しない
 		CTRL_clrData();								// 設定データをクリア
+		CTRL_setData( &st_data );						// データセット
+		DCM_staMotAll();							// モータON
+		while( Get_NowDist() < st_Info.f_mot_l1_accjerk ){					// 指定距離到達待ち
+			if( SYS_isOutOfCtrl() == TRUE ){
+				CTRL_stop();
+				DCM_brakeMot( DCM_R );		
+				DCM_brakeMot( DCM_L );		
+				break;
+			}				
+			MOT_setWallEdgeDist();
+
+		}
+		//acc
+		st_data.f_ctrl_jerk			= 0;
+		st_data.f_ctrl_trgtAcc		= st_Info.f_mot_trgtAcc1;		// 加速度指定
+		st_data.f_ctrl_nowAcc		= st_Info.f_mot_trgtAcc1;
+		st_data.f_ctrl_now			= st_Info.f_mot_accjerk_v;		// 現在速度
+		st_data.f_ctrl_trgt			= st_Info.f_mot_trgt;		// 目標速度
+		st_data.f_ctrl_nowDist		= st_Info.f_mot_l1_accjerk;				// 進んでいない
+		st_data.f_ctrl_dist			= st_Info.f_mot_l1_accjerk+st_Info.f_mot_l1_accconst;			// 加速距離
+		st_data.f_ctrl_jerkAngle		= 0;
+		st_data.f_ctrl_accAngleS		= 0;				// 角加速度
+		st_data.f_ctrl_nowAngleS		= 0;				// 現在角速度
+		st_data.f_ctrl_trgtAngleS		= 0;				// 目標角度
+		st_data.f_ctrl_nowAngle		= 0;				// 現在角度
+		st_data.f_ctrl_angle			= 0;				// 目標角度
+		st_data.f_ctrl_time 			= 0;				// 目標時間 [sec] ← 指定しない
+//		CTRL_clrData();								// 設定データをクリア
+		CTRL_setData( &st_data );						// データセット
+		DCM_staMotAll();							// モータON
+		while( Get_NowDist() < (st_Info.f_mot_l1_accjerk + st_Info.f_mot_l1_accconst)){					// 指定距離到達待ち
+			if( SYS_isOutOfCtrl() == TRUE ){
+				CTRL_stop();
+				DCM_brakeMot( DCM_R );		
+				DCM_brakeMot( DCM_L );		
+				break;
+			}				
+			MOT_setWallEdgeDist();
+
+		}
+		//acc - jerk
+		st_data.f_ctrl_jerk			= st_Info.f_mot_jerk*(-1.0);
+		st_data.f_ctrl_trgtAcc		= 0;		// 加速度指定
+		st_data.f_ctrl_nowAcc		= st_Info.f_mot_trgtAcc1;
+		st_data.f_ctrl_now			= st_Info.f_mot_trgt-st_Info.f_mot_accjerk_v;		// 現在速度
+		st_data.f_ctrl_trgt			= st_Info.f_mot_trgt;		// 目標速度
+		st_data.f_ctrl_nowDist		= st_Info.f_mot_l1_accjerk + st_Info.f_mot_l1_accconst;				
+		st_data.f_ctrl_dist			= st_Info.f_mot_l1;			// 加速距離
+		st_data.f_ctrl_jerkAngle		= 0;
+		st_data.f_ctrl_accAngleS		= 0;				// 角加速度
+		st_data.f_ctrl_nowAngleS		= 0;				// 現在角速度
+		st_data.f_ctrl_trgtAngleS		= 0;				// 目標角度
+		st_data.f_ctrl_nowAngle		= 0;				// 現在角度
+		st_data.f_ctrl_angle			= 0;				// 目標角度
+		st_data.f_ctrl_time 			= 0;				// 目標時間 [sec] ← 指定しない
+//		CTRL_clrData();								// 設定データをクリア
 		CTRL_setData( &st_data );						// データセット
 		DCM_staMotAll();							// モータON
 		while( Get_NowDist() < st_Info.f_mot_l1 ){					// 指定距離到達待ち
@@ -132,6 +205,7 @@ void MOT_goBlock_AccConstDec( float f_fin, enMOT_ST_TYPE en_type, enMOT_GO_ST_TY
 				break;
 			}				
 			MOT_setWallEdgeDist();
+
 		}
 
 	}
@@ -146,7 +220,8 @@ void MOT_goBlock_AccConstDec( float f_fin, enMOT_ST_TYPE en_type, enMOT_GO_ST_TY
 		st_data.en_ctrl_type		= CTRL_SKEW_CONST;
 	}
 	st_data.f_ctrl_jerk			= 0;
-	st_data.f_ctrl_acc			= 0;					// 加速度指定
+	st_data.f_ctrl_trgtAcc		= 0;		// 加速度指定
+	st_data.f_ctrl_nowAcc		= 0;
 	st_data.f_ctrl_now			= st_Info.f_mot_trgt;			// 現在速度
 	st_data.f_ctrl_trgt			= st_Info.f_mot_trgt;			// 目標速度
 	st_data.f_ctrl_nowDist		= st_Info.f_mot_l1;				// 現在位置
@@ -170,11 +245,14 @@ void MOT_goBlock_AccConstDec( float f_fin, enMOT_ST_TYPE en_type, enMOT_GO_ST_TY
 			break;
 		}				
 		MOT_setWallEdgeDist();
+
 	}
 
 	/* ------ */
-	/*  dec   */
+	/*  dec - jerk  */
 	/* ------ */
+	TempLog4 = 1;
+
 	if( ( en_type != MOT_ACC_CONST ) && ( en_type != MOT_ACC_CONST_CUSTOM ) ){
 
 		if( MOT_GO_ST_NORMAL == en_goType ){
@@ -183,13 +261,70 @@ void MOT_goBlock_AccConstDec( float f_fin, enMOT_ST_TYPE en_type, enMOT_GO_ST_TY
 		else{
 			st_data.en_ctrl_type		= CTRL_SKEW_DEC;
 		}
-		st_data.f_ctrl_jerk			= st_Info.f_mot_jerk;
-		st_data.f_ctrl_acc			= st_Info.f_mot_acc3;			// 減速
+		st_data.f_ctrl_jerk			= st_Info.f_mot_jerk*(-1.0) ;
+		st_data.f_ctrl_trgtAcc		= st_Info.f_mot_trgtAcc3*(-1.0);		// 減速
+		st_data.f_ctrl_nowAcc		= 0;
 		st_data.f_ctrl_now			= st_Info.f_mot_trgt;			// 現在速度
-		st_data.f_ctrl_trgt			= st_Info.f_mot_last;			// 最終速度
+		st_data.f_ctrl_trgt			= st_Info.f_mot_trgt - st_Info.f_mot_accjerk_v;			// 最終速度
 		st_data.f_ctrl_nowDist		= st_Info.f_mot_l1_2;			// 等速完了位置
+		st_data.f_ctrl_dist			= st_Info.f_mot_l1_2 + st_Info.f_mot_l3_decjerk;			// 全移動完了位置
+		st_data.f_ctrl_jerkAngle		= 0;
+		st_data.f_ctrl_accAngleS		= 0;						// 角加速度
+		st_data.f_ctrl_nowAngleS		= 0;						// 現在角速度
+		st_data.f_ctrl_trgtAngleS		= 0;						// 目標角度
+		st_data.f_ctrl_nowAngle		= 0;						// 現在角度
+		st_data.f_ctrl_angle			= 0;						// 目標角度
+		st_data.f_ctrl_time 			= 0;						// 目標時間 [sec] ← 指定しない
+		CTRL_setData( &st_data );							// データセット
+		while( Get_NowDist() < ( st_Info.f_mot_l1_2 + st_Info.f_mot_l3_decjerk ) ){		// 指定距離到達待ち
+			if( SYS_isOutOfCtrl() == TRUE ){
+				CTRL_stop();
+				DCM_brakeMot( DCM_R );		
+				DCM_brakeMot( DCM_L );		
+				break;
+			}				
+			MOT_setWallEdgeDist();
+
+		}
+	TempLog4 = 2;
+
+		//dec
+		st_data.f_ctrl_jerk			= 0 ;
+		st_data.f_ctrl_trgtAcc		= st_Info.f_mot_trgtAcc3*(-1.0);		// 減速
+		st_data.f_ctrl_nowAcc		= st_Info.f_mot_trgtAcc3*(-1.0);
+		st_data.f_ctrl_now			= st_Info.f_mot_trgt - st_Info.f_mot_accjerk_v;			// 現在速度
+		st_data.f_ctrl_trgt			= st_Info.f_mot_last + st_Info.f_mot_accjerk_v;			// 最終速度
+		st_data.f_ctrl_nowDist		= st_Info.f_mot_l1_2 + st_Info.f_mot_l3_decjerk;			// 等速完了位置
+		st_data.f_ctrl_dist			= st_Info.f_mot_dist - st_Info.f_mot_l3_accjerk;			// 全移動完了位置
+		st_data.f_ctrl_jerkAngle		= 0;
+		st_data.f_ctrl_accAngleS		= 0;						// 角加速度
+		st_data.f_ctrl_nowAngleS		= 0;						// 現在角速度
+		st_data.f_ctrl_trgtAngleS		= 0;						// 目標角度
+		st_data.f_ctrl_nowAngle		= 0;						// 現在角度
+		st_data.f_ctrl_angle			= 0;						// 目標角度
+		st_data.f_ctrl_time 			= 0;						// 目標時間 [sec] ← 指定しない
+		CTRL_setData( &st_data );							// データセット
+		while( Get_NowDist() < ( st_Info.f_mot_dist - st_Info.f_mot_l3_accjerk ) ){		// 指定距離到達待ち
+			if( SYS_isOutOfCtrl() == TRUE ){
+				CTRL_stop();
+				DCM_brakeMot( DCM_R );		
+				DCM_brakeMot( DCM_L );		
+				break;
+			}				
+			MOT_setWallEdgeDist();
+
+		}
+	TempLog4 = 3;
+
+		//dec + accjerk
+		st_data.f_ctrl_jerk			= st_Info.f_mot_jerk ;
+		st_data.f_ctrl_trgtAcc		= 0;		// 減速
+		st_data.f_ctrl_nowAcc		= st_Info.f_mot_trgtAcc3*(-1.0);
+		st_data.f_ctrl_now			= st_Info.f_mot_last + st_Info.f_mot_accjerk_v;			// 現在速度
+		st_data.f_ctrl_trgt			= st_Info.f_mot_last;			// 最終速度
+		st_data.f_ctrl_nowDist		= st_Info.f_mot_dist - st_Info.f_mot_l3_accjerk;			// 等速完了位置
 		st_data.f_ctrl_dist			= st_Info.f_mot_dist;			// 全移動完了位置
-		st_data.f_ctrl_jerkAngle		= st_Info.f_mot_jerkAngle;
+		st_data.f_ctrl_jerkAngle		= 0;
 		st_data.f_ctrl_accAngleS		= 0;						// 角加速度
 		st_data.f_ctrl_nowAngleS		= 0;						// 現在角速度
 		st_data.f_ctrl_trgtAngleS		= 0;						// 目標角度
@@ -205,6 +340,7 @@ void MOT_goBlock_AccConstDec( float f_fin, enMOT_ST_TYPE en_type, enMOT_GO_ST_TY
 				break;
 			}				
 			MOT_setWallEdgeDist();
+
 			if((EscapeWait>2.0)&&(SearchFlag == TRUE))break;
 		}
 
@@ -217,7 +353,8 @@ void MOT_goBlock_AccConstDec( float f_fin, enMOT_ST_TYPE en_type, enMOT_GO_ST_TY
 	if( ( en_WallEdge != MOT_WALL_EDGE_NONE ) && ( bl_IsWallEdge == FALSE )  ){
 		st_data.en_ctrl_type			= CTRL_CONST;
 		st_data.f_ctrl_jerk			= 0;
-		st_data.f_ctrl_acc			= 0;						// 加速度指定
+		st_data.f_ctrl_trgtAcc		= 0;		// 加速度指定
+		st_data.f_ctrl_nowAcc		= 0;
 		st_data.f_ctrl_now			= st_Info.f_mot_last;			// 現在速度
 		st_data.f_ctrl_trgt			= st_Info.f_mot_last;			// 目標速度
 		st_data.f_ctrl_nowDist		= Get_NowDist();				// 現在位置
@@ -248,7 +385,8 @@ void MOT_goBlock_AccConstDec( float f_fin, enMOT_ST_TYPE en_type, enMOT_GO_ST_TY
 	){
 		st_data.en_ctrl_type			= CTRL_CONST;
 		st_data.f_ctrl_jerk			= 0;
-		st_data.f_ctrl_acc			= 0;						// 加速度指定
+		st_data.f_ctrl_trgtAcc		= 0;		// 加速度指定
+		st_data.f_ctrl_nowAcc		= 0;
 		st_data.f_ctrl_now			= st_Info.f_mot_last;			// 現在速度
 		st_data.f_ctrl_trgt			= st_Info.f_mot_last;			// 目標速度
 		st_data.f_ctrl_nowDist		= 0;						// 現在位置
@@ -291,8 +429,7 @@ void MOT_setData_ACC_CONST_DEC( float f_num, float f_fin, enMOT_GO_ST_TYPE en_ty
 	float			f_l3;						// 第3移動距離[m]
 	float			f_1blockDist;				// 1区画の距離[m]
 
-	float			f_acc_l1;
-	float			f_acc_v1;
+	float			f_accTime;
 
 	/* 1区画の距離 */
 	if( MOT_GO_ST_NORMAL == en_type ){		// 通常の直進
@@ -302,11 +439,11 @@ void MOT_setData_ACC_CONST_DEC( float f_num, float f_fin, enMOT_GO_ST_TYPE en_ty
 		f_1blockDist = BLOCK_SKEW;
 	}
 	//jerk
-	st_Info.f_mot_jerk		= MOT_getjerk();
+	st_Info.f_mot_jerk		= MOT_getJerk();
 
 	/* 加速度 */
-	st_Info.f_mot_acc1 		= MOT_getAcc1();								// 加速度1[mm/s^2]
-	st_Info.f_mot_acc3 		= MOT_getAcc3();								// 加速度3[mm/s^2]
+	st_Info.f_mot_trgtAcc1 		= MOT_getAcc1();								// 加速度1[mm/s^2]
+	st_Info.f_mot_trgtAcc3 		= MOT_getAcc3();								// 加速度3[mm/s^2]
 
 	/* 速度 */
 	st_Info.f_mot_now		= f_MotNowSpeed;								// 現在速度
@@ -316,12 +453,23 @@ void MOT_setData_ACC_CONST_DEC( float f_num, float f_fin, enMOT_GO_ST_TYPE en_ty
 	/* 距離 */
 	st_Info.f_mot_dist		= f_num * f_1blockDist;	
 
-	f_acc_l1			= 1.0/6.0*st_Info.f_mot_jerk*(st_Info.f_mot_acc1/st_Info.f_mot_jerk)*(st_Info.f_mot_acc1/st_Info.f_mot_jerk);//加速度に到達するまでの距離											// 移動距離[m]
-	f_acc_v1			= st_Info.f_mot_jerk*(st_Info.f_mot_acc1/st_Info.f_mot_jerk);
-	st_Info.f_mot_l1		= f_acc_l1 + ((f_MotTrgtSpeed-f_acc_v1)*(f_MotTrgtSpeed-f_acc_v1)-(f_MotNowSpeed+f_acc_v1)*(f_MotNowSpeed+f_acc_v1))/( st_Info.f_mot_acc1 * 2.0 );
+	f_accTime	= st_Info.f_mot_trgtAcc1/st_Info.f_mot_jerk;
+
+	st_Info.f_mot_l1_accjerk	= 1.0/6.0*st_Info.f_mot_jerk*f_accTime*f_accTime*f_accTime + f_MotNowSpeed*f_accTime;//加速度に到達するまでの距離											// 移動距離[m]
+	st_Info.f_mot_l1_decjerk	= 1.0/6.0*st_Info.f_mot_jerk*f_accTime*f_accTime*f_accTime + st_Info.f_mot_trgt*f_accTime;
+	st_Info.f_mot_accjerk_v	= 1.0/2.0*st_Info.f_mot_jerk*f_accTime*f_accTime;//加速度到達時の速度
+	st_Info.f_mot_l1_accconst	= ((f_MotTrgtSpeed-st_Info.f_mot_accjerk_v)*(f_MotTrgtSpeed-st_Info.f_mot_accjerk_v)
+									-(f_MotNowSpeed+st_Info.f_mot_accjerk_v)*(f_MotNowSpeed+st_Info.f_mot_accjerk_v))
+									/( st_Info.f_mot_trgtAcc1 * 2.0 );
+	st_Info.f_mot_l1	= st_Info.f_mot_l1_accjerk + st_Info.f_mot_l1_decjerk + st_Info.f_mot_l1_accconst;
 //	st_Info.f_l1		= ( f_MotTrgtSpeed * f_MotTrgtSpeed - f_MotNowSpeed * f_MotNowSpeed ) / ( st_Info.f_acc1 * 2.0 );			// 第1移動距離[m]
 
-	f_l3				=  f_acc_l1 +( (f_fin+f_acc_v1) * (f_fin+f_acc_v1) - (f_MotTrgtSpeed-f_acc_v1) * (f_MotTrgtSpeed-f_acc_v1) ) / ( ( st_Info.f_mot_acc3 * -1.0 ) * 2.0 );	
+	st_Info.f_mot_l3_decjerk	= 1.0/6.0*st_Info.f_mot_jerk*(-1.0)*f_accTime*f_accTime*f_accTime + st_Info.f_mot_trgt*f_accTime;
+	st_Info.f_mot_l3_accjerk	= 1.0/6.0*st_Info.f_mot_jerk*(-1.0)*f_accTime*f_accTime*f_accTime + f_fin*f_accTime;//減速は加速度同様にする前提処理
+	st_Info.f_mot_l3_decconst	= ( (f_fin+st_Info.f_mot_accjerk_v) * (f_fin+st_Info.f_mot_accjerk_v)
+									 - (f_MotTrgtSpeed-st_Info.f_mot_accjerk_v) * (f_MotTrgtSpeed-st_Info.f_mot_accjerk_v) ) 
+									/ ( st_Info.f_mot_trgtAcc3 * (-1.0 ) * 2.0 );
+	f_l3				=  st_Info.f_mot_l3_decjerk + st_Info.f_mot_l3_accjerk + st_Info.f_mot_l3_decconst;	
 //	f_l3			= ( f_fin * f_fin - f_MotTrgtSpeed * f_MotTrgtSpeed ) / ( ( st_Info.f_acc3 * -1.0 ) * 2.0 );			// 第3移動距離[m]
 	st_Info.f_mot_l1_2		= st_Info.f_mot_dist - f_l3;											// 第1+2移動距離[m]
 
@@ -333,6 +481,8 @@ void MOT_setData_MOT_ACC_CONST_DEC_CUSTOM( float f_num, float f_fin, enMOT_GO_ST
 	float			f_l3;						// 第3移動距離[m]
 	float			f_1blockDist;				// 1区画の距離[m]
 
+	float			f_accTime;
+
 	/* 1区画の距離 */
 	if( MOT_GO_ST_NORMAL == en_type ){		// 通常の直進
 		f_1blockDist = BLOCK;
@@ -341,11 +491,11 @@ void MOT_setData_MOT_ACC_CONST_DEC_CUSTOM( float f_num, float f_fin, enMOT_GO_ST
 		f_1blockDist = BLOCK_SKEW;
 	}
 	//jerk
-	st_Info.f_mot_jerk		= MOT_getjerk();
+	st_Info.f_mot_jerk		= MOT_getJerk();
 
 	/* 加速度 */
-	st_Info.f_mot_acc1 		= MOT_getAcc1();								// 加速度1[mm/s^2]
-	st_Info.f_mot_acc3 		= MOT_getAcc3();								// 加速度3[mm/s^2]
+	st_Info.f_mot_trgtAcc1 		= MOT_getAcc1();								// 加速度1[mm/s^2]
+	st_Info.f_mot_trgtAcc3 		= MOT_getAcc3();								// 加速度3[mm/s^2]
 
 
 	/* 距離 */
@@ -354,12 +504,35 @@ void MOT_setData_MOT_ACC_CONST_DEC_CUSTOM( float f_num, float f_fin, enMOT_GO_ST
 	/* 速度 */
 	st_Info.f_mot_now		= f_MotNowSpeed;												// 現在速度
 	st_Info.f_mot_last		= f_fin;													// 最終速度
-	st_Info.f_mot_trgt		= sqrt( 1.0 / ( ( st_Info.f_mot_acc3 * -1.0 ) - st_Info.f_mot_acc1 ) *
-					( 2.0 * st_Info.f_mot_acc1 * ( st_Info.f_mot_acc3 * -1.0 ) * ( st_Info.f_mot_dist - MOT_MOVE_ST_MIN ) +
-					( st_Info.f_mot_acc3 * -1.0 ) * f_MotNowSpeed * f_MotNowSpeed - st_Info.f_mot_acc1 * f_fin * f_fin ) );
-
+/*	st_Info.f_mot_trgt		= sqrt( 1.0 / ( ( st_Info.f_mot_acc3 * -1.0 ) - st_Info.f_mot_acc1 ) *
+								( 2.0 * st_Info.f_mot_acc1 * ( st_Info.f_mot_acc3 * -1.0 ) * ( st_Info.f_mot_dist - MOT_MOVE_ST_MIN ) +
+								( st_Info.f_mot_acc3 * -1.0 ) * f_MotNowSpeed * f_MotNowSpeed - st_Info.f_mot_acc1 * f_fin * f_fin ) );
+*/
+	st_Info.f_mot_trgt		= sqrt(1.0/(st_Info.f_mot_trgtAcc1/st_Info.f_mot_trgtAcc3)
+									*st_Info.f_mot_jerk*(2.0*( st_Info.f_mot_dist - MOT_MOVE_ST_MIN )
+									+(f_MotNowSpeed * f_MotNowSpeed/st_Info.f_mot_trgtAcc1)+(f_fin*f_fin/st_Info.f_mot_trgtAcc3)));
+/*
 	st_Info.f_mot_l1		= ( st_Info.f_mot_trgt * st_Info.f_mot_trgt - f_MotNowSpeed * f_MotNowSpeed ) / ( st_Info.f_mot_acc1 * 2.0 );			// 第1移動距離[m]
-	f_l3			= ( f_fin * f_fin - st_Info.f_mot_trgt * st_Info.f_mot_trgt ) / ( ( st_Info.f_mot_acc3  * -1.0 ) * 2.0 );			// 第3移動距離[m]
+	f_l3					= ( f_fin * f_fin - st_Info.f_mot_trgt * st_Info.f_mot_trgt ) / ( ( st_Info.f_mot_acc3  * -1.0 ) * 2.0 );			// 第3移動距離[m]
+	st_Info.f_mot_l1_2		= st_Info.f_mot_dist - f_l3;											// 第1+2移動距離[m]
+*/
+
+	f_accTime	= st_Info.f_mot_trgtAcc1/st_Info.f_mot_jerk;
+
+	st_Info.f_mot_l1_accjerk	= 1.0/6.0*st_Info.f_mot_jerk*f_accTime*f_accTime*f_accTime + f_MotNowSpeed*f_accTime;//加速度に到達するまでの距離											// 移動距離[m]
+	st_Info.f_mot_l1_decjerk	= 1.0/6.0*st_Info.f_mot_jerk*f_accTime*f_accTime*f_accTime + st_Info.f_mot_trgt*f_accTime;
+	st_Info.f_mot_accjerk_v		= 1.0/2.0*st_Info.f_mot_jerk*f_accTime*f_accTime;//加速度到達時の速度
+	st_Info.f_mot_l1_accconst	= ((f_MotTrgtSpeed-st_Info.f_mot_accjerk_v)*(f_MotTrgtSpeed-st_Info.f_mot_accjerk_v)
+									-(f_MotNowSpeed+st_Info.f_mot_accjerk_v)*(f_MotNowSpeed+st_Info.f_mot_accjerk_v))
+									/( st_Info.f_mot_trgtAcc1 * 2.0 );
+	st_Info.f_mot_l1	= st_Info.f_mot_l1_accjerk + st_Info.f_mot_l1_decjerk + st_Info.f_mot_l1_accconst;
+
+	st_Info.f_mot_l3_decjerk	= 1.0/6.0*st_Info.f_mot_jerk*(-1.0)*f_accTime*f_accTime*f_accTime + st_Info.f_mot_trgt*f_accTime;
+	st_Info.f_mot_l3_accjerk	= 1.0/6.0*st_Info.f_mot_jerk*(-1.0)*f_accTime*f_accTime*f_accTime + f_fin*f_accTime;//減速は加速度同様にする前提処理
+	st_Info.f_mot_l3_decconst	= ( (f_fin+st_Info.f_mot_accjerk_v) * (f_fin+st_Info.f_mot_accjerk_v)
+									- (f_MotTrgtSpeed-st_Info.f_mot_accjerk_v) * (f_MotTrgtSpeed-st_Info.f_mot_accjerk_v) ) 
+									/ (  st_Info.f_mot_trgtAcc3 * (-1.0 ) * 2.0 );
+	f_l3				=  st_Info.f_mot_l3_decjerk + st_Info.f_mot_l3_accjerk + st_Info.f_mot_l3_decconst;
 	st_Info.f_mot_l1_2		= st_Info.f_mot_dist - f_l3;											// 第1+2移動距離[m]
 
 //	printf("2 %f,%f,%f,%f\r",st_Info.f_trgt,st_Info.f_l1,f_fin,f_MotNowSpeed);
@@ -368,6 +541,7 @@ void MOT_setData_MOT_ACC_CONST_DEC_CUSTOM( float f_num, float f_fin, enMOT_GO_ST
 void MOT_setData_MOT_ACC_CONST( float f_num, float f_fin, enMOT_GO_ST_TYPE en_type )
 {
 	float			f_1blockDist;				// 1区画の距離[m]
+	float           f_accTime;
 
 	/* 1区画の距離 */
 	if( MOT_GO_ST_NORMAL == en_type ){		// 通常の直進
@@ -377,11 +551,11 @@ void MOT_setData_MOT_ACC_CONST( float f_num, float f_fin, enMOT_GO_ST_TYPE en_ty
 		f_1blockDist = BLOCK_SKEW;
 	}
 	//jerk
-	st_Info.f_mot_jerk		= MOT_getjerk();
+	st_Info.f_mot_jerk		= MOT_getJerk();
 
 	/* 加速度 */
-	st_Info.f_mot_acc1 		= MOT_getAcc1();													// 加速度1[mm/s^2]
-	st_Info.f_mot_acc3 		= 0;																// 加速度3[mm/s^2](未使用)
+	st_Info.f_mot_trgtAcc1 		= MOT_getAcc1();													// 加速度1[mm/s^2]
+	st_Info.f_mot_trgtAcc3 		= 0;																// 加速度3[mm/s^2](未使用)
 
 	/* 速度 */
 	st_Info.f_mot_now		= f_MotNowSpeed;													// 現在速度
@@ -390,13 +564,25 @@ void MOT_setData_MOT_ACC_CONST( float f_num, float f_fin, enMOT_GO_ST_TYPE en_ty
 
 	/* 距離 */
 	st_Info.f_mot_dist		= f_num * f_1blockDist;												// 移動距離[m]
-	st_Info.f_mot_l1		= ( f_fin * f_fin - f_MotNowSpeed * f_MotNowSpeed ) / ( st_Info.f_mot_acc1 * 2.0 );			// 第1移動距離[m]
-	st_Info.f_mot_l1_2		= st_Info.f_mot_dist;													// 第1+2移動距離[m]
+//	st_Info.f_mot_l1		= ( f_fin * f_fin - f_MotNowSpeed * f_MotNowSpeed ) / ( st_Info.f_mot_acc1 * 2.0 );			// 第1移動距離[m]
+
+	f_accTime   = st_Info.f_mot_trgtAcc1/st_Info.f_mot_jerk;
+    st_Info.f_mot_l1_accjerk    = 1.0/6.0*st_Info.f_mot_jerk*f_accTime*f_accTime*f_accTime + f_MotNowSpeed*f_accTime;//加速度に到達するまでの距離                                          // 移動距離[m]
+    st_Info.f_mot_l1_decjerk    = 1.0/6.0*st_Info.f_mot_jerk*f_accTime*f_accTime*f_accTime + st_Info.f_mot_trgt*f_accTime;
+    st_Info.f_mot_accjerk_v  	= 1.0/2.0*st_Info.f_mot_jerk*f_accTime*f_accTime;//加速度到達時の速度
+    st_Info.f_mot_l1_accconst   = ((f_MotTrgtSpeed-st_Info.f_mot_accjerk_v)*(f_MotTrgtSpeed-st_Info.f_mot_accjerk_v)
+									-(f_MotNowSpeed+st_Info.f_mot_accjerk_v)*(f_MotNowSpeed+st_Info.f_mot_accjerk_v))
+                                    /( st_Info.f_mot_trgtAcc1 * 2.0 );
+    st_Info.f_mot_l1    = st_Info.f_mot_l1_accjerk + st_Info.f_mot_l1_decjerk + st_Info.f_mot_l1_accconst;
+//  st_Info.f_l1        = ( f_MotTrgtSpeed * f_MotTrgtSpeed - f_MotNowSpeed * f_MotNowSpeed ) / ( st_Info.f_acc1 * 2.0 );           // 第1移動距離[m]
+   
+    st_Info.f_mot_l1_2  = st_Info.f_mot_dist;                                            // 第1+2移動距離[m]
 }
 
 void MOT_setData_MOT_ACC_CONST_CUSTOM( float f_num, float f_fin, enMOT_GO_ST_TYPE en_type )
 {
 	float			f_1blockDist;				// 1区画の距離[m]
+	float           f_accTime;
 
 	/* 1区画の距離 */
 	if( MOT_GO_ST_NORMAL == en_type ){		// 通常の直進
@@ -406,7 +592,7 @@ void MOT_setData_MOT_ACC_CONST_CUSTOM( float f_num, float f_fin, enMOT_GO_ST_TYP
 		f_1blockDist = BLOCK_SKEW;
 	}
 	//jerk
-	st_Info.f_mot_jerk		= MOT_getjerk();
+	st_Info.f_mot_jerk		= MOT_getJerk();
 
 	/* 速度 */
 	st_Info.f_mot_now		= f_MotNowSpeed;													// 現在速度
@@ -417,17 +603,33 @@ void MOT_setData_MOT_ACC_CONST_CUSTOM( float f_num, float f_fin, enMOT_GO_ST_TYP
 	st_Info.f_mot_dist		= f_num * f_1blockDist;												// 移動距離[m]
 
 	/* 加速度 */
-	st_Info.f_mot_acc1 		= ( f_fin * f_fin - f_MotNowSpeed * f_MotNowSpeed ) / ( ( st_Info.f_mot_dist - MOT_MOVE_ST_MIN ) * 2.0 );	// 加速度1[mm/s^2]（強制的に書き換え）
-	st_Info.f_mot_acc3 		= 0;																// 加速度3[m/s^2](未使用)
+//	st_Info.f_mot_acc1 		= ( f_fin * f_fin - f_MotNowSpeed * f_MotNowSpeed ) / ( ( st_Info.f_mot_dist - MOT_MOVE_ST_MIN ) * 2.0 );	// 加速度1[mm/s^2]（強制的に書き換え）
+
+	st_Info.f_mot_trgtAcc1		= sqrt(6.0*st_Info.f_mot_jerk*(( st_Info.f_mot_dist - MOT_MOVE_ST_MIN ) - f_MotNowSpeed*MOT_getAcc1()/st_Info.f_mot_jerk)
+								/((MOT_getAcc1()/st_Info.f_mot_jerk)*(MOT_getAcc1()/st_Info.f_mot_jerk)));
+
+	st_Info.f_mot_trgtAcc3 		= 0;																// 加速度3[m/s^2](未使用)
 
 	/* 距離 */
-	st_Info.f_mot_l1		= ( f_fin * f_fin - f_MotNowSpeed * f_MotNowSpeed ) / ( st_Info.f_mot_acc1 * 2.0 );			// 第1移動距離[m]
-	st_Info.f_mot_l1_2		= st_Info.f_mot_dist;													// 第1+2移動距離[m]
+//	st_Info.f_mot_l1		= ( f_fin * f_fin - f_MotNowSpeed * f_MotNowSpeed ) / ( st_Info.f_mot_acc1 * 2.0 );			// 第1移動距離[m]
+	f_accTime					= st_Info.f_mot_trgtAcc1/st_Info.f_mot_jerk;
+
+	st_Info.f_mot_l1_accjerk	= 1.0/6.0*st_Info.f_mot_jerk*f_accTime*f_accTime*f_accTime + f_MotNowSpeed*f_accTime;//加速度に到達するまでの距離		// 移動距離[m]
+	st_Info.f_mot_l1_decjerk	= 1.0/6.0*st_Info.f_mot_jerk*f_accTime*f_accTime*f_accTime + st_Info.f_mot_trgt*f_accTime;
+	st_Info.f_mot_accjerk_v		= 1.0/2.0*st_Info.f_mot_jerk*f_accTime*f_accTime;//加速度到達時の速度
+	st_Info.f_mot_l1_accconst	= ((f_MotTrgtSpeed-st_Info.f_mot_accjerk_v)*(f_MotTrgtSpeed-st_Info.f_mot_accjerk_v)
+									-(f_MotNowSpeed+st_Info.f_mot_accjerk_v)*(f_MotNowSpeed+st_Info.f_mot_accjerk_v))
+									/( st_Info.f_mot_trgtAcc1 * 2.0 );
+	st_Info.f_mot_l1			= st_Info.f_mot_l1_accjerk + st_Info.f_mot_l1_decjerk + st_Info.f_mot_l1_accconst;
+
+	st_Info.f_mot_l1_2			= st_Info.f_mot_dist;													// 第1+2移動距離[m]
 }
 
 void MOT_setData_MOT_CONST_DEC( float f_num, float f_fin, enMOT_GO_ST_TYPE en_type )
 {
+	float           f_l3;                       // 第3移動距離[m]
 	float			f_1blockDist;				// 1区画の距離[mm]
+	float           f_accTime;
 
 	/* 1区画の距離 */
 	if( MOT_GO_ST_NORMAL == en_type ){		// 通常の直進
@@ -437,11 +639,11 @@ void MOT_setData_MOT_CONST_DEC( float f_num, float f_fin, enMOT_GO_ST_TYPE en_ty
 		f_1blockDist = BLOCK_SKEW;
 	}
 	//jerk
-	st_Info.f_mot_jerk		= MOT_getjerk();
+	st_Info.f_mot_jerk		= MOT_getJerk();
 
 	/* 加速度 */
-	st_Info.f_mot_acc1 		= 0;																// 加速度1[mm/s^2](未使用)
-	st_Info.f_mot_acc3 		= MOT_getAcc3();													// 加速度3[mm/s^2]
+	st_Info.f_mot_trgtAcc1 		= 0;																// 加速度1[mm/s^2](未使用)
+	st_Info.f_mot_trgtAcc3 		= MOT_getAcc3();													// 加速度3[mm/s^2]
 
 	/* 速度 */
 	st_Info.f_mot_now		= f_MotNowSpeed;													// 現在速度
@@ -451,12 +653,24 @@ void MOT_setData_MOT_CONST_DEC( float f_num, float f_fin, enMOT_GO_ST_TYPE en_ty
 	/* 距離 */
 	st_Info.f_mot_dist		= f_num * f_1blockDist;												// 移動距離[m]
 	st_Info.f_mot_l1		= 0;																// 第1移動距離[m]
-	st_Info.f_mot_l1_2		= st_Info.f_mot_dist - ( f_fin * f_fin - f_MotNowSpeed * f_MotNowSpeed ) / ( ( st_Info.f_mot_acc3 * -1.0 ) * 2.0 );			// 第1-2移動距離[m]
+//	st_Info.f_mot_l1_2		= st_Info.f_mot_dist - ( f_fin * f_fin - f_MotNowSpeed * f_MotNowSpeed ) / ( ( st_Info.f_mot_acc3 * -1.0 ) * 2.0 );			// 第1-2移動距離[m]
+
+	f_accTime   = st_Info.f_mot_trgtAcc3/st_Info.f_mot_jerk;
+    st_Info.f_mot_accjerk_v  	= 1.0/2.0*st_Info.f_mot_jerk*f_accTime*f_accTime;//加速度到達時の速度
+
+	st_Info.f_mot_l3_decjerk    = 1.0/6.0*st_Info.f_mot_jerk*(-1.0)*f_accTime*f_accTime*f_accTime + f_MotNowSpeed*f_accTime;
+    st_Info.f_mot_l3_accjerk    = 1.0/6.0*st_Info.f_mot_jerk*(-1.0)*f_accTime*f_accTime*f_accTime + f_fin*f_accTime;//減速は加速度同様にする前提処理
+    st_Info.f_mot_l3_decconst   = ( (f_fin+st_Info.f_mot_accjerk_v) * (f_fin+st_Info.f_mot_accjerk_v) 
+									- (f_MotTrgtSpeed-st_Info.f_mot_accjerk_v) * (f_MotTrgtSpeed-st_Info.f_mot_accjerk_v) ) 
+                                    / (  st_Info.f_mot_trgtAcc3 * (-1.0 ) * 2.0 );
+    f_l3                	= st_Info.f_mot_l3_decjerk + st_Info.f_mot_l3_accjerk + st_Info.f_mot_l3_decconst;    
+    st_Info.f_mot_l1_2      = st_Info.f_mot_dist - f_l3;                                            // 第1+2移動距離[m]
 }
 
 void MOT_setData_MOT_CONST_DEC_CUSTOM( float f_num, float f_fin, enMOT_GO_ST_TYPE en_type )
 {
 	float			f_1blockDist;				// 1区画の距離[m]
+	float			f_accTime;
 
 	/* 1区画の距離 */
 	if( MOT_GO_ST_NORMAL == en_type ){		// 通常の直進
@@ -466,7 +680,7 @@ void MOT_setData_MOT_CONST_DEC_CUSTOM( float f_num, float f_fin, enMOT_GO_ST_TYP
 		f_1blockDist = BLOCK_SKEW;
 	}
 	//jerk
-	st_Info.f_mot_jerk		= MOT_getjerk();
+	st_Info.f_mot_jerk		= MOT_getJerk();
 
 	/* 速度 */
 	st_Info.f_mot_now		= f_MotNowSpeed;									// 現在速度
@@ -477,12 +691,26 @@ void MOT_setData_MOT_CONST_DEC_CUSTOM( float f_num, float f_fin, enMOT_GO_ST_TYP
 	st_Info.f_mot_dist		= f_num * f_1blockDist;									// 移動距離[mm]
 
 	/* 加速度 */
-	st_Info.f_mot_acc1 		= 0;																// 加速度1[mm/s^2](未使用)
-	st_Info.f_mot_acc3 		= ( f_fin * f_fin - f_MotNowSpeed * f_MotNowSpeed ) / ( ( st_Info.f_mot_dist - MOT_MOVE_ST_MIN ) * 2.0 ) * -1.0;	// 加速度3[mm/s^2]（強制的に書き換え）
+	st_Info.f_mot_trgtAcc1 		= 0;																// 加速度1[mm/s^2](未使用)
+//	st_Info.f_mot_acc3 		= ( f_fin * f_fin - f_MotNowSpeed * f_MotNowSpeed ) / ( ( st_Info.f_mot_dist - MOT_MOVE_ST_MIN ) * 2.0 ) * -1.0;	// 加速度3[mm/s^2]（強制的に書き換え）
+	st_Info.f_mot_trgtAcc3		= sqrt(6.0*st_Info.f_mot_jerk*(( st_Info.f_mot_dist - MOT_MOVE_ST_MIN ) - f_MotNowSpeed*MOT_getAcc3()/st_Info.f_mot_jerk)
+								/((MOT_getAcc3()/st_Info.f_mot_jerk)*(MOT_getAcc3()/st_Info.f_mot_jerk)));
 
 	/* 距離 */
 	st_Info.f_mot_l1		= 0;																// 第1移動距離[m]
-	st_Info.f_mot_l1_2		= st_Info.f_mot_dist - ( f_fin * f_fin - f_MotNowSpeed * f_MotNowSpeed ) / ( ( st_Info.f_mot_acc3 * -1.0 ) * 2.0 );			// 第1-2移動距離[m]
+
+	f_accTime					= st_Info.f_mot_trgtAcc3/st_Info.f_mot_jerk;
+
+	st_Info.f_mot_l3_decjerk    = 1.0/6.0*st_Info.f_mot_jerk*f_accTime*f_accTime*f_accTime + f_MotNowSpeed*f_accTime;
+    st_Info.f_mot_l3_accjerk    = 1.0/6.0*st_Info.f_mot_jerk*f_accTime*f_accTime*f_accTime + f_fin*f_accTime;//減速は加速度同様にする前提処理
+	st_Info.f_mot_accjerk_v		= 1.0/2.0*st_Info.f_mot_jerk*f_accTime*f_accTime;//加速度到達時の速度
+	st_Info.f_mot_l3_decconst	= ((f_MotTrgtSpeed-st_Info.f_mot_accjerk_v)*(f_MotTrgtSpeed-st_Info.f_mot_accjerk_v)
+									-(f_MotNowSpeed+st_Info.f_mot_accjerk_v)*(f_MotNowSpeed+st_Info.f_mot_accjerk_v))
+									/( st_Info.f_mot_trgtAcc3 * (-1.0) * 2.0 );
+//	st_Info.f_mot_l1			= st_Info.f_mot_l3_accjerk*2.0 + st_Info.f_mot_l3_accconst;
+
+
+	st_Info.f_mot_l1_2		= st_Info.f_mot_dist - (st_Info.f_mot_l3_decjerk + st_Info.f_mot_l3_accjerk + st_Info.f_mot_l3_decconst);			// 第1-2移動距離[m]
 }
 
 enMOT_ST_TYPE MOT_getStType( float f_num, float f_fin, enMOT_GO_ST_TYPE en_type )
@@ -497,6 +725,13 @@ enMOT_ST_TYPE MOT_getStType( float f_num, float f_fin, enMOT_GO_ST_TYPE en_type 
 	float f_l3;							//減速距離
 	float f_total;							// 移動距離[m]
 
+	float f_Jerk;
+	float f_accTime;
+	float f_l_acc_accJerk;
+	float f_l_acc_accConst;
+	float f_l_acc_decJerk;
+	float f_v_accJerk;
+
 	/* 1区画の距離 */
 	if( MOT_GO_ST_NORMAL == en_type ){		// 通常の直進
 		f_total	= f_num * BLOCK;
@@ -505,15 +740,27 @@ enMOT_ST_TYPE MOT_getStType( float f_num, float f_fin, enMOT_GO_ST_TYPE en_type 
 		f_total	= f_num * BLOCK_SKEW;
 	}
 
+	f_Jerk		= MOT_getJerk();
+	f_acc1		= MOT_getAcc1();
+	f_acc3		= MOT_getAcc3();
 
 	/* ================ */
 	/*   加速＋等速動作  */
 	/* ================ */
-	f_v1Div		= f_fin - f_MotNowSpeed;
-	f_acc1		= MOT_getAcc1();				// 加速度1[mm/s^2]
-	f_t1		= f_v1Div / f_acc1;
+//	f_v1Div		= f_fin - f_MotNowSpeed;
+//	f_acc1		= MOT_getAcc1();				// 加速度1[mm/s^2]
+//	f_t1		= f_v1Div / f_acc1;
 
-	f_l1 = ( f_MotNowSpeed + f_fin ) * 0.5f * f_t1;
+//	f_l1 = ( f_MotNowSpeed + f_fin ) * 0.5f * f_t1;
+
+	f_accTime			= f_acc1/f_Jerk;
+	f_v_accJerk			= 1.0/2.0*f_Jerk*f_accTime*f_accTime;
+	f_l_acc_accJerk		= 1.0/6.0*st_Info.f_mot_jerk*f_accTime*f_accTime*f_accTime + f_MotNowSpeed*f_accTime;
+	f_l_acc_decJerk		= 1.0/6.0*st_Info.f_mot_jerk*f_accTime*f_accTime*f_accTime + f_fin*f_accTime;
+	f_l_acc_accConst	= ((f_fin-f_v_accJerk)*(f_fin-f_v_accJerk)
+							-(f_MotNowSpeed+f_v_accJerk)*(f_MotNowSpeed+f_v_accJerk))
+							/( f_acc1 * 2.0 );
+	f_l1	= f_l_acc_accJerk + f_l_acc_decJerk + f_l_acc_accConst;
 
 	/*  加速＋等速動作 */
 	if( f_total <= ( f_l1 + MOT_MOVE_ST_THRESHOLD ) ){
@@ -532,11 +779,21 @@ enMOT_ST_TYPE MOT_getStType( float f_num, float f_fin, enMOT_GO_ST_TYPE en_type 
 	/* ================ */
 	/*  等速＋減速動作   */
 	/* ================ */
-	f_v3Div		= f_fin - f_MotNowSpeed;
-	f_acc3		= MOT_getAcc3();				// 加速度3[mm/s^2]
-	f_t3		= f_v3Div / ( f_acc3 * -1.0 );
+//	f_v3Div		= f_fin - f_MotNowSpeed;
+//	f_acc3		= MOT_getAcc3();				// 加速度3[mm/s^2]
+//	f_t3		= f_v3Div / ( f_acc3 * -1.0 );
 
-	f_l3 = ( f_MotNowSpeed + f_fin ) * 0.5f * f_t3;
+//	f_l3 = ( f_MotNowSpeed + f_fin ) * 0.5f * f_t3;
+
+	f_accTime			= f_acc3/f_Jerk;
+	f_v_accJerk			= 1.0/2.0*f_Jerk*f_accTime*f_accTime;
+	f_l_acc_decJerk		= 1.0/6.0*st_Info.f_mot_jerk*f_accTime*f_accTime*f_accTime + f_MotNowSpeed*f_accTime;
+	f_l_acc_accJerk		= 1.0/6.0*st_Info.f_mot_jerk*f_accTime*f_accTime*f_accTime + f_fin*f_accTime;
+	f_l_acc_accConst	= ((f_fin-f_v_accJerk)*(f_fin-f_v_accJerk)
+							-(f_MotNowSpeed+f_v_accJerk)*(f_MotNowSpeed+f_v_accJerk))
+							/( f_acc3 * 2.0 *(-1.0));
+	
+	f_l3	= f_l_acc_decJerk + f_l_acc_accJerk + f_l_acc_accConst;
 
 	/* 等速＋減速動作 */
 	if( f_total <= ( f_l3 + MOT_MOVE_ST_THRESHOLD ) ){
@@ -555,7 +812,7 @@ enMOT_ST_TYPE MOT_getStType( float f_num, float f_fin, enMOT_GO_ST_TYPE en_type 
 	/* ========== */
 	/*  台形動作  */
 	/* ========== */
-	f_v1Div		= f_MotTrgtSpeed - f_MotNowSpeed;					// 台形時の速度差
+/*	f_v1Div		= f_MotTrgtSpeed - f_MotNowSpeed;					// 台形時の速度差
 	f_t1		= f_v1Div / f_acc1;
 	f_l1		= ( f_MotNowSpeed + f_MotTrgtSpeed ) * 0.5f * f_t1;
 
@@ -563,6 +820,27 @@ enMOT_ST_TYPE MOT_getStType( float f_num, float f_fin, enMOT_GO_ST_TYPE en_type 
 	f_acc3		= MOT_getAcc3();									// 加速度3[mm/s^2]
 	f_t3		= -1.0f * f_v3Div / f_acc3;							// 減速時の所要時間
 	f_l3		= ( f_MotTrgtSpeed + f_fin ) * 0.5f * f_t3;
+*/
+
+	f_accTime			= f_acc1/f_Jerk;
+	f_v_accJerk			= 1.0/2.0*f_Jerk*f_accTime*f_accTime;
+	f_l_acc_accJerk		= 1.0/6.0*st_Info.f_mot_jerk*f_accTime*f_accTime*f_accTime + f_MotNowSpeed*f_accTime;
+	f_l_acc_decJerk		= 1.0/6.0*st_Info.f_mot_jerk*f_accTime*f_accTime*f_accTime + f_MotTrgtSpeed*f_accTime;
+	f_l_acc_accConst	= ((f_MotTrgtSpeed-f_v_accJerk)*(f_MotTrgtSpeed-f_v_accJerk)
+							-(f_MotNowSpeed+f_v_accJerk)*(f_MotNowSpeed+f_v_accJerk))
+							/( f_acc1 * 2.0 );
+
+	f_l1	= f_l_acc_accJerk + f_l_acc_decJerk + f_l_acc_accConst;
+
+	f_accTime			= f_acc3/f_Jerk;
+	f_v_accJerk			= 1.0/2.0*f_Jerk*f_accTime*f_accTime;
+	f_l_acc_decJerk		= 1.0/6.0*st_Info.f_mot_jerk*f_accTime*f_accTime*f_accTime + f_MotTrgtSpeed*f_accTime;
+	f_l_acc_accJerk		= 1.0/6.0*st_Info.f_mot_jerk*f_accTime*f_accTime*f_accTime + f_fin*f_accTime;
+	f_l_acc_accConst	= ((f_fin-f_v_accJerk)*(f_fin-f_v_accJerk)
+							-(f_MotTrgtSpeed+f_v_accJerk)*(f_MotTrgtSpeed+f_v_accJerk))
+							/( f_acc3 * 2.0 * (-1.0));
+	
+	f_l3	= f_l_acc_decJerk + f_l_acc_accJerk + f_l_acc_accConst;
 
 	/* 通常の台形動作 */
 	if( ( f_total - f_l1 - f_l3 - MOT_MOVE_ST_MIN) >= 0 ){
@@ -647,7 +925,9 @@ void MOT_goBlock_Const(float f_num)
 	/*  等速  */
 	/* ------ */
 	st_data.en_ctrl_type			= CTRL_CONST;
-	st_data.f_ctrl_acc			= 0;					// 加速度指定
+	st_data.f_ctrl_jerk			= 0;
+	st_data.f_ctrl_trgtAcc		= 0;		// 加速度指定
+	st_data.f_ctrl_nowAcc		= 0;
 	st_data.f_ctrl_now			= f_MotNowSpeed;			// 現在速度
 	st_data.f_ctrl_trgt			= f_MotNowSpeed;			// 目標速度
 	st_data.f_ctrl_nowDist		= 0;				// 現在位置
@@ -674,7 +954,9 @@ void MOT_goBlock_Const(float f_num)
 
 	if( ( en_WallEdge != MOT_WALL_EDGE_NONE ) && ( bl_IsWallEdge == FALSE )  ){
 		st_data.en_ctrl_type			= CTRL_CONST;
-		st_data.f_ctrl_acc			= 0;						// 加速度指定
+		st_data.f_ctrl_jerk			= 0;
+		st_data.f_ctrl_trgtAcc		= 0;		// 加速度指定
+		st_data.f_ctrl_nowAcc		= 0;
 		st_data.f_ctrl_now			= st_Info.f_mot_last;			// 現在速度
 		st_data.f_ctrl_trgt			= st_Info.f_mot_last;			// 目標速度
 		st_data.f_ctrl_nowDist		= Get_NowDist();				// 現在位置
@@ -701,7 +983,9 @@ void MOT_goBlock_Const(float f_num)
 	if( f_WallEdgeAddDist != 0.0f)
 	{
 		st_data.en_ctrl_type			= CTRL_CONST;
-		st_data.f_ctrl_acc			= 0;						// 加速度指定
+		st_data.f_ctrl_jerk			= 0;
+		st_data.f_ctrl_trgtAcc		= 0;		// 加速度指定
+		st_data.f_ctrl_nowAcc		= 0;
 		st_data.f_ctrl_now			= st_Info.f_mot_last;			// 現在速度
 		st_data.f_ctrl_trgt			= st_Info.f_mot_last;			// 目標速度
 		st_data.f_ctrl_nowDist		= 0;						// 現在位置
@@ -734,7 +1018,8 @@ void testrun(void)
 {
 	stCTRL_DATA test;
 		test.en_ctrl_type=CTRL_ACC;
-		test.f_ctrl_acc=MOT_getAcc1();
+		test.f_ctrl_trgtAcc		= MOT_getAcc1();		// 加速度指定
+		test.f_ctrl_nowAcc		= 0;
 		test.f_ctrl_trgt	= 0;
 		test.f_ctrl_now = 0;
 		test.f_ctrl_nowDist = 0;
@@ -755,7 +1040,7 @@ float MOT_getAccAngle3( void )
 	return PARAM_getSpeed( PARAM_TRUN )->f_speed_decangle;
 }
 
-float MOT_getjerkAngle( void )
+float MOT_getJerkAngle( void )
 {
 	return PARAM_getSpeed( PARAM_TRUN )->f_speed_jerkangle;
 }
@@ -833,7 +1118,9 @@ void MOT_turn( enMOT_TURN_CMD en_type )
 	/*  加速  */
 	/* ------ */
 	st_data.en_ctrl_type			= CTRL_ACC_TRUN;
-	st_data.f_ctrl_acc			= 0;						// 加速度指定
+	st_data.f_ctrl_jerk			= 0;
+	st_data.f_ctrl_trgtAcc		= 0;						// 加速度指定
+	st_data.f_ctrl_nowAcc		= 0;
 	st_data.f_ctrl_now			= 0;						// 現在速度
 	st_data.f_ctrl_trgt			= 0;						// 目標速度
 	st_data.f_ctrl_nowDist		= 0;						// 進んでいない
@@ -888,7 +1175,9 @@ void MOT_turn( enMOT_TURN_CMD en_type )
 	}
 //	printf("[f_TrgtAngleS] %5.2f,st_info.f_angle1_2%5.2f,f_angle2%5.2f\n\r",f_TrgtAngleS,st_info.f_angle1_2,f_angle3);
 	st_data.en_ctrl_type			= CTRL_CONST_TRUN;
-	st_data.f_ctrl_acc			= 0;						// 加速度指定
+	st_data.f_ctrl_jerk			= 0;
+	st_data.f_ctrl_trgtAcc		= 0;						// 加速度指定
+	st_data.f_ctrl_nowAcc		= 0;
 	st_data.f_ctrl_now			= 0;						// 現在速度
 	st_data.f_ctrl_trgt			= 0;						// 目標速度
 	st_data.f_ctrl_nowDist		= 0;						// 進んでいない
@@ -934,7 +1223,9 @@ void MOT_turn( enMOT_TURN_CMD en_type )
 	/*  // 減速  */
 	/* ------ */
 	st_data.en_ctrl_type			= CTRL_DEC_TRUN;
-	st_data.f_ctrl_acc			= 0;						// 減速
+	st_data.f_ctrl_jerk			= 0;
+	st_data.f_ctrl_trgtAcc		= 0;						// 加速度指定
+	st_data.f_ctrl_nowAcc		= 0;
 	st_data.f_ctrl_now			= 0;						// 現在速度
 	st_data.f_ctrl_trgt			= 0;						// 最終速度
 	st_data.f_ctrl_nowDist		= 0;						// 等速完了位置
@@ -1034,7 +1325,7 @@ void MOT_goHitBackWall(void)
 	/*  動作データ計算  */
 	/* ---------------- */
 	/* 加速度 */
-	st_info.f_mot_acc1= 1200.0;												// 角加速度1[rad/s^2]												// 角加速度3[rad/s^2]
+	st_info.f_mot_trgtAcc1= 1200.0;												// 角加速度1[rad/s^2]												// 角加速度3[rad/s^2]
 
 	GYRO_staErrChkAngle();			// エラー検出開始
 //	printf("");
@@ -1045,7 +1336,9 @@ void MOT_goHitBackWall(void)
 	/*  加速  */
 	/* ------ */
 	st_data.en_ctrl_type			= CTRL_HIT_WALL;
-	st_data.f_ctrl_acc			= st_info.f_mot_acc1;						// 加速度指定
+	st_data.f_ctrl_jerk			= st_Info.f_mot_jerk;
+	st_data.f_ctrl_trgtAcc		= st_info.f_mot_trgtAcc1;						// 加速度指定
+	st_data.f_ctrl_nowAcc		= 0;
 	st_data.f_ctrl_now			= 0;						// 現在速度
 	st_data.f_ctrl_trgt			= 0;						// 目標速度
 	st_data.f_ctrl_nowDist		= 0;						// 進んでいない
@@ -1088,8 +1381,8 @@ void MOT_goSla( enMOT_SURA_CMD en_type, stSLA* p_sla )
 	/*  動作データ計算  */
 	/* ---------------- */
 	/* 加速度 */
-	st_info.f_mot_acc1 		= 0;																// 加速度1[mm/s^2]
-	st_info.f_mot_acc3 		= 0;																// 加速度3[mm/s^2]
+	st_info.f_mot_trgtAcc1 		= 0;																// 加速度1[mm/s^2]
+	st_info.f_mot_trgtAcc3 		= 0;																// 加速度3[mm/s^2]
 
 	/* 速度 */
 	st_info.f_mot_now		= p_sla->f_sla_speed;													// 現在速度
@@ -1151,7 +1444,9 @@ void MOT_goSla( enMOT_SURA_CMD en_type, stSLA* p_sla )
 	/*  スラローム前の前進動作  */
 	/* ------------------------ */
 	st_data.en_ctrl_type			= CTRL_ENTRY_SURA;
-	st_data.f_ctrl_acc			= 0;						// 加速度指定
+	st_data.f_ctrl_jerk			= 0;
+	st_data.f_ctrl_trgtAcc		= 0;						// 加速度指定
+	st_data.f_ctrl_nowAcc		= 0;
 	st_data.f_ctrl_now			= st_info.f_mot_now;			// 現在速度
 	st_data.f_ctrl_trgt			= st_info.f_mot_now;			// 目標速度
 	st_data.f_ctrl_nowDist		= 0;						// 進んでいない
@@ -1186,7 +1481,9 @@ void MOT_goSla( enMOT_SURA_CMD en_type, stSLA* p_sla )
 	/*  acc  */
 	/* ------ */
 	st_data.en_ctrl_type			= CTRL_ACC_SURA;
-	st_data.f_ctrl_acc			= 0;						// 加速度指定
+	st_data.f_ctrl_jerk			= 0;
+	st_data.f_ctrl_trgtAcc		= 0;						// 加速度指定
+	st_data.f_ctrl_nowAcc		= 0;
 	st_data.f_ctrl_now			= st_info.f_mot_now;			// 現在速度
 	st_data.f_ctrl_trgt			= st_info.f_mot_now;			// 目標速度
 	st_data.f_ctrl_nowDist		= f_entryLen;				//
@@ -1226,7 +1523,9 @@ void MOT_goSla( enMOT_SURA_CMD en_type, stSLA* p_sla )
 	/*  const  */
 	/* ------ */
 	st_data.en_ctrl_type			= CTRL_CONST_SURA;
-	st_data.f_ctrl_acc			= 0;						// 加速度指定
+	st_data.f_ctrl_jerk			= 0;
+	st_data.f_ctrl_trgtAcc		= 0;						// 加速度指定
+	st_data.f_ctrl_nowAcc		= 0;
 	st_data.f_ctrl_now			= st_info.f_mot_now;			// 現在速度
 	st_data.f_ctrl_trgt			= st_info.f_mot_now;			// 目標速度
 	st_data.f_ctrl_nowDist		= f_entryLen + st_info.f_mot_now * p_sla->us_sla_accAngvelTime * 0.001;
@@ -1268,7 +1567,9 @@ void MOT_goSla( enMOT_SURA_CMD en_type, stSLA* p_sla )
 	/*  dec  */
 	/* ------ */
 	st_data.en_ctrl_type			= CTRL_DEC_SURA;
-	st_data.f_ctrl_acc			= 0;						// 加速度指定
+	st_data.f_ctrl_jerk			= 0;
+	st_data.f_ctrl_trgtAcc		= 0;						// 加速度指定
+	st_data.f_ctrl_nowAcc		= 0;
 	st_data.f_ctrl_now			= st_info.f_mot_now;			// 現在速度
 	st_data.f_ctrl_trgt			= st_info.f_mot_now;			// 目標速度
 	st_data.f_ctrl_nowDist		= f_entryLen + st_info.f_mot_now * ( p_sla->us_sla_constAngvelTime + p_sla->us_sla_accAngvelTime ) * 0.001;
@@ -1310,7 +1611,9 @@ void MOT_goSla( enMOT_SURA_CMD en_type, stSLA* p_sla )
 	/*  escape  */
 	/* ------------------------ */
 	st_data.en_ctrl_type			= CTRL_EXIT_SURA;
-	st_data.f_ctrl_acc			= 0;						// 加速度指定
+	st_data.f_ctrl_jerk			= 0;
+	st_data.f_ctrl_trgtAcc		= 0;						// 加速度指定
+	st_data.f_ctrl_nowAcc		= 0;
 	st_data.f_ctrl_now			= st_info.f_mot_now;			// 現在速度
 	st_data.f_ctrl_trgt			= st_info.f_mot_now;			// 目標速度
 	st_data.f_ctrl_nowDist		= f_entryLen + st_info.f_mot_now * ( p_sla->us_sla_constAngvelTime + p_sla->us_sla_accAngvelTime * 2.0  ) * 0.001;
@@ -1345,7 +1648,9 @@ void turntable(void)
 {
 	stCTRL_DATA test;
 		test.en_ctrl_type = CTRL_CONST;
-		test.f_ctrl_acc			= 0;						// 加速度指定
+		test.f_ctrl_jerk			= 0;
+		test.f_ctrl_trgtAcc		= 0;						// 加速度指定
+		test.f_ctrl_nowAcc		= 0;
 		test.f_ctrl_now			= 0;			// 現在速度
 		test.f_ctrl_trgt			= 0;			// 目標速度
 		test.f_ctrl_nowDist			= 0;
@@ -1435,7 +1740,9 @@ void DIST_Front_Wall_correction(void)
 	GYRO_staErrChkAngle();			// エラー検出開始
 	
 	st_data.en_ctrl_type			= CTRL_FRONT_WALL;
-	st_data.f_ctrl_acc			= 0;						// 加速度指定
+	st_data.f_ctrl_jerk			= 0;
+	st_data.f_ctrl_trgtAcc		= 0;						// 加速度指定
+	st_data.f_ctrl_nowAcc		= 0;
 	st_data.f_ctrl_now			= 0;						// 現在速度
 	st_data.f_ctrl_trgt			= 0;						// 目標速度
 	st_data.f_ctrl_nowDist		= 0;						// 進んでいない
