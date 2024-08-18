@@ -467,7 +467,7 @@ void MOT_setData_ACC_CONST_DEC( float f_num, float f_fin, enMOT_GO_ST_TYPE en_ty
 	st_Info.f_mot_l3_decjerk	= 1.0/6.0*st_Info.f_mot_jerk*(-1.0)*f_accTime*f_accTime*f_accTime + st_Info.f_mot_trgt*f_accTime;
 	st_Info.f_mot_l3_accjerk	= 1.0/6.0*st_Info.f_mot_jerk*(-1.0)*f_accTime*f_accTime*f_accTime + f_fin*f_accTime;//減速は加速度同様にする前提処理
 	st_Info.f_mot_l3_decconst	= ( (f_fin+st_Info.f_mot_accjerk_v) * (f_fin+st_Info.f_mot_accjerk_v)
-									 - (f_MotTrgtSpeed-st_Info.f_mot_accjerk_v) * (f_MotTrgtSpeed-st_Info.f_mot_accjerk_v) ) 
+									- (f_MotTrgtSpeed-st_Info.f_mot_accjerk_v) * (f_MotTrgtSpeed-st_Info.f_mot_accjerk_v) ) 
 									/ ( st_Info.f_mot_trgtAcc3 * (-1.0 ) * 2.0 );
 	f_l3				=  st_Info.f_mot_l3_decjerk + st_Info.f_mot_l3_accjerk + st_Info.f_mot_l3_decconst;	
 //	f_l3			= ( f_fin * f_fin - f_MotTrgtSpeed * f_MotTrgtSpeed ) / ( ( st_Info.f_acc3 * -1.0 ) * 2.0 );			// 第3移動距離[m]
@@ -531,7 +531,7 @@ void MOT_setData_MOT_ACC_CONST_DEC_CUSTOM( float f_num, float f_fin, enMOT_GO_ST
 	st_Info.f_mot_l3_accjerk	= 1.0/6.0*st_Info.f_mot_jerk*(-1.0)*f_accTime*f_accTime*f_accTime + f_fin*f_accTime;//減速は加速度同様にする前提処理
 	st_Info.f_mot_l3_decconst	= ( (f_fin+st_Info.f_mot_accjerk_v) * (f_fin+st_Info.f_mot_accjerk_v)
 									- (f_MotTrgtSpeed-st_Info.f_mot_accjerk_v) * (f_MotTrgtSpeed-st_Info.f_mot_accjerk_v) ) 
-									/ (  st_Info.f_mot_trgtAcc3 * (-1.0 ) * 2.0 );
+									/ ( st_Info.f_mot_trgtAcc3 * (-1.0 ) * 2.0 );
 	f_l3				=  st_Info.f_mot_l3_decjerk + st_Info.f_mot_l3_accjerk + st_Info.f_mot_l3_decconst;
 	st_Info.f_mot_l1_2		= st_Info.f_mot_dist - f_l3;											// 第1+2移動距離[m]
 
@@ -662,7 +662,7 @@ void MOT_setData_MOT_CONST_DEC( float f_num, float f_fin, enMOT_GO_ST_TYPE en_ty
     st_Info.f_mot_l3_accjerk    = 1.0/6.0*st_Info.f_mot_jerk*(-1.0)*f_accTime*f_accTime*f_accTime + f_fin*f_accTime;//減速は加速度同様にする前提処理
     st_Info.f_mot_l3_decconst   = ( (f_fin+st_Info.f_mot_accjerk_v) * (f_fin+st_Info.f_mot_accjerk_v) 
 									- (f_MotTrgtSpeed-st_Info.f_mot_accjerk_v) * (f_MotTrgtSpeed-st_Info.f_mot_accjerk_v) ) 
-                                    / (  st_Info.f_mot_trgtAcc3 * (-1.0 ) * 2.0 );
+                                    / ( st_Info.f_mot_trgtAcc3 * (-1.0 ) * 2.0 );
     f_l3                	= st_Info.f_mot_l3_decjerk + st_Info.f_mot_l3_accjerk + st_Info.f_mot_l3_decconst;    
     st_Info.f_mot_l1_2      = st_Info.f_mot_dist - f_l3;                                            // 第1+2移動距離[m]
 }
@@ -701,8 +701,8 @@ void MOT_setData_MOT_CONST_DEC_CUSTOM( float f_num, float f_fin, enMOT_GO_ST_TYP
 
 	f_accTime					= st_Info.f_mot_trgtAcc3/st_Info.f_mot_jerk;
 
-	st_Info.f_mot_l3_decjerk    = 1.0/6.0*st_Info.f_mot_jerk*f_accTime*f_accTime*f_accTime + f_MotNowSpeed*f_accTime;
-    st_Info.f_mot_l3_accjerk    = 1.0/6.0*st_Info.f_mot_jerk*f_accTime*f_accTime*f_accTime + f_fin*f_accTime;//減速は加速度同様にする前提処理
+	st_Info.f_mot_l3_decjerk    = 1.0/6.0*st_Info.f_mot_jerk*(-1.0)*f_accTime*f_accTime*f_accTime + f_MotNowSpeed*f_accTime;
+    st_Info.f_mot_l3_accjerk    = 1.0/6.0*st_Info.f_mot_jerk*(-1.0)*f_accTime*f_accTime*f_accTime + f_fin*f_accTime;//減速は加速度同様にする前提処理
 	st_Info.f_mot_accjerk_v		= 1.0/2.0*st_Info.f_mot_jerk*f_accTime*f_accTime;//加速度到達時の速度
 	st_Info.f_mot_l3_decconst	= ((f_MotTrgtSpeed-st_Info.f_mot_accjerk_v)*(f_MotTrgtSpeed-st_Info.f_mot_accjerk_v)
 									-(f_MotNowSpeed+st_Info.f_mot_accjerk_v)*(f_MotNowSpeed+st_Info.f_mot_accjerk_v))
@@ -787,8 +787,8 @@ enMOT_ST_TYPE MOT_getStType( float f_num, float f_fin, enMOT_GO_ST_TYPE en_type 
 
 	f_accTime			= f_acc3/f_Jerk;
 	f_v_accJerk			= 1.0/2.0*f_Jerk*f_accTime*f_accTime;
-	f_l_acc_decJerk		= 1.0/6.0*st_Info.f_mot_jerk*f_accTime*f_accTime*f_accTime + f_MotNowSpeed*f_accTime;
-	f_l_acc_accJerk		= 1.0/6.0*st_Info.f_mot_jerk*f_accTime*f_accTime*f_accTime + f_fin*f_accTime;
+	f_l_acc_decJerk		= 1.0/6.0*st_Info.f_mot_jerk*(-1.0)*f_accTime*f_accTime*f_accTime + f_MotNowSpeed*f_accTime;
+	f_l_acc_accJerk		= 1.0/6.0*st_Info.f_mot_jerk*(-1.0)*f_accTime*f_accTime*f_accTime + f_fin*f_accTime;
 	f_l_acc_accConst	= ((f_fin-f_v_accJerk)*(f_fin-f_v_accJerk)
 							-(f_MotNowSpeed+f_v_accJerk)*(f_MotNowSpeed+f_v_accJerk))
 							/( f_acc3 * 2.0 *(-1.0));
