@@ -834,8 +834,8 @@ enMOT_ST_TYPE MOT_getStType( float f_num, float f_fin, enMOT_GO_ST_TYPE en_type 
 
 	f_accTime			= f_acc3/f_Jerk;
 	f_v_accJerk			= 1.0/2.0*f_Jerk*f_accTime*f_accTime;
-	f_l_acc_decJerk		= 1.0/6.0*st_Info.f_mot_jerk*f_accTime*f_accTime*f_accTime + f_MotTrgtSpeed*f_accTime;
-	f_l_acc_accJerk		= 1.0/6.0*st_Info.f_mot_jerk*f_accTime*f_accTime*f_accTime + f_fin*f_accTime;
+	f_l_acc_decJerk		= 1.0/6.0*st_Info.f_mot_jerk*(-1.0)*f_accTime*f_accTime*f_accTime + f_MotTrgtSpeed*f_accTime;
+	f_l_acc_accJerk		= 1.0/6.0*st_Info.f_mot_jerk*(-1.0)*f_accTime*f_accTime*f_accTime + f_fin*f_accTime;
 	f_l_acc_accConst	= ((f_fin-f_v_accJerk)*(f_fin-f_v_accJerk)
 							-(f_MotTrgtSpeed+f_v_accJerk)*(f_MotTrgtSpeed+f_v_accJerk))
 							/( f_acc3 * 2.0 * (-1.0));
