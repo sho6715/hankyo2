@@ -17,14 +17,14 @@ float			f_TrgtTime 			= 1000;		// operating target time [msec]	(set value)
 
 float			f_Jerk			= 0;
 float			f_BaseAcc		= 0;	//start accel
-volatile float			f_TrgtAcc			= 0;	//now accel
+float			f_TrgtAcc			= 0;	//now accel
 float			f_LastAcc		= 0;
 // velocity control
 //float 			f_Acc			= 0;		// [velocity control]   acceleration[m/s2]	(set value)
 float			f_BaseSpeed		= 0;		// [velocity control]   initial velocity[m/s]	(set value)
 float			f_LastSpeed 		= 0;		// [velocity control]   last target velocity[m/s]	(set value)
 float			f_NowSpeed		= 0;		// [velocity control]   now velocity [m/s]	(updated 1[msec])
-volatile float			f_TrgtSpeed 		= 0;		// [velocity control]   target velocity[m/s]		(updated 1[msec])
+float			f_TrgtSpeed 		= 0;		// [velocity control]   target velocity[m/s]		(updated 1[msec])
 float			f_ErrSpeedBuf		= 0;		// [velocity control] 縲velocity error buffer	(updated 1[msec])
 float			f_SpeedErrSum 		= 0;		// [velocity control]   sum of velocity integral control	(updated 1[msec])
 
@@ -34,7 +34,7 @@ float			f_MotorL_AngleS = 0;
 // dist
 float			f_BaseDist		= 0;		// [dist]   initial distance[m]		(set value)
 float			f_LastDist 		= 0;		// [距離制御]   最終移動距離					（設定値）
-volatile float			f_TrgtDist 		= 0;		// [距離制御]   目標移動距離					（1[msec]毎に更新される）
+float			f_TrgtDist 		= 0;		// [距離制御]   目標移動距離					（1[msec]毎に更新される）
 volatile float 		f_NowDist		= 0;		// [距離制御]   現在距離						（1[msec]毎に更新される）
 float			f_NowDistR		= 0;		// [距離制御]   現在距離（右）					（1[msec]毎に更新される）
 float 			f_NowDistL		= 0;		// [距離制御]   現在距離（左）					（1[msec]毎に更新される）
