@@ -66,8 +66,8 @@ typedef struct{
 	float			f_ctrl_nowDist;		// [dist ctrl] now distance[m]
 	float			f_ctrl_dist;			// [dist ctrl] finish distance[m]
 	float			f_ctrl_jerkAngle;	// jerk angle[rad/s3]
-	
-	float			f_ctrl_accAngleS;	// [angle speed ctrl] angle accel speed[rad/s2]
+	float			f_ctrl_nowAccAngle;
+	float			f_ctrl_trgtAccAngle;	// [angle speed ctrl] angle accel speed[rad/s2]
 	float			f_ctrl_nowAngleS;	// [angle speed ctrl] now angle speed[rad/s]
 	float			f_ctrl_trgtAngleS;	// [angle speed ctrl] finish angle speed[rad/s]
 	float			f_ctrl_nowAngle;		// [angle ctrl] now angle[rad]

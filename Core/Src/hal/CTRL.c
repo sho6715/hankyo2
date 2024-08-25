@@ -41,12 +41,12 @@ float 			f_NowDistL		= 0;		// [距離制御]   現在距離（左）					（1[ms
 float			f_DistErrSum 		= 0;		// [距離制御]   距離積分制御のサム値			（1[msec]毎に更新される）
 
 float			f_JerkAngle		=0;
-
-
-
+float			f_BaseAccAngle		= 0;	//start accel
+float			f_TrgtAccAngle			= 0;	//now accel
+float			f_LastAccAngle		= 0;
 
 // angular velocity control
-float 			f_AccAngleS		= 0;		// [angle velocity control] angular acceleration[rad/s2]	(set value)
+//float 			f_AccAngleS		= 0;		// [angle velocity control] angular acceleration[rad/s2]	(set value)
 float			f_BaseAngleS		= 0;		// [angle velocity control] initial angular velocity[rad/s]		(set value)
 float			f_LastAngleS 		= 0;		// [angle velocity control] last target angular velocity	(set value)
 float			f_TrgtAngleS 		= 0;		// [angle velocity control] target angular velocity [rad/s]	(updated 1[msec])
@@ -151,7 +151,7 @@ void CTRL_clrData( void )
 	f_NowAngle		= 0;						// [角度制御]   現在角度					（1[msec]毎に更新される）
 	s_GyroVal		= 0;						// ジャイロ値クリア
 	f_GyroNowAngle	= 0;							// ジャイロ値クリア
-
+*/
 	/* 目標値 */
 	f_TrgtSpeed		= 0;						// [速度制御]   目標移動速度 [mm/s]			（1[msec]毎に更新される）
 	f_TrgtDist 		= 0;						// [距離制御]   目標移動距離				（1[msec]毎に更新される）
@@ -230,13 +230,20 @@ void CTRL_setData( stCTRL_DATA* p_data )
 	f_BaseDist 				= p_data->f_ctrl_nowDist;
 	f_LastDist 				= p_data->f_ctrl_dist;
 
+	//角加速度
 	f_JerkAngle				= p_data->f_ctrl_jerkAngle;
+	f_TrgtAccAngle			= p_data->f_ctrl_nowAccAngle;
+	f_BaseAccAngle			= p_data->f_ctrl_nowAccAngle;
+	f_LastAccAngle			= p_data->f_ctrl_trgtAccAngle;
+
 	/* 角速度制御 */
-	f_AccAngleS 			= p_data->f_ctrl_accAngleS;
+//	f_AccAngleS 			= p_data->f_ctrl_accAngleS;
+	f_TrgtAngleS			= p_data->f_ctrl_nowAngleS;
 	f_BaseAngleS			= p_data->f_ctrl_nowAngleS;
 	f_LastAngleS			= p_data->f_ctrl_trgtAngleS;
 
 	/* 角度制御 */
+	f_TrgtAngle				= p_data->f_ctrl_nowAngle;
 	f_BaseAngle 			= p_data->f_ctrl_nowAngle;
 	f_LastAngle 			= p_data->f_ctrl_angle;
 
@@ -338,11 +345,22 @@ void CTRL_refTarget( void )
 
 		/* acc(Turn) */
 		case CTRL_ACC_TRUN:
+			f_TrgtAccAngle += f_JerkAngle*0.001;
 
 			/* CCW  hidari*/
 			if( f_LastAngle > 0 ){
-				if ( f_TrgtAngleS < (f_LastAngleS -(f_AccAngleS * 0.001)) ){
-					f_TrgtAngleS = 0.0 + f_AccAngleS * f_Time;									// 目標角速度
+				if(f_BaseAccAngle > 0){
+					if(f_TrgtAccAngle < 0.0){
+						f_TrgtAccAngle = 0.0;
+					}
+				}else{
+					if(f_TrgtAccAngle > f_LastAccAngle){
+						f_TrgtAccAngle = f_LastAccAngle;
+					}
+				}
+
+				if ( f_TrgtAngleS < (f_LastAngleS -(f_TrgtAccAngle * 0.001)) ){
+					f_TrgtAngleS += f_TrgtAccAngle * 0.001;									// 目標角速度
 				}
 				else{
 					f_TrgtAngleS = f_LastAngleS;
@@ -350,8 +368,18 @@ void CTRL_refTarget( void )
 			}
 			/* CW  migi */
 			else{
-				if( f_TrgtAngleS > (f_LastAngleS +(f_AccAngleS * 0.001)) ){
-				f_TrgtAngleS = 0.0 - f_AccAngleS * f_Time;									// 目標角速度
+				if(f_BaseAccAngle < 0){
+					if(f_TrgtAccAngle > 0.0){
+						f_TrgtAccAngle = 0.0;
+					}
+				}else{
+					if(f_TrgtAccAngle < f_LastAccAngle){
+						f_TrgtAccAngle = f_LastAccAngle;
+					}
+				}
+
+				if( f_TrgtAngleS > (f_LastAngleS +(f_TrgtAccAngle * 0.001)) ){
+					f_TrgtAngleS += f_TrgtAccAngle * 0.001;									// 目標角速度
 				}
 				else{
 					f_TrgtAngleS = f_LastAngleS;
@@ -361,18 +389,29 @@ void CTRL_refTarget( void )
 
 		/* const(Turn) */
 		case CTRL_CONST_TRUN:
-//			f_TrgtAngleS =f_BaseAngleS;
+			f_TrgtAngleS =f_BaseAngleS;
 			break;
 
 		/* dec(Turn) */
 		case CTRL_DEC_TRUN:
+			f_TrgtAccAngle += f_JerkAngle*0.001;
+
 			/* CCW */
 			if( f_LastAngle > 0 ){
+				if(f_BaseAccAngle < 0){
+					if(f_TrgtAccAngle > 0.0){
+						f_TrgtAccAngle = 0.0;
+					}
+				}else{
+					if(f_TrgtAccAngle < f_LastAccAngle){
+						f_TrgtAccAngle = f_LastAccAngle;
+					}
+				}
 
 				/* Angle speed CTRL + Angle CTRL */
-				if( f_TrgtAngleS > (f_LastAngleS +(f_AccAngleS * 0.001)) ){						// 減速目標更新区間
-					f_TrgtAngleS = f_BaseAngleS - f_AccAngleS * f_Time;							// 目標角速度
-					f_TrgtAngle  = f_BaseAngle + ( f_BaseAngleS + f_TrgtAngleS ) * f_Time / 2;	// 目標角度
+				if( f_TrgtAngleS > (f_LastAngleS +(f_TrgtAccAngle * 0.001)) ){						// 減速目標更新区間
+					f_TrgtAngleS += f_TrgtAccAngle * 0.001;							// 目標角速度
+					f_TrgtAngle  += f_TrgtAngleS * 0.001;	// 目標角度
 				}
 				/* Angle CTRL */
 				else{
@@ -382,11 +421,20 @@ void CTRL_refTarget( void )
 			}
 			/* CW */
 			else{
+				if(f_BaseAccAngle > 0){
+					if(f_TrgtAccAngle < 0.0){
+						f_TrgtAccAngle = 0.0;
+					}
+				}else{
+					if(f_TrgtAccAngle > f_LastAccAngle){
+						f_TrgtAccAngle = f_LastAccAngle;
+					}
+				}
 
 				/* Angle speed CTRL + Angle CTRL */
-				if( f_TrgtAngleS < (f_LastAngleS -(f_AccAngleS * 0.001))){						// 減速目標更新区間
-					f_TrgtAngleS = f_BaseAngleS + f_AccAngleS * f_Time;							// 目標角速度
-					f_TrgtAngle  = f_BaseAngle + ( f_BaseAngleS + f_TrgtAngleS ) * f_Time / 2;	// 目標角度
+				if( f_TrgtAngleS < (f_LastAngleS +(f_TrgtAccAngle * 0.001))){						// 減速目標更新区間
+					f_TrgtAngleS += f_TrgtAccAngle * 0.001;							// 目標角速度
+					f_TrgtAngle  += f_TrgtAngleS * 0.001;	// 目標角度
 				}
 				/* Angle CTRL */
 				else{
@@ -410,8 +458,8 @@ void CTRL_refTarget( void )
 
 			/* CCW */
 			if( f_LastAngle > 0 ){
-				if( f_TrgtAngleS < (f_LastAngleS +(f_AccAngleS * 0.001))){
-					f_TrgtAngleS = f_BaseAngleS + f_AccAngleS * f_Time;							// 目標角速度
+				if( f_TrgtAngleS < (f_LastAngleS +(f_TrgtAccAngle * 0.001))){
+					f_TrgtAngleS = f_BaseAngleS + f_TrgtAccAngle * f_Time;							// 目標角速度
 					f_TrgtAngle  = f_BaseAngle + ( f_BaseAngleS + f_TrgtAngleS ) * f_Time / 2;	// 目標角度
 //					printf("%5.2f %5.2f %5.4f %5.2f %5.2f\n\r",f_TrgtAngleS,f_AccAngleS,f_Time,f_TrgtAngle,f_LastAngleS);
 				}
@@ -421,8 +469,8 @@ void CTRL_refTarget( void )
 			}
 			/* CW */
 			else{
-				if( f_TrgtAngleS > (f_LastAngleS -(f_AccAngleS * 0.001)) ){
-					f_TrgtAngleS = f_BaseAngleS + f_AccAngleS * f_Time;							// 目標角速度
+				if( f_TrgtAngleS > (f_LastAngleS -(f_TrgtAccAngle * 0.001)) ){
+					f_TrgtAngleS = f_BaseAngleS + f_TrgtAccAngle * f_Time;							// 目標角速度
 					f_TrgtAngle  = f_BaseAngle + ( f_BaseAngleS + f_TrgtAngleS ) * f_Time / 2;	// 目標角度
 //					printf("%5.2f %5.2f %5.4f %5.2f %5.2f\n\r",f_TrgtAngleS,f_AccAngleS,f_Time,f_TrgtAngle,f_LastAngleS);
 				}
@@ -447,7 +495,7 @@ void CTRL_refTarget( void )
 
 			/* CCW */
 			if( f_LastAngle > 0 ){
-				if( f_TrgtAngle < (f_LastAngle +(f_AccAngleS * 0.001)) ){
+				if( f_TrgtAngle < (f_LastAngle +(f_TrgtAccAngle * 0.001)) ){
 					f_TrgtAngle  = f_BaseAngle + f_TrgtAngleS * f_Time;			// 目標角度
 				}
 				else{
@@ -456,7 +504,7 @@ void CTRL_refTarget( void )
 			}
 			/* CW */
 			else{
-				if( f_TrgtAngle > (f_LastAngle -(f_AccAngleS * 0.001)) ){
+				if( f_TrgtAngle > (f_LastAngle -(f_TrgtAccAngle * 0.001)) ){
 					f_TrgtAngle  = f_BaseAngle + f_TrgtAngleS * f_Time;			// 目標角度
 				}
 				else{
@@ -479,8 +527,8 @@ void CTRL_refTarget( void )
 
 			/* CCW */
 			if( f_LastAngle > 0 ){
-				if( f_TrgtAngleS > (f_LastAngle -(f_AccAngleS * 0.001)) ){
-					f_TrgtAngleS = f_BaseAngleS + f_AccAngleS * f_Time;							// 目標角速度
+				if( f_TrgtAngleS > (f_LastAngle -(f_TrgtAccAngle * 0.001)) ){
+					f_TrgtAngleS = f_BaseAngleS + f_TrgtAccAngle * f_Time;							// 目標角速度
 					f_TrgtAngle  = f_BaseAngle + ( f_BaseAngleS + f_TrgtAngleS ) * f_Time / 2;	// 目標角度
 				}
 				else{
@@ -490,8 +538,8 @@ void CTRL_refTarget( void )
 			}
 			/*CW*/
 			else{
-				if( f_TrgtAngleS < (f_LastAngle +(f_AccAngleS * 0.001)) ){
-					f_TrgtAngleS = f_BaseAngleS + f_AccAngleS * f_Time;							// 目標角速度
+				if( f_TrgtAngleS < (f_LastAngle +(f_TrgtAccAngle * 0.001)) ){
+					f_TrgtAngleS = f_BaseAngleS + f_TrgtAccAngle * f_Time;							// 目標角速度
 					f_TrgtAngle  = f_BaseAngle + ( f_BaseAngleS + f_TrgtAngleS ) * f_Time / 2;	// 目標角度
 				}
 				else{
@@ -600,7 +648,7 @@ void CTRL_getFF_angle( float* p_err )
 		case CTRL_SKEW_ACC:
 		case CTRL_ACC_TRUN:
 		case CTRL_ACC_SURA:
-			*p_err =FABS(f_AccAngleS);
+			*p_err =FABS(f_TrgtAccAngle);
 			break;
 
 		case CTRL_CONST:
@@ -616,7 +664,7 @@ void CTRL_getFF_angle( float* p_err )
 		case CTRL_SKEW_DEC:
 		case CTRL_DEC_TRUN:
 		case CTRL_DEC_SURA:
-			*p_err = FABS(f_AccAngleS) *(-1.0);
+			*p_err = FABS(f_TrgtAccAngle) *(-1.0);
 			break;
 
 		// 加速以外 
@@ -926,18 +974,24 @@ void CTRL_getFloorFriction(float* p_err){
 
 	else{
 		if(f_TrgtAngleS<0){
-			if(Get_NowAngle() > -0.002)
+/*			if(Get_NowAngle() > -0.002)
 				*p_err = (-1.0)*0.43/1000.0 + (-1.0)*0.46/1000.0+f_TrgtAngleS*FABS(f_TrgtAngleS)*tread/2.0/PI/740.0;
 	//			*p_err = (-1)*0.35/1000.0 + (-1)*0.45/1000.0+f_TrgtAngleS*tread/2/PI/109.0;
 			else
 				*p_err = (-1.0)*0.37/1000.0;
 			}
+*/
+			*p_err = (-1.0)*0.2/1000.0;
+		}
 		else if(f_TrgtAngleS>0){
+/*
 			if(Get_NowAngle() < 0.002)
 				*p_err = 0.43/1000.0 + 0.46/1000.0+f_TrgtAngleS*FABS(f_TrgtAngleS)*tread/2.0/PI/740.0;
 	//			*p_err = 0.35/1000.0 + 0.45/1000.0+f_TrgtAngleS*tread/2/PI/109.0;
 			else
 				*p_err = 0.37/1000.0;
+*/
+			*p_err = 0.2/1000.0;
 		}else{
 			*p_err = 0;
 		}
@@ -1125,10 +1179,10 @@ void CTRL_pol( void )
 	Duty_L = f_duty10_L;
 	Duty_R = f_duty10_R;
 
-	TempLog1 = f_feedFoard_speed;//f_AngleSErrSum;//TR;//f_floorfriction;//f_duty10_R;
-	TempLog2 = f_speedCtrl;//f_angleSpeedCtrl;//TL;//f_duty10_L;
-	TempLog3 = f_SpeedErrSum;//f_floorfriction;//f_feedFoard_angle*(-1.0);
-//	TempLog4 = f_duty10_L;//f_floorfriction;//INERTIA*(f_feedFoard_angle*(-1.0) + f_angleSpeedCtrl+f_angleCtrl)+f_floorfriction * 1000000.0;
+	TempLog1 = f_feedFoard_angle;//f_AngleSErrSum;//TR;//f_floorfriction;//f_duty10_R;
+	TempLog2 = f_angleSpeedCtrl;//f_angleSpeedCtrl;//TL;//f_duty10_L;
+	TempLog3 = f_AngleSErrSum;//f_floorfriction;//f_feedFoard_angle*(-1.0);
+	TempLog4 = f_duty10_L;//f_floorfriction;//INERTIA*(f_feedFoard_angle*(-1.0) + f_angleSpeedCtrl+f_angleCtrl)+f_floorfriction * 1000000.0;
 
 	EscapeWait = EscapeWait+0.001;
 	CTRL_outMot( f_duty10_R, f_duty10_L );				// モータへ出力

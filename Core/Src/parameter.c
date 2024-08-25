@@ -36,22 +36,22 @@ stSLA				st_Sla[SLA_TYPE_MAX];					// スラローム時の走行パラメータ
 	const stSPEED f_TurnSpeedData[PARAM_MOVE_SPEED_MAX] = {
 		
 		//	ジャーク　加速度	減速度		角ジャーク	角加速度		角減速度
-		{ 0,		0,			0,			0,		22.2*PI,		22.2*PI,		},		// 超低速(PARAM_VERY_SLOW)
-		{ 0,		0,			0,			0,		22.2*PI,		22.2*PI,		},		// 低速(PARAM_SLOW)
-		{ 0,		0,			0,			0,		22.2*PI,		22.2*PI,		},		// 通常(PARAM_NORMAL)
-		{ 0,		0,			0,			0,		22.2*PI,		22.2*PI,		},		// 高速(PARAM_FAST)
-		{ 0,		0,			0,			0,		22.2*PI,		22.2*PI,		},		// 超高速(PARAM_VERY_FAST)
+		{ 0,		0,			0,			500.0*PI,		22.2*PI,		22.2*PI,		},		// 超低速(PARAM_VERY_SLOW)
+		{ 0,		0,			0,			500.0*PI,		22.2*PI,		22.2*PI,		},		// 低速(PARAM_SLOW)
+		{ 0,		0,			0,			500.0*PI,		22.2*PI,		22.2*PI,		},		// 通常(PARAM_NORMAL)
+		{ 0,		0,			0,			500.0*PI,		22.2*PI,		22.2*PI,		},		// 高速(PARAM_FAST)
+		{ 0,		0,			0,			500.0*PI,		22.2*PI,		22.2*PI,		},		// 超高速(PARAM_VERY_FAST)
 	};
 
 	/* スラローム速度データ */
 	const stSPEED f_SlaSpeedData[PARAM_MOVE_SPEED_MAX] = {
 		
 		//	ジャーク　加速度	減速度		角ジャーク	角加速度		角減速度
-		{ 100.0,	2.5,			2.5,		0,		10.0*PI,			10.0*PI,			},		// 超低速(PARAM_VERY_SLOW)
-		{ 100.0,	2.5,			2.5,		0,		10.0*PI,			10.0*PI,			},		// 低速(PARAM_SLOW)
-		{ 100.0,	2.5,			2.5,		0,		10.0*PI,			10.0*PI,			},		// 通常(PARAM_NORMAL)
-		{ 100.0,	2.5,			2.5,		0,		10.0*PI,			10.0*PI,			},		// 高速(PARAM_FAST)
-		{ 100.0,	2.5,			2.5,		0,		10.0*PI,			10.0*PI,			},		// 超高速(PARAM_VERY_FAST)
+		{ 0,	2.5,			2.5,		300.0*PI,		10.0*PI,			10.0*PI,			},		// 超低速(PARAM_VERY_SLOW)
+		{ 0,	2.5,			2.5,		300.0*PI,		10.0*PI,			10.0*PI,			},		// 低速(PARAM_SLOW)
+		{ 0,	2.5,			2.5,		300.0*PI,		10.0*PI,			10.0*PI,			},		// 通常(PARAM_NORMAL)
+		{ 0,	2.5,			2.5,		300.0*PI,		10.0*PI,			10.0*PI,			},		// 高速(PARAM_FAST)
+		{ 0,	2.5,			2.5,		300.0*PI,		10.0*PI,			10.0*PI,			},		// 超高速(PARAM_VERY_FAST)
 	};
 
 
@@ -85,7 +85,7 @@ stSLA				st_Sla[SLA_TYPE_MAX];					// スラローム時の走行パラメータ
 		
 		/* 超低速(PARAM_VERY_SLOW) */
 			//速度kp,速度ki,速度kd,	角速度kp,角速度ki,角速度kd,	角度kp,角度ki,	壁kp,壁kd
-			{ 35.0,2.0,0.1,	200.0,2.0,2.0,	0.0,0.0,	0.0,0.0,},
+			{ 35.0,2.0,0.1,	150.0,15.0,7.0,	0.0,0.0,	0.0,0.0,},
 		/* 低速(PARAM_SLOW) */
 			//速度kp,速度ki,速度kd,	角速度kp,角速度ki,角速度kd,	角度kp,角度ki,	壁kp,壁kd
 			{ 35.0,2.0,0.1,	200.0,2.0,2.0,	0.0,0.0,	0.0,0.0,},

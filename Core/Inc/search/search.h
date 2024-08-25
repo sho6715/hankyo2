@@ -72,6 +72,7 @@ void MAP_searchGoal( uint8_t uc_trgX, uint8_t uc_trgY, enMAP_ACT_MODE en_type, e
 void MAP_makeContourMap( uint8_t uc_goalX, uint8_t uc_goalY, enMAP_ACT_MODE en_type );
 void MAP_makeContourMap_run( uint8_t uc_goalX,uint8_t uc_goalY,	enMAP_ACT_MODE	en_type);
 void MAP_actGoalLED( void );
+void MAP_showLog( void );
 
 void MAP_ClearMapData( void );
 void MAP_Goalsize(int size);
