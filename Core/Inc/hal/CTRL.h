@@ -42,11 +42,11 @@ typedef enum{
 	CTRL_CONST_TRUN,		// [08] 
 	CTRL_DEC_TRUN,			// [09] 
 	
-	CTRL_ENTRY_SURA,		// [10]
-	CTRL_ACC_SURA,			// [11] 
-	CTRL_CONST_SURA,		// [12] 
-	CTRL_DEC_SURA,			// [13] 
-	CTRL_EXIT_SURA,			// [14] 
+	CTRL_ENTRY_SLA,		// [10]
+	CTRL_ACC_SLA,			// [11] 
+	CTRL_CONST_SLA,		// [12] 
+	CTRL_DEC_SLA,			// [13] 
+	CTRL_EXIT_SLA,			// [14] 
 
 	CTRL_FRONT_WALL,		// [15]
 

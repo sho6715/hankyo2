@@ -72,8 +72,8 @@ typedef enum{
 	MOT_L135S_S2N,				// [???p] ??135?x???X?????[???A?X?g???[?g ?? ???
 	MOT_R135S_N2S,				// [???p] ?E135?x???X?????[???A??? ?? ?X?g???[?g
 	MOT_L135S_N2S,				// [???p] ??135?x???X?????[???A??? ?? ?X?g???[?g
-	MOT_SURA_CMD_MAX,
-}enMOT_SURA_CMD;
+	MOT_SLA_CMD_MAX,
+}enMOT_SLA_CMD;
 
 /* ????? */
 typedef enum{
@@ -109,12 +109,12 @@ void testrun(void);
 float MOT_getAccAngle1( void );
 float MOT_getAccAngle3( void );
 void MOT_turn( enMOT_TURN_CMD en_type );
-void MOT_setSuraStaSpeed( float f_speed , uint8_t sura_cmd);
-float MOT_getSuraStaSpeed( uint8_t sura_cmd );
+void MOT_setSlaStaSpeed( float f_speed , uint8_t sla_cmd);
+float MOT_getSlaStaSpeed( uint8_t sla_cmd );
 float MOT_setTrgtSpeed(float f_speed);
 void MOT_setNowSpeed(float f_speed);
 void MOT_goHitBackWall(void);
-void MOT_goSla( enMOT_SURA_CMD en_type, stSLA* p_sla );
+void MOT_goSla( enMOT_SLA_CMD en_type, stSLA* p_sla );
 void turntable(void);
 void MOT_setWallEdgeType( enMOT_WALL_EDGE_TYPE en_type );
 enMOT_WALL_EDGE_TYPE MOT_getWallEdgeType( void );

@@ -589,7 +589,7 @@ void MAP_makeCmdList(
 	*en_endDir = en_staDir;
 }
 
-void MAP_makeSuraCmdList( void )
+void MAP_makeSlaCmdList( void )
 {
 	uint16_t dcom_temp[4096];			// 半区画超信旋回コマンドリスト
 	uint16_t i=0,j=0;					// roop
@@ -898,7 +898,7 @@ void MAP_drive( enMAP_DRIVE_TYPE en_driveType )
 		DCM_brakeMot( DCM_L );		// ブレーキ
 	}
 	/* スラロームモード */
-	else if( en_driveType == MAP_DRIVE_SURA )
+	else if( en_driveType == MAP_DRIVE_SLA )
 	{
 		while(1)
 		{
@@ -931,7 +931,7 @@ void MAP_drive( enMAP_DRIVE_TYPE en_driveType )
 							us_LogIndexWallCut %= 30;
 						}
 					}
-					MOT_goBlock_FinSpeed( (float)scom[us_rp]*0.5f, MOT_getSuraStaSpeed(SLA_90) );		// 直線走行コマンド、半区間前進（最終速度あり）
+					MOT_goBlock_FinSpeed( (float)scom[us_rp]*0.5f, MOT_getSlaStaSpeed(SLA_90) );		// 直線走行コマンド、半区間前進（最終速度あり）
 				}
 			}
 			else if( scom[us_rp] == R90S )
@@ -991,22 +991,22 @@ void MAP_drive( enMAP_DRIVE_TYPE en_driveType )
 						}
 					}
 					if((tcom[us_rp+1]==R90S)||(tcom[us_rp+1]==L90S)){
-						MOT_goBlock_FinSpeed( (float)tcom[us_rp]*0.5f, MOT_getSuraStaSpeed(SLA_90) );		// 直線走行コマンド、半区間前進（最終速度あり）
+						MOT_goBlock_FinSpeed( (float)tcom[us_rp]*0.5f, MOT_getSlaStaSpeed(SLA_90) );		// 直線走行コマンド、半区間前進（最終速度あり）
 					}else if((tcom[us_rp+1]==RS45N)||(tcom[us_rp+1]==LS45N)){
-						MOT_goBlock_FinSpeed( (float)tcom[us_rp]*0.5f, MOT_getSuraStaSpeed(SLA_45) );		// 直線走行コマンド、半区間前進（最終速度あり）
+						MOT_goBlock_FinSpeed( (float)tcom[us_rp]*0.5f, MOT_getSlaStaSpeed(SLA_45) );		// 直線走行コマンド、半区間前進（最終速度あり）
 					}else if((tcom[us_rp+1]==RS135N)||(tcom[us_rp+1]==LS135N)){
-						MOT_goBlock_FinSpeed( (float)tcom[us_rp]*0.5f, MOT_getSuraStaSpeed(SLA_135) );		// 直線走行コマンド、半区間前進（最終速度あり）
+						MOT_goBlock_FinSpeed( (float)tcom[us_rp]*0.5f, MOT_getSlaStaSpeed(SLA_135) );		// 直線走行コマンド、半区間前進（最終速度あり）
 					}
 				}
 			}
 			else if ( ( tcom[us_rp] <=  NGO71 ) && ( tcom[us_rp] >=  NGO1) )
 			{
 				if((tcom[us_rp+1]==RN45S)||(tcom[us_rp+1]==LN45S)){
-					MOT_goSkewBlock_FinSpeed( (float)(tcom[us_rp]-81)*0.5f, MOT_getSuraStaSpeed(SLA_45) );		// 直線走行コマンド、半区間前進（最終速度あり）
+					MOT_goSkewBlock_FinSpeed( (float)(tcom[us_rp]-81)*0.5f, MOT_getSlaStaSpeed(SLA_45) );		// 直線走行コマンド、半区間前進（最終速度あり）
 				}else if((tcom[us_rp+1]==RN135S)||(tcom[us_rp+1]==LN135S)){
-					MOT_goSkewBlock_FinSpeed( (float)(tcom[us_rp]-81)*0.5f, MOT_getSuraStaSpeed(SLA_135) );		// 直線走行コマンド、半区間前進（最終速度あり）
+					MOT_goSkewBlock_FinSpeed( (float)(tcom[us_rp]-81)*0.5f, MOT_getSlaStaSpeed(SLA_135) );		// 直線走行コマンド、半区間前進（最終速度あり）
 				}else if((tcom[us_rp+1]==RN90N)||(tcom[us_rp+1]==LN90N)){
-					MOT_goSkewBlock_FinSpeed( (float)(tcom[us_rp]-81)*0.5f, MOT_getSuraStaSpeed(SLA_N90) );		// 直線走行コマンド、半区間前進（最終速度あり）
+					MOT_goSkewBlock_FinSpeed( (float)(tcom[us_rp]-81)*0.5f, MOT_getSlaStaSpeed(SLA_N90) );		// 直線走行コマンド、半区間前進（最終速度あり）
 				}
 			}
 			else

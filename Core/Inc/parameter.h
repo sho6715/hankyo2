@@ -81,11 +81,11 @@ typedef enum{
 
 	PARAM_SLA_TOP,			
 
-		PARAM_ENTRY_SURA,	
-		PARAM_ACC_SURA,		
-		PARAM_CONST_SURA,	
-		PARAM_DEC_SURA,	
-		PARAM_EXIT_SURA,		
+		PARAM_ENTRY_SLA,	
+		PARAM_ACC_SLA,		
+		PARAM_CONST_SLA,	
+		PARAM_DEC_SLA,	
+		PARAM_EXIT_SLA,		
 
 	PARAM_SLA_BTM,			
 	
@@ -95,7 +95,7 @@ typedef enum{
 
 	PARAM_ST_MAX		= PARAM_ST_BTM   - PARAM_ST_TOP,		
 	PARAM_TRUN_MAX		= PARAM_TRUN_BTM - PARAM_TRUN_TOP,		
-	PARAM_SURA_MAX		= PARAM_SLA_BTM  - PARAM_SLA_TOP,			
+	PARAM_SLA_MAX		= PARAM_SLA_BTM  - PARAM_SLA_TOP,			
 	
 	PARAM_NC = 0xff,
 	
@@ -139,12 +139,21 @@ typedef struct{
 
 typedef struct{
 	float	f_sla_speed;
+	float	f_sla_angJerk;
 	float	f_sla_angAcc;
 	float	f_sla_angvel;
 	float	f_sla_entryLen;
 	float	f_sla_escapeLen;
+	uint16_t	us_sla_jerkAngaccTime;
 	uint16_t	us_sla_accAngvelTime;
 	uint16_t	us_sla_constAngvelTime;
+	float	f_sla_angS_Jerk;
+	float	f_sla_ang_AccAccJerk;
+	float	f_sla_ang_AccConst;
+	float	f_sla_ang_AccDecJerk;
+	float	f_sla_ang_DecDecJerk;
+	float	f_sla_ang_DecConst;
+	float	f_sla_ang_DecAccJerk;
 	float	f_sla_ang_AccEnd;
 	float	f_sla_ang_ConstEnd;
 	float	f_sla_ang_Total;
@@ -165,6 +174,6 @@ const stSPEED* PARAM_getSpeed( enPARAM_MODE en_mode );
 const stGAIN* PARAM_getGain( enPARAM_MODE en_mode );
 enPARAM_MOVE_SPEED PARAM_getSpeedType( enPARAM_MODE en_mode );
 
-void PARAM_makeSra( float f_speed, float f_angAcc, float f_g , enSLA_TYPE en_mode);
+void PARAM_makeSra( float f_speed, float f_angAcc, float f_g , float f_jerkAngle, enSLA_TYPE en_mode);
 stSLA* PARAM_getSra( enSLA_TYPE en_mode );
 #endif /* INC_PARAMETER_H_ */

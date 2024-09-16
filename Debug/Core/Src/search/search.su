@@ -15,7 +15,7 @@
 ../Core/Src/search/search.c:624:6:MAP_calcMouseDir	24	static
 ../Core/Src/search/search.c:694:6:MAP_refMousePos	16	static
 ../Core/Src/search/search.c:715:6:MAP_moveNextBlock	16	static
-../Core/Src/search/search.c:773:6:MAP_moveNextBlock_Sura	16	static
+../Core/Src/search/search.c:773:6:MAP_moveNextBlock_Sla	16	static
 ../Core/Src/search/search.c:910:6:MAP_actGoal	8	static
 ../Core/Src/search/search.c:925:6:MAP_actGoalLED	16	static
 ../Core/Src/search/search.c:946:6:MAP_Goalsize	16	static

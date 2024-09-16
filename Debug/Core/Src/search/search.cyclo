@@ -15,7 +15,7 @@
 ../Core/Src/search/search.c:624:6:MAP_calcMouseDir	18
 ../Core/Src/search/search.c:694:6:MAP_refMousePos	5
 ../Core/Src/search/search.c:715:6:MAP_moveNextBlock	13
-../Core/Src/search/search.c:773:6:MAP_moveNextBlock_Sura	48
+../Core/Src/search/search.c:773:6:MAP_moveNextBlock_Sla	48
 ../Core/Src/search/search.c:910:6:MAP_actGoal	1
 ../Core/Src/search/search.c:925:6:MAP_actGoalLED	2
 ../Core/Src/search/search.c:946:6:MAP_Goalsize	3

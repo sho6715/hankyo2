@@ -770,7 +770,7 @@ void MAP_moveNextBlock(
 //	}
 }
 
-void MAP_moveNextBlock_Sura( 
+void MAP_moveNextBlock_Sla( 
 	enMAP_HEAD_DIR 	en_head,		///< [in] 相対進行方向（マウス進行方向を北としている
 	bool*			p_type,			///< [in] FALSE: １区間前進状態、TURE:半区間前進状態
 	bool			bl_resume		///< [in] FALSE: レジューム動作ではない、TURE:レジューム動作
@@ -899,7 +899,7 @@ void MAP_moveNextBlock_Sura(
 		MOT_goBack_Const( MOT_BACK_POLE );					// １つ前の柱まで後退
 		MAP_makeMapData();									// 壁データから迷路データを作成			← ここでデータ作成をミスっている
 		MAP_calcMouseDir(CONTOUR_SYSTEM, &en_head);			// 等高線MAP法で進行方向を算出			← 誤ったMAPを作成
-		MAP_moveNextBlock_Sura(en_head, p_type, TRUE );		// もう１度呼び出し（次の区画へ移動）
+		MAP_moveNextBlock_Sla(en_head, p_type, TRUE );		// もう１度呼び出し（次の区画へ移動）
 	}
 	else{*/
 		/* 進行方向更新 */
@@ -1413,7 +1413,7 @@ void MAP_searchGoal(
 			}
 		}
 		/* スラローム探索 */
-		else if( SEARCH_SURA == en_search ){
+		else if( SEARCH_SLA == en_search ){
 //			MAP_makeContourMap( uc_trgX, uc_trgY, en_type );		// 等高線マップを作る
 			MAP_makeContourMap_queue(uc_trgX, uc_trgY, en_type);
 			if( TRUE == bl_type ){
@@ -1430,7 +1430,7 @@ void MAP_searchGoal(
 				break;
 			}
 			else{
-				MAP_moveNextBlock_Sura(en_head, &bl_type, FALSE );	// 次の区画へ移動						← ここで改めてリリースチェック＋壁再度作成＋等高線＋超信地旋回動作
+				MAP_moveNextBlock_Sla(en_head, &bl_type, FALSE );	// 次の区画へ移動						← ここで改めてリリースチェック＋壁再度作成＋等高線＋超信地旋回動作
 //				MAP_moveNextBlock_acc(en_head, &bl_type);
 			}
 		}
@@ -1458,7 +1458,7 @@ void MAP_searchGoal(
 			}
 //			}
 			else {
-				MAP_moveNextBlock_Sura(en_head, &bl_type, FALSE);	// 次の区画へ移動			← ここで改めてリリースチェック＋壁再度作成＋等高線＋超信地旋回動作
+				MAP_moveNextBlock_Sla(en_head, &bl_type, FALSE);	// 次の区画へ移動			← ここで改めてリリースチェック＋壁再度作成＋等高線＋超信地旋回動作
 //				MAP_moveNextBlock_acc(en_head, &bl_type);
 			}
 //			LED_count(uc_trgY);
@@ -1555,7 +1555,7 @@ void MAP_searchGoalKnown(
 			}
 		}
 		/* スラローム探索 */
-		else if( SEARCH_SURA == en_search ){
+		else if( SEARCH_SLA == en_search ){
 //			MAP_makeContourMap( uc_trgX, uc_trgY, en_type );		// 等高線マップを作る
 			MAP_makeContourMap_queue(uc_trgX, uc_trgY, en_type);
 			if( TRUE == bl_type ){
@@ -1573,7 +1573,7 @@ void MAP_searchGoalKnown(
 				break;
 			}
 			else{
-//				MAP_moveNextBlock_Sura(en_head, &bl_type, FALSE );	// 次の区画へ移動			← ここで改めてリリースチェック＋壁再度作成＋等高線＋超信地旋回動作
+//				MAP_moveNextBlock_Sla(en_head, &bl_type, FALSE );	// 次の区画へ移動			← ここで改めてリリースチェック＋壁再度作成＋等高線＋超信地旋回動作
 				MAP_moveNextBlock_acc(en_head, &bl_type);
 			}
 		}
@@ -1717,7 +1717,7 @@ void MAP_searchGoalKnown_AllSection(
 			}
 		}
 		/* スラローム探索 */
-		else if( SEARCH_SURA == en_search ){
+		else if( SEARCH_SLA == en_search ){
 //			MAP_makeContourMap( uc_trgX, uc_trgY, en_type );		// 等高線マップを作る
 			MAP_makeContourMap_queue(uc_trgX, uc_trgY, en_type);
 			if( TRUE == bl_type ){
@@ -1735,7 +1735,7 @@ void MAP_searchGoalKnown_AllSection(
 				break;
 			}
 			else{
-//				MAP_moveNextBlock_Sura(en_head, &bl_type, FALSE );	// 次の区画へ移動			← ここで改めてリリースチェック＋壁再度作成＋等高線＋超信地旋回動作
+//				MAP_moveNextBlock_Sla(en_head, &bl_type, FALSE );	// 次の区画へ移動			← ここで改めてリリースチェック＋壁再度作成＋等高線＋超信地旋回動作
 				MAP_moveNextBlock_acc(en_head, &bl_type);
 			}
 		}

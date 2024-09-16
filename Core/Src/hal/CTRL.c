@@ -444,23 +444,34 @@ void CTRL_refTarget( void )
 			}
 			break;
 
-		/* entry(sura) */
-		case CTRL_ENTRY_SURA:
+		/* entry(sla) */
+		case CTRL_ENTRY_SLA:
 			f_TrgtSpeed = f_BaseSpeed;
 			if( f_TrgtDist <= f_LastDist - (f_TrgtSpeed * 0.001) ){
-				f_TrgtDist  = f_BaseDist + f_TrgtSpeed * f_Time;								// 目標距離
+				f_TrgtDist  += f_TrgtSpeed * 0.001;								// 目標距離
 			}
 			break;
 
 		/* acc(スラローム) */
-		case CTRL_ACC_SURA:
+		case CTRL_ACC_SLA:
 			f_TrgtSpeed = f_BaseSpeed;
+			f_TrgtAccAngle += f_JerkAngle*0.001;
 
 			/* CCW */
 			if( f_LastAngle > 0 ){
+				if(f_BaseAccAngle > 0){
+					if(f_TrgtAccAngle < 0.0){
+						f_TrgtAccAngle = 0.0;
+					}
+				}else{
+					if(f_TrgtAccAngle > f_LastAccAngle){
+						f_TrgtAccAngle = f_LastAccAngle;
+					}
+				}
+
 				if( f_TrgtAngleS < (f_LastAngleS +(f_TrgtAccAngle * 0.001))){
-					f_TrgtAngleS = f_BaseAngleS + f_TrgtAccAngle * f_Time;							// 目標角速度
-					f_TrgtAngle  = f_BaseAngle + ( f_BaseAngleS + f_TrgtAngleS ) * f_Time / 2;	// 目標角度
+					f_TrgtAngleS += f_TrgtAccAngle * 0.001;							// 目標角速度
+					f_TrgtAngle  += f_TrgtAngleS * 0.001;	// 目標角度
 //					printf("%5.2f %5.2f %5.4f %5.2f %5.2f\n\r",f_TrgtAngleS,f_AccAngleS,f_Time,f_TrgtAngle,f_LastAngleS);
 				}
 				else{
@@ -469,9 +480,19 @@ void CTRL_refTarget( void )
 			}
 			/* CW */
 			else{
+				if(f_BaseAccAngle < 0){
+					if(f_TrgtAccAngle > 0.0){
+						f_TrgtAccAngle = 0.0;
+					}
+				}else{
+					if(f_TrgtAccAngle < f_LastAccAngle){
+						f_TrgtAccAngle = f_LastAccAngle;
+					}
+				}
+
 				if( f_TrgtAngleS > (f_LastAngleS -(f_TrgtAccAngle * 0.001)) ){
-					f_TrgtAngleS = f_BaseAngleS + f_TrgtAccAngle * f_Time;							// 目標角速度
-					f_TrgtAngle  = f_BaseAngle + ( f_BaseAngleS + f_TrgtAngleS ) * f_Time / 2;	// 目標角度
+					f_TrgtAngleS += f_TrgtAccAngle * 0.001;							// 目標角速度
+					f_TrgtAngle  += f_TrgtAngleS * 0.001;	// 目標角度
 //					printf("%5.2f %5.2f %5.4f %5.2f %5.2f\n\r",f_TrgtAngleS,f_AccAngleS,f_Time,f_TrgtAngle,f_LastAngleS);
 				}
 				else{
@@ -481,22 +502,22 @@ void CTRL_refTarget( void )
 
 			/* Position CTRL */
 			if( f_LastDist > (f_TrgtDist - (f_TrgtSpeed * 0.001)) ){						// 目標更新区間
-				f_TrgtDist  = f_BaseDist + f_TrgtSpeed * f_Time;							// 目標位置
+				f_TrgtDist  += f_TrgtSpeed * 0.001;							// 目標位置
 			}
 			else{
 				f_TrgtDist  = f_LastDist;													// 目標距離
 			}
 			break;
 
-		/* const(sura) */
-		case CTRL_CONST_SURA:
+		/* const(sla) */
+		case CTRL_CONST_SLA:
 			f_TrgtSpeed = f_BaseSpeed;
 			f_TrgtAngleS = f_BaseAngleS;							// 目標角速度
 
 			/* CCW */
 			if( f_LastAngle > 0 ){
-				if( f_TrgtAngle < (f_LastAngle +(f_TrgtAccAngle * 0.001)) ){
-					f_TrgtAngle  = f_BaseAngle + f_TrgtAngleS * f_Time;			// 目標角度
+				if( f_TrgtAngle < (f_LastAngleS +(f_TrgtAccAngle * 0.001)) ){
+					f_TrgtAngle	+= f_TrgtAngleS * 0.001;			// 目標角度
 				}
 				else{
 					f_TrgtAngle  = f_LastAngle;									// 目標角度
@@ -504,8 +525,8 @@ void CTRL_refTarget( void )
 			}
 			/* CW */
 			else{
-				if( f_TrgtAngle > (f_LastAngle -(f_TrgtAccAngle * 0.001)) ){
-					f_TrgtAngle  = f_BaseAngle + f_TrgtAngleS * f_Time;			// 目標角度
+				if( f_TrgtAngle > (f_LastAngleS -(f_TrgtAccAngle * 0.001)) ){
+					f_TrgtAngle	+=f_TrgtAngleS * 0.001;			// 目標角度
 				}
 				else{
 					f_TrgtAngle  = f_LastAngle;									// 目標角度
@@ -514,22 +535,33 @@ void CTRL_refTarget( void )
 
 			/* Position CTRL */
 			if( f_LastDist > (f_TrgtDist - (f_TrgtSpeed * 0.001)) ){						// 目標更新区間
-				f_TrgtDist  = f_BaseDist + f_TrgtSpeed * f_Time;							// 目標位置
+				f_TrgtDist  += f_TrgtSpeed * 0.001;							// 目標位置
 			}
 			else{
 				f_TrgtDist  = f_LastDist;													// 目標距離
 			}
 			break;
 
-		/* dec(sura) */
-		case CTRL_DEC_SURA:
+		/* dec(sla) */
+		case CTRL_DEC_SLA:
 			f_TrgtSpeed = f_BaseSpeed;
+			f_TrgtAccAngle += f_JerkAngle*0.001;
 
 			/* CCW */
 			if( f_LastAngle > 0 ){
-				if( f_TrgtAngleS > (f_LastAngle -(f_TrgtAccAngle * 0.001)) ){
-					f_TrgtAngleS = f_BaseAngleS + f_TrgtAccAngle * f_Time;							// 目標角速度
-					f_TrgtAngle  = f_BaseAngle + ( f_BaseAngleS + f_TrgtAngleS ) * f_Time / 2;	// 目標角度
+				if(f_BaseAccAngle < 0){
+					if(f_TrgtAccAngle > 0.0){
+						f_TrgtAccAngle = 0.0;
+					}
+				}else{
+					if(f_TrgtAccAngle < f_LastAccAngle){
+						f_TrgtAccAngle = f_LastAccAngle;
+					}
+				}
+
+				if( f_TrgtAngleS > (f_LastAngleS -(f_TrgtAccAngle * 0.001)) ){
+					f_TrgtAngleS += f_TrgtAccAngle * 0.001;							// 目標角速度
+					f_TrgtAngle  += f_TrgtAngleS * 0.001;	// 目標角度
 				}
 				else{
 					f_TrgtAngleS = 0.0;
@@ -538,9 +570,19 @@ void CTRL_refTarget( void )
 			}
 			/*CW*/
 			else{
-				if( f_TrgtAngleS < (f_LastAngle +(f_TrgtAccAngle * 0.001)) ){
-					f_TrgtAngleS = f_BaseAngleS + f_TrgtAccAngle * f_Time;							// 目標角速度
-					f_TrgtAngle  = f_BaseAngle + ( f_BaseAngleS + f_TrgtAngleS ) * f_Time / 2;	// 目標角度
+				if(f_BaseAccAngle > 0){
+					if(f_TrgtAccAngle < 0.0){
+						f_TrgtAccAngle = 0.0;
+					}
+				}else{
+					if(f_TrgtAccAngle > f_LastAccAngle){
+						f_TrgtAccAngle = f_LastAccAngle;
+					}
+				}
+
+				if( f_TrgtAngleS < (f_LastAngleS +(f_TrgtAccAngle * 0.001)) ){
+					f_TrgtAngleS += f_TrgtAccAngle * 0.001;							// 目標角速度
+					f_TrgtAngle  += f_TrgtAngleS * 0.001;	// 目標角度
 				}
 				else{
 					f_TrgtAngleS = 0.0;
@@ -550,19 +592,19 @@ void CTRL_refTarget( void )
 
 			/* Position CTRL */
 			if( f_LastDist > (f_TrgtDist - (f_TrgtSpeed * 0.001)) ){						// 目標更新区間
-				f_TrgtDist  = f_BaseDist + f_TrgtSpeed * f_Time;							// 目標位置
+				f_TrgtDist  += f_TrgtSpeed * 0.001;							// 目標位置
 			}
 			else{
 				f_TrgtDist  = f_LastDist;													// 目標距離
 			}
 			break;
 
-		/* escape(sura) */
-		case CTRL_EXIT_SURA:
+		/* escape(sla) */
+		case CTRL_EXIT_SLA:
 			f_TrgtSpeed = f_BaseSpeed;
 			f_TrgtAngleS = 0;
 			if( f_TrgtDist <= (f_LastDist -f_TrgtSpeed * 0.001)){
-				f_TrgtDist  = f_BaseDist + f_TrgtSpeed * f_Time;								// 目標距離
+				f_TrgtDist  += f_TrgtSpeed * 0.001;								// 目標距離
 			}
 			else{
 				f_TrgtDist  = f_LastDist;														// 目標距離
@@ -591,11 +633,11 @@ enPARAM_MODE Chg_ParamID( enCTRL_TYPE en_type )
 		case CTRL_ACC_TRUN:		return PARAM_ACC_TRUN;			// 加速中(超地信旋回)
 		case CTRL_CONST_TRUN:		return PARAM_CONST_TRUN;		// 等速中(超地信旋回)
 		case CTRL_DEC_TRUN:		return PARAM_DEC_TRUN;			// 減速中(超地信旋回)
-		case CTRL_ENTRY_SURA:		return PARAM_ENTRY_SURA;		// スラローム前の前進動作(スラローム)
-		case CTRL_ACC_SURA:		return PARAM_ACC_SURA;			// 加速中(スラローム)
-		case CTRL_CONST_SURA:		return PARAM_CONST_SURA;		// 等速中(スラローム)
-		case CTRL_DEC_SURA:		return PARAM_DEC_SURA;			// 減速中(スラローム)
-		case CTRL_EXIT_SURA:		return PARAM_EXIT_SURA;			// スラローム後の前進動作(スラローム)
+		case CTRL_ENTRY_SLA:		return PARAM_ENTRY_SLA;		// スラローム前の前進動作(スラローム)
+		case CTRL_ACC_SLA:		return PARAM_ACC_SLA;			// 加速中(スラローム)
+		case CTRL_CONST_SLA:		return PARAM_CONST_SLA;		// 等速中(スラローム)
+		case CTRL_DEC_SLA:		return PARAM_DEC_SLA;			// 減速中(スラローム)
+		case CTRL_EXIT_SLA:		return PARAM_EXIT_SLA;			// スラローム後の前進動作(スラローム)
 		default:			return PARAM_NC;
 	}
 }
@@ -609,23 +651,23 @@ void CTRL_getFF_speed( float* p_err )
 		case CTRL_ACC:
 		case CTRL_SKEW_ACC:
 		case CTRL_ACC_TRUN:
-		case CTRL_ACC_SURA:
+		case CTRL_ACC_SLA:
 			*p_err = f_TrgtAcc;
 			break;
 
 		case CTRL_CONST:
 		case CTRL_SKEW_CONST:
 		case CTRL_CONST_TRUN:
-		case CTRL_ENTRY_SURA:
-		case CTRL_EXIT_SURA:
-		case CTRL_CONST_SURA:
+		case CTRL_ENTRY_SLA:
+		case CTRL_EXIT_SLA:
+		case CTRL_CONST_SLA:
 			*p_err = 0;
 			break;
 
 		case CTRL_DEC:
 		case CTRL_SKEW_DEC:
 		case CTRL_DEC_TRUN:
-		case CTRL_DEC_SURA:
+		case CTRL_DEC_SLA:
 		case CTRL_HIT_WALL:
 			*p_err = f_TrgtAcc;
 			break;
@@ -647,23 +689,23 @@ void CTRL_getFF_angle( float* p_err )
 		case CTRL_ACC:
 		case CTRL_SKEW_ACC:
 		case CTRL_ACC_TRUN:
-		case CTRL_ACC_SURA:
+		case CTRL_ACC_SLA:
 			*p_err =FABS(f_TrgtAccAngle);
 			break;
 
 		case CTRL_CONST:
 		case CTRL_SKEW_CONST:
 		case CTRL_CONST_TRUN:
-		case CTRL_ENTRY_SURA:
-		case CTRL_EXIT_SURA:
-		case CTRL_CONST_SURA:
+		case CTRL_ENTRY_SLA:
+		case CTRL_EXIT_SLA:
+		case CTRL_CONST_SLA:
 			*p_err = 0;
 			break;
 
 		case CTRL_DEC:
 		case CTRL_SKEW_DEC:
 		case CTRL_DEC_TRUN:
-		case CTRL_DEC_SURA:
+		case CTRL_DEC_SLA:
 			*p_err = FABS(f_TrgtAccAngle) *(-1.0);
 			break;
 
@@ -775,7 +817,7 @@ void CTRL_getSenFB( float* p_err )
 
 	/* 直進時 */
 	if( ( en_Type == CTRL_ACC ) || ( en_Type == CTRL_CONST ) || ( en_Type == CTRL_DEC )||
-			 ( en_Type == CTRL_ENTRY_SURA ) || ( en_Type == CTRL_EXIT_SURA ) ){
+			 ( en_Type == CTRL_ENTRY_SLA ) || ( en_Type == CTRL_EXIT_SLA ) ){
 /*
 		f_kp = f_FB_wall_kp;
 		f_kd = f_FB_wall_kd;
@@ -791,7 +833,8 @@ void CTRL_getSenFB( float* p_err )
 
 		f_ErrDistBuf = f_err;		// 偏差をバッファリング
 
-		*p_err = f_err * f_kp + ( f_err - f_ErrDistBuf ) * f_kd;		// PD制御
+//		*p_err = (f_err * f_kp + ( f_err - f_ErrDistBuf ) * f_kd)*f_NowSpeed*0.001;		// PD制御
+		*p_err = f_err * f_kp + ( f_err - f_ErrDistBuf ) * f_kd;
 	}
 	else if( ( en_Type == CTRL_SKEW_ACC ) || ( en_Type == CTRL_SKEW_CONST ) || ( en_Type == CTRL_SKEW_DEC ) ){
 
@@ -799,6 +842,7 @@ void CTRL_getSenFB( float* p_err )
 		f_err = (float)l_WallErr;
 
 //		*p_err = f_err * f_kp + ( f_err - f_ErrDistBuf ) * f_kd;		// PD制御
+//		*p_err = f_err*f_NowSpeed*0.001;
 		*p_err = f_err;
 	}
 	else {
@@ -878,7 +922,7 @@ void CTRL_getFloorFriction(float* p_err){
 	}
 //	*p_err = 0;
 /*
-	if( ( en_Type == CTRL_ACC_SURA ) || (en_Type == CTRL_CONST_SURA)||( en_Type == CTRL_DEC_SURA ) ){
+	if( ( en_Type == CTRL_ACC_SLA ) || (en_Type == CTRL_CONST_SLA)||( en_Type == CTRL_DEC_SLA ) ){
 		if(f_TrgtAngleS<0){
 			if(Get_NowAngle() < -0.002)
 				*p_err = (-1)*0.38/1000.0 + (-1)*0.43/1000.0+f_TrgtAngleS*FABS(f_TrgtAngleS)*tread/2/PI/2300.0;
@@ -897,7 +941,8 @@ void CTRL_getFloorFriction(float* p_err){
 		}
 	}
 */
-	if( ( en_Type == CTRL_ACC_SURA ) ){
+/*
+	if( ( en_Type == CTRL_ACC_SLA ) ){
 		if(f_TrgtAngleS<0){
 				if((PARAM_getSpeedType( PARAM_SLA ) == PARAM_VERY_SLOW))
 					*p_err = (-1.0)*(0.70/1000.0+FABS(f_TrgtAngleS)*80.0/1000000.0);
@@ -922,7 +967,7 @@ void CTRL_getFloorFriction(float* p_err){
 		}
 	}
 
-	else if(  (en_Type == CTRL_CONST_SURA)){
+	else if(  (en_Type == CTRL_CONST_SLA)){
 		if(f_TrgtAngleS<0){
 				if((PARAM_getSpeedType( PARAM_SLA ) == PARAM_VERY_SLOW))
 					*p_err = (-1.0)*(0.6/1000.0+FABS(f_TrgtAngleS)*80.0/1000000.0);
@@ -947,7 +992,7 @@ void CTRL_getFloorFriction(float* p_err){
 		}
 	}
 
-	else if(( en_Type == CTRL_DEC_SURA )){
+	else if(( en_Type == CTRL_DEC_SLA )){
 		if(f_TrgtAngleS<0){
 				if((PARAM_getSpeedType( PARAM_SLA ) == PARAM_VERY_SLOW))
 					*p_err = (-1.0)*(0.20/1000.0+FABS(f_TrgtAngleS)*70.0/1000000.0);
@@ -971,8 +1016,8 @@ void CTRL_getFloorFriction(float* p_err){
 			*p_err = 0;
 		}
 	}
-
-	else{
+*/
+//	else{
 		if(f_TrgtAngleS<0){
 /*			if(Get_NowAngle() > -0.002)
 				*p_err = (-1.0)*0.43/1000.0 + (-1.0)*0.46/1000.0+f_TrgtAngleS*FABS(f_TrgtAngleS)*tread/2.0/PI/740.0;
@@ -994,7 +1039,7 @@ void CTRL_getFloorFriction(float* p_err){
 			*p_err = 0.2/1000.0;
 		}else{
 			*p_err = 0;
-		}
+//		}
 	}
 
 /*	if(*p_err>0.0014)
@@ -1107,7 +1152,7 @@ void CTRL_pol( void )
 	CTRL_get_frontwall_omega_FB( &f_frontwall_omega_Ctrl);
 
 	/* 直進制御 */
-	if( ( en_Type == CTRL_ACC ) || ( en_Type == CTRL_CONST ) || ( en_Type == CTRL_DEC ) ||( en_Type == CTRL_ENTRY_SURA ) || ( en_Type == CTRL_EXIT_SURA ) ||
+	if( ( en_Type == CTRL_ACC ) || ( en_Type == CTRL_CONST ) || ( en_Type == CTRL_DEC ) ||( en_Type == CTRL_ENTRY_SLA ) || ( en_Type == CTRL_EXIT_SLA ) ||
 		( en_Type == CTRL_SKEW_ACC ) || ( en_Type == CTRL_SKEW_CONST ) || ( en_Type == CTRL_SKEW_DEC )
 	){
 		TR = ((TIRE_D/2.0/2.0)*((WEIGHT*(f_feedFoard_speed + f_speedCtrl))+0.01)+(TIRE_D/2.0/TREAD)*(INERTIA*(f_feedFoard_angle + f_angleSpeedCtrl+ f_distSenCtrl)))/GEAR_RATIO;
@@ -1125,18 +1170,18 @@ void CTRL_pol( void )
 	}
 
 	/* スラローム制御 */
-	else if( ( en_Type == CTRL_ACC_SURA ) || (en_Type == CTRL_CONST_SURA)||( en_Type == CTRL_DEC_SURA ) ){
+	else if( ( en_Type == CTRL_ACC_SLA ) || (en_Type == CTRL_CONST_SLA)||( en_Type == CTRL_DEC_SLA ) ){
 		/* 左旋回 */
 		if( f_LastAngle > 0 ){
-			TR = ((TIRE_D/2.0/2.0)*((WEIGHT*(f_feedFoard_speed + f_speedCtrl))+0.01)+(TIRE_D/2.0/TREAD)*(4.6/1000000.0*(f_feedFoard_angle + f_angleSpeedCtrl+f_angleCtrl)+f_floorfriction))/GEAR_RATIO;
-			TL = ((TIRE_D/2.0/2.0)*((WEIGHT*(f_feedFoard_speed + f_speedCtrl))+0.01)-(TIRE_D/2.0/TREAD)*(4.6/1000000.0*(f_feedFoard_angle + f_angleSpeedCtrl+f_angleCtrl)+f_floorfriction))/GEAR_RATIO;
+			TR = ((TIRE_D/2.0/2.0)*((WEIGHT*(f_feedFoard_speed + f_speedCtrl))+0.01)+(TIRE_D/2.0/TREAD)*(4.6/1000000.0*(f_feedFoard_angle + f_angleSpeedCtrl+f_angleCtrl)/*+f_floorfriction*/))/GEAR_RATIO;
+			TL = ((TIRE_D/2.0/2.0)*((WEIGHT*(f_feedFoard_speed + f_speedCtrl))+0.01)-(TIRE_D/2.0/TREAD)*(4.6/1000000.0*(f_feedFoard_angle + f_angleSpeedCtrl+f_angleCtrl)/*+f_floorfriction*/))/GEAR_RATIO;
 			Ir = (TR/*+0.0255/1000.0*/)/TORQUE_CONSTANT;
 			Il = (TL/*+0.0255/1000.0*/)/TORQUE_CONSTANT;
 		}
 		/*右旋回 */
 		else{			
-			TR = ((TIRE_D/2.0/2.0)*((WEIGHT*(f_feedFoard_speed + f_speedCtrl))+0.01)+(TIRE_D/2.0/TREAD)*(4.6/1000000.0*(f_feedFoard_angle*(-1.0) + f_angleSpeedCtrl+f_angleCtrl)+f_floorfriction))/GEAR_RATIO;
-			TL = ((TIRE_D/2.0/2.0)*((WEIGHT*(f_feedFoard_speed + f_speedCtrl))+0.01)-(TIRE_D/2.0/TREAD)*(4.6/1000000.0*(f_feedFoard_angle*(-1.0) + f_angleSpeedCtrl+f_angleCtrl)+f_floorfriction))/GEAR_RATIO;
+			TR = ((TIRE_D/2.0/2.0)*((WEIGHT*(f_feedFoard_speed + f_speedCtrl))+0.01)+(TIRE_D/2.0/TREAD)*(4.6/1000000.0*(f_feedFoard_angle*(-1.0) + f_angleSpeedCtrl+f_angleCtrl)/*+f_floorfriction*/))/GEAR_RATIO;
+			TL = ((TIRE_D/2.0/2.0)*((WEIGHT*(f_feedFoard_speed + f_speedCtrl))+0.01)-(TIRE_D/2.0/TREAD)*(4.6/1000000.0*(f_feedFoard_angle*(-1.0) + f_angleSpeedCtrl+f_angleCtrl)/*+f_floorfriction*/))/GEAR_RATIO;
 			Ir = (TR/*+0.0255/1000.0*/)/TORQUE_CONSTANT;
 			Il = (TL/*+0.0255/1000.0*/)/TORQUE_CONSTANT;
 		}

@@ -44,7 +44,7 @@ typedef enum{
 /* 探索動�? */
 typedef enum{
 	SEARCH_TURN =0,		// �?信地旋回探索
-	SEARCH_SURA,		// スラロー�?探索
+	SEARCH_SLA,		// スラロー�?探索
 	SEARCH_SKEW,		// 斜め探索
 	SEARCH_RETURN,
 	SEARCH_MAX,
