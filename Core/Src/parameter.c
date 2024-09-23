@@ -24,11 +24,11 @@ stSLA				st_Sla[SLA_TYPE_MAX];					// スラローム時の走行パラメータ
 	const stSPEED f_StSpeedData[PARAM_MOVE_SPEED_MAX] = {
 		
 		//	ジャーク　加速度		減速度		角ジャーク	角加速度		角減速度
-		{ 50.0,		2.5,			2.5,		0,		0,				0,				},		// 超低速(PARAM_VERY_SLOW)
+		{ 200.0,	4.5,			4.5,		0,		0,				0,				},		// 超低速(PARAM_VERY_SLOW)
 		{ 200.0,	4.5,			4.5,		0,		0,				0,				},		// 低速(PARAM_SLOW)
-		{ 100.0,	2.5,			2.5,		0,		0,				0,				},		// 通常(PARAM_NORMAL)
-		{ 100.0,	4.0,			4.0,		0,		0,				0,				},		// 高速(PARAM_FAST)
-		{ 100.0,	10.0,			10.0,		0,		0,				0,				},		// 超高速(PARAM_VERY_FAST)
+		{ 200.0,	4.5,			4.5,		0,		0,				0,				},		// 通常(PARAM_NORMAL)
+		{ 500.0,	10.0,			10.0,		0,		0,				0,				},		// 高速(PARAM_FAST)
+		{ 500.0,	10.0,			10.0,		0,		0,				0,				},		// 超高速(PARAM_VERY_FAST)
 	};
 
 	/* 旋回速度データ */

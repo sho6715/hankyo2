@@ -1163,8 +1163,8 @@ void CTRL_pol( void )
 
 	/* 壁あて制御 */
 	else if( en_Type == CTRL_HIT_WALL ){
-		TR = (TIRE_D/2.0/2.0)*(WEIGHT*(f_feedFoard_speed * FF_HIT_BALANCE_R/3500.0 ));		
-		TL = (TIRE_D/2.0/2.0)*(WEIGHT*(f_feedFoard_speed * FF_HIT_BALANCE_R/3500.0 ));
+		TR = (TIRE_D/2.0/2.0)*(WEIGHT*(-1.0)*(700.0 * FF_HIT_BALANCE_R/1000.0 ));		
+		TL = (TIRE_D/2.0/2.0)*(WEIGHT*(-1.0)*(700.0 * FF_HIT_BALANCE_R/1000.0 ));
 		Ir = (TR-0.0255/1000.0)/TORQUE_CONSTANT;
 		Il = (TL-0.0255/1000.0)/TORQUE_CONSTANT;
 	}
@@ -1224,9 +1224,9 @@ void CTRL_pol( void )
 	Duty_L = f_duty10_L;
 	Duty_R = f_duty10_R;
 
-	TempLog1 = f_feedFoard_angle;//f_AngleSErrSum;//TR;//f_floorfriction;//f_duty10_R;
-	TempLog2 = f_angleSpeedCtrl;//f_angleSpeedCtrl;//TL;//f_duty10_L;
-	TempLog3 = f_AngleSErrSum;//f_floorfriction;//f_feedFoard_angle*(-1.0);
+	TempLog1 = f_TrgtSpeed;//f_AngleSErrSum;//TR;//f_floorfriction;//f_duty10_R;
+	TempLog2 = f_TrgtAcc;//f_angleSpeedCtrl;//TL;//f_duty10_L;
+	TempLog3 = f_Jerk;//f_floorfriction;//f_feedFoard_angle*(-1.0);
 	TempLog4 = f_duty10_L;//f_floorfriction;//INERTIA*(f_feedFoard_angle*(-1.0) + f_angleSpeedCtrl+f_angleCtrl)+f_floorfriction * 1000000.0;
 
 	EscapeWait = EscapeWait+0.001;
