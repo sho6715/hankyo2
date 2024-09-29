@@ -96,6 +96,7 @@ void CTRL_pol( void );
 void CTRL_clrData( void );
 void CTRL_clrNowData( void );
 void CTRL_clrAngleErrSum(void);
+void CTRL_clrSpeedErrSum(void);
 void CTRL_setNowData_Err(/*float trgtDist, */float trgtAngle);
 void CTRL_setData( stCTRL_DATA* p_data );
 void CTRL_refNow( void );

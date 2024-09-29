@@ -149,6 +149,7 @@ void MOT_goBlock_AccConstDec( float f_fin, enMOT_ST_TYPE en_type, enMOT_GO_ST_TY
 		st_data.f_ctrl_angle			= 0;				// 目標角度
 		st_data.f_ctrl_time 			= 0;				// 目標時間 [sec] ← 指定しない
 		CTRL_clrData();								// 設定データをクリア
+		CTRL_clrSpeedErrSum();
 		CTRL_setData( &st_data );						// データセット
 		DCM_staMotAll();							// モータON
 		while( Get_NowDist() < st_Info.f_mot_l1_accjerk ){					// 指定距離到達待ち
@@ -1652,6 +1653,7 @@ void MOT_goHitBackWall(void)
 	GYRO_endErrChkAngle();					// エラー検出終了
 	CTRL_clrNowData();
 	CTRL_clrAngleErrSum();
+	CTRL_clrSpeedErrSum();
 }
 
 void MOT_goSla( enMOT_SLA_CMD en_type, stSLA* p_sla )
@@ -2276,5 +2278,6 @@ void DIST_Front_Wall_correction(void)
 
 	CTRL_clrNowData();
 	CTRL_clrAngleErrSum();
+	CTRL_clrSpeedErrSum();
 }
 

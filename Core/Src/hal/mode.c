@@ -151,6 +151,7 @@ void MODE_exe_m0( void )
 
 	CTRL_clrData();
 	CTRL_clrAngleErrSum();
+	CTRL_clrSpeedErrSum();
 	CTRL_clrNowData();
 	/* モード表示 */
 	switch( en_Mode ){
@@ -224,6 +225,7 @@ void MODE_exe_m0( void )
 			LL_mDelay(500);
 			CTRL_clrData();
 			CTRL_clrAngleErrSum();
+			CTRL_clrSpeedErrSum();
 			CTRL_clrNowData();
 			log_flag_on();
 /*			MOT_goBlock_FinSpeed(0.5, SEARCH_SPEED);
@@ -275,6 +277,7 @@ void MODE_exe_m0( void )
 			LL_mDelay(500);
 			CTRL_clrData();
 			CTRL_clrAngleErrSum();
+			CTRL_clrSpeedErrSum();
 			CTRL_clrNowData();
 			Set_DutyTIM8(600);
 			LL_mDelay(2000);
@@ -341,6 +344,7 @@ void MODE_exe_m0( void )
 			LL_mDelay(500);
 			CTRL_clrData();
 			CTRL_clrAngleErrSum();
+			CTRL_clrSpeedErrSum();
 			CTRL_clrNowData();
 			log_flag_on();
 
@@ -391,6 +395,7 @@ void MODE_exe_m1( void )
 	GYRO_SetRef();
 	CTRL_clrData();
 	CTRL_clrAngleErrSum();
+	CTRL_clrSpeedErrSum();
 	CTRL_clrNowData();
 
 	switch( en_Mode ){
@@ -456,6 +461,7 @@ void MODE_exe_m2( void )
 	GYRO_SetRef();
 	CTRL_clrData();
 	CTRL_clrAngleErrSum();
+	CTRL_clrSpeedErrSum();
 	CTRL_clrNowData();
 
 	switch( en_Mode ){
@@ -666,6 +672,7 @@ void MODE_exe_m2( void )
 			GYRO_SetRef();
 			CTRL_clrData();
 			CTRL_clrAngleErrSum();
+			CTRL_clrSpeedErrSum();
 			CTRL_clrNowData();
 			SetLED(0x0e);
 			MODE_speed_parameter(PARAM_FAST,PARAM_VERY_SLOW,PARAM_NORMAL,SEARCH_SPEED*4.0,
@@ -741,6 +748,7 @@ void MODE_exe_m3( void )
 	GYRO_SetRef();
 	CTRL_clrData();
 	CTRL_clrAngleErrSum();
+	CTRL_clrSpeedErrSum();
 	CTRL_clrNowData();
 
 	switch( en_Mode ){
@@ -1000,6 +1008,7 @@ void MODE_exe_m4( void )
 	GYRO_SetRef();
 	CTRL_clrData();
 	CTRL_clrAngleErrSum();
+	CTRL_clrSpeedErrSum();
 	CTRL_clrNowData();
 
 	switch( en_Mode ){
@@ -1184,6 +1193,7 @@ void MODE_exe_m5( void )
 	GYRO_SetRef();
 	CTRL_clrData();
 	CTRL_clrAngleErrSum();
+	CTRL_clrSpeedErrSum();
 	CTRL_clrNowData();
 
 	switch( en_Mode ){

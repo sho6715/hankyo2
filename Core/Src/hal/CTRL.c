@@ -159,10 +159,10 @@ void CTRL_clrData( void )
 	f_TrgtAngle		= 0;						// [角度制御]   目標角度					（1[msec]毎に更新される）
 
 	/* 制御データ */
-	f_SpeedErrSum	= 0;
-	f_DistErrSum 	= 0;						// [距離制御]   距離積分制御のサム値			（1[msec]毎に更新される）
-	f_AngleSErrSum	= 0;
-	f_AngleErrSum 	= 0;						// [角度制御]   角度積分制御のサム値			（1[msec]毎に更新される）
+//	f_SpeedErrSum	= 0;
+//	f_DistErrSum 	= 0;						// [距離制御]   距離積分制御のサム値			（1[msec]毎に更新される）
+//	f_AngleSErrSum	= 0;
+//	f_AngleErrSum 	= 0;						// [角度制御]   角度積分制御のサム値			（1[msec]毎に更新される）
 	f_ErrSpeedBuf	= 0;
 	f_ErrDistBuf	= 0;						// [壁制御]     距離センサーエラー値のバッファ		（1[msec]毎に更新される）
 	f_ErrAngleSBuf  = 0;
@@ -175,6 +175,11 @@ void CTRL_clrData( void )
 void CTRL_clrAngleErrSum(void){
 	f_AngleErrSum = 0.0;
 	f_AngleSErrSum = 0.0;
+}
+
+void CTRL_clrSpeedErrSum(void){
+	f_SpeedErrSum	= 0;
+	f_DistErrSum 	= 0;
 }
 
 void CTRL_clrNowData(void)
@@ -1217,8 +1222,14 @@ void CTRL_pol( void )
 	if(f_duty10_R>1){
 		f_duty10_R = 1.0;
 	}
+	if(f_duty10_R<-1){
+		f_duty10_R = -1.0;
+	}
 	if(f_duty10_L>1){
 		f_duty10_L = 1.0;
+	}
+	if(f_duty10_L<1-){
+		f_duty10_L = -1.0;
 	}
 
 	Duty_L = f_duty10_L;
