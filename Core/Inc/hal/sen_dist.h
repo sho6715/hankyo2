@@ -23,14 +23,14 @@
 #define DIST_NO_WALL_DIV_FILTER				( 25 )
 #define DIST_REF_UP					( 35 )
 
-#define R_FRONT_REF					(650)
+#define R_FRONT_REF					(720)
 #define L_FRONT_REF					(750)//( 210 )
-#define R_SIDE_REF					(320)//( 240 )
-#define L_SIDE_REF					(260)//( 200 )
+#define R_SIDE_REF					(330)//( 240 )
+#define L_SIDE_REF					(300)//( 200 )
 #define R_FRONT_WALL					(85)//( 45 )
 #define L_FRONT_WALL					(95)//( 45 )
-#define R_SIDE_WALL					(80)//( 110 )
-#define L_SIDE_WALL					(90)//( 70 )
+#define R_SIDE_WALL					(110)//( 110 )
+#define L_SIDE_WALL					(130)//( 70 )
 #define R_FRONT_SKEW_ERR1				( 80 )//仮
 #define L_FRONT_SKEW_ERR1				( 70 )
 #define R_FRONT_SKEW_ERR2				( 192 )
@@ -44,6 +44,7 @@
 
 #define FRONT_WALL_MINUS				(45)
 
+#define FRONT_WALL_MISS_DIF				(200)
 
 
 /*距離センサポ�??��リングタイ?��?*/

@@ -46,11 +46,11 @@ stSLA				st_Sla[SLA_TYPE_MAX];					// スラローム時の走行パラメータ
 	const stSPEED f_SlaSpeedData[PARAM_MOVE_SPEED_MAX] = {
 		
 		//	ジャーク　加速度	減速度		角ジャーク	角加速度		角減速度
-		{ 0,	2.5,			2.5,		3000.0*PI,		10.0*PI,			10.0*PI,			},		// 超低速(PARAM_VERY_SLOW)
-		{ 0,	2.5,			2.5,		3000.0*PI,		10.0*PI,			10.0*PI,			},		// 低速(PARAM_SLOW)
-		{ 0,	2.5,			2.5,		3000.0*PI,		10.0*PI,			10.0*PI,			},		// 通常(PARAM_NORMAL)
-		{ 0,	2.5,			2.5,		3000.0*PI,		10.0*PI,			10.0*PI,			},		// 高速(PARAM_FAST)
-		{ 0,	2.5,			2.5,		3000.0*PI,		10.0*PI,			10.0*PI,			},		// 超高速(PARAM_VERY_FAST)
+		{ 0,	4.5,			4.5,		3000.0*PI,		10.0*PI,			10.0*PI,			},		// 超低速(PARAM_VERY_SLOW)
+		{ 0,	4.5,			4.5,		3000.0*PI,		10.0*PI,			10.0*PI,			},		// 低速(PARAM_SLOW)
+		{ 0,	4.5,			4.5,		3000.0*PI,		10.0*PI,			10.0*PI,			},		// 通常(PARAM_NORMAL)
+		{ 0,	4.5,			4.5,		3000.0*PI,		10.0*PI,			10.0*PI,			},		// 高速(PARAM_FAST)
+		{ 0,	4.5,			4.5,		3000.0*PI,		10.0*PI,			10.0*PI,			},		// 超高速(PARAM_VERY_FAST)
 	};
 
 

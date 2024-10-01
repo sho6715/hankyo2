@@ -50,6 +50,8 @@ typedef enum{
 	SEARCH_MAX,
 }enSEARCH_MODE;
 
+bool	front_wall_miss;
+
 uint8_t	Return_X;
 uint8_t	Return_Y;
 
@@ -61,6 +63,7 @@ uint8_t		g_MapDirection[MAP_Y_SIZE][MAP_X_SIZE];			///< 迷路情報
 
 bool			SearchFlag;
 
+bool Is_Known_Accel(void);
 void MAP_init( void );
 void MAP_Goal_init( void );
 void MAP_Goal_change_x( void );

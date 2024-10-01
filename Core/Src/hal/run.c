@@ -307,7 +307,7 @@ void MOT_goBlock_AccConstDec( float f_fin, enMOT_ST_TYPE en_type, enMOT_GO_ST_TY
 		st_data.f_ctrl_now			= st_Info.f_mot_trgt - st_Info.f_mot_accjerk_v;			// 現在速度
 		st_data.f_ctrl_trgt			= st_Info.f_mot_last + st_Info.f_mot_accjerk_v;			// 最終速度
 		st_data.f_ctrl_nowDist		= st_Info.f_mot_l1_2 + st_Info.f_mot_l3_decjerk;			// 等速完了位置
-		st_data.f_ctrl_dist			= st_Info.f_mot_dist - st_Info.f_mot_l3_accjerk;			// 全移動完了位置
+		st_data.f_ctrl_dist			= st_Info.f_mot_l1_2 + st_Info.f_mot_l3_decjerk+st_Info.f_mot_l3_decconst;			// 全移動完了位置
 		st_data.f_ctrl_jerkAngle		= 0;
 		st_data.f_ctrl_nowAccAngle		= 0;
 		st_data.f_ctrl_trgtAccAngle		= 0;				// 角加速度
@@ -317,7 +317,7 @@ void MOT_goBlock_AccConstDec( float f_fin, enMOT_ST_TYPE en_type, enMOT_GO_ST_TY
 		st_data.f_ctrl_angle			= 0;						// 目標角度
 		st_data.f_ctrl_time 			= 0;						// 目標時間 [sec] ← 指定しない
 		CTRL_setData( &st_data );							// データセット
-		while( Get_NowDist() < ( st_Info.f_mot_dist - st_Info.f_mot_l3_accjerk ) ){		// 指定距離到達待ち
+		while( Get_NowDist() < ( st_Info.f_mot_l1_2 + st_Info.f_mot_l3_decjerk+st_Info.f_mot_l3_decconst ) ){		// 指定距離到達待ち
 			if( SYS_isOutOfCtrl() == TRUE ){
 				CTRL_stop();
 				DCM_brakeMot( DCM_R );		
@@ -334,7 +334,7 @@ void MOT_goBlock_AccConstDec( float f_fin, enMOT_ST_TYPE en_type, enMOT_GO_ST_TY
 		st_data.f_ctrl_nowAcc		= st_Info.f_mot_trgtAcc3*(-1.0);
 		st_data.f_ctrl_now			= st_Info.f_mot_last + st_Info.f_mot_accjerk_v;			// 現在速度
 		st_data.f_ctrl_trgt			= st_Info.f_mot_last;			// 最終速度
-		st_data.f_ctrl_nowDist		= st_Info.f_mot_dist - st_Info.f_mot_l3_accjerk;			// 等速完了位置
+		st_data.f_ctrl_nowDist		= st_Info.f_mot_l1_2 + st_Info.f_mot_l3_decjerk+st_Info.f_mot_l3_decconst;			// 等速完了位置
 		st_data.f_ctrl_dist			= st_Info.f_mot_dist;			// 全移動完了位置
 		st_data.f_ctrl_jerkAngle		= 0;
 		st_data.f_ctrl_nowAccAngle		= 0;
@@ -1022,6 +1022,12 @@ void MOT_goBlock_Const(float f_num)
 			break;
 		}				// 途中で制御不能になった
 		if(MOT_setWallEdgeDist()==TRUE) break;
+		if(Is_Known_Accel() == FALSE){
+			if((DIST_getNowVal(DIST_SEN_R_FRONT)>(R_FRONT_REF-FRONT_WALL_MISS_DIF))||(DIST_getNowVal(DIST_SEN_L_FRONT)>(L_FRONT_REF-FRONT_WALL_MISS_DIF))){
+				front_wall_miss = TRUE;
+				break;
+			}
+		}
 	}
 
 	if( ( en_WallEdge != MOT_WALL_EDGE_NONE ) && ( bl_IsWallEdge == FALSE )  ){
@@ -1050,6 +1056,12 @@ void MOT_goBlock_Const(float f_num)
 				break;
 			}				
 			if( MOT_setWallEdgeDist_LoopWait() == TRUE ) break;	// 壁切れ補正を実行する距離を設定
+			if(Is_Known_Accel() == FALSE){
+				if((DIST_getNowVal(DIST_SEN_R_FRONT)>(R_FRONT_REF-FRONT_WALL_MISS_DIF))||(DIST_getNowVal(DIST_SEN_L_FRONT)>(L_FRONT_REF-FRONT_WALL_MISS_DIF))){
+					front_wall_miss = TRUE;
+					break;
+				}
+			}
 		}
 	}
 	/* straight for edge */
@@ -1078,8 +1090,49 @@ void MOT_goBlock_Const(float f_num)
 				DCM_brakeMot( DCM_R );		
 				DCM_brakeMot( DCM_L );		
 				break;
-			}				
+			}	
+			if(Is_Known_Accel() == FALSE){
+				if((DIST_getNowVal(DIST_SEN_R_FRONT)>(R_FRONT_REF-FRONT_WALL_MISS_DIF))||(DIST_getNowVal(DIST_SEN_L_FRONT)>(L_FRONT_REF-FRONT_WALL_MISS_DIF))){
+					front_wall_miss = TRUE;
+					break;
+				}
+			}			
 		}
+	}
+
+	if(front_wall_miss == TRUE){
+/*		st_data.en_ctrl_type		= CTRL_DEC;
+		st_data.f_ctrl_jerk			= 5000;
+		st_data.f_ctrl_trgtAcc		= 5.0;		// 加速度指定
+		st_data.f_ctrl_nowAcc		= 0;
+		st_data.f_ctrl_now			= f_MotNowSpeed;			// 現在速度
+		st_data.f_ctrl_trgt			= 0;			// 目標速度
+		st_data.f_ctrl_nowDist		= 0;						// 現在位置
+		st_data.f_ctrl_dist			= 0.03;		// 等速完了位置
+		st_data.f_ctrl_nowAccAngle		= 0;
+		st_data.f_ctrl_trgtAccAngle		= 0;				// 角加速度
+		st_data.f_ctrl_nowAngleS		= 0;						// 現在角速度
+		st_data.f_ctrl_trgtAngleS	= 0;						// 目標角度
+		st_data.f_ctrl_nowAngle		= 0;						// 現在角度
+		st_data.f_ctrl_angle			= 0;						// 目標角度
+		st_data.f_ctrl_time 			= 0;						// 目標時間 [sec] ← 指定しない
+		CTRL_clrData();										// マウスの現在位置/角度をクリア
+		CTRL_setData( &st_data );							// データセット
+		while( Get_NowDist() < st_data.f_ctrl_dist ){			// 指定距離到達待ち
+			if( SYS_isOutOfCtrl() == TRUE ){
+				CTRL_stop();
+				DCM_brakeMot( DCM_R );		
+				DCM_brakeMot( DCM_L );		
+				break;
+			}	
+			if(Get_NowSpeed<=0)break;			
+		}
+*/
+		MOT_goBlock_FinSpeed(0.4,0);
+		DCM_brakeMot( DCM_R );		
+		DCM_brakeMot( DCM_L );
+		LL_mDelay(200);
+
 	}
 
 	MOT_setWallEdgeType( MOT_WALL_EDGE_NONE );		// 壁切れ補正終了

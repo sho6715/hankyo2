@@ -1228,7 +1228,7 @@ void CTRL_pol( void )
 	if(f_duty10_L>1){
 		f_duty10_L = 1.0;
 	}
-	if(f_duty10_L<1-){
+	if(f_duty10_L<-1){
 		f_duty10_L = -1.0;
 	}
 

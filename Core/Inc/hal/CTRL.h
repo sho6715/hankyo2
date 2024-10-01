@@ -78,7 +78,7 @@ enCTRL_TYPE		en_Type;						// motion type
 //escape time 
 float	EscapeWait;
 
-uint8_t	uc_DistControl;
+uint8_t	uc_DistControl;	//スラロームの前距離を伸ばして処理している箇所　意外と効いてる可能性あり
 
 float Get_NowSpeed(void);
 float Get_NowDist(void);
