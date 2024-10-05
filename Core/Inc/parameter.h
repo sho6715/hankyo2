@@ -24,7 +24,7 @@
 #define	FF_BALANCE_R				( 1.00f )					
 #define	FF_BALANCE_L				( 1.00f )		
 #define FF_HIT_BALANCE_R			(1.00f)				
-#define FF_HIT_BALANCE_L			(1.00f)
+#define FF_HIT_BALANCE_L			(1.08f)
 
 #define SEARCH_SPEED				(0.3)
 #define MAP_KNOWN_ACC_SPEED			(0.5)
