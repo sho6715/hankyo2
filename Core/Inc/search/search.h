@@ -50,6 +50,10 @@ typedef enum{
 	SEARCH_MAX,
 }enSEARCH_MODE;
 
+bool zeropointflag;
+
+//stPOSITION us_unknownMap[MAP_Y_SIZE*MAP_X_SIZE - 1];
+uint16_t unknownMap_count;
 bool	front_wall_miss;
 
 uint8_t	Return_X;
@@ -82,6 +86,8 @@ void MAP_Goalsize(int size);
 
 //TKR
 void MAP_searchGoalKnown(uint8_t uc_trgX, uint8_t uc_trgY, enMAP_ACT_MODE en_type,enSEARCH_MODE	en_search);
+
+void MAP_searchGoalKnown_return(uint8_t uc_trgX,uint8_t uc_trgY,enMAP_ACT_MODE en_type,enSEARCH_MODE en_search );
 
 void  MAP_makeContourMap_dijkstra_modoki(uint8_t uc_goalX, uint8_t uc_goalY, enMAP_ACT_MODE	en_type	);
 

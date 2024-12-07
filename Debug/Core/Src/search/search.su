@@ -29,5 +29,8 @@
 ../Core/Src/search/search.c:1455:6:MAP_searchGoal	40	static
 ../Core/Src/search/search.c:1597:6:MAP_searchGoalKnown	40	static
 ../Core/Src/search/search.c:1779:6:MAP_searchGoalKnown_AllSection	40	static
-../Core/Src/search/search.c:1941:6:MAP_clearMap_direction	16	static
-../Core/Src/search/search.c:1956:7:MAP_makeContourMap_dijkstra_modoki	32	static
+../Core/Src/search/search.c:1941:6:MAP_makeContourMap_queue_return	320	static
+../Core/Src/search/search.c:2037:6:MAP_calcMouseDir_return	24	static
+../Core/Src/search/search.c:2107:6:MAP_searchGoalKnown_return	32	static
+../Core/Src/search/search.c:2234:6:MAP_clearMap_direction	16	static
+../Core/Src/search/search.c:2249:7:MAP_makeContourMap_dijkstra_modoki	32	static

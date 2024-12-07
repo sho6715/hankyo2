@@ -1938,6 +1938,299 @@ void MAP_searchGoalKnown_AllSection(
 
 }
 
+void MAP_makeContourMap_queue_return(//queue
+	uint8_t uc_goalX, 			///< [in] ゴールX座標
+	uint8_t uc_goalY, 			///< [in] ゴールY座標
+	enMAP_ACT_MODE	en_type//,		///< [in] 計算方法（まだ未使用）
+//	stPOSITION* unknownList
+) {
+	uint16_t		x, y, i;		// ループ変数
+	uint16_t		uc_dase;		// 基準値
+	uint16_t		uc_new;			// 新値
+	uint16_t		uc_level;		// 等高線
+	uint8_t		uc_wallData;	// 壁情報
+
+	stPOSITION		st_pos;
+
+	en_type = en_type;
+
+	queue_t queue;
+	queue_t* pQueue = &queue;
+
+	zeropointflag = false;
+
+	/* 等高線マップを初期化する */
+	for (i = 0; i < MAP_SMAP_MAX_VAL; i++) {
+//		if()
+		us_Cmap[i / MAP_Y_SIZE][i & (MAP_X_SIZE - 1)] = MAP_SMAP_MAX_VAL - 1;
+	}
+
+
+	/* 未探索地点の等高線を0に設定 */
+	for(uint8_t tmpy = 0; tmpy<MAP_Y_SIZE; tmpy++){
+		for(uint8_t tmpx = 0; tmpx<MAP_X_SIZE; tmpx++){
+			if((g_SysMap[tmpy][tmpx]&0xf0) != 0xf0){
+				setStep(tmpx, tmpy, 0);
+				st_pos.x = tmpx;
+				st_pos.y = tmpy;
+				st_pos.step = 0;
+
+				EnQueue(pQueue,st_pos);
+				zeropointflag = true;
+			}
+		}
+	}
+
+//	for(uint16_t i = 0; i<MAP_SMAP_MAX_VAL - 1)
+
+	/* 等高線マップを作成 */
+	while (pQueue->flag != EMPTY) {
+		stPOSITION focus = DeQueue(pQueue);
+//		q.pop();
+		const uint16_t focus_step = focus.step;
+		x = focus.x;
+		y = focus.y;
+		stPOSITION next = focus;
+		uc_wallData = g_SysMap[y][x];
+
+		if (((uc_wallData & 0x01) == 0x00) && (y != (MAP_Y_SIZE - 1))) {
+			if (us_Cmap[y + 1][x] > focus_step + 1) {
+				next.step = focus_step + 1;
+				us_Cmap[y + 1][x] = focus_step + 1;
+				next.x = x;
+				next.y = y + 1;
+				EnQueue(pQueue,next);
+			}
+		}
+		if (((uc_wallData & 0x02) == 0x00) && (x != (MAP_X_SIZE - 1))) {
+			if (us_Cmap[y][x + 1] > focus_step + 1) {
+				next.step = focus_step + 1;
+				us_Cmap[y][x + 1] = focus_step + 1;
+				next.x = x + 1;
+				next.y = y;
+				EnQueue(pQueue, next);
+			}
+		}
+		if (((uc_wallData & 0x04) == 0x00) && (y != 0)) {
+			if (us_Cmap[y - 1][x] > focus_step + 1) {
+				next.step = focus_step + 1;
+				us_Cmap[y - 1][x] = focus_step + 1;
+				next.x = x;
+				next.y = y - 1;
+				EnQueue(pQueue, next);
+			}
+		}
+		if (((uc_wallData & 0x08) == 0x00) && (x != 0)) {
+			if (us_Cmap[y][x - 1] > focus_step + 1) {
+				next.step = focus_step + 1;
+				us_Cmap[y][x - 1] = focus_step + 1;
+				next.x = x - 1;
+				next.y = y;
+				EnQueue(pQueue, next);
+			}
+		}
+
+	}
+
+}
+
+void MAP_calcMouseDir_return( 
+	enMAP_SEARCH_TYPE	en_calcType,	///< [in] 計算方法
+	uint8_t* 	p_head			///< [out] 進行方向（戻り値）
+){
+	uint8_t		uc_wall;				// 壁情報
+	uint16_t		us_base;			// 等高線優先度決定値
+	uint16_t		us_new;
+	uint8_t	en_tmpHead;
+
+	/* 方向計算 */
+	// 等高線MAP法
+	if( CONTOUR_SYSTEM == en_calcType ){
+		// 周辺の4区画で一番目的地に近い移動方向を算出する。
+		// ただし、移動できる一番近い区間が複数ある場合には、次の順で選択する。
+		// ①未探索区間,直進 ②未探索区間,旋回 ③既探索区間,直進 ④既探索区間,旋回
+		uc_wall = g_SysMap[mx][my];
+		us_base = MAP_SMAP_MAX_PRI_VAL;					// 16[区画]×16[区画]×4[方向]
+
+		/* 4方向を比較 */
+		//	北方向の区画の確認
+		if ( ( uc_wall & 0x01 ) == 0 ){
+			us_new = us_Cmap[my+1][mx] * 4 + 4;
+			if ( ( g_SysMap[mx][my+1] & 0xf0 ) != 0xf0 ) us_new = us_new - 2;
+			if ( en_Head == NORTH ) us_new = us_new - 1;
+			if ( us_new < us_base ){
+				us_base = us_new;
+				en_tmpHead = NORTH;
+			}
+		}
+		//	東方向の区画の確認
+		if ( ( uc_wall & 0x02 ) == 0 ){
+			us_new = us_Cmap[my][mx+1] * 4 + 4;
+			if ( ( g_SysMap[mx+1][my] & 0xf0 ) != 0xf0 ) us_new = us_new - 2;
+			if ( en_Head == EAST) us_new = us_new - 1;
+			if ( us_new < us_base ){
+				us_base = us_new;
+				en_tmpHead = EAST;
+			}
+		}
+		//	南方向の区画の確認
+		if ( ( uc_wall & 0x04 ) == 0 ){
+			us_new = us_Cmap[my-1][mx] * 4 + 4;
+			if ( ( g_SysMap[mx][my-1] & 0xf0 ) != 0xf0) us_new = us_new - 2;
+			if ( en_Head == SOUTH ) us_new = us_new - 1;
+			if ( us_new < us_base ){
+				us_base = us_new;
+				en_tmpHead = SOUTH;
+			}
+		}
+		//	西方向の区画の確認
+		if ( ( uc_wall & 0x08 ) == 0 ){
+			us_new = us_Cmap[my][mx-1] * 4 + 4;
+			if ( ( g_SysMap[mx-1][my] & 0xf0 ) != 0xf0 ) us_new = us_new - 2;
+			if ( en_Head == WEST ) us_new = us_new - 1;
+			if ( us_new < us_base ){
+				us_base = us_new;
+				en_tmpHead = WEST;
+			}
+		}
+		
+        *p_head = (enMAP_HEAD_DIR)( (en_tmpHead - en_Head) & 3 );		// 移動方向
+		
+	}
+	// 制御方法指定なし
+	else{
+		*p_head = (enMAP_HEAD_DIR)0;
+	}
+
+}
+
+void MAP_searchGoalKnown_return(
+	uint8_t 			uc_trgX, 		///< [in] 目標x座標
+	uint8_t 			uc_trgY, 		///< [in] 目標y座標 
+	enMAP_ACT_MODE 	en_type, 		///< [in] 探索方法
+	enSEARCH_MODE	en_search 		///< [in] 探索方法
+){
+	enMAP_HEAD_DIR	en_head = NORTH;
+	bool		bl_type = TRUE;			// 現在位置、FALSE: １区間前進状態、TURE:半区間前進状態
+	enMAP_HEAD_DIR		en_endDir;
+	
+	uint8_t uc_goalX;
+	uint8_t uc_goalY;
+	uint8_t uc_staX;
+	uint8_t uc_staY;
+/*
+	stPOSITION		st_pos;
+
+	queue_t queue;
+	queue_t* pQueue = &queue;
+*/
+	SearchFlag = TRUE;
+
+	unknownMap_count = 0;
+
+	MOT_setTrgtSpeed(SEARCH_SPEED);		// 目標速度
+	MOT_setNowSpeed( 0.0f );
+	f_MoveBackDist = 0;
+	uc_SlaCnt = 0;
+	
+	log_flag_on();	//ログ関数スタート（大会時削除）
+
+//	InitQueue(pQueue);
+
+	/* 未探索地点の等高線を0に設定 */
+/*	for(uint8_t tmpy = 0; tmpy<MAP_Y_SIZE; tmpy++){
+		for(uint8_t tmpx = 0; tmpx<MAP_X_SIZE; tmpx++){
+			if((g_SysMap[tmpx][tmpy]&0xf0) != 0xf0){
+				st_pos.x = tmpx;
+				st_pos.y = tmpy;
+				st_pos.step = 0;
+				us_unknownMap[unknownMap_count]=st_pos;
+				unknownMap_count++;
+			}
+		}
+	}
+*/	
+	/* 迷路探索 */
+	while(1){
+		MAP_refMousePos( en_Head );								// 座標更新
+
+		if( TRUE == bl_type ){
+			MOT_goBlock_FinSpeed( 0.5 + f_MoveBackDist, SEARCH_SPEED );		// 半区画前進(バックの移動量を含む)
+		}
+		if (st_Known.bl_known != TRUE) {
+			MAP_makeMapData();		// 壁データから迷路データを作成
+		}
+		MAP_makeContourMap_queue_return(uc_trgX, uc_trgY, en_type);//,us_unknownMap);
+		MAP_calcMouseDir_return(CONTOUR_SYSTEM, &en_head);			// 等高線MAP法で進行方向を算出			← 誤ったMAPを作成
+			
+		/* 次の区画へ移動 */
+		if((( mx == uc_trgX ) && ( my == uc_trgY ))||(zeropointflag==false)){
+			MAP_actGoal();									// ゴール時の動作
+			break;
+		}
+		else{
+			MAP_moveNextBlock_acc(en_head, &bl_type);
+		}
+
+		if(front_wall_miss == TRUE){
+			MOT_turn(MOT_R180);
+			en_Head = (enMAP_HEAD_DIR)(((uint8_t)en_Head + 2) & (MAP_HEAD_DIR_MAX - 1));
+			MOT_goHitBackWall();
+			LL_mDelay(100);
+			MOT_setTrgtSpeed(SEARCH_SPEED/4.0);		// 目標速度
+			MOT_goBlock_FinSpeed( MOVE_BACK_DIST, 0.0 );//区画中央に戻り おそらく動作バグ
+			LL_mDelay(100);
+			MOT_setTrgtSpeed(SEARCH_SPEED);		// 目標速度
+
+			MAP_make_refPos_MapData(en_Head);
+
+			MAP_makeContourMap_queue(uc_trgX, uc_trgY, en_type);
+			MAP_calcMouseDir(CONTOUR_SYSTEM, &en_head);			// 等高線MAP法で進行方向を算出
+			MAP_moveNextBlock_frontmiss(en_head, &bl_type);
+
+			front_wall_miss = FALSE;
+		}
+
+		if(Min_in>6){
+			MOT_goBlock_FinSpeed(0.5,0.0);
+			MOT_turn(MOT_R180);	
+			LL_mDelay(200);
+			MOT_turn(MOT_R180);	
+			LL_mDelay(200);
+			CTRL_stop();
+			DCM_brakeMot( DCM_R );		// ブレーキ
+			DCM_brakeMot( DCM_L );		// ブレーキ
+			
+			/* 迷路関連を初期化 */
+			en_Head		= NORTH;
+			mx			= 0;
+			my			= 0;
+			f_MoveBackDist = 0;
+			break;
+		}
+		
+		/* 途中で制御不能になった */
+		if( SYS_isOutOfCtrl() == TRUE ){
+			CTRL_stop();
+			DCM_brakeMot( DCM_R );		// ブレーキ
+			DCM_brakeMot( DCM_L );		// ブレーキ
+			
+			/* 迷路関連を初期化 */
+			en_Head		= NORTH;
+			mx			= 0;
+			my			= 0;
+			f_MoveBackDist = 0;
+			
+			// DCMCは下位モジュールで既にクリアと緊急停止を行っている。
+			break;
+		}
+	}
+	SearchFlag = FALSE;
+	LL_mDelay(1000);
+//	SYS_setEnable( SYS_MODE );			// モード変更有効
+
+}
+
 void MAP_clearMap_direction(void)
 {
 	uint16_t	x, y;
