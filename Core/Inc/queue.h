@@ -10,7 +10,7 @@
 
 #include "glob.h"
 
-#define SIZE 64
+#define SIZE 32*32
 
 typedef struct {
 	uint8_t		x;

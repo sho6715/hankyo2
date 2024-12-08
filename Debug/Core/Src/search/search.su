@@ -13,7 +13,7 @@
 ../Core/Src/search/search.c:312:9:MAP_get_refPos_WallData	16	static
 ../Core/Src/search/search.c:350:6:MAP_make_refPos_MapData	24	static
 ../Core/Src/search/search.c:491:6:setStep	16	static
-../Core/Src/search/search.c:500:7:MAP_makeContourMap_queue	320	static
+../Core/Src/search/search.c:500:7:MAP_makeContourMap_queue	4160	static
 ../Core/Src/search/search.c:587:7:MAP_makeContourMap_run	32	static
 ../Core/Src/search/search.c:694:6:MAP_calcMouseDir	24	static
 ../Core/Src/search/search.c:764:6:MAP_refMousePos	16	static
@@ -23,14 +23,14 @@
 ../Core/Src/search/search.c:1017:6:MAP_actGoal	8	static
 ../Core/Src/search/search.c:1032:6:MAP_actGoalLED	16	static
 ../Core/Src/search/search.c:1053:6:MAP_Goalsize	16	static
-../Core/Src/search/search.c:1066:7:MAP_makeReturnContourMap	312	static
+../Core/Src/search/search.c:1066:7:MAP_makeReturnContourMap	4152	static
 ../Core/Src/search/search.c:1144:6:MAP_KnownAcc	16	static
 ../Core/Src/search/search.c:1179:6:MAP_moveNextBlock_acc	16	static
 ../Core/Src/search/search.c:1455:6:MAP_searchGoal	40	static
 ../Core/Src/search/search.c:1597:6:MAP_searchGoalKnown	40	static
 ../Core/Src/search/search.c:1779:6:MAP_searchGoalKnown_AllSection	40	static
-../Core/Src/search/search.c:1941:6:MAP_makeContourMap_queue_return	320	static
+../Core/Src/search/search.c:1941:6:MAP_makeContourMap_queue_return	4160	static
 ../Core/Src/search/search.c:2037:6:MAP_calcMouseDir_return	24	static
 ../Core/Src/search/search.c:2107:6:MAP_searchGoalKnown_return	32	static
-../Core/Src/search/search.c:2234:6:MAP_clearMap_direction	16	static
-../Core/Src/search/search.c:2249:7:MAP_makeContourMap_dijkstra_modoki	32	static
+../Core/Src/search/search.c:2235:6:MAP_clearMap_direction	16	static
+../Core/Src/search/search.c:2250:7:MAP_makeContourMap_dijkstra_modoki	32	static

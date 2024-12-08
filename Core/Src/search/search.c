@@ -2150,6 +2150,7 @@ void MAP_searchGoalKnown_return(
 		}
 	}
 */	
+
 	/* 迷路探索 */
 	while(1){
 		MAP_refMousePos( en_Head );								// 座標更新
